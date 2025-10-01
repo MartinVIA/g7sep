@@ -1,1 +1,2 @@
-# g7sep
+# SEP project - Group #7
+## git gud
