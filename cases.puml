@@ -1,29 +1,98 @@
-https://plantuml.com/sequence-diagram
-https://plantuml.com/class-diagram
+' https://plantuml.com/sequence-diagram
+' https://plantuml.com/class-diagram
 
 @startuml cases
-    VillagerList -->"0..*" Villager 
-    Points --|> "0..*" Villager 
-      
-
+    VillagerList o-->"0..*" Villager : villagers 
+    Points --> "0..*" Villager : villagers 
+    Trade --> "0..*"  Villager : villagers
+    MyDate *--> "1 " Points : MyDate
+    TaskList o--> "0..*" Task : tasks
+    
 class Villager{
     - ID : int
-    - Name : String
+    - name : String
     - personalPoints : int
+    - hasBoost : boolean
 
+    + Villager(id : int, name : String, personalPoints : int, hasBoost : boolean)
+    + setId(id : int) : void
+    + getId() : int
+    + setName(name : String) : void
+    + getName() : String
+    + setPersonalPoints(personalPoints : int) : void
+    + getPersonalPoints() : int
 }
 
 class VillagerList{
-    + points : int
-    + attribute5 : int
+    + addVillager(villagers : Villager) : void
+    
+    + getVillager(index : int) : Villager  
+    + getVillager(name : String) : Villager  
+    
 }
 
 class Points{
-    - attrubute6 : int
-
+    + Points()
+    + getPoints() : int
     + setPoints() : void
-    + operation() : void
     + awardPoints() : void
+    + resetPoints() : void  
+    + calculateBoost() : void
+    + awardBoost() : void
 
+}
+class MyDate{
+    - year : int
+    - month : int
+    - day : int
+
+    + MyDate(day, month, year)
+    + setDate : void
+     
+}
+
+class Trade{
+    - name : String
+    - description : String
+    - trader : Villager
+    - tradee : Villager
+    - pointCost : int
+    - tradeOffer : String
+
+    + Trade(name : String, description : String, trader : Villager, pointCost : int)
+    + Trade(name : String, description : String, trader : Villager, tradeOffer : String)
+    + setTrader() : void
+    + getTrader() : Villager
+    + setTradee() : void
+    + getTradee() : Villager
+    + geStringtName() : String
+    + getDescription() : String
+}
+
+class TaskList{
+    - tasks : Task
+    
+    + addTask() : void
+    + removeTask() : void
+}
+
+class Task{
+    - name : String
+    - type : String
+    - amountPoints : int
+
+    + completeTask : boolean
+}
+class CommunalPoints{
+  pointCount : int
+    - pointGoal : int
+
+    + setGoal() : void
+    + resetPeriod : Date
+    + resetPoints() : void
+    + addPoints() : void
+    + getGoal() : int
+    + getPoints() : int
+    
 }
 
