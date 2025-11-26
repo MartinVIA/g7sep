@@ -4,18 +4,20 @@
 @startuml cases
 package "Model" #F1f1f1{
     VillagerList o-->"0..*" Villager : villagers 
-    PersonalPoints --> "0..*" Villager : villagers 
-    Trade --> "0..*"  Villager : villagers
-    MyDate *--> "1 " PersonalPoints : date
+    PersonalPoints o--> "0..*" Villager : villagers 
+    Trade o--> "0..*"  Villager : villagers
+    PersonalPoints *--> "1 " MyDate : date
     TaskList o--> "0..*" Task : tasks
-    VillagerList --> "1" Cloverville : allVillagers
-    TaskList --> "1" Cloverville : allTasks
-    
+    Cloverville --> "1" VillagerList : allVillagers
+    Cloverville --> "1" TaskList : allTasks
+    TradeList o--> "0..*" Trade : trades
+    ClovervilleModelManager ..> MyFileHandler
+    ClovervilleModelManager ..> Cloverville
+    Cloverville --> "1" TradeList : allTrades
 
     class Villager{
         - ID : int
         - name : String
-        - personalPoints : int
         - hasBoost : boolean
     
         + Villager(id : int, name : String, personalPoints : int, hasBoost : boolean)
@@ -23,8 +25,7 @@ package "Model" #F1f1f1{
         + getId() : int
         + setName(name : String) : void
         + getName() : String
-        + setPersonalPoints(personalPoints : int) : void
-        + getPersonalPoints() : int
+
     }
     
     class VillagerList{
@@ -85,6 +86,9 @@ package "Model" #F1f1f1{
         + geStringtName() : String
         + getDescription() : String
     }
+    class TradeList{
+
+    }
     
     class TaskList{
         - tasks : Task
@@ -104,17 +108,23 @@ package "Model" #F1f1f1{
     {
 
     }
+    Class ClovervilleModelManager
+    {
+        + loadData() : void
+        + saveData() : void
+    }
+
 }
     
 
 
 
 package "view"#ababab{
-    MainPannel<--MainMenu
     StartGUI ..> ViewHandler
     VillagerViewController --> "1" ViewHandler 
     TradeViewController --> "1" ViewHandler
     RunGUI ..> StartGUI
+    ViewHandler --> "1" ClovervilleModelManager
 
     Class StartGUI
     {
@@ -137,4 +147,13 @@ package "view"#ababab{
         +main(args : String) : void
     }
     'points and editing 
+}
+package "utils" #d3d3d3
+{
+    class MyFileHandler
+    {
+
+        + saveToFile(fileName : String) : void
+        + loadFromFile(fileName : String) : void
+    }
 }
