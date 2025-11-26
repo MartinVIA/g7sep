@@ -8,7 +8,9 @@ package "Model" #F1f1f1{
     Trade --> "0..*"  Villager : villagers
     MyDate *--> "1 " PersonalPoints : date
     TaskList o--> "0..*" Task : tasks
-    StartGUI ..> RunProgram
+    VillagerList --> "1" Cloverville : allVillagers
+    TaskList --> "1" Cloverville : allTasks
+    
 
     class Villager{
         - ID : int
@@ -98,6 +100,10 @@ package "Model" #F1f1f1{
     
         + completeTask : boolean
     }
+    Class Cloverville
+    {
+
+    }
 }
     
 
@@ -105,13 +111,30 @@ package "Model" #F1f1f1{
 
 package "view"#ababab{
     MainPannel<--MainMenu
+    StartGUI ..> ViewHandler
+    VillagerViewController --> "1" ViewHandler 
+    TradeViewController --> "1" ViewHandler
+    RunGUI ..> StartGUI
 
     Class StartGUI
     {
         
     }
-    Class RunProgram
+    Class ViewHandler
     {
         + main(args String) : void
     }
+    Class TradeViewController
+    {
+
+    }
+    Class VillagerViewController
+    {
+
+    }
+    class RunGUI
+    {
+        +main(args : String) : void
+    }
+    'points and editing 
 }
