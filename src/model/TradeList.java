@@ -1,3 +1,5 @@
+package model;
+
 import java.util.*;
 
 public class TradeList {
@@ -21,5 +23,21 @@ public class TradeList {
 
     public ArrayList<Trade> getAllTrades() {
         return new ArrayList<>(trades);
+    }
+
+    public boolean equals(TradeList obj) {
+        if (obj == null || obj.getClass() != this.getClass())
+            return false;
+
+        TradeList other = (TradeList) obj;
+        return this.trades.equals(other.trades);
+    }
+
+    public String toString() {
+        String list = "";
+        for (int i = 0; i < trades.size(); i++) {
+            list += trades.get(i) + "\n";
+        }
+        return list;
     }
 }

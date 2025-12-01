@@ -1,3 +1,5 @@
+package model;
+
 import java.util.*;
 
 public class VillagerList {
@@ -33,4 +35,11 @@ public class VillagerList {
         return new ArrayList<>(villagers);
     }
 
+    public String toString() {
+        String list = "";
+        for (int i = 0; i < villagers.size(); i++) {
+            list += villagers.get(i) + "\n";
+        }
+        return list;
+    }
 }

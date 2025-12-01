@@ -1,3 +1,5 @@
+package model;
+
 public class GreenPoints {
     private int greenPoints;
     private int pointGoal;
@@ -22,5 +24,9 @@ public class GreenPoints {
 
     public int getPoints() {
         return greenPoints;
+    }
+
+    public String toString() {
+        return "Greenpoints: " + greenPoints + " " + "Point goal: " + pointGoal;
     }
 }

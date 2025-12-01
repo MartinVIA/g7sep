@@ -1,3 +1,4 @@
-public class TradeViewController
-{
+package model;
+
+public class TradeViewController {
 }

@@ -9,14 +9,22 @@ import javafx.stage.Stage;
 public class StartGUI extends Application {
 
     public void start(Stage primaryStage) {
-        Button button1 = new Button("ButtOff");
+
+        Button villager_menu = new Button("Villagers");
+        Button trade_menu = new Button("Trades");
+        Button task_menu = new Button("Tasks");
+        Button Community_points_menu = new Button("Community Points");
+
+        Button villager_add = new Button("Add New Villager");
+        Button trade_add = new Button("Add New Trade");
+        Button task_add = new Button("Add New Task");
 
         VBox layout = new VBox();
-        layout.getChildren().add(button1);
+        layout.getChildren().add(villager_add);
 
         Scene scene = new Scene(layout, 300, 200);
 
-        primaryStage.setTitle("Simple JavaFX Window");
+        primaryStage.setTitle("Gee yuu waii");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

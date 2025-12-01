@@ -1,3 +1,4 @@
-public class MyFileHandler
-{
+package model;
+
+public class MyFileHandler {
 }

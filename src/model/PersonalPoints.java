@@ -26,9 +26,11 @@ public class PersonalPoints {
         // how do we calculate boost?
         // i guess we compare the date of the latest task completion to the current date
         // and then decide on a boost value based on that
-        date = date.today().copy();
+        Date currentDate = date.today();
         Date lastCompletionDate = villager.getLatestTrade();
-        if (lastCompletionDate.getFullDate() > date.getFullDate()) {
+        long diff = currentDate.getNumOfDays() - lastCompletionDate.getNumOfDays();
+        if (diff > 20) {
+            boost += 0.2;
         }
 
         return boost;
@@ -36,5 +38,18 @@ public class PersonalPoints {
 
     public void awardBoost() {
         // if calculateBoost > 0, award boost
+    }
+
+    public boolean equals(PersonalPoints obj) {
+        if (obj == null && obj.getClass() != this.getClass())
+            return false;
+
+        PersonalPoints other = (PersonalPoints) obj;
+
+        return this.personalPoints == other.personalPoints;
+    }
+
+    public String toString() {
+        return "personal points: " + personalPoints;
     }
 }

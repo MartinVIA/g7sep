@@ -1,3 +1,5 @@
+package model;
+
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 
@@ -32,9 +34,14 @@ public class Date {
         return year;
     }
 
-    public int getFullDate() {
-        int fullDate = (year * 365) + (month * 30) + day;
-        return fullDate;
+    public long getNumOfDays() {
+        // int fullDate = (year * 365) + (month * 30) + day;
+        // return fullDate;
+        int year = getYear();
+        int month = getMonth();
+        int day = getDay();
+        LocalDate localDate = LocalDate.of(year, month, day);
+        return localDate.toEpochDay();
     }
 
     public Date copy() {
@@ -48,58 +55,15 @@ public class Date {
                 currentDate.getYear());
     }
 
-    // public boolean isBefore(Date date2) {
-    // int totalDate1 = 0,
-    // totalDate2 = 0;
+    public boolean equals(Date obj) {
+        if (obj == null || obj.getClass() != getClass())
+            return false;
 
-    // for (int i = 0; i < this.year; i++) {
-    // totalDate1 += isLeapYear() ? 366 : 365;
-    // }
-
-    // for (int i = 1; i < this.month; i++) {
-    // totalDate1 += daysInMonth();
-    // }
-    // totalDate1 += this.day;
-
-    // for (int i = 0; i < date2.year; i++) {
-    // totalDate2 += isLeapYear() ? 366 : 365;
-    // }
-
-    // for (int i = 1; i < date2.month; i++) {
-    // totalDate2 += daysInMonth();
-    // }
-    // totalDate2 += date2.day;
-
-    // return totalDate1 < totalDate2;
-    // }
-
-    // public boolean isLeapYear() {
-    // if (year % 4 == 0) {
-    // if (year % 100 == 0) {
-    // if (year % 400 == 0)
-    // return true;
-    // else
-    // return false;
-    // }
-    // return true;
-    // }
-    // return false;
-    // }
-
-    // public int daysInMonth() {
-    // switch (this.month) {
-    // case 1, 3, 5, 7, 8, 10, 12 -> {
-    // return 31;
-    // }
-    // case 2 -> {
-    // return isLeapYear() ? 29 : 28;
-    // }
-    // case 4, 6, 9, 11 -> {
-    // return 30;
-    // }
-    // }
-    // return 0;
-    // }
+        Date other = (Date) obj;
+        return this.day == other.day &&
+                this.month == other.month &&
+                this.year == other.year;
+    }
 
     public String toString() {
         return String.format("%02d/%02d/%04d", day, month, year);

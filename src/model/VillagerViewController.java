@@ -1,3 +1,5 @@
-public class VillagerViewController
-{
+package model;
+
+public class VillagerViewController {
+
 }

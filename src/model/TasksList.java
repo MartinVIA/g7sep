@@ -1,3 +1,5 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,4 +39,11 @@ public class TasksList {
         return null;
     }
 
+    public String toString() {
+        String list = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            list += tasks.get(i) + "\n";
+        }
+        return list;
+    }
 }
