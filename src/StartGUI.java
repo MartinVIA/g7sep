@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 public class StartGUI extends Application {
 
     public void start(Stage primaryStage) {
-        Button button1 = new Button("Button");
+        Button button1 = new Button("ButtOff");
 
         VBox layout = new VBox();
         layout.getChildren().add(button1);
