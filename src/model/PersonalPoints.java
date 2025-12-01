@@ -1,3 +1,5 @@
+package model;
+
 public class PersonalPoints {
     private int personalPoints;
     private Date date;
@@ -26,7 +28,8 @@ public class PersonalPoints {
         // and then decide on a boost value based on that
         date = date.today().copy();
         Date lastCompletionDate = villager.getLatestTrade();
-        if(lastCompletionDate.getFullDate>)
+        if (lastCompletionDate.getFullDate() > date.getFullDate()) {
+        }
 
         return boost;
     }
