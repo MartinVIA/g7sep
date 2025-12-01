@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class TasksList {
+    private List<Task> tasks;
+
+    public TasksList() {
+        this.tasks = new ArrayList<>();
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    public void removeTask(Task task) {
+        tasks.remove(task);
+    }
+
+    public void removeTask(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.remove(index);
+        }
+    }
+
+    public List<Task> getTasks() {
+        return new ArrayList<>(tasks);
+    }
+
+    public int getSize() {
+        return tasks.size();
+    }
+
+    public Task getTask(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            return tasks.get(index);
+        }
+        return null;
+    }
+
+}
