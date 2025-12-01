@@ -3,9 +3,10 @@
 
 @startuml cases
 package "Model" #F1f1f1{
+
     VillagerList o-->"0..*" Villager : villagers 
-    PersonalPoints o--> "0..*" Villager : villagers 
-    Trade o--> "0..*"  Villager : villagers
+    PersonalPoints o--> "1" Villager : villager 
+    Trade o--> "1"  Villager : villager
     PersonalPoints *--> "1 " MyDate : date
     TaskList o--> "0..*" Task : tasks
     Cloverville --> "1" VillagerList : allVillagers
@@ -14,6 +15,7 @@ package "Model" #F1f1f1{
     ClovervilleModelManager ..> MyFileHandler
     ClovervilleModelManager ..> Cloverville
     Cloverville --> "1" TradeList : allTrades
+    Trade *--> "1" Date : completeDate
 
     class Villager{
         - ID : int
@@ -39,11 +41,11 @@ package "Model" #F1f1f1{
     class PersonalPoints{
         - personalPoints : int
     
-        + setPoints() : void
+        + setPoints(int personalPoints) : void
         + getPoints() : int
         + awardPoints() : void
         + resetPoints() : void  
-        + calculateBoost() : void
+        + calculateBoost() : double
         + awardBoost() : void
     }
     
@@ -59,14 +61,18 @@ package "Model" #F1f1f1{
         + getPoints() : int
     }
     
-    class MyDate{
+    class Date{
         - day : int
         - month : int
         - year : int
+        - currDay : int
+        - currMonth : int
+        - currYear : int
     
-        + MyDate(day : int, month : int, year : int)
+        + Date(day : int, month : int, year : int)
         + setDate(day : int, month : int, year : int) : void
-        + getDate() : Date
+        + copy() : Date
+        + today() : Date
     }
     
     class Trade{
@@ -86,8 +92,13 @@ package "Model" #F1f1f1{
         + geStringtName() : String
         + getDescription() : String
     }
-    class TradeList{
+    class TradeList
+    {
 
+        + addTrade() : void
+        + removeTrade() : void
+        + getTrade(index int) : Trade
+        + getAllTrades() : Trade
     }
     
     class TaskList{

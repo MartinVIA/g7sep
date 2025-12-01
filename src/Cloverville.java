@@ -1,3 +1,3 @@
-public class Cloverville
-{
+public class Cloverville {
+
 }
