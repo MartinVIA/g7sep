@@ -1,10 +1,10 @@
 package model;
 
 import java.time.*;
-import java.time.temporal.ChronoUnit;
 
 public class Date {
     private int day, month, year;
+
     LocalDate currentDate = LocalDate.now();
     private int currDay = currentDate.getDayOfMonth();
     private int currMonth = currentDate.getMonthValue();
@@ -41,7 +41,7 @@ public class Date {
         int month = getMonth();
         int day = getDay();
         LocalDate localDate = LocalDate.of(year, month, day);
-        return localDate.toEpochDay();
+        return localDate.toEpochDay(); // days since 1970-01-01
     }
 
     public Date copy() {
@@ -55,7 +55,7 @@ public class Date {
                 currentDate.getYear());
     }
 
-    public boolean equals(Date obj) {
+    public boolean equals(Object obj) {
         if (obj == null || obj.getClass() != getClass())
             return false;
 

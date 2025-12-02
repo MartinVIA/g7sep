@@ -1,53 +1,63 @@
 package model;
 
 public class Villager {
-    private final int id;
-    private String name;
-    private boolean hasBoost;
-    private final PersonalPoints personalPoints;
-    private Date latestTrade;
+  private final int id;
+  private String name;
+  private boolean hasBoost;
+  private final PersonalPoints personalPoints;
+  private Date latestTrade;
 
-    public Villager(int id, String name, boolean hasBoost, PersonalPoints personalPoints) {
-        this.id = id;
-        this.name = name;
-        this.hasBoost = hasBoost;
-        this.personalPoints = personalPoints;
-    }
+  public Villager(int id, String name, boolean hasBoost, PersonalPoints personalPoints) {
+    this.id = id;
+    this.name = name;
+    this.hasBoost = hasBoost;
+    this.personalPoints = personalPoints;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public PersonalPoints getPersonalPoints() {
+    return personalPoints;
+  }
 
-    public boolean hasBoost() {
-        return hasBoost;
-    }
+  public Date getLatestTrade() {
+    return latestTrade;
+  }
 
-    public void setBoost(boolean hasBoost) {
-        this.hasBoost = hasBoost;
-    }
+  public boolean hasBoost() {
+    return hasBoost;
+  }
 
-    public PersonalPoints getPersonalPoints() {
-        return personalPoints;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setLatestTrade(Date latestTrade) {
-        this.latestTrade = latestTrade;
-    }
+  public void setBoost(boolean hasBoost) {
+    this.hasBoost = hasBoost;
+  }
 
-    public Date getLatestTrade() {
-        return latestTrade;
-    }
+  public void setLatestTrade(Date latestTrade) {
+    this.latestTrade = latestTrade;
+  }
 
-    public String toString() {
-        return "Villager{" + "id=" + id + ", name='" + name + '\'' + ", boost=" + hasBoost + ", points="
-                + personalPoints;
-    }
+  public boolean equals(Object obj) {
+    if (obj == null || obj.getClass() != getClass())
+      return false;
+
+    Villager other = (Villager) obj;
+    return id == other.id && name.equals(other.name)
+        && hasBoost == other.hasBoost
+        && personalPoints.equals(other.personalPoints);
+  }
+
+  public String toString() {
+    return "Villager{" + "id=" + id + ", name='" + name + '\'' + ", boost=" + hasBoost + ", points="
+        + personalPoints;
+  }
 }

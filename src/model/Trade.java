@@ -11,7 +11,6 @@ public class Trade {
     private String tradeOffer;
     private Date completeDate;
     private boolean isComplete;
-    private ArrayList<Villager> villagers;
 
     public Trade(String name, String description, Villager trader, int pointCost) {
         this.name = name;
@@ -21,7 +20,6 @@ public class Trade {
         this.pointCost = pointCost;
         isComplete = false;
         completeDate = null;
-        villagers = new ArrayList<>();
     }
 
     public Trade(String name, String description, Villager trader, String tradeOffer) {

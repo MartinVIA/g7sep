@@ -33,10 +33,19 @@ public class TasksList {
     }
 
     public Task getTask(int index) {
-        if (index >= 0 && index < tasks.size()) {
+        if (index < tasks.size() && index >= 0) {
             return tasks.get(index);
         }
         return null;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        TasksList other = (TasksList) obj;
+        return tasks.equals(other.tasks);
     }
 
     public String toString() {

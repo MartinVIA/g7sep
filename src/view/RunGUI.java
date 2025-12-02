@@ -1,4 +1,4 @@
-package model;
+package view;
 
 public class RunGUI {
   public static void main(String[] args) {

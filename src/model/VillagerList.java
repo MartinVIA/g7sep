@@ -6,11 +6,10 @@ public class VillagerList {
     private final List<Villager> villagers;
 
     public VillagerList() {
-        villagers = new ArrayList<>();
+        villagers = new ArrayList<Villager>();
     }
 
     public void addVillager(Villager v) {
-
         villagers.add(v);
     }
 
@@ -19,7 +18,10 @@ public class VillagerList {
     }
 
     public Villager getVillager(int index) {
-        return villagers.get(index);
+        if (index < villagers.size()) {
+            return villagers.get(index);
+        } else
+            return null;
     }
 
     public Villager getByID(int id) {
@@ -33,6 +35,14 @@ public class VillagerList {
 
     public List<Villager> getAllVillagers() {
         return new ArrayList<>(villagers);
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != getClass())
+            return false;
+
+        VillagerList other = (VillagerList) obj;
+        return villagers.equals(other.villagers);
     }
 
     public String toString() {

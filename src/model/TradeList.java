@@ -25,7 +25,7 @@ public class TradeList {
         return new ArrayList<>(trades);
     }
 
-    public boolean equals(TradeList obj) {
+    public boolean equals(Object obj) {
         if (obj == null || obj.getClass() != this.getClass())
             return false;
 

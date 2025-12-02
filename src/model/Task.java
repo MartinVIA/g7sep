@@ -21,7 +21,7 @@ public class Task {
         return type;
     }
 
-    public int getAmount_points() {
+    public int getAmountOfPoints() {
         return amount_points;
     }
 
@@ -37,7 +37,7 @@ public class Task {
         this.type = type;
     }
 
-    public void setAmount_points(int amount_points) {
+    public void setAmountOfPoints(int amount_points) {
         this.amount_points = amount_points;
     }
 
@@ -45,4 +45,21 @@ public class Task {
         this.completeTask = completeTask;
     }
 
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != getClass())
+            return false;
+
+        Task other = (Task) obj;
+        return name.equals(other.name) &&
+                type.equals(other.type) &&
+                amount_points == other.amount_points &&
+                completeTask == other.completeTask;
+    }
+
+    public String toString() {
+        return "Name: " + name +
+                ", Type: " + type +
+                ", Amount of Points: " + amount_points +
+                ", Complete Task: " + completeTask;
+    }
 }

@@ -1,12 +1,12 @@
-' https://plantuml.com/sequence-diagram
-' https://plantuml.com/class-diagram
+' " https://plantuml.com/sequence-diagram  https://plantuml.com/class-diagram"
 
 @startuml cases
 package "Model" #F1f1f1{
 
     VillagerList o-->"0..*" Villager : villagers 
     PersonalPoints o--> "1" Villager : villager 
-    Trade o--> "1"  Villager : villager
+    Trade o--> "1"  Villager : villager 
+    ' ^^^ idk if this is correct
     PersonalPoints *--> "1 " MyDate : date
     TaskList o--> "0..*" Task : tasks
     Cloverville --> "1" VillagerList : allVillagers
