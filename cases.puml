@@ -5,12 +5,12 @@ package "Model" #F1f1f1{
 
     VillagerList o-->"0..*" Villager : villagers 
     ' PersonalPoints o--> "1" Villager : villager this shit is not working \/ this is
-    Villager o--> "1" PersonalPoints : personalPoints
+    Villager *--> "1" PersonalPoints : personalPoints
     Trade o--> "1"  Villager : villager 
     ' ^^^ idk if this is correct
-    ' PersonalPoints *--> "1 " MyDate : date
-    Perosnal points --> "
-    Villager o--> "1" Date : date
+    ' PersonalPoints *--> "1" Date : date
+    PersonalPoints --> "1" Date : date
+    Villager *--> "1" Date : date
     TaskList o--> "0..*" Task : tasks
     Cloverville --> "1" VillagerList : allVillagers
     Cloverville --> "1" TaskList : allTasks

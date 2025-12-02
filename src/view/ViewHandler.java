@@ -19,8 +19,22 @@ public class ViewHandler {
 
     public void start(Stage stage) {
         this.mainStage = stage;
-        openVillagerView();
-        // opens a screen
+        openStartView();
+        // opens a screen specificly the main page
+    }
+
+    public void openStartGUI() {
+        StartGUI control = new StartGUI(model);
+        mainStage.setScene(control.createScene());
+        mainStage.setTitle("Main Menu");
+        mainStage.show();
+    }
+
+    public void openStartView() {
+        StartViewController control = new StartViewController(model);
+        mainStage.setScene(control.createScene());
+        mainStage.setTitle("Main Menu");
+        mainStage.show();
     }
 
     public void openVillagerView() {
