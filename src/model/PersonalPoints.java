@@ -7,8 +7,6 @@ public class PersonalPoints {
 
   public PersonalPoints() {
     personalPoints = 0;
-    date = null;
-    villager = null;
   }
 
   public void setPoints(int points) {
@@ -27,7 +25,7 @@ public class PersonalPoints {
     personalPoints = 0;
   }
 
-  public double calculateBoost() {
+  public double calculateBoost(Villager villager) {
     double boost = 1.0;
     // how do we calculate boost?
     // i guess we compare the date of the latest task completion to the current date
@@ -47,9 +45,9 @@ public class PersonalPoints {
     return boost;
   }
 
-  public void awardBoost() {
+  public void awardBoost(Villager villager) {
     // if calculateBoost > 0, award boost
-    double boost = calculateBoost();
+    double boost = calculateBoost(villager);
     if (boost > 1.0) {
       personalPoints = (int) (personalPoints * boost);
     }

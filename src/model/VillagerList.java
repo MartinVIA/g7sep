@@ -18,7 +18,7 @@ public class VillagerList {
     }
 
     public Villager getVillager(int index) {
-        if (index < villagers.size()) {
+        if (index < villagers.size() && index >= 0) {
             return villagers.get(index);
         } else
             return null;

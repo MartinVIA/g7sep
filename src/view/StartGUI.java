@@ -1,4 +1,5 @@
-package model;
+package view;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -31,12 +32,12 @@ public class StartGUI extends Application {
         Button villager_edit = new Button("Edit existing villager");
 
         HBox bottom_menu = new HBox();
-        bottom_menu.getChildren().addAll(villager_add,villager_edit);
+        bottom_menu.getChildren().addAll(villager_add, villager_edit);
         bottom_menu.setSpacing(10);
         bottom_menu.setPrefWidth(300);
 
         HBox nav_bar = new HBox();
-        nav_bar.getChildren().addAll(villager_menu,trade_menu,task_menu,Community_points_menu);
+        nav_bar.getChildren().addAll(villager_menu, trade_menu, task_menu, Community_points_menu);
         nav_bar.setPrefWidth(300);
 
         final Label label = new Label("Address Book");
@@ -53,7 +54,6 @@ public class StartGUI extends Application {
         vbox.getChildren().addAll(label, table);
         ListView<String> listView = new ListView<>();
 
-         
         final VBox list = new VBox();
         list.setSpacing(5);
         list.setPadding(new Insets(10, 0, 0, 10));

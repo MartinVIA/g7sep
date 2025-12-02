@@ -4,14 +4,16 @@ public class Villager {
   private final int id;
   private String name;
   private boolean hasBoost;
-  private final PersonalPoints personalPoints;
+  // private int personalPoints;
+  private PersonalPoints personalPoints;
   private Date latestTrade;
 
-  public Villager(int id, String name, boolean hasBoost, PersonalPoints personalPoints) {
+  public Villager(int id, String name) {
     this.id = id;
     this.name = name;
-    this.hasBoost = hasBoost;
-    this.personalPoints = personalPoints;
+    hasBoost = false;
+    personalPoints = new PersonalPoints();
+    latestTrade = null;
   }
 
   public int getId() {
@@ -51,7 +53,8 @@ public class Villager {
       return false;
 
     Villager other = (Villager) obj;
-    return id == other.id && name.equals(other.name)
+    return id == other.id
+        && name.equals(other.name)
         && hasBoost == other.hasBoost
         && personalPoints.equals(other.personalPoints);
   }

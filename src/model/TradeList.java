@@ -6,7 +6,7 @@ public class TradeList {
     private ArrayList<Trade> trades;
 
     public TradeList() {
-        trades = new ArrayList<>();
+        trades = new ArrayList<Trade>();
     }
 
     public void addTrade(Trade t) {
@@ -18,11 +18,11 @@ public class TradeList {
     }
 
     public Trade getTrade(int index) {
-        return trades.get(index);
+        return trades == null ? trades.get(index) : null;
     }
 
     public ArrayList<Trade> getAllTrades() {
-        return new ArrayList<>(trades);
+        return new ArrayList<Trade>(trades.size());
     }
 
     public boolean equals(Object obj) {
