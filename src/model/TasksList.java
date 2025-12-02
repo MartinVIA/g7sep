@@ -7,7 +7,7 @@ public class TasksList {
     private List<Task> tasks;
 
     public TasksList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<Task>();
     }
 
     public void addTask(Task task) {

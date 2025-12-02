@@ -3,7 +3,7 @@ package model;
 import java.util.*;
 
 public class ResidentList {
-    private final List<Resident> residents;
+    private ArrayList<Resident> residents;
 
     public ResidentList() {
         residents = new ArrayList<Resident>();
@@ -17,14 +17,14 @@ public class ResidentList {
         residents.remove(v);
     }
 
-    public Resident getResident(int index) {
+    public Resident getResidentByIndex(int index) {
         if (index < residents.size() && index >= 0) {
             return residents.get(index);
         } else
             return null;
     }
 
-    public Resident getByID(int id) {
+    public Resident getResidentById(int id) {
         for (int i = 0; i < residents.size(); i++) {
             if (residents.get(i).getId() == id) {
                 return residents.get(i);
@@ -33,8 +33,8 @@ public class ResidentList {
         return null;
     }
 
-    public List<Resident> getAllResidents() {
-        return new ArrayList<>(residents);
+    public ArrayList<Resident> getAllResidents() {
+        return new ArrayList<Resident>(residents);
     }
 
     public boolean equals(Object obj) {

@@ -19,35 +19,15 @@ public class ViewHandler {
 
     public void start(Stage stage) {
         this.mainStage = stage;
-        openStartView();
+        openResidentView();
         // opens a screen specificly the main page
     }
 
-    public void openStartGUI() {
-        StartGUI control = new StartGUI(model);
+    public void openResidentView() {
+        ResidentViewController control = new ResidentViewController(model);
         mainStage.setScene(control.createScene());
-        mainStage.setTitle("Main Menu");
+        mainStage.setTitle("Cloverville's Resident");
         mainStage.show();
     }
 
-    public void openStartView() {
-        StartViewController control = new StartViewController(model);
-        mainStage.setScene(control.createScene());
-        mainStage.setTitle("Main Menu");
-        mainStage.show();
-    }
-
-    public void openVillagerView() {
-        VillagerViewController control = new VillagerViewController(model);
-        mainStage.setScene(control.createScene());
-        mainStage.setTitle("Cloverville's villagers");
-        mainStage.show();
-    }
-
-    public void openTradeView() {
-        TradeViewController control = new TradeViewController(model);
-        mainStage.setScene(control.createScene());
-        mainStage.setTitle("Cloverville's Trades");
-        mainStage.show();
-    }
 }

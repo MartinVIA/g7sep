@@ -22,7 +22,7 @@ public class TradeList {
     }
 
     public ArrayList<Trade> getAllTrades() {
-        return new ArrayList<Trade>(trades.size());
+        return new ArrayList<Trade>(trades);
     }
 
     public boolean equals(Object obj) {

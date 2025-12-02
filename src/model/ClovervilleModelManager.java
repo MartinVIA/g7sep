@@ -28,7 +28,7 @@ public class ClovervilleModelManager {
     }
 
     public void awardPointsToResident(int residentId, int points) {
-        Resident v = cloverville.getResidentList().getByID(residentId);
+        Resident v = cloverville.getResidentList().getResidentById(residentId);
         if (v != null) {
             v.addPersonalPoints(points);
         }
