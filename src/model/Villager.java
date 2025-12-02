@@ -44,6 +44,18 @@ public class Villager {
     this.hasBoost = hasBoost;
   }
 
+  public void setPersonalPoints(int points) {
+    personalPoints.setPoints(points);
+  }
+
+  public void addPersonalPoints(int points) {
+    personalPoints.awardPoints(points);
+  }
+
+  public void resetPersonalPoints() {
+    personalPoints.resetPoints();
+  }
+
   public void setLatestTrade(Date latestTrade) {
     this.latestTrade = latestTrade;
   }

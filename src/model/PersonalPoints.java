@@ -18,7 +18,7 @@ public class PersonalPoints {
   }
 
   public void awardPoints(int points) {
-    personalPoints += points;
+    setPoints(getPoints() + points);
   }
 
   public void resetPoints() {

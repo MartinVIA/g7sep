@@ -23,14 +23,15 @@ public class ClovervilleModelManager {
 
     public void addVillager(String name) {
         int nextId = cloverville.getVillagerList().getAllVillagers().size() + 1;
-        Villager v = new Villager(nextId, name, false, new PersonalPoints(0, 0, 0));
+        Villager v = new Villager(nextId, name);
         cloverville.getVillagerList().addVillager(v);
     }
 
     public void awardPointsToVillager(int villagerId, int points) {
         Villager v = cloverville.getVillagerList().getByID(villagerId);
         if (v != null) {
-            v.getPersonalPoints().addPoints(points);
+            // v.getPersonalPoints().addPoints(points);
+            v.addPersonalPoints(points);
         }
     }
 }

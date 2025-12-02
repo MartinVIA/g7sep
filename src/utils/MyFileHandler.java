@@ -1,4 +1,4 @@
-package model;
+package utils;
 
 public class MyFileHandler {
     public void saveToFile(String fileName) {

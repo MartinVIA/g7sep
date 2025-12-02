@@ -18,7 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class StartGUI extends Application {
+public class StartGUI {
 
     public void start(Stage primaryStage) {
 
