@@ -17,11 +17,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.Resident;
 
 public class StartGUI extends Application {
-    private public void start(Stage primaryStage) {
 
-        Button resident_menu = new Button("Resident");
+    private ClovervilleModelManager model;
+    private TableView<Resident> table;
+
+    public void start(Stage primaryStage) {
+
+        model = new ClovervilleModelManager();
+
+        Button resident_menu = new Button("Residents");
         Button trade_menu = new Button("Trades");
         Button task_menu = new Button("Tasks");
         Button Community_points_menu = new Button("Community Points");
@@ -47,7 +54,6 @@ public class StartGUI extends Application {
             popup.show();
         });
         Button trade_add = new Button("Add New Trade");
-        trade_add.setOnAction(e -> viewHandler.openTradeView());
 
         Button task_add = new Button("Add New Task");
 

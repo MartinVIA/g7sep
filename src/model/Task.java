@@ -3,13 +3,14 @@ package model;
 public class Task {
     private String name;
     private String type;
-    private int amount_points;
+    private int amountOfPoints;
     private boolean completeTask;
+    private GreenPoints greenPoints;
 
-    public Task(String name, String type, int amount_points) {
+    public Task(String name, String type, int amountOfPoints) {
         this.name = name;
         this.type = type;
-        this.amount_points = amount_points;
+        this.amountOfPoints = amountOfPoints;
         this.completeTask = false;
     }
 
@@ -22,7 +23,7 @@ public class Task {
     }
 
     public int getAmountOfPoints() {
-        return amount_points;
+        return amountOfPoints;
     }
 
     public boolean isCompleteTask() {
@@ -37,12 +38,12 @@ public class Task {
         this.type = type;
     }
 
-    public void setAmountOfPoints(int amount_points) {
-        this.amount_points = amount_points;
+    public void setAmountOfPoints(int amountOfPoints) {
+        this.amountOfPoints = amountOfPoints;
     }
 
-    public void setCompleteTask(boolean completeTask) {
-        this.completeTask = completeTask;
+    public void completeTask() {
+        completeTask = true;
     }
 
     public boolean equals(Object obj) {
@@ -52,14 +53,14 @@ public class Task {
         Task other = (Task) obj;
         return name.equals(other.name) &&
                 type.equals(other.type) &&
-                amount_points == other.amount_points &&
+                amountOfPoints == other.amountOfPoints &&
                 completeTask == other.completeTask;
     }
 
     public String toString() {
         return "Name: " + name +
                 ", Type: " + type +
-                ", Amount of Points: " + amount_points +
+                ", Amount of Points: " + amountOfPoints +
                 ", Complete Task: " + completeTask;
     }
 }

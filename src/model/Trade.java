@@ -64,7 +64,7 @@ public class Trade {
         return description;
     }
 
-    public void isComplete() {
+    public void CompleteTrade() {
         if (Tradee != null) {
             isComplete = true;
             completeDate = completeDate.today().copy();

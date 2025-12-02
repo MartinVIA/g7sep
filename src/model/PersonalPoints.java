@@ -33,6 +33,7 @@ public class PersonalPoints {
     Date currentDate = date.today();
     Date lastCompletionDate = resident.getLatestTrade();
     long diff = currentDate.getNumOfDays() - lastCompletionDate.getNumOfDays();
+    // example boost values
     if (diff > 14)
       boost += 0.2;
     else if (diff > 30)

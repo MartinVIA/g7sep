@@ -6,6 +6,16 @@ public class GreenPoints {
 
     public Date resetPeriod;
 
+    public GreenPoints() {
+        greenPoints = 0;
+        pointGoal = 0;
+    }
+
+    public GreenPoints(int goal) {
+        greenPoints = 0;
+        pointGoal = goal;
+    }
+
     public void setGoal(int goal) {
         pointGoal = goal;
     };
@@ -18,8 +28,8 @@ public class GreenPoints {
         greenPoints = 0;
     }
 
-    public void addPoints(int addedPoints) {
-        greenPoints = greenPoints + addedPoints;
+    public void addPoints(int points) {
+        greenPoints = greenPoints + points;
     }
 
     public int getPoints() {
