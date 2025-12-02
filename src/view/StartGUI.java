@@ -1,4 +1,4 @@
-package view;
+package model;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -18,7 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class StartGUI {
+public class StartGUI extends Application {
 
     public void start(Stage primaryStage) {
 

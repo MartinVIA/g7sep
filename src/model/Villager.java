@@ -12,7 +12,15 @@ public class Villager {
     this.id = id;
     this.name = name;
     hasBoost = false;
-    points = personalPoints.getPoints();
+    points = 0;
+    latestTrade = null;
+  }
+
+  public Villager(int id, String name, int points) {
+    this.id = id;
+    this.name = name;
+    hasBoost = false;
+    this.points = points;
     latestTrade = null;
   }
 
@@ -24,16 +32,16 @@ public class Villager {
     return name;
   }
 
+  public boolean hasBoost() {
+    return hasBoost;
+  }
+
   public int getPersonalPoints() {
     return personalPoints.getPoints();
   }
 
   public Date getLatestTrade() {
     return latestTrade == null ? null : latestTrade;
-  }
-
-  public boolean hasBoost() {
-    return hasBoost;
   }
 
   public void setName(String name) {

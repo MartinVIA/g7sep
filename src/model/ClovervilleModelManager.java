@@ -30,7 +30,6 @@ public class ClovervilleModelManager {
     public void awardPointsToVillager(int villagerId, int points) {
         Villager v = cloverville.getVillagerList().getByID(villagerId);
         if (v != null) {
-            // v.getPersonalPoints().addPoints(points);
             v.addPersonalPoints(points);
         }
     }
