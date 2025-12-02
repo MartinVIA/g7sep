@@ -21,9 +21,9 @@ public class ClovervilleModelManager {
         return cloverville.getResidentList().getAllResidents();
     }
 
-    public void addResident(String name) {
+    public void addResident(String firstName, String lastName) {
         int nextId = cloverville.getResidentList().getAllResidents().size() + 1;
-        Resident v = new Resident(nextId, name);
+        Resident v = new Resident(nextId, firstName, lastName);
         cloverville.getResidentList().addResident(v);
     }
 

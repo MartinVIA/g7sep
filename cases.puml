@@ -5,22 +5,20 @@
 package "Model" #F1f1f1{
 
     ResidentList o-->"0..*" Resident : residents 
-    ' PersonalPoints o--> "1" Resident : resident this shit is not working \/ this is
     Resident *--> "1" PersonalPoints : personalPoints
     Trade o--> "1"  Resident : resident 
-    ' ^^^ idk if this is correct
-    ' PersonalPoints *--> "1" Date : date
+    ' ^ i think this should be --> instead
     PersonalPoints --> "1" Date : date
     Resident *--> "1" Date : date
     TaskList o--> "0..*" Task : tasks
-    Task --> "1" GreenPoints : greenPoints
+    Task --> "1" Resident : resident
     Cloverville --> "1" ResidentList : allResidents
     Cloverville --> "1" TaskList : allTasks
     TradeList o--> "0..*" Trade : trades
     ClovervilleModelManager ..> MyFileHandler
     ClovervilleModelManager ..> Cloverville
     Cloverville --> "1" TradeList : allTrades
-    Trade *--> "1" Date : completeDate
+    Task *--> "1" Date : completeDate
 
     class Resident{
         - ID : int

@@ -5,13 +5,15 @@ public class Task {
     private String type;
     private int amountOfPoints;
     private boolean completeTask;
-    private GreenPoints greenPoints;
+    private Resident resident;
+    private Date completeDate;
 
     public Task(String name, String type, int amountOfPoints) {
         this.name = name;
         this.type = type;
         this.amountOfPoints = amountOfPoints;
-        this.completeTask = false;
+        completeTask = false;
+        completeDate = null;
     }
 
     public String getName() {
@@ -30,6 +32,10 @@ public class Task {
         return completeTask;
     }
 
+    public Date getCompleteDate() {
+        return completeDate;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -42,8 +48,12 @@ public class Task {
         this.amountOfPoints = amountOfPoints;
     }
 
-    public void completeTask() {
+    // idk if it's going to work for multiple residents
+    public void completeTask(Resident resident) {
         completeTask = true;
+        resident.addPersonalPoints(amountOfPoints);
+        completeDate = completeDate.today().copy();
+        resident.setLatestTask(completeDate.today().copy());
     }
 
     public boolean equals(Object obj) {

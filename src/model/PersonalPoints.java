@@ -9,6 +9,10 @@ public class PersonalPoints {
     personalPoints = 0;
   }
 
+  public PersonalPoints(int points) {
+    personalPoints = points;
+  }
+
   public void setPoints(int points) {
     personalPoints = points;
   }
@@ -31,7 +35,7 @@ public class PersonalPoints {
     // i guess we compare the date of the latest task completion to the current date
     // and then decide on a boost value based on that
     Date currentDate = date.today();
-    Date lastCompletionDate = resident.getLatestTrade();
+    Date lastCompletionDate = resident.getLatestTask();
     long diff = currentDate.getNumOfDays() - lastCompletionDate.getNumOfDays();
     // example boost values
     if (diff > 14)
@@ -41,7 +45,7 @@ public class PersonalPoints {
     else if (diff > 60)
       boost += 0.8;
 
-    resident.setLatestTrade(currentDate);
+    resident.setLatestTask(currentDate);
 
     return boost;
   }

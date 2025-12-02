@@ -29,7 +29,7 @@ public class GreenPoints {
     }
 
     public void addPoints(int points) {
-        greenPoints = greenPoints + points;
+        greenPoints += points;
     }
 
     public int getPoints() {

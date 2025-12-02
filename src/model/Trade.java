@@ -5,8 +5,8 @@ import java.util.*;
 public class Trade {
     private String name;
     private String description;
-    private Resident Trader;
-    private Resident Tradee;
+    private Resident trader;
+    private Resident tradee;
     private int pointCost;
     private String tradeOffer;
     private Date completeDate;
@@ -15,8 +15,8 @@ public class Trade {
     public Trade(String name, String description, Resident trader, int pointCost) {
         this.name = name;
         this.description = description;
-        this.Trader = Trader;
-        Tradee = null;
+        this.trader = trader;
+        tradee = null;
         this.pointCost = pointCost;
         isComplete = false;
         completeDate = null;
@@ -25,35 +25,27 @@ public class Trade {
     public Trade(String name, String description, Resident trader, String tradeOffer) {
         this.name = name;
         this.description = description;
-        this.Trader = Trader;
-        Tradee = null;
+        this.trader = trader;
+        tradee = null;
         this.tradeOffer = tradeOffer;
         isComplete = false;
         completeDate = null;
     }
 
-    public void setTrader() {
-        this.Trader = Trader;
-    }
-
     public String getTraderName() {
-        return Trader.getName();
+        return trader.getFirstName() + " " + trader.getLastName();
     }
 
     public Resident getTrader() {
-        return Trader;
+        return trader;
     }
 
     public String getTradeeName() {
-        return Tradee.getName();
-    }
-
-    public void setTradee() {
-        this.Tradee = Tradee;
+        return tradee.getFirstName() + " " + tradee.getLastName();
     }
 
     public Resident getTradee() {
-        return Tradee;
+        return tradee;
     }
 
     public String getStringName() {
@@ -64,21 +56,32 @@ public class Trade {
         return description;
     }
 
-    public void CompleteTrade() {
-        if (Tradee != null) {
-            isComplete = true;
-            completeDate = completeDate.today().copy();
-            Trader.setLatestTrade(completeDate.today().copy());
-            Tradee.setLatestTrade(completeDate.today().copy());
-        }
+    // public Date getCompleteDate() {
+    // return completeDate;
+    // }
+
+    public void setTrader(Resident trader) {
+        this.trader = trader;
     }
 
-    public Date getCompleteDate() {
-        return completeDate;
+    public void setTradee(Resident tradee) {
+        this.tradee = tradee;
+    }
+
+    public void completeTrade(Resident tradee) {
+        setTradee(tradee);
+        isComplete = true;
+        // completeDate = completeDate.today().copy();
+        // trader.setLatestTrade(completeDate.today().copy());
+        // tradee.setLatestTrade(completeDate.today().copy());
     }
 
     public String toString() {
-        return "Trade Name: " + name + ", Description: " + description + ", Trader: " + Trader + ", Tradee: " + Tradee
-                + ", Point Cost: " + pointCost + ", Trade Offer: " + tradeOffer;
+        return "Trade Name: " + name
+                + ", Description: " + description
+                + ", Trader: " + trader
+                + ", Tradee: " + tradee
+                + ", Point Cost: " + pointCost
+                + ", Trade Offer: " + tradeOffer;
     }
 }

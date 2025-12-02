@@ -2,34 +2,40 @@ package model;
 
 public class Resident {
   private final int id;
-  private String name;
+  private String firstName;
+  private String lastName;
   private boolean hasBoost;
-  private int points;
   private PersonalPoints personalPoints;
-  private Date latestTrade;
+  private Date latestTask;
 
-  public Resident(int id, String name) {
+  public Resident(int id, String firstName, String lastName, int points) {
     this.id = id;
-    this.name = name;
+    this.firstName = firstName;
+    this.lastName = lastName;
     hasBoost = false;
-    points = 0;
-    latestTrade = null;
+    personalPoints = new PersonalPoints(points);
+    latestTask = null;
   }
 
-  public Resident(int id, String name, int points) {
+  public Resident(int id, String firstName, String lastName) {
     this.id = id;
-    this.name = name;
+    this.firstName = firstName;
+    this.lastName = lastName;
     hasBoost = false;
-    this.points = points;
-    latestTrade = null;
+    personalPoints = new PersonalPoints();
+    latestTask = null;
   }
 
   public int getId() {
     return id;
   }
 
-  public String getName() {
-    return name;
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
   }
 
   public boolean hasBoost() {
@@ -40,12 +46,16 @@ public class Resident {
     return personalPoints.getPoints();
   }
 
-  public Date getLatestTrade() {
-    return latestTrade == null ? null : latestTrade;
+  public Date getLatestTask() {
+    return latestTask == null ? null : latestTask;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public void setBoost(boolean hasBoost) {
@@ -64,8 +74,8 @@ public class Resident {
     personalPoints.resetPoints();
   }
 
-  public void setLatestTrade(Date latestTrade) {
-    this.latestTrade = latestTrade;
+  public void setLatestTask(Date latestTask) {
+    this.latestTask = latestTask;
   }
 
   public boolean equals(Object obj) {
@@ -74,13 +84,16 @@ public class Resident {
 
     Resident other = (Resident) obj;
     return id == other.id
-        && name.equals(other.name)
+        && firstName.equals(other.firstName)
+        && lastName.equals(other.lastName)
         && hasBoost == other.hasBoost
         && personalPoints.equals(other.personalPoints);
   }
 
   public String toString() {
-    return "Resident{" + "id=" + id + ", name='" + name + "'" + ", boost=" + hasBoost + ", points="
-        + personalPoints;
+    return "Resident id: " + id
+        + ", name: " + firstName + " " + lastName
+        + ", hasBoost: " + hasBoost
+        + ", personalPoints: " + personalPoints.getPoints();
   }
 }
