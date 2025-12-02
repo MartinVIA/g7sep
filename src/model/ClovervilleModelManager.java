@@ -1,8 +1,8 @@
 package model;
 
 import java.util.List;
-import model.VillagerList;
-import model.Villager;
+import model.ResidentList;
+import model.Resident;
 import model.Cloverville;
 import model.PersonalPoints;
 import model.Trade;
@@ -17,18 +17,18 @@ public class ClovervilleModelManager {
         cloverville = new Cloverville();
     }
 
-    public List<Villager> getAllVillagers() {
-        return cloverville.getVillagerList().getAllVillagers();
+    public List<Resident> getAllResidents() {
+        return cloverville.getResidentList().getAllResidents();
     }
 
-    public void addVillager(String name) {
-        int nextId = cloverville.getVillagerList().getAllVillagers().size() + 1;
-        Villager v = new Villager(nextId, name);
-        cloverville.getVillagerList().addVillager(v);
+    public void addResident(String name) {
+        int nextId = cloverville.getResidentList().getAllResidents().size() + 1;
+        Resident v = new Resident(nextId, name);
+        cloverville.getResidentList().addResident(v);
     }
 
-    public void awardPointsToVillager(int villagerId, int points) {
-        Villager v = cloverville.getVillagerList().getByID(villagerId);
+    public void awardPointsToResident(int residentId, int points) {
+        Resident v = cloverville.getResidentList().getByID(residentId);
         if (v != null) {
             v.addPersonalPoints(points);
         }

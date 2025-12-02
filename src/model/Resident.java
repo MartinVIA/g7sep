@@ -1,6 +1,6 @@
 package model;
 
-public class Villager {
+public class Resident {
   private final int id;
   private String name;
   private boolean hasBoost;
@@ -8,7 +8,7 @@ public class Villager {
   private PersonalPoints personalPoints;
   private Date latestTrade;
 
-  public Villager(int id, String name) {
+  public Resident(int id, String name) {
     this.id = id;
     this.name = name;
     hasBoost = false;
@@ -16,7 +16,7 @@ public class Villager {
     latestTrade = null;
   }
 
-  public Villager(int id, String name, int points) {
+  public Resident(int id, String name, int points) {
     this.id = id;
     this.name = name;
     hasBoost = false;
@@ -72,7 +72,7 @@ public class Villager {
     if (obj == null || obj.getClass() != getClass())
       return false;
 
-    Villager other = (Villager) obj;
+    Resident other = (Resident) obj;
     return id == other.id
         && name.equals(other.name)
         && hasBoost == other.hasBoost
@@ -80,7 +80,7 @@ public class Villager {
   }
 
   public String toString() {
-    return "Villager{" + "id=" + id + ", name='" + name + '\'' + ", boost=" + hasBoost + ", points="
+    return "Resident{" + "id=" + id + ", name='" + name + "'" + ", boost=" + hasBoost + ", points="
         + personalPoints;
   }
 }

@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 public class Cloverville {
 
-    private VillagerList allVillagers;
+    private ResidentList allResidents;
     private TradeList tradeList;
     private TasksList tasksList;
 
     public Cloverville() {
-        allVillagers = new VillagerList();
+        allResidents = new ResidentList();
         tradeList = new TradeList();
         tasksList = new TasksList();
     }
 
-    public VillagerList getVillagerList() {
-        return allVillagers;
+    public ResidentList getResidentList() {
+        return allResidents;
     }
 
     public TradeList getAllTrades() {

@@ -5,14 +5,14 @@ import java.util.*;
 public class Trade {
     private String name;
     private String description;
-    private Villager Trader;
-    private Villager Tradee;
+    private Resident Trader;
+    private Resident Tradee;
     private int pointCost;
     private String tradeOffer;
     private Date completeDate;
     private boolean isComplete;
 
-    public Trade(String name, String description, Villager trader, int pointCost) {
+    public Trade(String name, String description, Resident trader, int pointCost) {
         this.name = name;
         this.description = description;
         this.Trader = Trader;
@@ -22,7 +22,7 @@ public class Trade {
         completeDate = null;
     }
 
-    public Trade(String name, String description, Villager trader, String tradeOffer) {
+    public Trade(String name, String description, Resident trader, String tradeOffer) {
         this.name = name;
         this.description = description;
         this.Trader = Trader;
@@ -40,7 +40,7 @@ public class Trade {
         return Trader.getName();
     }
 
-    public Villager getTrader() {
+    public Resident getTrader() {
         return Trader;
     }
 
@@ -52,7 +52,7 @@ public class Trade {
         this.Tradee = Tradee;
     }
 
-    public Villager getTradee() {
+    public Resident getTradee() {
         return Tradee;
     }
 

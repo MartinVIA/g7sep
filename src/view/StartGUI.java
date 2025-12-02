@@ -1,4 +1,4 @@
-package model;
+package view;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -19,18 +19,17 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class StartGUI extends Application {
+    private public void start(Stage primaryStage) {
 
-    public void start(Stage primaryStage) {
-
-        Button villager_menu = new Button("Villagers");
+        Button resident_menu = new Button("Resident");
         Button trade_menu = new Button("Trades");
         Button task_menu = new Button("Tasks");
         Button Community_points_menu = new Button("Community Points");
 
-        Button villager_add = new Button("Add New Villager");
-        villager_add.setOnAction(e -> {
+        Button resident_add = new Button("Add New Resident");
+        resident_add.setOnAction(e -> {
             Stage popup = new Stage();
-            popup.setTitle("Add Villager");
+            popup.setTitle("Add Resident");
             TextField firstNameField = new TextField();
             firstNameField.setPromptText("First Name");
             TextField lastNameField = new TextField();
@@ -48,17 +47,19 @@ public class StartGUI extends Application {
             popup.show();
         });
         Button trade_add = new Button("Add New Trade");
+        trade_add.setOnAction(e -> viewHandler.openTradeView());
+
         Button task_add = new Button("Add New Task");
 
-        Button villager_edit = new Button("Edit existing villager");
+        Button resident_edit = new Button("Edit existing resident");
 
         HBox bottom_menu = new HBox();
-        bottom_menu.getChildren().addAll(villager_add, villager_edit);
+        bottom_menu.getChildren().addAll(resident_add, resident_edit);
         bottom_menu.setSpacing(10);
         bottom_menu.setPrefWidth(300);
 
         HBox nav_bar = new HBox();
-        nav_bar.getChildren().addAll(villager_menu, trade_menu, task_menu, Community_points_menu);
+        nav_bar.getChildren().addAll(resident_menu, trade_menu, task_menu, Community_points_menu);
         nav_bar.setPrefWidth(300);
 
         TableView table = new TableView<>();
