@@ -3,7 +3,7 @@ package model;
 import java.util.*;
 
 public class TasksList {
-  private List<Task> tasks;
+  private ArrayList<Task> tasks;
 
   public TasksList() {
     tasks = new ArrayList<Task>();

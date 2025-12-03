@@ -6,9 +6,9 @@ public class GreenActions extends Task {
 
     private GreenPoints greenPoints;
 
-    public GreenActions(String name, int greenPoints) {
-        super(name, Task.TaskType.GREEN_ACTION);
-        this.greenPointsAward = greenPoints;
+    public GreenActions(String name, String type, int greenPoints) {
+        super(name, type);
+        this.greenPointsAward = greenPointsAward;
         // isComplete = false; - inherited
         // completeDate = null; - inherited
     }

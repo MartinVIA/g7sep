@@ -31,16 +31,28 @@ public class ManageResidentController {
                     + resident.getFirstName() + " " + resident.getLastName());
             popup.show();
         });
-    
+
         Button editPointsBtn = new Button("Edit points");
-        editPointsBtn.setOnAction(e-> {
+        editPointsBtn.setOnAction(e -> {
             Stage popup = new Stage();
             EditPointsController controller = new EditPointsController(model, resident);
-            popup.setScene(controller.createScene)
+            popup.setScene(controller.createScene());
+            popup.setTitle("Edit points of Resident: " + resident.getFirstName() + " " + resident.getLastName());
+            popup.show();
         });
         Button addBoostBtn = new Button("Add a boost");
+        addBoostBtn.setOnAction(e->
+        {
+            Stage popup = new Stage();
+            AddBoostController controller = new AddBoostController(model, resident);
+            popup.setScene(controller.createScene());
+            popup.setTitle("Add a boost to: " + resident.getFirstName() + " " + resident.getLastName());
+        });
         Button removeBoostBtn = new Button("Remove a boost");
-
+        removeBoostBtn.setOnAction(e->{
+            Stage popup = new Stage();
+            RemoveBoostController controller = new RemoveBoostController
+        });
         VBox root = new VBox(10, title,
                 changeNameBtn, editPointsBtn, addBoostBtn, removeBoostBtn);
         root.setPadding(new Insets(10));

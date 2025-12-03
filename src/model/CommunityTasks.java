@@ -6,8 +6,8 @@ public class CommunityTasks extends Task {
     // private Date completeDate;
     private PersonalPoints personalPoints;
 
-    public CommunityTasks(String name, int personalPointsAward) {
-        super(name, Task.TaskType.COMMUNITY_TASK);
+    public CommunityTasks(String name, String type, int personalPointsAward) {
+        super(name, type);
         this.personalPointsAward = personalPointsAward;
         // isComplete = false; - inherited
         // completeDate = null; - inherited
