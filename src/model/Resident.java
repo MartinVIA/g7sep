@@ -18,8 +18,7 @@ public class Resident {
     hasBoost = false;
     personalPoints = new PersonalPoints(points);
     latestTask = null;
-    MyFileHandler.saveToFile("VillagerInfo.txt",
-        "id: " + id + ", name: " + firstName + " " + lastName + ", points: " + points);
+    MyFileHandler.saveToFile("ResidentInfo.txt", this.toString());
   }
 
   public Resident(int id, String firstName, String lastName) {
@@ -100,5 +99,9 @@ public class Resident {
         + ", name: " + firstName + " " + lastName
         + ", hasBoost: " + hasBoost
         + ", personalPoints: " + personalPoints.getPoints();
+  }
+
+  public String toFileString() {
+    return id + "," + firstName + "," + lastName + "," + hasBoost + "," + personalPoints.getPoints();
   }
 }

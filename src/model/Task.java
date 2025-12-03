@@ -3,15 +3,15 @@ package model;
 public abstract class Task {
   private String name;
   private String type;
-  private int amountOfPoints;
+  // private int amountOfPoints;
   private boolean completeTask;
   private Resident resident;
   private Date completeDate;
 
-  public Task(String name, String type, int amountOfPoints) {
+  public Task(String name, String type) {
     this.name = name;
     this.type = type;
-    this.amountOfPoints = amountOfPoints;
+    // this.amountOfPoints = amountOfPoints;
     completeTask = false;
     completeDate = null;
   }
@@ -24,9 +24,9 @@ public abstract class Task {
     return type;
   }
 
-  public int getAmountOfPoints() {
-    return amountOfPoints;
-  }
+  // public int getAmountOfPoints() {
+  // return amountOfPoints;
+  // }
 
   public boolean isCompleteTask() {
     return completeTask;
@@ -44,9 +44,9 @@ public abstract class Task {
     this.type = type;
   }
 
-  public void setAmountOfPoints(int amountOfPoints) {
-    this.amountOfPoints = amountOfPoints;
-  }
+  // public void setAmountOfPoints(int amountOfPoints) {
+  // this.amountOfPoints = amountOfPoints;
+  // }
 
   // idk if it's going to work for multiple residents
   // public void completeTask(Resident resident) {
@@ -58,21 +58,19 @@ public abstract class Task {
 
   public abstract void completeTask(Resident resident);
 
-  // public boolean equals(Object obj) {
-  // if (obj == null || obj.getClass() != getClass())
-  // return false;
+  public boolean equals(Object obj) {
+    if (obj == null || obj.getClass() != getClass())
+      return false;
 
-  // Task other = (Task) obj;
-  // return name.equals(other.name) &&
-  // type.equals(other.type) &&
-  // amountOfPoints == other.amountOfPoints &&
-  // completeTask == other.completeTask;
-  // }
+    Task other = (Task) obj;
+    return name.equals(other.name)
+        && type.equals(other.type)
+        && completeTask == other.completeTask;
+  }
 
-  // public String toString() {
-  // return "Name: " + name +
-  // ", Type: " + type +
-  // ", Amount of Points: " + amountOfPoints +
-  // ", Complete Task: " + completeTask;
-  // }
+  public String toString() {
+    return "Name: " + name +
+        ", Type: " + type +
+        ", Complete Task: " + completeTask;
+  }
 }

@@ -51,6 +51,15 @@ public class StartGUI extends Application {
         });
 
         Button trade_add = new Button("Add New Trade");
+        trade_add.setOnAction(e -> {
+            Stage popup = new Stage();
+            TradeViewController controller = new TradeViewController(model);
+            popup.setScene(controller.createScene());
+            popup.setTitle("Trades");
+            popup.setOnHidden(ev -> refreshResidentsTable());
+            popup.show();
+        });
+
         Button task_add = new Button("Add New Task");
         Button community_points_add = new Button("Add Community Points");
 
