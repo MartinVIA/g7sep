@@ -10,7 +10,7 @@ function createNavbar() {
     // Add logo to navbar
     const logo = document.createElement('img');
     logo.className = 'navbar-logo';
-    logo.src = '../image_2025-12-03_152859823-removebg-preview.png';
+    logo.src = '../clovervilleLogo.png';
     logo.alt = 'Cloverville Logo';
     
     // Check if on home page
