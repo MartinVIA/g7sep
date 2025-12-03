@@ -1,7 +1,6 @@
 package utils;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
@@ -36,6 +35,7 @@ public class FileXMLLogger {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc;
             File xmlFile = new File(xmlFilePath);
+            
             if (xmlFile.exists()) {
                 doc = dBuilder.parse(xmlFile);
                 doc.getDocumentElement().normalize();
@@ -64,6 +64,7 @@ public class FileXMLLogger {
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(xmlFile);
             transformer.transform(source, result);
+            
         } catch (ParserConfigurationException | IOException | TransformerException | org.xml.sax.SAXException e) {
             e.printStackTrace();
         }
