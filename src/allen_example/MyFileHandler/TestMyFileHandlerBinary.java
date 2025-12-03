@@ -1,10 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class TestMyFileHandlerBinary
-{
-   public static void main(String[] args)
-   {
+public class TestMyFileHandlerBinary {
+   public static void main(String[] args) {
       Student[] students = new Student[4];
 
       students[0] = new Student("Allan", "Henriksen", "Denmark");
@@ -12,16 +10,11 @@ public class TestMyFileHandlerBinary
       students[2] = new Student("Carl", "Carlson", "Iceland");
       students[3] = new Student("Dave", "Daveson", "England");
 
-      try
-      {
+      try {
          MyFileHandler.writeArrayToBinaryFile("Test.bin", students);
-      }
-      catch (FileNotFoundException e)
-      {
+      } catch (FileNotFoundException e) {
          System.out.println("File not found");
-      }
-      catch (IOException e)
-      {
+      } catch (IOException e) {
          System.out.println("IO Error reading file");
       }
 
@@ -29,25 +22,17 @@ public class TestMyFileHandlerBinary
 
       Object[] result = null;
 
-      try
-      {
+      try {
          result = MyFileHandler.readArrayFromBinaryFile("Test.bin");
-      }
-      catch (FileNotFoundException e)
-      {
+      } catch (FileNotFoundException e) {
          System.out.println("File not found");
-      }
-      catch (IOException e)
-      {
+      } catch (IOException e) {
          System.out.println("IO Error reading file");
-      }
-      catch (ClassNotFoundException e)
-      {
+      } catch (ClassNotFoundException e) {
          System.out.println("Class Not Found");
       }
 
-      for (int i = 0; i < result.length; i++)
-      {
+      for (int i = 0; i < result.length; i++) {
          System.out.println(result[i]);
       }
    }

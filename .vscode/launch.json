@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TestMyFileHandlerBinary",
+            "request": "launch",
+            "mainClass": "TestMyFileHandlerBinary",
+            "projectName": "g7sep_900a85f2"
+        },
+        {
+            "type": "java",
             "name": "StartGUI",
             "request": "launch",
             "mainClass": "view.StartGUI",

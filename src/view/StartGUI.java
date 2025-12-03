@@ -50,7 +50,6 @@ public class StartGUI extends Application {
             }
         }
     }
-    // method to refresh the Main menu once the addResidentPopup closes
 
     public void start(Stage primaryStage) {
 
@@ -94,10 +93,12 @@ public class StartGUI extends Application {
                 alert.showAndWait();
                 return;
             }
+
             Stage popup = new Stage();
-            EditResidentController controller = new EditResidentController(model, selected);
+            ManageResidentController controller = new ManageResidentController(model, selected);
             popup.setScene(controller.createScene());
-            popup.setTitle("Edit Resident" + selected.getFirstName() + " " + selected.getLastName());
+            popup.setTitle("Manage Resident: " +
+                    selected.getFirstName() + " " + selected.getLastName());
             popup.setOnHidden(ev -> refreshResidentsTable());
             popup.show();
         });

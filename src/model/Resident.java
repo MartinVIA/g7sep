@@ -1,7 +1,5 @@
 package model;
 
-import utils.MyFileHandler;
-
 public class Resident {
   private final int id;
   private String firstName;
@@ -19,7 +17,6 @@ public class Resident {
     personalPoints = new PersonalPoints(points);
     latestTask = null;
     latestGreenAction = null;
-    MyFileHandler.appendResident(this, "CREATE");
   }
 
   public Resident(int id, String firstName, String lastName) {
@@ -30,7 +27,6 @@ public class Resident {
     personalPoints = new PersonalPoints();
     latestTask = null;
     latestGreenAction = null;
-    MyFileHandler.appendResident(this, "CREATE");
   }
 
   public int getId() {
@@ -63,42 +59,34 @@ public class Resident {
 
   public void setFirstName(String firstName) {
     this.firstName = firstName;
-    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void setLastName(String lastName) {
     this.lastName = lastName;
-    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void setBoost(boolean hasBoost) {
     this.hasBoost = hasBoost;
-    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void setPersonalPoints(int points) {
     personalPoints.setPoints(points);
-    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void addPersonalPoints(int points) {
     personalPoints.addPoints(points);
-    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void resetPersonalPoints() {
     personalPoints.resetPoints();
-    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void setLatestTask(Date latestTask) {
     this.latestTask = latestTask;
-    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void setLatestGreenAction(Date latestGreenAction) {
     this.latestGreenAction = latestGreenAction;
-    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public boolean equals(Object obj) {
