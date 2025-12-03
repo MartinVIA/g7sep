@@ -1,6 +1,5 @@
 package model;
 
-import java.io.IOException;
 import utils.MyFileHandler;
 
 public class Resident {
@@ -11,14 +10,14 @@ public class Resident {
   private PersonalPoints personalPoints;
   private Date latestTask;
 
-  public Resident(int id, String firstName, String lastName, int points) throws IOException {
+  public Resident(int id, String firstName, String lastName, int points) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     hasBoost = false;
     personalPoints = new PersonalPoints(points);
     latestTask = null;
-    MyFileHandler.saveToFile("ResidentInfo.txt", this.toString());
+    MyFileHandler.appendResident(this, "CREATE");
   }
 
   public Resident(int id, String firstName, String lastName) {
@@ -28,6 +27,7 @@ public class Resident {
     hasBoost = false;
     personalPoints = new PersonalPoints();
     latestTask = null;
+    MyFileHandler.appendResident(this, "CREATE");
   }
 
   public int getId() {
@@ -56,30 +56,37 @@ public class Resident {
 
   public void setFirstName(String firstName) {
     this.firstName = firstName;
+    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void setLastName(String lastName) {
     this.lastName = lastName;
+    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void setBoost(boolean hasBoost) {
     this.hasBoost = hasBoost;
+    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void setPersonalPoints(int points) {
     personalPoints.setPoints(points);
+    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void addPersonalPoints(int points) {
-    personalPoints.awardPoints(points);
+    personalPoints.addPoints(points);
+    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void resetPersonalPoints() {
     personalPoints.resetPoints();
+    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public void setLatestTask(Date latestTask) {
     this.latestTask = latestTask;
+    MyFileHandler.appendResident(this, "UPDATE");
   }
 
   public boolean equals(Object obj) {

@@ -4,16 +4,16 @@ public abstract class Task {
   private String name;
   private String type;
   // private int amountOfPoints;
-  private boolean completeTask;
+  private boolean isComplete;
   private Resident resident;
-  private Date completeDate;
+  // private Date completeDate;
 
   public Task(String name, String type) {
     this.name = name;
     this.type = type;
     // this.amountOfPoints = amountOfPoints;
-    completeTask = false;
-    completeDate = null;
+    isComplete = false;
+    // completeDate = null;
   }
 
   public String getName() {
@@ -28,13 +28,17 @@ public abstract class Task {
   // return amountOfPoints;
   // }
 
-  public boolean isCompleteTask() {
-    return completeTask;
+  public void markAsComplete() {
+    isComplete = true;
   }
 
-  public Date getCompleteDate() {
-    return completeDate;
+  public boolean isCompleteTask() {
+    return isComplete;
   }
+
+  // public Date getCompleteDate() {
+  // return completeDate;
+  // }
 
   public void setName(String name) {
     this.name = name;
@@ -65,12 +69,12 @@ public abstract class Task {
     Task other = (Task) obj;
     return name.equals(other.name)
         && type.equals(other.type)
-        && completeTask == other.completeTask;
+        && isComplete == other.isComplete;
   }
 
   public String toString() {
     return "Name: " + name +
         ", Type: " + type +
-        ", Complete Task: " + completeTask;
+        ", Complete Task: " + isComplete;
   }
 }

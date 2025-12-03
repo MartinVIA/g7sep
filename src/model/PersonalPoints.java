@@ -21,7 +21,7 @@ public class PersonalPoints {
     return personalPoints;
   }
 
-  public void awardPoints(int points) {
+  public void addPoints(int points) {
     setPoints(getPoints() + points);
   }
 

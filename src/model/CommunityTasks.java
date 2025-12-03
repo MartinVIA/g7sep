@@ -3,10 +3,13 @@ package model;
 public class CommunityTasks extends Task {
     // some attributes?
     private int personalPoints;
+    private Date completeDate;
 
     public CommunityTasks(String name, String type, int personalPoints) {
         super(name, type);
+        // isComplete is also here = false by default
         this.personalPoints = personalPoints;
+        completeDate = null;
     }
 
     public int getPersonalPoints() {
@@ -17,8 +20,21 @@ public class CommunityTasks extends Task {
         this.personalPoints = personalPoints;
     }
 
+    public Date getCompleteDate() {
+        return completeDate;
+    }
+
+    public void awardPersonalPoints(Resident resident, int points) {
+        resident.addPersonalPoints(points);
+    }
+
     public void completeTask(Resident resident) {
-        // Logic to complete the community task
+        // logic here
+        completeDate = completeDate.today();
+        resident.addPersonalPoints(personalPoints);
+        resident.setLatestTask(completeDate);
+        super.markAsComplete();
+        // i think it works???
     }
 
     public boolean equals(Object obj) {

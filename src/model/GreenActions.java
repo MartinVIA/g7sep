@@ -6,6 +6,7 @@ public class GreenActions extends Task {
 
     public GreenActions(String name, String type, int greenPoints) {
         super(name, type);
+        // isComplete is also here = false by default
         this.greenPoints = greenPoints;
     }
 
@@ -18,7 +19,8 @@ public class GreenActions extends Task {
     }
 
     public void completeTask(Resident resident) {
-        // Logic to complete the green action task
+        // logic here
+        super.markAsComplete();
 
     }
 

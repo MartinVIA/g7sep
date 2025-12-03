@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.layout.BorderPane;
@@ -85,6 +86,9 @@ public class StartGUI extends Application {
         Button trade_edit = new Button("Edit existing Trade");
         Button task_edit = new Button("Edit existing Task");
         Button community_points_edit = new Button("Edit Community Points");
+        ProgressBar progressBar = new ProgressBar();
+        progressBar.setProgress(50.0 / 100.0);
+        Label temp = new Label("50/100");
 
         HBox bottom_menu_resident = new HBox();
         bottom_menu_resident.getChildren().addAll(resident_add, resident_edit);
@@ -169,6 +173,20 @@ public class StartGUI extends Application {
         tasksBox.setPadding(new Insets(10, 0, 0, 10));
         tasksBox.getChildren().add(tasksTable);
 
+        // community points layout
+        TableView greenTasks = new TableView<>();
+        TableColumn pointsAmountCol = new TableColumn("Points Amount");
+        TableColumn pointsDateCol = new TableColumn("Date Added");
+        TableColumn pointsAddedByCol = new TableColumn("Added By");
+        greenTasks.setEditable(true);
+        greenTasks.getColumns().addAll(pointsAmountCol, pointsDateCol, pointsAddedByCol);
+
+        VBox communityPointsBox = new VBox();
+        communityPointsBox.setSpacing(5);
+        communityPointsBox.setPadding(new Insets(10, 0, 0, 10));
+        communityPointsBox.getChildren().add(progressBar);
+        communityPointsBox.getChildren().add(greenTasks);
+
         // Main layout
         BorderPane root = new BorderPane();
         root.setTop(nav_bar);
@@ -178,19 +196,23 @@ public class StartGUI extends Application {
 
         // Button actions
         resident_menu.setOnAction(e -> {
+            nav_bar.getChildren().removeAll(progressBar, temp);
             root.setCenter(residentsBox);
             root.setBottom(bottom_menu_resident);
         });
         trade_menu.setOnAction(e -> {
+            nav_bar.getChildren().addAll(progressBar, temp);
             root.setCenter(tradesBox);
             root.setBottom(bottom_menu_trades);
         });
         task_menu.setOnAction(e -> {
+            nav_bar.getChildren().removeAll(progressBar, temp);
             root.setCenter(tasksBox);
             root.setBottom(bottom_menu_tasks);
         });
         Community_points_menu.setOnAction(e -> {
-            root.setCenter(new VBox(new Label("Community Points - TODO")));
+            nav_bar.getChildren().addAll(progressBar, temp);
+            root.setCenter(communityPointsBox);
             root.setBottom(bottom_menu_community_points);
         });
 
