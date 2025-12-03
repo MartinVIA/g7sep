@@ -123,18 +123,15 @@ public class StartGUI extends Application {
 
         HBox nav_bar = new HBox();
         nav_bar.getChildren().addAll(resident_menu, trade_menu, task_menu, Community_points_menu);
-        nav_bar.setPrefWidth(300);
-        nav_bar.setSpacing(3);
-        nav_bar.setAlignment(Pos.CENTER_LEFT);
 
         // I Chanched it to an arrayList so we can add ResidentViewControllers stored
         // data into Victors UI
+        residentsTable = new TableView<>();
+
         VBox residentsBox = new VBox();
         residentsBox.setSpacing(5);
         residentsBox.setPadding(new Insets(10, 0, 0, 10));
         residentsBox.getChildren().add(residentsTable);
-
-        residentsTable = new TableView<>();
 
         TableColumn<Resident, String> firstNameCol = new TableColumn("First Name");
         TableColumn<Resident, String> lastNameCol = new TableColumn("Last Name");
@@ -157,12 +154,12 @@ public class StartGUI extends Application {
         residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostsCol);
         refreshResidentsTable();
 
+        tradesTable = new TableView<>();
+
         VBox tradesBox = new VBox();
         tradesBox.setSpacing(5);
         tradesBox.setPadding(new Insets(10, 0, 0, 10));
         tradesBox.getChildren().add(tradesTable);
-
-        tradesTable = new TableView<>();
 
         TableColumn<Trade, String> sellerCol = new TableColumn<>("Seller");
         TableColumn<Trade, Integer> priceCol = new TableColumn<>("Price");
@@ -170,6 +167,7 @@ public class StartGUI extends Application {
         TableColumn<Trade, String> descriptionCol = new TableColumn<>("Description");
         tradesTable.setEditable(true);
         tradesTable.getColumns().addAll(sellerCol, priceCol, offerCol, descriptionCol);
+
         // task list
         TableView tasksTable = new TableView<>();
         TableColumn taskDescCol = new TableColumn("Task Description");
@@ -246,7 +244,6 @@ public class StartGUI extends Application {
         primaryStage.setResizable(false);
         primaryStage.setTitle("I don't wanna do this anympre send help");
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {
