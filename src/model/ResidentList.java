@@ -9,6 +9,10 @@ public class ResidentList {
     residents = new ArrayList<Resident>();
   }
 
+  public int size() {
+    return residents.size();
+  }
+
   public void addResident(Resident v) {
     residents.add(v);
   }
