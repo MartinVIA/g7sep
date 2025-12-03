@@ -39,11 +39,11 @@ public class PersonalPoints {
     long diff = currentDate.getNumOfDays() - lastCompletionDate.getNumOfDays();
     // example boost values
     if (diff > 14)
-      boost += 0.2;
+      boost += 0.2; // 1.2 multiplier if more than 2 weeks
     else if (diff > 30)
-      boost += 0.4;
+      boost += 0.4; // 1.4 multiplier if more than 1 month
     else if (diff > 60)
-      boost += 0.8;
+      boost += 0.8; // 1.8 multiplier if more than 2 months
 
     resident.setLatestTask(currentDate);
 

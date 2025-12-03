@@ -22,9 +22,11 @@ public class GreenActions extends Task {
 
     public void completeTask(Resident resident) {
         // logic here
-        super.markAsComplete();
+        Date now = new Date();
+        setCompleteDate(now);
         greenPoints.addPoints(greenPointsAward);
-        resident.settLatestGreenAction()
+        resident.setLatestGreenAction(now);
+        super.markAsComplete();
     }
 
     public boolean equals(Object obj) {

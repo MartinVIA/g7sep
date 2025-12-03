@@ -104,4 +104,8 @@ public class TradeViewController {
         // optionally close the window after a short delay, or let the user close it
     }
 
+    private void refreshResidentList() {
+        residentListView.getItems().setAll(model.getAllResidents());
+    }
+
 }

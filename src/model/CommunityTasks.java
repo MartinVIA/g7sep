@@ -28,10 +28,14 @@ public class CommunityTasks extends Task {
         // logic here
         Date now = new Date();
         setCompleteDate(now);
+
+        if (resident.hasBoost()) {
+            resident.setBoost(false);
+        }
+
         resident.addPersonalPoints(personalPointsAward);
         resident.setLatestTask(now);
         super.markAsComplete();
-        // i think it works???
     }
 
     public boolean equals(Object obj) {

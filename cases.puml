@@ -19,6 +19,10 @@ package "Model" #F1f1f1{
     ClovervilleModelManager ..> Cloverville
     Cloverville --> "1" TradeList : allTrades
     Task *--> "1" Date : completeDate
+    Task <|-- GreenActions 
+    Task <|-- CommunityTasks
+    ' GreenActions should be linked to GreenPoints
+    ' or the other way round i dont fucking know
 
     class Task{
         - name : String
@@ -30,16 +34,18 @@ package "Model" #F1f1f1{
         + toString : String
     }
 
-    class GreenActrions
+    class GreenActions
     {
         + equals : boolean
         + toString : String
     }
+
     class CommunityTasks
     {
         + equals : boolean
         + toString : String
     }
+
     class Resident{
         - ID : int
         - name : String

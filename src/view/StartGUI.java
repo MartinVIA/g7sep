@@ -86,6 +86,7 @@ public class StartGUI extends Application {
         Button trade_edit = new Button("Edit existing Trade");
         Button task_edit = new Button("Edit existing Task");
         Button community_points_edit = new Button("Edit Community Points");
+
         ProgressBar progressBar = new ProgressBar();
         progressBar.setProgress(50.0 / 100.0);
         Label temp = new Label("50/100");
@@ -113,6 +114,8 @@ public class StartGUI extends Application {
         HBox nav_bar = new HBox();
         nav_bar.getChildren().addAll(resident_menu, trade_menu, task_menu, Community_points_menu);
         nav_bar.setPrefWidth(300);
+        nav_bar.setSpacing(3);
+        nav_bar.setAlignment(Pos.CENTER_LEFT);
 
         // I Chanched it to an arrayList so we can add ResidentViewControllers stored
         // data into Victors UI
@@ -179,13 +182,16 @@ public class StartGUI extends Application {
         TableColumn pointsDateCol = new TableColumn("Date Added");
         TableColumn pointsAddedByCol = new TableColumn("Added By");
         greenTasks.setEditable(true);
+        greenTasks.setPrefHeight(350);
         greenTasks.getColumns().addAll(pointsAmountCol, pointsDateCol, pointsAddedByCol);
 
         VBox communityPointsBox = new VBox();
         communityPointsBox.setSpacing(5);
         communityPointsBox.setPadding(new Insets(10, 0, 0, 10));
-        communityPointsBox.getChildren().add(progressBar);
+        progressBar.setPrefWidth(450);
         communityPointsBox.getChildren().add(greenTasks);
+        communityPointsBox.getChildren().add(new Label("Progress toward next community reward: 50/100 green points"));
+        communityPointsBox.getChildren().add(progressBar);
 
         // Main layout
         BorderPane root = new BorderPane();
@@ -196,22 +202,18 @@ public class StartGUI extends Application {
 
         // Button actions
         resident_menu.setOnAction(e -> {
-            nav_bar.getChildren().removeAll(progressBar, temp);
             root.setCenter(residentsBox);
             root.setBottom(bottom_menu_resident);
         });
         trade_menu.setOnAction(e -> {
-            nav_bar.getChildren().removeAll(progressBar, temp);
             root.setCenter(tradesBox);
             root.setBottom(bottom_menu_trades);
         });
         task_menu.setOnAction(e -> {
-            nav_bar.getChildren().removeAll(progressBar, temp);
             root.setCenter(tasksBox);
             root.setBottom(bottom_menu_tasks);
         });
         Community_points_menu.setOnAction(e -> {
-            nav_bar.getChildren().addAll(progressBar, temp);
             root.setCenter(communityPointsBox);
             root.setBottom(bottom_menu_community_points);
         });
@@ -249,6 +251,7 @@ public class StartGUI extends Application {
 
         Scene scene = new Scene(root, 500, 500);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.setTitle("I don't wanna do this anympre send help");
         primaryStage.show();
     }

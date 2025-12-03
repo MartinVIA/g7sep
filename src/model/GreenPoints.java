@@ -41,7 +41,15 @@ public class GreenPoints {
     isReached = true;
   }
 
-  // equals method
+  public boolean equals(Object obj) {
+    if (obj == null || obj.getClass() != getClass())
+      return false;
+
+    GreenPoints other = (GreenPoints) obj;
+    return greenPoints == other.greenPoints
+        && pointGoal == other.pointGoal
+        && isReached == other.isReached;
+  }
 
   public String toString() {
     return "Greenpoints: " + greenPoints + " " + "Point goal: " + pointGoal;

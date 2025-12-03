@@ -1,7 +1,5 @@
 package model;
 
-import java.util.*;
-
 public class Trade {
   private String name;
   private String description;
@@ -9,7 +7,7 @@ public class Trade {
   private Resident tradee;
   private int pointCost;
   private String tradeOffer;
-  private Date completeDate;
+  // private Date completeDate;
   private boolean isComplete;
 
   public Trade(String name, String description, Resident trader, int pointCost) {
@@ -19,7 +17,7 @@ public class Trade {
     tradee = null;
     this.pointCost = pointCost;
     isComplete = false;
-    completeDate = null;
+    // completeDate = null;
   }
 
   public Trade(String name, String description, Resident trader, String tradeOffer) {
@@ -29,7 +27,7 @@ public class Trade {
     tradee = null;
     this.tradeOffer = tradeOffer;
     isComplete = false;
-    completeDate = null;
+    // completeDate = null;
   }
 
   public String getTraderName() {
@@ -38,6 +36,14 @@ public class Trade {
 
   public Resident getTrader() {
     return trader;
+  }
+
+  public int getPointCost() {
+    return pointCost;
+  }
+
+  public String getTradeOffer() {
+    return tradeOffer;
   }
 
   public String getTradeeName() {
@@ -71,6 +77,7 @@ public class Trade {
   public void completeTrade(Resident tradee) {
     setTradee(tradee);
     isComplete = true;
+    // we dont fucking need it i guess
     // completeDate = completeDate.today().copy();
     // trader.setLatestTrade(completeDate.today().copy());
     // tradee.setLatestTrade(completeDate.today().copy());
