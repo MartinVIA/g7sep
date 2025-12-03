@@ -1,7 +1,7 @@
 package utils;
 
 import model.*;
-
+import java.util.*;
 import java.io.*;
 import java.time.LocalTime;
 
@@ -11,19 +11,17 @@ public class FileWriter {
                                 new FileOutputStream("customers.bin"))) {
                         ResidentList residentList = new ResidentList();
                         ArrayList<Resident> residents = new ArrayList<>();
-                        residents.add(new Resident("Alice", "Anderson", "10101010", "alice.anderson@mail.com",
-                                        "Room 101"));
-                        residents.add(new Resident("Bob", "Baker", "20202020", "bob.baker@mail.com", "Room 102"));
-                        residents.add(new Resident("Carol", "Clark", "30303030", "carol.clark@mail.com", "Room 103"));
-                        residents.add(new Resident("David", "Dunn", "40404040", "david.dunn@mail.com", "Room 104"));
-                        residents.add(new Resident("Eve", "Evans", "50505050", "eve.evans@mail.com", "Room 105"));
+                        residents.add(new Resident(1, "Green", "Bob", 9999999));
+                        residents.add(new Resident(2, "Green", "Smith", 0));
+                        residents.add(new Resident(3, "Charlie", "Brown", 0));
+                        residents.add(new Resident(4, "Diana", "White", 0));
 
                         for (Resident resident : residents) {
                                 residentList.addResident(resident);
                         }
 
                         out.writeObject(residentList);
-                        System.out.println("Resident serialized successfully");
+                        System.out.println("Success");
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
