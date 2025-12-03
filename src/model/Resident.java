@@ -105,6 +105,8 @@ public class Resident implements Serializable {
         && lastName.equals(other.lastName)
         && hasBoost == other.hasBoost
         && personalPoints.equals(other.personalPoints);
+    // commented this cause it caused problems
+    // while editing the attributes of the resident
     // && latestTask.equals(other.latestTask)
     // && latestGreenAction.equals(other.latestGreenAction);
   }

@@ -55,7 +55,7 @@ public class PersonalPoints implements Serializable {
 
   public void awardBoost(Resident resident) {
     // only award boost if resident does not already have one
-    if (!resident.hasBoost()) {
+    if (!resident.getHasBoost()) {
       double boost = calculateBoost(resident);
       // if calculateBoost > 0, award boost
       if (boost > 1.0) {

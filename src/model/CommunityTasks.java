@@ -1,16 +1,12 @@
 package model;
 
 public class CommunityTasks extends Task {
-    // some attributes?
     private int personalPointsAward;
-    // private Date completeDate;
     private PersonalPoints personalPoints;
 
     public CommunityTasks(String name, String type, int personalPointsAward) {
         super(name, type);
         this.personalPointsAward = personalPointsAward;
-        // isComplete = false; - inherited
-        // completeDate = null; - inherited
     }
 
     public int getPersonalPoints() {
