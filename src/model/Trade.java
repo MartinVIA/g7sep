@@ -10,7 +10,7 @@ public class Trade {
   // private Date completeDate;
   private boolean isComplete;
 
-  public Trade(String name, String description, Resident trader, int pointCost) {
+  public Trade(String name, String description, int pointCost) {
     this.name = name;
     this.description = description;
     this.trader = trader;

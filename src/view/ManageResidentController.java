@@ -41,17 +41,19 @@ public class ManageResidentController {
             popup.show();
         });
         Button addBoostBtn = new Button("Add a boost");
-        addBoostBtn.setOnAction(e->
-        {
+        addBoostBtn.setOnAction(e -> {
             Stage popup = new Stage();
             AddBoostController controller = new AddBoostController(model, resident);
             popup.setScene(controller.createScene());
             popup.setTitle("Add a boost to: " + resident.getFirstName() + " " + resident.getLastName());
         });
         Button removeBoostBtn = new Button("Remove a boost");
-        removeBoostBtn.setOnAction(e->{
+        removeBoostBtn.setOnAction(e -> {
             Stage popup = new Stage();
-            RemoveBoostController controller = new RemoveBoostController
+            RemoveBoostController controller = new RemoveBoostController(model, resident);
+            popup.setScene(controller.createScene);
+            popup.setTitle("Romove boost from: " + resident.getFirstName() + " " + resident.getLastName());
+            popup.show();
         });
         VBox root = new VBox(10, title,
                 changeNameBtn, editPointsBtn, addBoostBtn, removeBoostBtn);

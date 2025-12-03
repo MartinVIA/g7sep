@@ -22,6 +22,33 @@ public class EditPointsController {
 
     public Scene createScene() {
 
-    }
+        TextField pointsField = new TextField(
+                String.valueOf(resident.getPersonalPoints()));
+        Label msg = new Label();
 
+        Button save = new Button("Save");
+        save.setOnAction(e -> {
+            String text = pointsField.getText().trim();
+
+            if (!text.matches("\\d+")) {
+                msg.setText("Points must be a whole number (0–9).");
+                return;
+            }
+
+            int pts = Integer.parseInt(text);
+            resident.setPersonalPoints(pts);
+
+            msg.setText("Points updated.");
+            ((Stage) save.getScene().getWindow()).close();
+        });
+
+        VBox root = new VBox(10,
+                new Label("New points for resident:"),
+                pointsField,
+                save,
+                msg);
+        root.setPadding(new Insets(10));
+
+        return new Scene(root, 280, 180);
+    }
 }

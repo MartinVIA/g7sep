@@ -51,8 +51,7 @@ public class FileWriter {
                                 new FileOutputStream("trades.bin"))) {
                         TradeList tradeList = new TradeList();
                         ArrayList<Trade> trades = new ArrayList<>();
-                        trades.add(new Trade(1, "Bob", "Smith", "Book", 5));
-                        trades.add(new Trade(2, "Charlie", "Diana", "Game", 2));
+                        trades.add(new Trade("Pot for 5 apples", "xd", 20));
 
                         for (Trade trade : trades) {
                                 tradeList.addTrade(trade);
