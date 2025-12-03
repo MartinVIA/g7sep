@@ -28,9 +28,8 @@ public class CommunityTasks extends Task {
 
         // check if resident has boost active
         // if so, deactivate it
-        if (resident.hasBoost()) {
+        if (resident.getHasBoost())
             resident.setBoost(false);
-        }
 
         // check if resident is eligible for boost
         personalPoints.awardBoost(resident);

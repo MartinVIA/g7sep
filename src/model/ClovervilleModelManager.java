@@ -9,9 +9,12 @@ import model.Trade;
 import model.TradeList;
 import model.TasksList;
 import model.Task;
+import java.util.ArrayList;
 
 public class ClovervilleModelManager {
   private Cloverville cloverville;
+
+  private final List<Trade> trades = new ArrayList<>();
 
   public ClovervilleModelManager() {
     cloverville = new Cloverville();
@@ -31,6 +34,14 @@ public class ClovervilleModelManager {
     int nextId = cloverville.getAllTasks().getTasks().size() + 1;
     Task b = new Task(Name, Type);
     cloverville.getAllTasks().addTask(b);
+  }
+
+  public void addTrade(String name, String description, Resident trader, int pointCost) {
+    trades.add(new Trade(name, description, trader, pointCost));
+  }
+
+  public void addTradeWithOffer(String name, String description, Resident trader, String tradeOffer) {
+    trades.add(new Trade(name, description, trader, tradeOffer));
   }
 
   public java.util.List<Task> getAllTasks() {

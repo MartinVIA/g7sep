@@ -12,7 +12,20 @@ public class Trade implements Serializable {
   // private Date completeDate;
   private boolean isComplete;
 
+  // -------- should be later deleted I think unless
+  // -------- we will allow creating a trade without a trader
+  // -------- but it doesnt make sense imo
   public Trade(String name, String description, int pointCost) {
+    this.name = name;
+    this.description = description;
+    trader = null;
+    tradee = null;
+    this.pointCost = pointCost;
+    isComplete = false;
+    // completeDate = null;
+  }
+
+  public Trade(String name, String description, Resident trader, int pointCost) {
     this.name = name;
     this.description = description;
     this.trader = trader;

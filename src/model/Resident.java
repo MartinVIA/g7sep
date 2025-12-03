@@ -43,10 +43,6 @@ public class Resident implements Serializable {
     return lastName;
   }
 
-  // public boolean hasBoost() {
-  // return hasBoost;
-  // }
-
   public boolean getHasBoost() {
     return hasBoost;
   }

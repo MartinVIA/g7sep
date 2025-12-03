@@ -139,3 +139,21 @@ max-width: 800px;
 margin: 20px auto;
 font-family: 'Arial', sans-serif;
 }
+
+.points-item {
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background: #e6ffe6;
+  border-radius: 6px;
+  font-size: 1.1em;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+#points-list {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 20px 0;
+  background: #f9f9f9;
+}

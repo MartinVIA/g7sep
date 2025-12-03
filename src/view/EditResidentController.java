@@ -25,7 +25,6 @@ public class EditResidentController {
   public EditResidentController(ClovervilleModelManager model, Resident resident) {
     this.model = model;
     this.resident = resident;
-    // just need to use method from the model manager and need the resident class
   }
 
   public Scene createScene() {

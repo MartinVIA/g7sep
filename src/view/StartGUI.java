@@ -18,15 +18,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import model.ClovervilleModelManager;
-import model.Resident;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.*;
 import utils.MyFileHandler;
 
 public class StartGUI extends Application {
 
     private ClovervilleModelManager model;
     private TableView<Resident> residentsTable;
+    private TableView<Task> taskTable;
+    private TableView<Trade> tradesTable;
 
     private void refreshResidentsTable() {
         residentsTable.getItems().setAll(model.getAllResidents());
@@ -148,6 +149,12 @@ public class StartGUI extends Application {
         pointsCol.setCellValueFactory(new PropertyValueFactory<>("personalPoints"));
         boostsCol.setCellValueFactory(new PropertyValueFactory<>("hasBoost"));
 
+        tradesTable = new TabelView<>();
+
+        TableColumn<Trade, String> sellerCol = new TableColumn<>("Seller");
+        TableColumn<Trade, Integer> priceCol = new TableColumn<>("Price");
+        TableColumn<Trade, String> offerCol = new TableColumn<>("Offer");
+        TableColumn<>
         residentsTable.setEditable(true);
         residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostsCol);
         refreshResidentsTable();
@@ -171,9 +178,19 @@ public class StartGUI extends Application {
         tradesBox.setPadding(new Insets(10, 0, 0, 10));
         tradesBox.getChildren().add(tradesTable);
 
-        // task list (use TaskViewController)
-        TaskViewController taskController = new TaskViewController(model);
-        VBox tasksBox = taskController.createView();
+        // task list
+        TableView tasksTable = new TableView<>();
+        TableColumn taskDescCol = new TableColumn("Task Description");
+        TableColumn taskPointsCol = new TableColumn("Points");
+        TableColumn taskAssignedCol = new TableColumn("Assigned To");
+        TableColumn taskStatusCol = new TableColumn("Status");
+        tasksTable.setEditable(true);
+        tasksTable.getColumns().addAll(taskDescCol, taskPointsCol, taskAssignedCol, taskStatusCol);
+
+        VBox tasksBox = new VBox();
+        tasksBox.setSpacing(5);
+        tasksBox.setPadding(new Insets(10, 0, 0, 10));
+        tasksBox.getChildren().add(tasksTable);
 
         // community points layout
         TableView greenTasks = new TableView<>();

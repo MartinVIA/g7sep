@@ -17,7 +17,7 @@ function createNavbar() {
     const isHomePage = window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/docs/') || window.location.pathname.endsWith('/docs');
     
     // Get page title based on current page
-    let pageTitle = '';
+    let pageTitle = 'CloverVille';
     if (window.location.pathname.includes('tasks.html')) {
         pageTitle = 'Tasks';
     } else if (window.location.pathname.includes('trades.html')) {
@@ -98,3 +98,46 @@ function createNavbar() {
 
 // Call the function when DOM is ready
 document.addEventListener('DOMContentLoaded', createNavbar);
+
+// --- Personal Points XML Loader ---
+function loadPointsFromXML(xmlPath) {
+    fetch(xmlPath)
+        .then(response => response.text())
+        .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+        .then(data => {
+            const operations = data.getElementsByTagName("Operation");
+            const pointsMap = {};
+            for (let op of operations) {
+                if (op.getAttribute("type") === "write" && op.getAttribute("file").includes("PersonalPoints")) {
+                    const lines = op.getElementsByTagName("Line");
+                    for (let line of lines) {
+                        // Assuming line format: ID,Points
+                        const [id, points] = line.textContent.split(/[,;\s]+/);
+                        if (id && points) {
+                            pointsMap[id] = points;
+                        }
+                    }
+                }
+            }
+            displayPoints(pointsMap);
+        });
+}
+
+function displayPoints(pointsMap) {
+    const container = document.getElementById("points-list");
+    if (!container) return;
+    container.innerHTML = "";
+    for (const [id, points] of Object.entries(pointsMap)) {
+        const item = document.createElement("div");
+        item.className = "points-item";
+        item.textContent = `ID: ${id} - Points: ${points}`;
+        container.appendChild(item);
+    }
+}
+
+// Only run on personalpoints.html
+if (window.location.pathname.includes('personalpoints.html')) {
+    document.addEventListener("DOMContentLoaded", function() {
+        loadPointsFromXML("../src/file_operations.xml");
+    });
+}

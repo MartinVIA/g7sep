@@ -2,6 +2,9 @@ package view;
 
 import javafx.stage.Stage;
 import model.ClovervilleModelManager;
+import view.ResidentViewController;
+import view.TradeViewController;
+import view.TaskViewController;
 
 public class ViewHandler {
 
@@ -10,10 +13,13 @@ public class ViewHandler {
   // the point system
 
   private Stage mainStage;
-  // the window
   private ClovervilleModelManager model;
+  private ResidentViewController residentViewController;
+  private TradeViewController tradeViewController;
+  private TaskViewController taskViewController;
 
-  public ViewHandler(ClovervilleModelManager model) {
+  public ViewHandler(Stage mainStage, ClovervilleModelManager model) {
+    this.mainStage = mainStage;
     this.model = model;
   }
 
