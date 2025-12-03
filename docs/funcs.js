@@ -10,7 +10,7 @@ function createNavbar() {
     // Add logo to navbar
     const logo = document.createElement('img');
     logo.className = 'navbar-logo';
-    logo.src = '../clovervilleLogo.png';
+    logo.src = 'img/clovervilleLogo.png';
     logo.alt = 'Cloverville Logo';
     
     // Check if on home page
