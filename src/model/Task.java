@@ -1,11 +1,12 @@
 package model;
 
-public abstract class Task {
+import java.io.Serializable;
+
+public abstract class Task implements Serializable {
   private String name;
   private String type;
   // private int amountOfPoints;
   private boolean isComplete;
-  private Resident resident;
   private Date completeDate;
 
   public Task(String name, String type) {

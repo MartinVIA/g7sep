@@ -2,7 +2,9 @@ package model;
 
 import java.util.*;
 
-public class TradeList {
+import java.io.Serializable;
+
+public class TradeList implements Serializable {
   private ArrayList<Trade> trades;
 
   public TradeList() {

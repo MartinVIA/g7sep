@@ -3,9 +3,19 @@ function createNavbar() {
     const navContainer = document.createElement('div');
     navContainer.className = 'navbar-container';
     
+    // Create navbar bar
+    const navBar = document.createElement('div');
+    navBar.className = 'navbar';
+    
+    // Add logo to navbar
+    const logo = document.createElement('img');
+    logo.className = 'navbar-logo';
+    logo.src = '../img/image_2025-12-03_152859823-removebg-preview.png';
+    logo.alt = 'Cloverville Logo';
+    
     const menuButton = document.createElement('button');
     menuButton.className = 'menu-button';
-    menuButton.textContent = '☰ Menu';
+    menuButton.textContent = 'Menu';
     
     const navList = document.createElement('ul');
     navList.className = 'nav-list';
@@ -43,7 +53,12 @@ function createNavbar() {
         navList.classList.remove('show');
     });
     
-    navContainer.appendChild(menuButton);
+    // Add logo and menu button to navbar
+    navBar.appendChild(logo);
+    navBar.appendChild(menuButton);
+    
+    // Add navbar and dropdown menu to container
+    navContainer.appendChild(navBar);
     navContainer.appendChild(navList);
     
     // Insert navbar at the beginning of body

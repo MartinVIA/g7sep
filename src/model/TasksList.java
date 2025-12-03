@@ -2,7 +2,9 @@ package model;
 
 import java.util.*;
 
-public class TasksList {
+import java.io.Serializable;
+
+public class TasksList implements Serializable {
   private ArrayList<Task> tasks;
 
   public TasksList() {

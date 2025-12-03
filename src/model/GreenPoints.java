@@ -1,6 +1,8 @@
 package model;
 
-public class GreenPoints {
+import java.io.Serializable;
+
+public class GreenPoints implements Serializable {
   private int greenPoints;
   private int pointGoal;
   private boolean isReached;

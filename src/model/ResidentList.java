@@ -2,7 +2,9 @@ package model;
 
 import java.util.*;
 
-public class ResidentList {
+import java.io.Serializable;
+
+public class ResidentList implements Serializable {
   private ArrayList<Resident> residents;
 
   public ResidentList() {

@@ -2,7 +2,9 @@ package model;
 
 import java.time.*;
 
-public class Date {
+import java.io.Serializable;
+
+public class Date implements Serializable {
   private int day, month, year;
 
   LocalDate currentDate = LocalDate.now();

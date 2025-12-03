@@ -1,6 +1,8 @@
 package model;
 
-public class Trade {
+import java.io.Serializable;
+
+public class Trade implements Serializable {
   private String name;
   private String description;
   private Resident trader;

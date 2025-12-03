@@ -1,6 +1,8 @@
 package model;
 
-public class Resident {
+import java.io.Serializable;
+
+public class Resident implements Serializable {
   private final int id;
   private String firstName;
   private String lastName;

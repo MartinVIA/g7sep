@@ -61,6 +61,14 @@ public class StartGUI extends Application {
         });
 
         Button task_add = new Button("Add New Task");
+        task_add.setOnAction(e -> {
+            Stage popup = new Stage();
+            TaskViewController controller = new TaskViewController(model);
+            popup.setScene(controller.createScene());
+            popup.setTitle("Tasks");
+            popup.setOnHidden(ev -> refreshResidentsTable());
+            popup.show();
+        });
         Button community_points_add = new Button("Add Community Points");
 
         Button resident_edit = new Button("Edit existing resident");
@@ -126,7 +134,7 @@ public class StartGUI extends Application {
         TableColumn<Resident, String> lastNameCol = new TableColumn("Last Name");
         TableColumn<Resident, Integer> idCol = new TableColumn("ID");
         TableColumn<Resident, Double> pointsCol = new TableColumn("Points");
-        TableColumn<Resident, Double> boostsCol = new TableColumn("Boosts");
+        TableColumn<Resident, Boolean> boostsCol = new TableColumn("Boosts");
 
         // and here we need to set each of the arrays inside of the arraylist to the
         // correct column that
@@ -255,6 +263,7 @@ public class StartGUI extends Application {
         primaryStage.setResizable(false);
         primaryStage.setTitle("I don't wanna do this anympre send help");
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {

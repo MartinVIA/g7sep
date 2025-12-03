@@ -11,15 +11,11 @@ public class FileWriter {
                 try (ObjectOutputStream out = new ObjectOutputStream(
                                 new FileOutputStream("customers.bin"))) {
                         ResidentList residentList = new ResidentList();
-                        ArrayList<Resident> residents = new ArrayList<>();
-                        residents.add(new Resident(1, "Green", "Bob", 9999999));
-                        residents.add(new Resident(2, "Green", "Smith", 0));
-                        residents.add(new Resident(3, "Charlie", "Brown", 0));
-                        residents.add(new Resident(4, "Diana", "White", 0));
 
-                        for (Resident resident : residents) {
-                                residentList.addResident(resident);
-                        }
+                        residentList.addResident(new Resident(1, "Green", "Bob", 9999999));
+                        residentList.addResident(new Resident(2, "Green", "Smith", 0));
+                        residentList.addResident(new Resident(3, "Charlie", "Brown", 0));
+                        residentList.addResident(new Resident(4, "Diana", "White", 0));
 
                         out.writeObject(residentList);
                         System.out.println("Success writing residents");
@@ -28,35 +24,27 @@ public class FileWriter {
                 }
 
                 // write taskslist
-                // try (ObjectOutputStream out = new ObjectOutputStream(
-                // new FileOutputStream("tasks.bin"))) {
-                // TasksList tasksList = new TasksList();
-                // ArrayList<Task> tasks = new ArrayList<>();
-                // tasks.add(new Task("Clean the house", "green_action"));
-                // tasks.add(new Task("Ride a bike", "green_action"));
-                // tasks.add(new Task("Garden duties", "community_task"));
+                try (ObjectOutputStream out = new ObjectOutputStream(
+                                new FileOutputStream("tasks.bin"))) {
+                        TasksList tasksList = new TasksList();
 
-                // for (Task task : tasks) {
-                // tasksList.addTask(task);
-                // }
+                        tasksList.addTask(new GreenActions("Recycle paper", "green_action", 10));
+                        tasksList.addTask(new GreenActions("Plant a tree", "green_action", 50));
+                        tasksList.addTask(new CommunityTasks("Park cleanup", "community_task", 20));
+                        tasksList.addTask(new CommunityTasks("Help neighbor", "community_task", 15));
 
-                // out.writeObject(tasksList);
-                // System.out.println("Success writing tasks");
-                // } catch (Exception e) {
-                // e.printStackTrace();
-                // }
-                // Inside your existing try block for tasks.bin
+                        out.writeObject(tasksList);
+                        System.out.println("Success writing tasks");
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
 
                 // write tradelist
                 try (ObjectOutputStream out = new ObjectOutputStream(
                                 new FileOutputStream("trades.bin"))) {
                         TradeList tradeList = new TradeList();
-                        ArrayList<Trade> trades = new ArrayList<>();
-                        trades.add(new Trade("Pot for 5 apples", "xd", 20));
 
-                        for (Trade trade : trades) {
-                                tradeList.addTrade(trade);
-                        }
+                        tradeList.addTrade(new Trade("Pot for 5 apples", "xd", 20));
 
                         out.writeObject(tradeList);
                         System.out.println("Success writing trades");

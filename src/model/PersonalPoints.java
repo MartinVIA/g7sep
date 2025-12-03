@@ -1,6 +1,8 @@
 package model;
 
-public class PersonalPoints {
+import java.io.Serializable;
+
+public class PersonalPoints implements Serializable {
   private int personalPoints;
   private Date date;
   // private Resident resident;
