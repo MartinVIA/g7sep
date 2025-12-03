@@ -33,7 +33,6 @@ public class StartGUI extends Application {
     }
 
     public void start(Stage primaryStage) {
-
         model = new ClovervilleModelManager();
         Button resident_menu = new Button("Residents");
         Button trade_menu = new Button("Trades");
@@ -84,11 +83,12 @@ public class StartGUI extends Application {
             }
 
             Stage popup = new Stage();
-            ManageResidentController controller = new ManageResidentController(model, selected);
+            ManageResidentController controller = new ManageResidentController(
+                    model, selected, this::refreshResidentsTable);
+
             popup.setScene(controller.createScene());
             popup.setTitle("Manage Resident: " +
                     selected.getFirstName() + " " + selected.getLastName());
-            popup.setOnHidden(ev -> refreshResidentsTable());
             popup.show();
         });
 

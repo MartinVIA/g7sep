@@ -43,6 +43,23 @@ body {
   width: auto;
 }
 
+.navbar-logo-center {
+  margin: 0 auto;
+}
+
+.navbar-logo-left {
+  margin-right: auto;
+}
+
+.navbar-page-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  font-family: Ngetic;
+  flex: 1;
+  text-align: center;
+}
+
 .menu-button {
   background: linear-gradient(135deg, #6b4423 0%, #8b5a3c 100%);
   color: white;

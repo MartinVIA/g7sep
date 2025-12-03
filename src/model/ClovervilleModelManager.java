@@ -27,6 +27,12 @@ public class ClovervilleModelManager {
     cloverville.getResidentList().addResident(v);
   }
 
+  public void addTask(String Name, String Type) {
+    int nextId = cloverville.getAllTasks().getTasks().size() + 1;
+    Task b = new Task(Name, Type);
+    cloverville.get().addResident(b);
+  }
+
   public void awardPointsToResident(int residentId, int points) {
     Resident v = cloverville.getResidentList().getResidentById(residentId);
     if (v != null) {

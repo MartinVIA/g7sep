@@ -13,6 +13,34 @@ function createNavbar() {
     logo.src = '../img/image_2025-12-03_152859823-removebg-preview.png';
     logo.alt = 'Cloverville Logo';
     
+    // Check if on home page
+    const isHomePage = window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/docs/') || window.location.pathname.endsWith('/docs');
+    
+    // Get page title based on current page
+    let pageTitle = '';
+    if (window.location.pathname.includes('tasks.html')) {
+        pageTitle = 'Tasks';
+    } else if (window.location.pathname.includes('trades.html')) {
+        pageTitle = 'Trades';
+    } else if (window.location.pathname.includes('personalpoints.html')) {
+        pageTitle = 'Personal Points';
+    }
+    
+    if (isHomePage) {
+        logo.className = 'navbar-logo navbar-logo-center';
+    } else {
+        logo.className = 'navbar-logo navbar-logo-left';
+        logo.style.cursor = 'pointer';
+        logo.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+    }
+    
+    // Create page title element for non-home pages
+    const pageNameElement = document.createElement('div');
+    pageNameElement.className = 'navbar-page-name';
+    pageNameElement.textContent = pageTitle;
+    
     const menuButton = document.createElement('button');
     menuButton.className = 'menu-button';
     menuButton.textContent = 'Menu';
@@ -55,6 +83,9 @@ function createNavbar() {
     
     // Add logo and menu button to navbar
     navBar.appendChild(logo);
+    if (!isHomePage) {
+        navBar.appendChild(pageNameElement);
+    }
     navBar.appendChild(menuButton);
     
     // Add navbar and dropdown menu to container
