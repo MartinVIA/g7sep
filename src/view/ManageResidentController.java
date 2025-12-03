@@ -29,7 +29,6 @@ public class ManageResidentController {
             popup.setScene(controller.createScene());
             popup.setTitle("Change name of: "
                     + resident.getFirstName() + " " + resident.getLastName());
-            popup.setOnHidden(ev -> refreshResidentsTable());
             popup.show();
         });
 
@@ -39,7 +38,6 @@ public class ManageResidentController {
             EditPointsController controller = new EditPointsController(model, resident);
             popup.setScene(controller.createScene());
             popup.setTitle("Edit points of Resident: " + resident.getFirstName() + " " + resident.getLastName());
-            popup.setOnHidden(ev -> refreshResidentsTable());
             popup.show();
         });
         Button addBoostBtn = new Button("Add a boost");
@@ -48,7 +46,6 @@ public class ManageResidentController {
             AddBoostController controller = new AddBoostController(model, resident);
             popup.setScene(controller.createScene());
             popup.setTitle("Add a boost to: " + resident.getFirstName() + " " + resident.getLastName());
-            popup.setOnHidden(ev -> refreshResidentsTable());
             popup.show();
         });
         Button removeBoostBtn = new Button("Remove a boost");
@@ -57,7 +54,6 @@ public class ManageResidentController {
             RemoveBoostController controller = new RemoveBoostController(model, resident);
             popup.setScene(controller.createScene());
             popup.setTitle("Romove boost from: " + resident.getFirstName() + " " + resident.getLastName());
-            popup.setOnHidden(ev -> refreshResidentsTable());
             popup.show();
         });
         VBox root = new VBox(10, title,

@@ -63,8 +63,8 @@ public class StartGUI extends Application {
         Button task_add = new Button("Add New Task");
         task_add.setOnAction(e -> {
             Stage popup = new Stage();
-            TaskViewController controller = new TaskViewController(model);
-            popup.setScene(controller.createScene());
+            TaskViewController controller_task = new TaskViewController(model);
+            popup.setScene(controller_task.createScene());
             popup.setTitle("Tasks");
             popup.setOnHidden(ev -> refreshResidentsTable());
             popup.show();
@@ -225,22 +225,6 @@ public class StartGUI extends Application {
         Community_points_menu.setOnAction(e -> {
             root.setCenter(communityPointsBox);
             root.setBottom(bottom_menu_community_points);
-        });
-
-        task_add.setOnAction(e -> {
-            Stage popup = new Stage();
-            popup.setTitle("Add Task");
-            TextField taskField = new TextField();
-            taskField.setPromptText("Task Description");
-            Button submitButton = new Button("Submit");
-            submitButton.setOnAction(ev -> {
-                popup.close();
-            });
-            VBox layout = new VBox(10);
-            layout.getChildren().addAll(taskField, submitButton);
-            layout.setPadding(new Insets(10, 10, 10, 10));
-            popup.setScene(new Scene(layout, 300, 150));
-            popup.show();
         });
         community_points_add.setOnAction(e -> {
             Stage popup = new Stage();
