@@ -97,4 +97,68 @@ public class MyFileHandler {
             throw new IOException("Error writing to file: " + e.getMessage(), e);
         }
     }
+
+    // READ METHODS
+    public static synchronized List<String> readAuditLog() {
+        try {
+            return Files.readAllLines(AUDIT_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new java.util.ArrayList<>();
+        }
+    }
+
+    public static synchronized List<String> readCsvFile() {
+        try {
+            return Files.readAllLines(CSV_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new java.util.ArrayList<>();
+        }
+    }
+
+    public static synchronized String readAuditLogAsString() {
+        try {
+            return Files.readString(AUDIT_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public static synchronized String readCsvFileAsString() {
+        try {
+            return Files.readString(CSV_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public static synchronized List<String> readAllSnapshotFiles() {
+        List<String> snapshots = new java.util.ArrayList<>();
+        try {
+            var snapshotFiles = Files.list(INFO_DIR)
+                    .filter(p -> p.getFileName().toString().startsWith("ResidentSnapshot_FULL_"))
+                    .sorted(java.util.Comparator.reverseOrder())
+                    .toList();
+            for (Path p : snapshotFiles) {
+                snapshots.add(p.getFileName().toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return snapshots;
+    }
+
+    public static synchronized List<String> readSnapshotFile(String filename) {
+        try {
+            Path p = INFO_DIR.resolve(filename);
+            return Files.readAllLines(p);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new java.util.ArrayList<>();
+        }
+    }
+
 }

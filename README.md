@@ -1,4 +1,3 @@
 # SEP project - Group #7
-## git gudders
-### edit
 
+![uml diagram as of now](/out/cases/cases.png "diagram")

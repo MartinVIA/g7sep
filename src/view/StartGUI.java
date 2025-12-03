@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import model.ClovervilleModelManager;
 import model.Resident;
 import javafx.scene.control.cell.PropertyValueFactory;
+import utils.MyFileHandler;
 
 public class StartGUI extends Application {
 
@@ -29,7 +30,25 @@ public class StartGUI extends Application {
 
     private void refreshResidentsTable() {
         residentsTable.getItems().setAll(model.getAllResidents());
+    }
 
+    private void loadCsvDataToTable() {
+        java.util.List<String> csvLines = MyFileHandler.readCsvFile();
+        for (String line : csvLines) {
+            if (line.isEmpty() || line.startsWith("ID,FirstName")) {
+                continue; // Skip header
+            }
+            System.out.println("CSV Line: " + line);
+        }
+    }
+
+    private void loadAuditLog() {
+        java.util.List<String> auditLines = MyFileHandler.readAuditLog();
+        for (String line : auditLines) {
+            if (!line.isEmpty()) {
+                System.out.println("Audit: " + line);
+            }
+        }
     }
     // method to refresh the Main menu once the addResidentPopup closes
 
@@ -141,6 +160,8 @@ public class StartGUI extends Application {
 
         residentsTable.setEditable(true);
         residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostsCol);
+        loadCsvDataToTable();
+        loadAuditLog();
         refreshResidentsTable();
 
         VBox residentsBox = new VBox();

@@ -45,7 +45,8 @@ public class PersonalPoints {
     else if (diff > 60)
       boost += 0.8; // 1.8 multiplier if more than 2 months
 
-    resident.setLatestTask(currentDate);
+    // this is handleded in the tasks completion methods
+    // resident.setLatestTask(currentDate);
 
     return boost;
   }

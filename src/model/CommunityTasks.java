@@ -4,12 +4,13 @@ public class CommunityTasks extends Task {
     // some attributes?
     private int personalPointsAward;
     // private Date completeDate;
+    private PersonalPoints personalPoints;
 
     public CommunityTasks(String name, String type, int personalPointsAward) {
         super(name, type);
-        // isComplete = false;
         this.personalPointsAward = personalPointsAward;
-        // completeDate = null;
+        // isComplete = false; - inherited
+        // completeDate = null; - inherited
     }
 
     public int getPersonalPoints() {
@@ -29,9 +30,14 @@ public class CommunityTasks extends Task {
         Date now = new Date();
         setCompleteDate(now);
 
+        // check if resident has boost active
+        // if so, deactivate it
         if (resident.hasBoost()) {
             resident.setBoost(false);
         }
+
+        // check if resident is eligible for boost
+        personalPoints.awardBoost(resident);
 
         resident.addPersonalPoints(personalPointsAward);
         resident.setLatestTask(now);

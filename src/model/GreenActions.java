@@ -8,8 +8,9 @@ public class GreenActions extends Task {
 
     public GreenActions(String name, String type, int greenPoints) {
         super(name, type);
-        // isComplete is also here = false by default
         this.greenPointsAward = greenPointsAward;
+        // isComplete = false; - inherited
+        // completeDate = null; - inherited
     }
 
     public int getGreenPoints() {
