@@ -5,13 +5,19 @@ import java.io.Serializable;
 public class Task implements Serializable {
   private String name;
   private String type;
+  private int points;
   // private int amountOfPoints;
   private boolean isComplete;
   private Date completeDate;
 
   public Task(String name, String type) {
+    this(name, type, 0);
+  }
+
+  public Task(String name, String type, int points) {
     this.name = name;
     this.type = type;
+    this.points = points;
     // this.amountOfPoints = amountOfPoints;
     isComplete = false;
     completeDate = null;
@@ -51,6 +57,14 @@ public class Task implements Serializable {
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public int getPoints() {
+    return points;
+  }
+
+  public void setPoints(int points) {
+    this.points = points;
   }
 
   // public void setAmountOfPoints(int amountOfPoints) {

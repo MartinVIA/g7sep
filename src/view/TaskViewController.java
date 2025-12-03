@@ -4,8 +4,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -16,8 +18,9 @@ public class TaskViewController {
 
     private final ClovervilleModelManager model;
 
-    private ListView<Task> taskListView;
+    private TableView<Task> taskTable;
     private TextField nameField;
+    private TextField pointsField;
     private TextField typeField;
     private Label messageLabel;
 
@@ -30,8 +33,22 @@ public class TaskViewController {
     }
 
     public VBox createView() {
-        taskListView = new ListView<>();
-        taskListView.setPrefWidth(320);
+        taskTable = new TableView<>();
+        taskTable.setPrefWidth(420);
+
+        TableColumn<Task, String> nameCol = new TableColumn<>("Task Description");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn<Task, Integer> pointsCol = new TableColumn<>("Points");
+        pointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
+
+        TableColumn<Task, String> typeCol = new TableColumn<>("Type");
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+        TableColumn<Task, Boolean> statusCol = new TableColumn<>("Complete");
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("completeTask"));
+
+        taskTable.getColumns().addAll(nameCol, pointsCol, typeCol, statusCol);
         refreshTaskList();
 
         Label titleLabel = new Label("Cloverville – Tasks");
@@ -43,6 +60,9 @@ public class TaskViewController {
 
         typeField = new TextField();
         typeField.setPromptText("Type (e.g. community or green)");
+
+        pointsField = new TextField();
+        pointsField.setPromptText("Points awarded (e.g. 5)");
 
         Button addButton = new Button("Add task");
         addButton.setOnAction(e -> handleAddTask());
@@ -56,6 +76,7 @@ public class TaskViewController {
                 new Label("Add new task:"),
                 nameField,
                 typeField,
+                pointsField,
                 addButton,
                 completeButton,
                 messageLabel);
@@ -63,7 +84,7 @@ public class TaskViewController {
 
         BorderPane root = new BorderPane();
         root.setTop(topBox);
-        root.setCenter(taskListView);
+        root.setCenter(taskTable);
         root.setRight(rightBox);
         root.setPadding(new Insets(10));
 
@@ -72,7 +93,7 @@ public class TaskViewController {
     }
 
     private void refreshTaskList() {
-        taskListView.getItems().setAll(model.getAllTasks());
+        taskTable.getItems().setAll(model.getAllTasks());
     }
 
     private void handleAddTask() {
@@ -87,15 +108,27 @@ public class TaskViewController {
             return;
         }
 
-        model.addTask(name, type);
+        int pts = 0;
+        String ptsText = pointsField.getText().trim();
+        if (!ptsText.isEmpty()) {
+            try {
+                pts = Integer.parseInt(ptsText);
+            } catch (NumberFormatException ex) {
+                messageLabel.setText("Points must be a whole number.");
+                return;
+            }
+        }
+
+        model.addTask(name, type, pts);
         nameField.clear();
         typeField.clear();
+        pointsField.clear();
         refreshTaskList();
         messageLabel.setText("Task added.");
     }
 
     private void handleCompleteTask() {
-        Task selected = taskListView.getSelectionModel().getSelectedItem();
+        Task selected = taskTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
             messageLabel.setText("Select a task first.");
             return;

@@ -31,8 +31,16 @@ public class ClovervilleModelManager {
   }
 
   public void addTask(String Name, String Type) {
-    int nextId = cloverville.getAllTasks().getTasks().size() + 1;
-    Task b = new Task(Name, Type);
+    addTask(Name, Type, 0);
+  }
+
+  public void addTask(String name, String type, int points) {
+    Task b;
+    if (type != null && type.toLowerCase().contains("green")) {
+      b = new GreenActions(name, type, points);
+    } else {
+      b = new CommunityTasks(name, type, points);
+    }
     cloverville.getAllTasks().addTask(b);
   }
 

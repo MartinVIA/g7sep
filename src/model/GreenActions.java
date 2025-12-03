@@ -7,8 +7,8 @@ public class GreenActions extends Task {
     private GreenPoints greenPoints;
 
     public GreenActions(String name, String type, int greenPoints) {
-        super(name, type);
-        this.greenPointsAward = greenPointsAward;
+        super(name, type, greenPoints);
+        this.greenPointsAward = greenPoints;
         // isComplete = false; - inherited
         // completeDate = null; - inherited
     }
@@ -19,6 +19,7 @@ public class GreenActions extends Task {
 
     public void setGreenPoints(int greenPointsAward) {
         this.greenPointsAward = greenPointsAward;
+        setPoints(greenPointsAward);
     }
 
     public void completeTask(Resident resident) {

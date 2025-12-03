@@ -5,7 +5,7 @@ public class CommunityTasks extends Task {
     private PersonalPoints personalPoints;
 
     public CommunityTasks(String name, String type, int personalPointsAward) {
-        super(name, type);
+        super(name, type, personalPointsAward);
         this.personalPointsAward = personalPointsAward;
     }
 
@@ -15,6 +15,7 @@ public class CommunityTasks extends Task {
 
     public void setPersonalPoints(int personalPointsAward) {
         this.personalPointsAward = personalPointsAward;
+        setPoints(personalPointsAward);
     }
 
     public void awardPersonalPoints(Resident resident, int points) {

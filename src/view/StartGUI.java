@@ -129,6 +129,11 @@ public class StartGUI extends Application {
 
         // I Chanched it to an arrayList so we can add ResidentViewControllers stored
         // data into Victors UI
+        VBox residentsBox = new VBox();
+        residentsBox.setSpacing(5);
+        residentsBox.setPadding(new Insets(10, 0, 0, 10));
+        residentsBox.getChildren().add(residentsTable);
+
         residentsTable = new TableView<>();
 
         TableColumn<Resident, String> firstNameCol = new TableColumn("First Name");
@@ -148,35 +153,23 @@ public class StartGUI extends Application {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         pointsCol.setCellValueFactory(new PropertyValueFactory<>("personalPoints"));
         boostsCol.setCellValueFactory(new PropertyValueFactory<>("hasBoost"));
-
-        tradesTable = new TabelView<>();
-
-        TableColumn<Trade, String> sellerCol = new TableColumn<>("Seller");
-        TableColumn<Trade, Integer> priceCol = new TableColumn<>("Price");
-        TableColumn<Trade, String> offerCol = new TableColumn<>("Offer");
-        TableColumn<>
         residentsTable.setEditable(true);
         residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostsCol);
         refreshResidentsTable();
-
-        VBox residentsBox = new VBox();
-        residentsBox.setSpacing(5);
-        residentsBox.setPadding(new Insets(10, 0, 0, 10));
-        residentsBox.getChildren().add(residentsTable);
-
-        // trades list
-        TableView tradesTable = new TableView<>();
-        TableColumn sellerCol = new TableColumn("Seller");
-        TableColumn priceCol = new TableColumn("Price");
-        TableColumn offerCol = new TableColumn("Offer");
-        TableColumn descCol = new TableColumn("Description");
-        tradesTable.setEditable(true);
-        tradesTable.getColumns().addAll(sellerCol, priceCol, offerCol, descCol);
 
         VBox tradesBox = new VBox();
         tradesBox.setSpacing(5);
         tradesBox.setPadding(new Insets(10, 0, 0, 10));
         tradesBox.getChildren().add(tradesTable);
+
+        tradesTable = new TableView<>();
+
+        TableColumn<Trade, String> sellerCol = new TableColumn<>("Seller");
+        TableColumn<Trade, Integer> priceCol = new TableColumn<>("Price");
+        TableColumn<Trade, String> offerCol = new TableColumn<>("Offer");
+        TableColumn<Trade, String> descriptionCol = new TableColumn<>("Description");
+        tradesTable.setEditable(true);
+        tradesTable.getColumns().addAll(sellerCol, priceCol, offerCol, descriptionCol);
 
         // task list
         TableView tasksTable = new TableView<>();

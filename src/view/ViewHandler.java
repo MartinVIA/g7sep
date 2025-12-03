@@ -18,8 +18,7 @@ public class ViewHandler {
   private TradeViewController tradeViewController;
   private TaskViewController taskViewController;
 
-  public ViewHandler(Stage mainStage, ClovervilleModelManager model) {
-    this.mainStage = mainStage;
+  public ViewHandler(ClovervilleModelManager model) {
     this.model = model;
   }
 
