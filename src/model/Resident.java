@@ -1,5 +1,8 @@
 package model;
 
+import java.io.IOException;
+import utils.MyFileHandler;
+
 public class Resident {
   private final int id;
   private String firstName;
@@ -8,13 +11,15 @@ public class Resident {
   private PersonalPoints personalPoints;
   private Date latestTask;
 
-  public Resident(int id, String firstName, String lastName, int points) {
+  public Resident(int id, String firstName, String lastName, int points) throws IOException {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     hasBoost = false;
     personalPoints = new PersonalPoints(points);
     latestTask = null;
+    MyFileHandler.saveToFile("VillagerInfo.txt",
+        "id: " + id + ", name: " + firstName + " " + lastName + ", points: " + points);
   }
 
   public Resident(int id, String firstName, String lastName) {

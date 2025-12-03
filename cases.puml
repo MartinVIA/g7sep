@@ -20,6 +20,26 @@ package "Model" #F1f1f1{
     Cloverville --> "1" TradeList : allTrades
     Task *--> "1" Date : completeDate
 
+    class Task{
+        - name : String
+        - type : String
+        - amountPoints : int
+    
+        + completeTask : boolean
+        + equals : boolean
+        + toString : String
+    }
+
+    class GreenActrions
+    {
+        + equals : boolean
+        + toString : String
+    }
+    class CommunityTasks
+    {
+        + equals : boolean
+        + toString : String
+    }
     class Resident{
         - ID : int
         - name : String
@@ -111,13 +131,7 @@ package "Model" #F1f1f1{
         + removeTask() : void
     }
     
-    class Task{
-        - name : String
-        - type : String
-        - amountPoints : int
     
-        + completeTask : boolean
-    }
     Class Cloverville
     {
 

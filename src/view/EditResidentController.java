@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ClovervilleModelManager;
 import model.Resident;
+import utils.MyFileHandler;
 
 public class EditResidentController {
 
@@ -39,7 +40,6 @@ public class EditResidentController {
 
     messageLabel = new Label();
 
-
     Button saveNameButton = new Button("Change name");
     saveNameButton.setOnAction(e -> handleChangeName());
 
@@ -56,20 +56,20 @@ public class EditResidentController {
     grid.setPadding(new Insets(10));
 
     grid.add(new Label("First name:"), 0, 0);
-    grid.add(firstNameField,           1, 0);
-    grid.add(new Label("Last name:"),  0, 1);
-    grid.add(lastNameField,           1, 1);
-    grid.add(saveNameButton,          1, 2);
+    grid.add(firstNameField, 1, 0);
+    grid.add(new Label("Last name:"), 0, 1);
+    grid.add(lastNameField, 1, 1);
+    grid.add(saveNameButton, 1, 2);
 
-    grid.add(new Label("ID:"),        0, 3);
-    grid.add(idField,                 1, 3);
+    grid.add(new Label("ID:"), 0, 3);
+    grid.add(idField, 1, 3);
 
-    grid.add(new Label("Points:"),    0, 5);
-    grid.add(pointsField,             1, 5);
-    grid.add(savePointsButton,        1, 6);
+    grid.add(new Label("Points:"), 0, 5);
+    grid.add(pointsField, 1, 5);
+    grid.add(savePointsButton, 1, 6);
 
-    grid.add(boostCheck,              1, 7);
-    grid.add(toggleBoostButton,       1, 8);
+    grid.add(boostCheck, 1, 7);
+    grid.add(toggleBoostButton, 1, 8);
 
     VBox root = new VBox(10, grid, messageLabel);
     root.setPadding(new Insets(10));
@@ -81,7 +81,7 @@ public class EditResidentController {
 
   private void handleChangeName() {
     String first = firstNameField.getText().trim();
-    String last  = lastNameField.getText().trim();
+    String last = lastNameField.getText().trim();
 
     if (first.isEmpty() || last.isEmpty()) {
       messageLabel.setText("Both first and last name must be filled.");
@@ -89,29 +89,25 @@ public class EditResidentController {
     }
 
     // example of “letters only” validation from your diagram
-    if (!first.matches("[A-Za-z]+") || !last.matches("[A-Za-z]+")) {
+    if (!first.matches("[A-Za-z ]+") || !last.matches("[A-Za-z ]+")) {
       messageLabel.setText("Names should contain letters only (A–Z).");
       return;
     }
 
     resident.setFirstName(first);
     resident.setLastName(last);
-    // if ClovervilleModelManager needs to be notified explicitly,
-    // you could call a method there too, e.g. model.updateResident(resident);
 
     // now we check if bob tryes to change the name to the same name
 
     boolean sameFirst = first.equalsIgnoreCase(resident.getFirstName());
-    boolean sameLast = first.equalsIgnoreCase(resident.getLastName());
-    if(sameLast && sameFirst)
-    {
+    boolean sameLast = last.equalsIgnoreCase(resident.getLastName());
+    if (sameLast && sameFirst) {
       messageLabel.setText("Enter a different name");
       return;
-      // this will only work for the original name that was entered but thats good enough
-    }
-    else
+      // this will only work for the original name that was entered but thats good
+      // enough
+    } else
       messageLabel.setText("Name updated.");
-
   }
 
   private void handleChangeId() {

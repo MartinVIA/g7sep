@@ -1,6 +1,6 @@
 package model;
 
-public class Task {
+public abstract class Task {
   private String name;
   private String type;
   private int amountOfPoints;
@@ -49,28 +49,30 @@ public class Task {
   }
 
   // idk if it's going to work for multiple residents
-  public void completeTask(Resident resident) {
-    completeTask = true;
-    resident.addPersonalPoints(amountOfPoints);
-    completeDate = completeDate.today().copy();
-    resident.setLatestTask(completeDate.today().copy());
-  }
+  // public void completeTask(Resident resident) {
+  // completeTask = true;
+  // resident.addPersonalPoints(amountOfPoints);
+  // completeDate = completeDate.today().copy();
+  // resident.setLatestTask(completeDate.today().copy());
+  // }
 
-  public boolean equals(Object obj) {
-    if (obj == null || obj.getClass() != getClass())
-      return false;
+  public abstract void completeTask(Resident resident);
 
-    Task other = (Task) obj;
-    return name.equals(other.name) &&
-        type.equals(other.type) &&
-        amountOfPoints == other.amountOfPoints &&
-        completeTask == other.completeTask;
-  }
+  // public boolean equals(Object obj) {
+  // if (obj == null || obj.getClass() != getClass())
+  // return false;
 
-  public String toString() {
-    return "Name: " + name +
-        ", Type: " + type +
-        ", Amount of Points: " + amountOfPoints +
-        ", Complete Task: " + completeTask;
-  }
+  // Task other = (Task) obj;
+  // return name.equals(other.name) &&
+  // type.equals(other.type) &&
+  // amountOfPoints == other.amountOfPoints &&
+  // completeTask == other.completeTask;
+  // }
+
+  // public String toString() {
+  // return "Name: " + name +
+  // ", Type: " + type +
+  // ", Amount of Points: " + amountOfPoints +
+  // ", Complete Task: " + completeTask;
+  // }
 }

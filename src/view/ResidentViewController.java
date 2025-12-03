@@ -14,7 +14,8 @@ import model.Resident;
 
 public class ResidentViewController {
 
-  // reference to the model so we can get residents, add residents, award points ndat
+  // reference to the model so we can get residents, add residents, award points
+  // ndat
   private final ClovervilleModelManager model;
 
   private ListView<Resident> residentListView;
@@ -31,17 +32,14 @@ public class ResidentViewController {
 
   // make scene
   public Scene createScene() {
-
     residentListView = new ListView<>();
     residentListView.setPrefWidth(320);
     refreshResidentList();
 
-    // titel
+    // title
     Label titleLabel = new Label("Cloverville – Residents & Personal Points");
     HBox topBox = new HBox(titleLabel);
     topBox.setPadding(new Insets(10));
-
-
 
     firstNameField = new TextField();
     firstNameField.setPromptText("First name");
@@ -75,7 +73,6 @@ public class ResidentViewController {
         messageLabel);
     rightBox.setPadding(new Insets(10));
 
-
     BorderPane root = new BorderPane();
     root.setTop(topBox);
     root.setCenter(residentListView);
@@ -93,8 +90,8 @@ public class ResidentViewController {
   }
 
   private void handleAddResident() {
-    String firstName = firstNameField.getText().trim();
-    String lastName = lastNameField.getText().trim();
+    String firstName = firstNameField.getText();
+    String lastName = lastNameField.getText();
     if (firstName.isEmpty() && lastName.isEmpty()) {
       messageLabel.setText("Name cannot be empty.");
       return;
