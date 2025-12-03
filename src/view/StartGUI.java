@@ -138,25 +138,7 @@ public class StartGUI extends Application {
             root.setCenter(new VBox(new Label("Community Points - TODO")));
             root.setBottom(bottom_menu_community_points);
         });
-        // Popups
-        resident_add.setOnAction(e -> {
-            Stage popup = new Stage();
-            popup.setTitle("Add Resident");
-            TextField firstNameField = new TextField();
-            firstNameField.setPromptText("First Name");
-            TextField lastNameField = new TextField();
-            lastNameField.setPromptText("Last Name");
-            Button submitButton = new Button("Submit");
-            submitButton.setOnAction(ev -> {
-                // Here you would normally handle the input data
-                popup.close();
-            });
-            VBox layout = new VBox(10);
-            layout.getChildren().addAll(firstNameField, lastNameField, submitButton);
-            layout.setPadding(new Insets(10, 10, 10, 10));
-            popup.setScene(new Scene(layout, 300, 150));
-            popup.show();
-        });
+
         trade_add.setOnAction(e -> {
             Stage popup = new Stage();
             popup.setTitle("Add Trade");
