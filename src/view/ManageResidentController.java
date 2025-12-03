@@ -9,31 +9,42 @@ import javafx.stage.Stage;
 import model.ClovervilleModelManager;
 import model.Resident;
 
-public class ManageResidentController
-{
+public class ManageResidentController {
     private final ClovervilleModelManager model;
     private final Resident resident;
 
-    public ManageResidentController(ClovervilleModelManager model, Resident resident)
-    {
+    public ManageResidentController(ClovervilleModelManager model, Resident resident) {
         this.model = model;
         this.resident = resident;
     }
-    public Scene createScene()
-    {
+
+    public Scene createScene() {
         Label title = new Label(
-        "Manage " + resident.getFirstName() + " " + resident.getLastName());
+                "Manage " + resident.getFirstName() + " " + resident.getLastName());
 
-    Button changeNameBtn   = new Button("Change name");
-    Button changeIdBtn     = new Button("Change ID number");
-    Button editPointsBtn   = new Button("Edit points");
-    Button addBoostBtn     = new Button("Add a boost");
-    Button removeBoostBtn  = new Button("Remove a boost");
+        Button changeNameBtn = new Button("Change name");
+        changeNameBtn.setOnAction(e -> {
+            Stage popup = new Stage();
+            ChangeNameController controller = new ChangeNameController(model, resident);
+            popup.setScene(controller.createScene());
+            popup.setTitle("Change name of: "
+                    + resident.getFirstName() + " " + resident.getLastName());
+            popup.show();
+        });
+    
+        Button editPointsBtn = new Button("Edit points");
+        editPointsBtn.setOnAction(e-> {
+            Stage popup = new Stage();
+            EditPointsController controller = new EditPointsController(model, resident);
+            popup.setScene(controller.createScene)
+        });
+        Button addBoostBtn = new Button("Add a boost");
+        Button removeBoostBtn = new Button("Remove a boost");
 
-    VBox root = new VBox(10, title,
-        changeNameBtn, changeIdBtn, editPointsBtn, addBoostBtn, removeBoostBtn);
-    root.setPadding(new Insets(10));
+        VBox root = new VBox(10, title,
+                changeNameBtn, editPointsBtn, addBoostBtn, removeBoostBtn);
+        root.setPadding(new Insets(10));
 
-    return new Scene(root, 260, 220);   
+        return new Scene(root, 260, 220);
     }
 }

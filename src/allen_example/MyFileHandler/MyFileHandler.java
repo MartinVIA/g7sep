@@ -62,8 +62,8 @@ public class MyFileHandler {
       }
    }
 
-   // Reads the first line from the file with the given file name and returns it as
-   // a String
+   // s the first line from the file with the given file name and returns it as a
+   // String
    public String readFromTextFile(String fileName) throws FileNotFoundException {
       Scanner readFromFile = null;
       String str = "";
