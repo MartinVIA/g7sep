@@ -36,7 +36,7 @@ public class EditResidentController {
     idField.setDisable(true); // we don't want to change the id
     pointsField = new TextField(String.valueOf(resident.getPersonalPoints()));
     boostCheck = new CheckBox("Has boost");
-    boostCheck.setSelected(resident.hasBoost());
+    boostCheck.setSelected(resident.getHasBoost());
 
     messageLabel = new Label();
 

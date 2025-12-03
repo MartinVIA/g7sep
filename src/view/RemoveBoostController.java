@@ -26,7 +26,7 @@ public class RemoveBoostController {
         Label msg = new Label();
 
         // If no boost error!!!!!
-        if (!resident.hasBoost()) {
+        if (!resident.getHasBoost()) {
             msg.setText("The resident doesn’t have any boost.");
             root.getChildren().add(msg);
             return new Scene(root, 280, 100);

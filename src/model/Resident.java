@@ -43,7 +43,11 @@ public class Resident implements Serializable {
     return lastName;
   }
 
-  public boolean hasBoost() {
+  // public boolean hasBoost() {
+  // return hasBoost;
+  // }
+
+  public boolean getHasBoost() {
     return hasBoost;
   }
 
@@ -100,9 +104,9 @@ public class Resident implements Serializable {
         && firstName.equals(other.firstName)
         && lastName.equals(other.lastName)
         && hasBoost == other.hasBoost
-        && personalPoints.equals(other.personalPoints)
-        && latestTask.equals(other.latestTask)
-        && latestGreenAction.equals(other.latestGreenAction);
+        && personalPoints.equals(other.personalPoints);
+    // && latestTask.equals(other.latestTask)
+    // && latestGreenAction.equals(other.latestGreenAction);
   }
 
   public String toString() {

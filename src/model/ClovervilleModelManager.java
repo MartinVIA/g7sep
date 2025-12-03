@@ -30,7 +30,11 @@ public class ClovervilleModelManager {
   public void addTask(String Name, String Type) {
     int nextId = cloverville.getAllTasks().getTasks().size() + 1;
     Task b = new Task(Name, Type);
-    cloverville.get().addResident(b);
+    cloverville.getAllTasks().addTask(b);
+  }
+
+  public java.util.List<Task> getAllTasks() {
+    return cloverville.getAllTasks().getTasks();
   }
 
   public void awardPointsToResident(int residentId, int points) {

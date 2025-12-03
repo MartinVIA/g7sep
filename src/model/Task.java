@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public abstract class Task implements Serializable {
+public class Task implements Serializable {
   private String name;
   private String type;
   // private int amountOfPoints;
@@ -65,7 +65,14 @@ public abstract class Task implements Serializable {
   // resident.setLatestTask(completeDate.today().copy());
   // }
 
-  public abstract void completeTask(Resident resident);
+  public void completeTask(Resident resident) {
+    Date now = new Date();
+    setCompleteDate(now);
+    if (resident != null) {
+      resident.setLatestTask(now);
+    }
+    markAsComplete();
+  }
 
   public boolean equals(Object obj) {
     if (obj == null || obj.getClass() != getClass())

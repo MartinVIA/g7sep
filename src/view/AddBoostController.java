@@ -26,7 +26,7 @@ public class AddBoostController {
         Label msg = new Label();
 
         // If they already have a boost → show message, nothing to do
-        if (resident.hasBoost()) {
+        if (resident.getHasBoost()) {
             msg.setText("There is no boost available for this resident (already has a boost).");
             root.getChildren().add(msg);
             return new Scene(root, 320, 100);

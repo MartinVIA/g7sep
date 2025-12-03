@@ -171,19 +171,9 @@ public class StartGUI extends Application {
         tradesBox.setPadding(new Insets(10, 0, 0, 10));
         tradesBox.getChildren().add(tradesTable);
 
-        // task list
-        TableView tasksTable = new TableView<>();
-        TableColumn taskDescCol = new TableColumn("Task Description");
-        TableColumn taskPointsCol = new TableColumn("Points");
-        TableColumn taskAssignedCol = new TableColumn("Assigned To");
-        TableColumn taskStatusCol = new TableColumn("Status");
-        tasksTable.setEditable(true);
-        tasksTable.getColumns().addAll(taskDescCol, taskPointsCol, taskAssignedCol, taskStatusCol);
-
-        VBox tasksBox = new VBox();
-        tasksBox.setSpacing(5);
-        tasksBox.setPadding(new Insets(10, 0, 0, 10));
-        tasksBox.getChildren().add(tasksTable);
+        // task list (use TaskViewController)
+        TaskViewController taskController = new TaskViewController(model);
+        VBox tasksBox = taskController.createView();
 
         // community points layout
         TableView greenTasks = new TableView<>();
