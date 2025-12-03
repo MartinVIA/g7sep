@@ -28,23 +28,24 @@ public class FileWriter {
                 }
 
                 // write taskslist
-                try (ObjectOutputStream out = new ObjectOutputStream(
-                                new FileOutputStream("tasks.bin"))) {
-                        TasksList tasksList = new TasksList();
-                        ArrayList<Task> tasks = new ArrayList<>();
-                        tasks.add(new Task("Clean the house", "green_action"));
-                        tasks.add(new Task("Ride a bike", "green_action"));
-                        tasks.add(new Task("Garden duties", "community_task"));
+                // try (ObjectOutputStream out = new ObjectOutputStream(
+                // new FileOutputStream("tasks.bin"))) {
+                // TasksList tasksList = new TasksList();
+                // ArrayList<Task> tasks = new ArrayList<>();
+                // tasks.add(new Task("Clean the house", "green_action"));
+                // tasks.add(new Task("Ride a bike", "green_action"));
+                // tasks.add(new Task("Garden duties", "community_task"));
 
-                        for (Task task : tasks) {
-                                tasksList.addTask(task);
-                        }
+                // for (Task task : tasks) {
+                // tasksList.addTask(task);
+                // }
 
-                        out.writeObject(tasksList);
-                        System.out.println("Success writing tasks");
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
+                // out.writeObject(tasksList);
+                // System.out.println("Success writing tasks");
+                // } catch (Exception e) {
+                // e.printStackTrace();
+                // }
+                // Inside your existing try block for tasks.bin
 
                 // write tradelist
                 try (ObjectOutputStream out = new ObjectOutputStream(

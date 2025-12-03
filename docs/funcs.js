@@ -1,7 +1,11 @@
-// Create a nice navbar dynamically
+// Create a dropdown navbar menu
 function createNavbar() {
-    const navbar = document.createElement('nav');
-    navbar.className = 'navbar';
+    const navContainer = document.createElement('div');
+    navContainer.className = 'navbar-container';
+    
+    const menuButton = document.createElement('button');
+    menuButton.className = 'menu-button';
+    menuButton.textContent = '☰ Menu';
     
     const navList = document.createElement('ul');
     navList.className = 'nav-list';
@@ -29,10 +33,21 @@ function createNavbar() {
         navList.appendChild(li);
     });
     
-    navbar.appendChild(navList);
+    // Toggle dropdown on button click
+    menuButton.addEventListener('click', () => {
+        navList.classList.toggle('show');
+    });
+    
+    // Close dropdown when a link is clicked
+    navList.addEventListener('click', () => {
+        navList.classList.remove('show');
+    });
+    
+    navContainer.appendChild(menuButton);
+    navContainer.appendChild(navList);
     
     // Insert navbar at the beginning of body
-    document.body.insertBefore(navbar, document.body.firstChild);
+    document.body.insertBefore(navContainer, document.body.firstChild);
 }
 
 // Call the function when DOM is ready

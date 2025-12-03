@@ -1,6 +1,6 @@
 @font-face{
-    font-family: Asvasta;
-    src: url(/docs/Asvata_Demo.ttf);
+    font-family: Ngetic;
+    src: url(ngetic.otf);
 }
 *{
   margin: 0;
@@ -11,6 +11,7 @@
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f5f5f5;
+  text-align: center;
 }
 
 .navbar {
@@ -22,43 +23,80 @@ body {
   z-index: 100;
 }
 
+.navbar-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.menu-button {
+  background: linear-gradient(135deg, #237b08 0%, #1e990b 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.menu-button:hover {
+  background: linear-gradient(135deg, #1e990b 0%, #237b08 100%);
+  transform: scale(1.05);
+}
+
 .nav-list {
   list-style: none;
+  display: none;
+  flex-direction: column;
+  padding: 10px 0;
+  margin: 10px 0 0 0;
+  background: linear-gradient(135deg, #237b08 0%, #1e990b 100%);
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  min-width: 180px;
+}
+
+.nav-list.show {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0;
-  margin: 0;
+}
+
+.nav-list li {
+  list-style: none;
 }
 
 .nav-link {
   display: block;
-  padding: 16px 20px;
+  padding: 12px 20px;
   color: white;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
-  border-bottom: 3px solid transparent;
+  text-align: left;
 }
 
 .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  border-bottom-color: #fff;
+  padding-left: 25px;
 }
 
 .nav-link.active {
-background-color: rgba(255, 255, 255, 0.2);
-border-bottom-color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 h3 {
 margin-top: 30px;
 color: #333;
+font-family: Ngetic;
 }
 
 p {
 line-height: 1.6;
 color: #666;
 max-width: 800px;
-margin: 20px;
+margin: 20px auto;
+font-family: 'Arial', sans-serif;
 }

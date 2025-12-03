@@ -32,25 +32,6 @@ public class StartGUI extends Application {
         residentsTable.getItems().setAll(model.getAllResidents());
     }
 
-    private void loadCsvDataToTable() {
-        java.util.List<String> csvLines = MyFileHandler.readCsvFile();
-        for (String line : csvLines) {
-            if (line.isEmpty() || line.startsWith("ID,FirstName")) {
-                continue; // Skip header
-            }
-            System.out.println("CSV Line: " + line);
-        }
-    }
-
-    private void loadAuditLog() {
-        java.util.List<String> auditLines = MyFileHandler.readAuditLog();
-        for (String line : auditLines) {
-            if (!line.isEmpty()) {
-                System.out.println("Audit: " + line);
-            }
-        }
-    }
-
     public void start(Stage primaryStage) {
 
         model = new ClovervilleModelManager();
@@ -161,8 +142,6 @@ public class StartGUI extends Application {
 
         residentsTable.setEditable(true);
         residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostsCol);
-        loadCsvDataToTable();
-        loadAuditLog();
         refreshResidentsTable();
 
         VBox residentsBox = new VBox();

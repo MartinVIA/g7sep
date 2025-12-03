@@ -51,7 +51,7 @@ public class ManageResidentController {
         removeBoostBtn.setOnAction(e -> {
             Stage popup = new Stage();
             RemoveBoostController controller = new RemoveBoostController(model, resident);
-            popup.setScene(controller.createScene);
+            popup.setScene(controller.createScene());
             popup.setTitle("Romove boost from: " + resident.getFirstName() + " " + resident.getLastName());
             popup.show();
         });
