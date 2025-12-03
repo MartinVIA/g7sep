@@ -162,6 +162,14 @@ public class StartGUI extends Application {
         tradesBox.setPadding(new Insets(10, 0, 0, 10));
         tradesBox.getChildren().add(tradesTable);
 
+        tradesTable = new TableView<>();
+
+        TableColumn<Trade, String> sellerCol = new TableColumn<>("Seller");
+        TableColumn<Trade, Integer> priceCol = new TableColumn<>("Price");
+        TableColumn<Trade, String> offerCol = new TableColumn<>("Offer");
+        TableColumn<Trade, String> descriptionCol = new TableColumn<>("Description");
+        tradesTable.setEditable(true);
+        tradesTable.getColumns().addAll(sellerCol, priceCol, offerCol, descriptionCol);
         // task list
         TableView tasksTable = new TableView<>();
         TableColumn taskDescCol = new TableColumn("Task Description");
