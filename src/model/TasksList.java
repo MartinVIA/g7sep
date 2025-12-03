@@ -1,13 +1,16 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class TasksList {
   private List<Task> tasks;
 
   public TasksList() {
     tasks = new ArrayList<Task>();
+  }
+
+  public int size() {
+    return tasks.size();
   }
 
   public void addTask(Task task) {
@@ -24,19 +27,15 @@ public class TasksList {
     }
   }
 
-  public List<Task> getTasks() {
-    return new ArrayList<>(tasks);
-  }
-
-  public int getSize() {
-    return tasks.size();
-  }
-
   public Task getTask(int index) {
     if (index < tasks.size() && index >= 0) {
       return tasks.get(index);
     }
     return null;
+  }
+
+  public List<Task> getTasks() {
+    return new ArrayList<>(tasks);
   }
 
   public boolean equals(Object obj) {

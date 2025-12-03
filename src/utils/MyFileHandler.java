@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
-import model.Resident;
+import model.*;
 
 public class MyFileHandler {
     // Writes the given string to a file with the given file name

@@ -9,6 +9,10 @@ public class TradeList {
     trades = new ArrayList<Trade>();
   }
 
+  public int size() {
+    return trades.size();
+  }
+
   public void addTrade(Trade t) {
     trades.add(t);
   }
