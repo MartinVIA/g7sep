@@ -11,26 +11,26 @@ import model.TasksList;
 import model.Task;
 
 public class ClovervilleModelManager {
-    private Cloverville cloverville;
+  private Cloverville cloverville;
 
-    public ClovervilleModelManager() {
-        cloverville = new Cloverville();
-    }
+  public ClovervilleModelManager() {
+    cloverville = new Cloverville();
+  }
 
-    public List<Resident> getAllResidents() {
-        return cloverville.getResidentList().getAllResidents();
-    }
+  public List<Resident> getAllResidents() {
+    return cloverville.getResidentList().getAllResidents();
+  }
 
-    public void addResident(String firstName, String lastName) {
-        int nextId = cloverville.getResidentList().getAllResidents().size() + 1;
-        Resident v = new Resident(nextId, firstName, lastName);
-        cloverville.getResidentList().addResident(v);
-    }
+  public void addResident(String firstName, String lastName) {
+    int nextId = cloverville.getResidentList().getAllResidents().size() + 1;
+    Resident v = new Resident(nextId, firstName, lastName);
+    cloverville.getResidentList().addResident(v);
+  }
 
-    public void awardPointsToResident(int residentId, int points) {
-        Resident v = cloverville.getResidentList().getResidentById(residentId);
-        if (v != null) {
-            v.addPersonalPoints(points);
-        }
+  public void awardPointsToResident(int residentId, int points) {
+    Resident v = cloverville.getResidentList().getResidentById(residentId);
+    if (v != null) {
+      v.addPersonalPoints(points);
     }
+  }
 }
