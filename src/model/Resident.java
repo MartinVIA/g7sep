@@ -9,6 +9,7 @@ public class Resident {
   private boolean hasBoost;
   private PersonalPoints personalPoints;
   private Date latestTask;
+  private Date latestGreenAction;
 
   public Resident(int id, String firstName, String lastName, int points) {
     this.id = id;
@@ -17,6 +18,7 @@ public class Resident {
     hasBoost = false;
     personalPoints = new PersonalPoints(points);
     latestTask = null;
+    latestGreenAction = null;
     MyFileHandler.appendResident(this, "CREATE");
   }
 
@@ -27,6 +29,7 @@ public class Resident {
     hasBoost = false;
     personalPoints = new PersonalPoints();
     latestTask = null;
+    latestGreenAction = null;
     MyFileHandler.appendResident(this, "CREATE");
   }
 
@@ -52,6 +55,10 @@ public class Resident {
 
   public Date getLatestTask() {
     return latestTask == null ? null : latestTask;
+  }
+
+  public Date getLatestGreenAction() {
+    return latestGreenAction == null ? null : latestGreenAction;
   }
 
   public void setFirstName(String firstName) {
@@ -89,6 +96,11 @@ public class Resident {
     MyFileHandler.appendResident(this, "UPDATE");
   }
 
+  public void setLatestGreenAction(Date latestGreenAction) {
+    this.latestGreenAction = latestGreenAction;
+    MyFileHandler.appendResident(this, "UPDATE");
+  }
+
   public boolean equals(Object obj) {
     if (obj == null || obj.getClass() != getClass())
       return false;
@@ -98,7 +110,9 @@ public class Resident {
         && firstName.equals(other.firstName)
         && lastName.equals(other.lastName)
         && hasBoost == other.hasBoost
-        && personalPoints.equals(other.personalPoints);
+        && personalPoints.equals(other.personalPoints)
+        && latestTask.equals(other.latestTask)
+        && latestGreenAction.equals(other.latestGreenAction);
   }
 
   public String toString() {

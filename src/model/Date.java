@@ -10,6 +10,12 @@ public class Date {
   private int currMonth = currentDate.getMonthValue();
   private int currYear = currentDate.getYear();
 
+  public Date() { // default to current date
+    this.day = currDay;
+    this.month = currMonth;
+    this.year = currYear;
+  }
+
   public Date(int day, int month, int year) {
     this.day = day;
     this.month = month;

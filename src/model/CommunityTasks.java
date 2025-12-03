@@ -2,26 +2,22 @@ package model;
 
 public class CommunityTasks extends Task {
     // some attributes?
-    private int personalPoints;
-    private Date completeDate;
+    private int personalPointsAward;
+    // private Date completeDate;
 
-    public CommunityTasks(String name, String type, int personalPoints) {
+    public CommunityTasks(String name, String type, int personalPointsAward) {
         super(name, type);
-        // isComplete is also here = false by default
-        this.personalPoints = personalPoints;
-        completeDate = null;
+        // isComplete = false;
+        this.personalPointsAward = personalPointsAward;
+        // completeDate = null;
     }
 
     public int getPersonalPoints() {
-        return personalPoints;
+        return personalPointsAward;
     }
 
-    public void setPersonalPoints(int personalPoints) {
-        this.personalPoints = personalPoints;
-    }
-
-    public Date getCompleteDate() {
-        return completeDate;
+    public void setPersonalPoints(int personalPointsAward) {
+        this.personalPointsAward = personalPointsAward;
     }
 
     public void awardPersonalPoints(Resident resident, int points) {
@@ -30,9 +26,10 @@ public class CommunityTasks extends Task {
 
     public void completeTask(Resident resident) {
         // logic here
-        completeDate = completeDate.today();
-        resident.addPersonalPoints(personalPoints);
-        resident.setLatestTask(completeDate);
+        Date now = new Date();
+        setCompleteDate(now);
+        resident.addPersonalPoints(personalPointsAward);
+        resident.setLatestTask(now);
         super.markAsComplete();
         // i think it works???
     }
@@ -43,11 +40,11 @@ public class CommunityTasks extends Task {
 
         CommunityTasks other = (CommunityTasks) obj;
         return super.equals(other)
-                && this.personalPoints == other.personalPoints;
+                && this.personalPointsAward == other.personalPointsAward;
     }
 
     public String toString() {
         return super.toString() +
-                ", Personal points: " + personalPoints;
+                ", Personal points award: " + personalPointsAward;
     }
 }

@@ -6,14 +6,14 @@ public abstract class Task {
   // private int amountOfPoints;
   private boolean isComplete;
   private Resident resident;
-  // private Date completeDate;
+  private Date completeDate;
 
   public Task(String name, String type) {
     this.name = name;
     this.type = type;
     // this.amountOfPoints = amountOfPoints;
     isComplete = false;
-    // completeDate = null;
+    completeDate = null;
   }
 
   public String getName() {
@@ -36,9 +36,13 @@ public abstract class Task {
     return isComplete;
   }
 
-  // public Date getCompleteDate() {
-  // return completeDate;
-  // }
+  public void setCompleteDate(Date date) {
+    completeDate = date;
+  }
+
+  public Date getCompleteDate() {
+    return completeDate;
+  }
 
   public void setName(String name) {
     this.name = name;

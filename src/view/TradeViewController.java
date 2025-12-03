@@ -46,9 +46,62 @@ public class TradeViewController {
 
         Button confirmationButton = new Button("Confirm trade");
         confirmationButton.setOnAction(e -> handleCreateTrade());
+
+        Button cancelButton = new Button("Cancel trade");
+        cancelButton.setOnAction(e -> cancelButton.getScene().getWindow().hide());
+
+        messageLabel = new Label();
+        VBox rightBox = new VBox(
+                10,
+                new Label("Trade details:"),
+                offerNameField,
+                description,
+                priceField,
+                new Label("Select requesting resident:"),
+                residentListView,
+                confirmationButton,
+                cancelButton,
+                messageLabel);
+        rightBox.setPadding(new Insets(10));
+
+        BorderPane root = new BorderPane();
+        root.setTop(topBox);
+        root.setCenter(rightBox);
+        root.setPadding(new Insets(10));
+
+        return new Scene(root, 600, 400);
     }
 
-    public void handleCreateTrade() {
-        // code i don t know how to do
+    private void handleCreateTrade() {
+        String name = offerNameField.getText().trim();
+        String desc = description.getText().trim();
+        String priceText = priceField.getText().trim();
+        Resident selected = residentListView.getSelectionModel().getSelectedItem();
+
+        // basic validation – corresponds to "System validates action"
+        if (name.isEmpty() || desc.isEmpty()) {
+            messageLabel.setText("Offer name and description cannot be empty.");
+            return; // show error, keep window open
+        }
+
+        if (selected == null) {
+            messageLabel.setText("Select the resident who requested this trade.");
+            return;
+        }
+
+        int price;
+        try {
+            price = Integer.parseInt(priceText);
+        } catch (NumberFormatException ex) {
+            messageLabel.setText("Price must be a whole number.");
+            return; // error path in diagram
+        }
+
+        // If you have a TradeOffer model, call the model here.
+        // e.g.: model.createTradeOffer(selected.getId(), name, desc, price);
+
+        messageLabel.setText("Trade offer created successfully.");
+        // optionally close the window after a short delay, or let the user close it
     }
+
 }

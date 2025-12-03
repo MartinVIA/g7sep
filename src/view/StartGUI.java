@@ -201,7 +201,7 @@ public class StartGUI extends Application {
             root.setBottom(bottom_menu_resident);
         });
         trade_menu.setOnAction(e -> {
-            nav_bar.getChildren().addAll(progressBar, temp);
+            nav_bar.getChildren().removeAll(progressBar, temp);
             root.setCenter(tradesBox);
             root.setBottom(bottom_menu_trades);
         });
@@ -216,23 +216,6 @@ public class StartGUI extends Application {
             root.setBottom(bottom_menu_community_points);
         });
 
-        trade_add.setOnAction(e -> {
-            Stage popup = new Stage();
-            popup.setTitle("Add Trade");
-            TextField sellerField = new TextField();
-            sellerField.setPromptText("Seller");
-            TextField priceField = new TextField();
-            priceField.setPromptText("Price");
-            Button submitButton = new Button("Submit");
-            submitButton.setOnAction(ev -> {
-                popup.close();
-            });
-            VBox layout = new VBox(10);
-            layout.getChildren().addAll(sellerField, priceField, submitButton);
-            layout.setPadding(new Insets(10, 10, 10, 10));
-            popup.setScene(new Scene(layout, 300, 150));
-            popup.show();
-        });
         task_add.setOnAction(e -> {
             Stage popup = new Stage();
             popup.setTitle("Add Task");

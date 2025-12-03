@@ -1,6 +1,2 @@
-ID,FirstName,LastName,HasBoost,PersonalPoints,Action,Timestamp
-1,leon,de Kuijper,false,0,CREATE,2025-12-03T10:43:54.458632600Z
-1,via,kdop,false,0,CREATE,2025-12-03T10:45:36.652522100Z
-1,leon,de Kuijper,false,0,CREATE,2025-12-03T10:47:32.556475600Z
-2,de Kuijper,leon,false,0,CREATE,2025-12-03T10:47:40.084996900Z
-3,leonj,de Kopo,false,0,CREATE,2025-12-03T10:47:57.662810300Z
+1,Leon,de Kuijper,false,0,CREATE,2025-12-03T10:52:55.801269500Z
+1,Leon,de Kuijper,false,50,UPDATE,2025-12-03T10:53:02.033015100Z

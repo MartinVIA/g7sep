@@ -3,17 +3,14 @@ package model;
 public class GreenPoints {
   private int greenPoints;
   private int pointGoal;
+  private boolean isReached;
 
   public Date resetPeriod;
-
-  public GreenPoints() {
-    greenPoints = 0;
-    pointGoal = 0;
-  }
 
   public GreenPoints(int goal) {
     greenPoints = 0;
     pointGoal = goal;
+    isReached = false;
   }
 
   public void setGoal(int goal) {
@@ -35,6 +32,16 @@ public class GreenPoints {
   public int getPoints() {
     return greenPoints;
   }
+
+  public boolean isGoalReached() {
+    return greenPoints >= pointGoal;
+  }
+
+  public void goalReached() {
+    isReached = true;
+  }
+
+  // equals method
 
   public String toString() {
     return "Greenpoints: " + greenPoints + " " + "Point goal: " + pointGoal;
