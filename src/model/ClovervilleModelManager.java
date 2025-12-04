@@ -1,17 +1,10 @@
 package model;
 
-import java.util.List;
-import model.ResidentList;
-import model.Resident;
-import model.Cloverville;
-import model.PersonalPoints;
-import model.Trade;
-import model.TradeList;
-import model.TasksList;
-import model.Task;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClovervilleModelManager {
+
   private Cloverville cloverville;
 
   private final List<Trade> trades = new ArrayList<>();
@@ -19,8 +12,9 @@ public class ClovervilleModelManager {
   public ClovervilleModelManager() {
     cloverville = new Cloverville();
   }
+  
 
-  public List<Resident> getAllResidents() {
+  public ArrayList<Resident> getAllResidents() {
     return cloverville.getResidentList().getAllResidents();
   }
 
@@ -41,23 +35,24 @@ public class ClovervilleModelManager {
     } else {
       b = new CommunityTasks(name, type, points);
     }
-    cloverville.getAllTasks().addTask(b);
+    cloverville.getTaskList().addTask(b);
+  }
+
+  public ArrayList<Trade> getTradeList() {
+    // return new ArrayList<Trade>(trades);
+    return cloverville.getTradeList().getAllTrades();
   }
 
   public void addTrade(String name, String description, Resident trader, int pointCost) {
-    trades.add(new Trade(name, description, trader, pointCost));
+    cloverville.getTradeList().addTrade(new Trade(name, description, trader, pointCost));
   }
 
   public void addTradeWithOffer(String name, String description, Resident trader, String tradeOffer) {
-    trades.add(new Trade(name, description, trader, tradeOffer));
+    cloverville.getTradeList().addTrade(new Trade(name, description, trader, tradeOffer));
   }
 
-  public ArrayList<Trade> getAllTrades() {
-    return new ArrayList<>(trades);
-  }
-
-  public java.util.List<Task> getAllTasks() {
-    return cloverville.getAllTasks().getTasks();
+  public ArrayList<Task> getTaskList() {
+    return cloverville.getTaskList().getAllTasks();
   }
 
   public void awardPointsToResident(int residentId, int points) {

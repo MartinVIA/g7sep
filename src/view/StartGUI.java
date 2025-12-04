@@ -2,31 +2,26 @@ package view;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.*;
 import java.io.*;
 import java.util.*;
 import java.time.LocalTime;
 import utils.MyFileHandler;
 import utils.FileWriter;
+import utils.JSONReader;
 
 public class StartGUI extends Application {
 
@@ -36,19 +31,54 @@ public class StartGUI extends Application {
     private TableView<Trade> tradesTable;
 
     private void refreshResidentsTable() {
-        residentsTable.getItems().setAll(model.getAllResidents());
+        // residentsTable.getItems().setAll(model.getAllResidents());
+
+        if (model != null) {
+            residentsTable.getItems().clear();
+            // ResidentList residents = model.getAllResidents();
+            residentsTable.getItems().setAll(model.getAllResidents());
+        }
     }
 
     private void refreshTradesTable() {
-        tradesTable.getItems().setAll(model.getAllTrades());
+        if (model != null) {
+            tradesTable.getItems().clear();
+            tradesTable.getItems().setAll(model.getTradeList());
+        }
     }
 
     private void refreshTasksTable() {
-        taskTable.getItems().setAll(model.getAllTasks());
+        taskTable.getItems().setAll(model.getTaskList());
     }
 
     public void start(Stage primaryStage) {
         model = new ClovervilleModelManager();
+
+        // Load residents and points from JSON files
+        try {
+            System.out.println("Loading data from JSON files...");
+            List<Resident> residentsFromJSON = JSONReader.readResidentsFromJSON("file_operations_residents.json");
+            Map<Integer, Integer> pointsFromJSON = JSONReader
+                    .readPersonalPointsFromJSON("file_operations_personalpoints.json");
+
+            // Add residents to model by first name and last name
+            for (Resident resident : residentsFromJSON) {
+                model.addResident(resident.getFirstName(), resident.getLastName());
+            }
+
+            // Now apply points from JSON
+            for (Resident resident : model.getAllResidents()) {
+                if (pointsFromJSON.containsKey(resident.getId())) {
+                    Integer points = pointsFromJSON.get(resident.getId());
+                    resident.setPersonalPoints(points);
+                }
+            }
+            System.out.println("Loaded " + residentsFromJSON.size() + " residents from JSON");
+        } catch (Exception e) {
+            System.err.println("Error loading JSON data: " + e.getMessage());
+            e.printStackTrace();
+        }
+
         Button resident_menu = new Button("Residents");
         Button trade_menu = new Button("Trades");
         Button task_menu = new Button("Tasks");
@@ -92,6 +122,7 @@ public class StartGUI extends Application {
             popup.setOnHidden(ev -> refreshTasksTable());
             popup.show();
         });
+
         Button community_points_add = new Button("Add Community Points");
 
         Button resident_edit = new Button("Edit existing resident");
@@ -111,8 +142,8 @@ public class StartGUI extends Application {
                     model, selected, this::refreshResidentsTable);
 
             popup.setScene(controller.createScene());
-            popup.setTitle("Manage Resident: " +
-                    selected.getFirstName() + " " + selected.getLastName());
+            popup.setTitle("Manage Resident: "
+                    + selected.getFirstName() + " " + selected.getLastName());
             popup.show();
         });
 
@@ -180,19 +211,18 @@ public class StartGUI extends Application {
         TableColumn<Resident, String> firstNameCol = new TableColumn("First Name");
         TableColumn<Resident, String> lastNameCol = new TableColumn("Last Name");
         TableColumn<Resident, Integer> idCol = new TableColumn("ID");
-        TableColumn<Resident, Double> pointsCol = new TableColumn("Points");
-        TableColumn<Resident, Boolean> boostsCol = new TableColumn("Boosts");
+        TableColumn<Resident, Integer> pointsCol = new TableColumn("Points");
+        TableColumn<Resident, Boolean> boostCol = new TableColumn("Boost");
 
         // import javafx.scene.control.cell.PropertyValueFactory;
         // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/PropertyValueFactory.html
-
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         pointsCol.setCellValueFactory(new PropertyValueFactory<>("personalPoints"));
-        boostsCol.setCellValueFactory(new PropertyValueFactory<>("hasBoost"));
+        boostCol.setCellValueFactory(new PropertyValueFactory<>("hasBoost"));
         residentsTable.setEditable(true);
-        residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostsCol);
+        residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostCol);
         refreshResidentsTable();
 
         tradesTable = new TableView<>();
@@ -224,18 +254,26 @@ public class StartGUI extends Application {
         refreshTradesTable();
 
         // task list
-        TableView tasksTable = new TableView<>();
-        TableColumn taskDescCol = new TableColumn("Task Name");
-        TableColumn taskPointsCol = new TableColumn("Points");
-        TableColumn taskTypeCol = new TableColumn("Type");
-        TableColumn taskStatusCol = new TableColumn("Status");
-        tasksTable.setEditable(true);
-        tasksTable.getColumns().addAll(taskDescCol, taskPointsCol, taskTypeCol, taskStatusCol);
+        taskTable = new TableView<>();
+        taskTable.setPrefWidth(420);
+
+        TableColumn<Task, String> nameCol = new TableColumn<>("Task Name");
+        TableColumn<Task, String> descCol = new TableColumn<>("Task Description");
+        TableColumn<Task, Integer> pointsColTasks = new TableColumn<>("description");
+        TableColumn<Task, String> typeCol = new TableColumn<>("Type");
+
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("TaskName"));
+        descCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        pointsColTasks.setCellValueFactory(new PropertyValueFactory<>("points"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        ;
+        taskTable.getColumns().addAll(nameCol, descCol, pointsColTasks, typeCol);
+        refreshTasksTable();
 
         VBox tasksBox = new VBox();
         tasksBox.setSpacing(5);
         tasksBox.setPadding(new Insets(10, 0, 0, 10));
-        tasksBox.getChildren().add(tasksTable);
+        tasksBox.getChildren().add(taskTable);
 
         // community points layout
         TableView greenTasks = new TableView<>();
@@ -299,7 +337,7 @@ public class StartGUI extends Application {
         Scene scene = new Scene(root, 500, 500);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        primaryStage.setTitle("I don't wanna do this anympre send help");
+        primaryStage.setTitle("I don wanna do this anympre send help");
         primaryStage.show();
     }
 

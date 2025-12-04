@@ -100,6 +100,7 @@ public class Task implements Serializable {
     Task other = (Task) obj;
     return name.equals(other.name)
         && type.equals(other.type)
+        && points == other.points
         && isComplete == other.isComplete;
   }
 

@@ -23,12 +23,12 @@ public class ResidentList implements Serializable {
     residents.remove(v);
   }
 
-  public Resident getResidentByIndex(int index) {
-    if (index < residents.size() && index >= 0) {
-      return residents.get(index);
-    } else
-      return null;
-  }
+  // public Resident getResidentByIndex(int index) {
+  //   if (index < residents.size() && index >= 0) {
+  //     return residents.get(index);
+  //   } else
+  //     return null;
+  // }
 
   public Resident getResidentById(int id) {
     for (int i = 0; i < residents.size(); i++) {

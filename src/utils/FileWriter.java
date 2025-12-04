@@ -1,18 +1,16 @@
 package utils;
 
-import model.*;
-import java.util.*;
 import java.io.*;
-import java.time.LocalTime;
+import java.nio.file.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import model.*;
 
 public class FileWriter {
         private ClovervilleModelManager model;
-        private FileXMLLogger xmlLogger;
 
         public FileWriter(ClovervilleModelManager model) {
                 this.model = model;
-                // use a consistent filename the frontend expects
-                this.xmlLogger = new FileXMLLogger("personal_points.xml");
         }
 
         public void saveAllData() {
@@ -33,13 +31,25 @@ public class FileWriter {
                         out.writeObject(residentList);
                         System.out.println("Success writing residents");
 
-                        // Log to XML
-                        List<String> residentData = new ArrayList<>();
+                        // Write JSON for web: array of {id, firstName, lastName}
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("[");
+                        boolean first = true;
                         for (Resident r : model.getAllResidents()) {
-                                residentData.add(r.getId() + "," + r.getFirstName() + "," + r.getLastName());
+                                if (!first)
+                                        sb.append(",");
+                                first = false;
+                                sb.append("{\"id\":").append(r.getId())
+                                                .append(",\"firstName\":\"").append(escapeJson(r.getFirstName()))
+                                                .append("\"")
+                                                .append(",\"lastName\":\"").append(escapeJson(r.getLastName()))
+                                                .append("\"}");
                         }
-                        xmlLogger.logWrite("Residents", residentData);
-                        System.out.println("Logged residents to XML");
+                        sb.append("]");
+
+                        Path outPath = Paths.get("file_operations_residents.json");
+                        Files.writeString(outPath, sb.toString(), StandardCharsets.UTF_8);
+                        System.out.println("Wrote residents JSON to: " + outPath.toAbsolutePath());
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
@@ -47,12 +57,21 @@ public class FileWriter {
 
         public void savePersonalPoints() {
                 try {
-                        List<String> pointsData = new ArrayList<>();
+                        // Write JSON mapping or array; we'll write an object mapping id -> points
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("{");
+                        boolean first = true;
                         for (Resident r : model.getAllResidents()) {
-                                pointsData.add(r.getId() + "," + r.getPersonalPoints());
+                                if (!first)
+                                        sb.append(",");
+                                first = false;
+                                sb.append("\"").append(r.getId()).append("\":").append(r.getPersonalPoints());
                         }
-                        xmlLogger.logWrite("PersonalPoints", pointsData);
-                        System.out.println("Logged resident points to XML");
+                        sb.append("}");
+
+                        Path outPath = Paths.get("file_operations_personalpoints.json");
+                        Files.writeString(outPath, sb.toString(), StandardCharsets.UTF_8);
+                        System.out.println("Wrote personal points JSON to: " + outPath.toAbsolutePath());
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
@@ -63,29 +82,63 @@ public class FileWriter {
                                 new FileOutputStream("tasks.bin"))) {
                         TasksList tasksList = new TasksList();
 
-                        for (Task task : model.getAllTasks()) {
+                        for (Task task : model.getTaskList()) {
                                 tasksList.addTask(task);
                         }
 
                         out.writeObject(tasksList);
                         System.out.println("Success writing tasks");
 
-                        // Log to XML
-                        List<String> taskData = new ArrayList<>();
-                        for (Task t : model.getAllTasks()) {
-                                taskData.add(t.getName() + "," + t.getType());
+                        // Write tasks JSON array
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("[");
+                        boolean first = true;
+                        for (Task t : model.getTaskList()) {
+                                if (!first)
+                                        sb.append(",");
+                                first = false;
+                                sb.append("{\"name\":\"").append(escapeJson(t.getName())).append("\",")
+                                                .append("\"type\":\"").append(escapeJson(t.getType())).append("\"}");
                         }
-                        xmlLogger.logWrite("Tasks", taskData);
-                        System.out.println("Logged tasks to XML");
+                        sb.append("]");
+                        Path outPath = Paths.get("file_operations_tasks.json");
+                        Files.writeString(outPath, sb.toString(), StandardCharsets.UTF_8);
+                        System.out.println("Wrote tasks JSON to: " + outPath.toAbsolutePath());
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
         }
 
         public void saveTrades() {
-                // Note: trades are stored in ClovervilleModelManager, but we need a getter for
-                // them
-                System.out.println("Trades saving not fully implemented yet (need getTrades method in model)");
+                try {
+                        // Still write binary if trades are serializable
+                        try (ObjectOutputStream out = new ObjectOutputStream(
+                                        new FileOutputStream("trades.bin"))) {
+                                // If model exposes trades, serialize them; otherwise skip
+                                try {
+                                        Object tradeListObj = model.getTradeList();
+                                        if (tradeListObj != null) {
+                                                out.writeObject(tradeListObj);
+                                                System.out.println("Success writing trades");
+                                        }
+                                } catch (Throwable ex) {
+                                        // model may not have trades or serialization may fail
+                                }
+                        }
+
+                        // Write empty trades JSON placeholder (adjust when model provides data)
+                        Path outPath = Paths.get("file_operations_trades.json");
+                        Files.writeString(outPath, "[]", StandardCharsets.UTF_8);
+                        System.out.println("Wrote trades JSON to: " + outPath.toAbsolutePath());
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+        }
+
+        private static String escapeJson(String s) {
+                if (s == null)
+                        return "";
+                return s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r");
         }
 
         public static void main(String[] args) {
@@ -101,15 +154,21 @@ public class FileWriter {
                         e.printStackTrace();
                 }
 
-                // Log resident points to XML
+                // Write resident points JSON
                 try {
-                        List<String> pointsData = new ArrayList<>();
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("{");
+                        boolean first = true;
                         for (Resident r : residentList.getAllResidents()) {
-                                pointsData.add(r.getId() + "," + r.getPersonalPoints());
+                                if (!first)
+                                        sb.append(",");
+                                first = false;
+                                sb.append("\"").append(r.getId()).append("\":").append(r.getPersonalPoints());
                         }
-                        FileXMLLogger xmlLogger = new FileXMLLogger("personal_points.xml");
-                        xmlLogger.logWrite("PersonalPoints", pointsData);
-                        System.out.println("Logged resident points to XML");
+                        sb.append("}");
+                        Path outPath = Paths.get("file_operations_personalpoints.json");
+                        Files.writeString(outPath, sb.toString(), StandardCharsets.UTF_8);
+                        System.out.println("Wrote personal points JSON to: " + outPath.toAbsolutePath());
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
