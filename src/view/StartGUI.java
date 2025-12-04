@@ -30,7 +30,6 @@ public class StartGUI extends Application {
 
         if (model != null) {
             residentsTable.getItems().clear();
-            // ResidentList residents = model.getAllResidents();
             residentsTable.getItems().setAll(model.getAllResidents());
         }
     }
@@ -38,7 +37,7 @@ public class StartGUI extends Application {
     private void refreshTradesTable() {
         if (model != null) {
             tradesTable.getItems().clear();
-            tradesTable.getItems().setAll(model.getTradeList());
+            tradesTable.getItems().setAll(model.getTaskList());
         }
     }
 

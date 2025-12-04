@@ -8,11 +8,17 @@ public class FileWriter {
 
     private ClovervilleModelManager model;
     private FileXMLLogger xmlLogger;
+    private FileXMLLogger residentLogger;
+    private FileXMLLogger taskLogger;
+    private FileXMLLogger tradeLogger;
 
     public FileWriter(ClovervilleModelManager model) {
         this.model = model;
         // use a consistent filename the frontend expects
-        this.xmlLogger = new FileXMLLogger("personal_points.xml");
+        this.personalPointsLogger = new FileXMLLogger("file_operations_personalpoints.xml");
+        this.residentLogger = new FileXMLLogger("file_operations_residents.xml");
+        this.taskLogger = new FileXMLLogger("file_operations_tasks.xml");
+        this.tradeLogger = new FileXMLLogger("file_operations_trades.xml");
     }
 
     public void saveAllData() {
@@ -51,7 +57,7 @@ public class FileWriter {
             for (Resident r : model.getAllResidents()) {
                 pointsData.add(r.getId() + "," + r.getPersonalPoints());
             }
-            xmlLogger.logWrite("PersonalPoints", pointsData);
+            PersonalPointsLogger.logWrite("PersonalPoints", pointsData);
             System.out.println("Logged resident points to XML");
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,7 +69,7 @@ public class FileWriter {
                 new FileOutputStream("tasks.bin"))) {
             TasksList tasksList = new TasksList();
 
-            for (Task task : model.getTaskList()) {
+            for (Task task : model.getAllTasks()) {
                 tasksList.addTask(task);
             }
 
@@ -72,10 +78,10 @@ public class FileWriter {
 
             // Log to XML
             List<String> taskData = new ArrayList<>();
-            for (Task t : model.getTaskList()) {
+            for (Task t : model.getAllTasks()) {
                 taskData.add(t.getName() + "," + t.getType());
             }
-            xmlLogger.logWrite("Tasks", taskData);
+            Logger.logWrite("Tasks", taskData);
             System.out.println("Logged tasks to XML");
         } catch (Exception e) {
             e.printStackTrace();

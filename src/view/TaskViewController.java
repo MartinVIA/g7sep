@@ -4,7 +4,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -16,7 +17,7 @@ public class TaskViewController {
 
     private final ClovervilleModelManager model;
 
-    private TableView<Task> taskTable;
+    private ListView<Task> taskList;
     private TextField nameField;
     private TextField pointsField;
     private TextField typeField;
@@ -31,6 +32,21 @@ public class TaskViewController {
     }
 
     public VBox createView() {
+        taskList = new ListView<>();
+        taskList.setPrefWidth(320);
+        taskList.setCellFactory(lv -> new ListCell<Task>() {
+            @Override
+            protected void updateItem(Task item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    String status = item.isCompleteTask() ? "(Complete)" : "";
+                    setText(item.getName() + " [" + item.getType() + "] - " + item.getPoints() + " pts " + status);
+                }
+            }
+        });
+        refreshTaskList();
 
         Label titleLabel = new Label("Cloverville – Tasks");
         HBox topBox = new HBox(titleLabel);
@@ -38,6 +54,9 @@ public class TaskViewController {
 
         nameField = new TextField();
         nameField.setPromptText("Task name");
+
+        // descField = new TextField();
+        // descField.setPromptText("Type (description)");
 
         typeField = new TextField();
         typeField.setPromptText("Type (e.g. community or green)");
@@ -56,6 +75,7 @@ public class TaskViewController {
         VBox rightBox = new VBox(10,
                 new Label("Add new task:"),
                 nameField,
+                // descField,
                 typeField,
                 pointsField,
                 addButton,
@@ -65,7 +85,7 @@ public class TaskViewController {
 
         BorderPane root = new BorderPane();
         root.setTop(topBox);
-        root.setCenter(taskTable);
+        root.setCenter(taskList);
         root.setRight(rightBox);
         root.setPadding(new Insets(10));
 
@@ -74,7 +94,7 @@ public class TaskViewController {
     }
 
     private void refreshTaskList() {
-        taskTable.getItems().setAll(model.getTaskList());
+        taskList.getItems().setAll(model.getTaskList());
     }
 
     private void handleAddTask() {
@@ -109,7 +129,7 @@ public class TaskViewController {
     }
 
     private void handleCompleteTask() {
-        Task selected = taskTable.getSelectionModel().getSelectedItem();
+        Task selected = taskList.getSelectionModel().getSelectedItem();
         if (selected == null) {
             messageLabel.setText("Select a task first.");
             return;

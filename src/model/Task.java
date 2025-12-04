@@ -2,7 +2,8 @@ package model;
 
 import java.io.Serializable;
 
-public class Task implements Serializable {
+public abstract class Task implements Serializable {
+
   private String name;
   private String type;
   private int points;
@@ -39,7 +40,6 @@ public class Task implements Serializable {
   // public int getAmountOfPoints() {
   // return amountOfPoints;
   // }
-
   public void markAsComplete() {
     isComplete = true;
   }
@@ -75,7 +75,6 @@ public class Task implements Serializable {
   // public void setAmountOfPoints(int amountOfPoints) {
   // this.amountOfPoints = amountOfPoints;
   // }
-
   // idk if it's going to work for multiple residents
   // public void completeTask(Resident resident) {
   // completeTask = true;
@@ -83,30 +82,29 @@ public class Task implements Serializable {
   // completeDate = completeDate.today().copy();
   // resident.setLatestTask(completeDate.today().copy());
   // }
-
-  public void completeTask(Resident resident) {
-    Date now = new Date();
-    setCompleteDate(now);
-    if (resident != null) {
-      resident.setLatestTask(now);
-    }
-    markAsComplete();
-  }
+  public abstract void completeTask(Resident resident);
+  // Date now = new Date();
+  // setCompleteDate(now);
+  // if (resident != null) {
+  // resident.setLatestTask(now);
+  // }
+  // markAsComplete();
 
   public boolean equals(Object obj) {
-    if (obj == null || obj.getClass() != getClass())
+    if (obj == null || obj.getClass() != getClass()) {
       return false;
+    }
 
     Task other = (Task) obj;
     return name.equals(other.name)
         && type.equals(other.type)
-        && points == other.points
-        && isComplete == other.isComplete;
+        && points == other.points;
+    // && isComplete == other.isComplete;
   }
 
   public String toString() {
-    return "Name: " + name +
-        ", Type: " + type +
-        ", Complete Task: " + isComplete;
+    return "Name: " + name
+        + ", Type: " + type
+        + ", Complete Task: " + isComplete;
   }
 }

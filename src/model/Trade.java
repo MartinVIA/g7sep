@@ -111,19 +111,19 @@ public class Trade implements Serializable {
   }
 
   public boolean equals(Object obj) {
-        if (obj == null || obj.getClass() != getClass()) {
-            return false;
-        }
-
-        Trade other = (Trade) obj;
-        return name.equals(other.name)
-          && description.equals(other.description)
-          && trader.equals(other.trader)
-          && tradee.equals(other.tradee)
-          && pointCost == other.pointCost
-          && tradeOffer.equals(other.tradeOffer)
-          && isComplete == other.isComplete;
+    if (obj == null || obj.getClass() != getClass()) {
+      return false;
     }
+
+    Trade other = (Trade) obj;
+    return name.equals(other.name)
+        && description.equals(other.description)
+        && trader.equals(other.trader)
+        && pointCost == other.pointCost;
+    // && tradee.equals(other.tradee)
+    // && tradeOffer.equals(other.tradeOffer)
+    // && isComplete == other.isComplete;
+  }
 
   public String toString() {
     return "Trade Name: " + name
