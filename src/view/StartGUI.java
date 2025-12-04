@@ -16,7 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
-import utils.FileWriter;
 
 public class StartGUI extends Application {
 
@@ -37,7 +36,7 @@ public class StartGUI extends Application {
     private void refreshTradesTable() {
         if (model != null) {
             tradesTable.getItems().clear();
-            //tradesTable.getItems().setAll(model.getTaskList());
+            // tradesTable.getItems().setAll(model.getTaskList());
         }
     }
 
@@ -60,14 +59,14 @@ public class StartGUI extends Application {
             popup.setTitle("Cloverville's Resident");
             popup.setOnHidden(ev -> {
                 refreshResidentsTable();
-                try {
-                    FileWriter fw = new FileWriter(model);
-                    fw.savePersonalPoints();
-                    ;
-                    fw.saveResidents();
-                } catch (Exception ex) {
-                    System.err.println("Error saving residents: " + ex.getMessage());
-                }
+                // try {
+                //     FileWriter fw = new FileWriter(model);
+                //     fw.savePersonalPoints();
+                //     ;
+                //     fw.saveResidents();
+                // } catch (Exception ex) {
+                //     System.err.println("Error saving residents: " + ex.getMessage());
+                // }
             });
             popup.show();
         });

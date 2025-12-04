@@ -4,10 +4,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -36,19 +34,6 @@ public class TaskViewController {
         taskTable = new TableView<>();
         taskTable.setPrefWidth(420);
 
-        TableColumn<Task, String> nameCol = new TableColumn<>("Task Description");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        TableColumn<Task, Integer> pointsCol = new TableColumn<>("Points");
-        pointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
-
-        TableColumn<Task, String> typeCol = new TableColumn<>("Type");
-        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-
-        TableColumn<Task, Boolean> statusCol = new TableColumn<>("Complete");
-        statusCol.setCellValueFactory(new PropertyValueFactory<>("completeTask"));
-
-        taskTable.getColumns().addAll(nameCol, pointsCol, typeCol, statusCol);
         refreshTaskList();
 
         Label titleLabel = new Label("Cloverville – Tasks");
