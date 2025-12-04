@@ -204,12 +204,12 @@ public class StartGUI extends Application {
 
         // task list
         TableView tasksTable = new TableView<>();
-        TableColumn taskDescCol = new TableColumn("Task Name");
+        TableColumn taskNameCol = new TableColumn("Task Name");
         TableColumn taskPointsCol = new TableColumn("Points");
         TableColumn taskTypeCol = new TableColumn("Type");
-        TableColumn taskStatusCol = new TableColumn("Status");
+        TableColumn taskDescCol = new TableColumn("Description");
         tasksTable.setEditable(true);
-        tasksTable.getColumns().addAll(taskDescCol, taskPointsCol, taskTypeCol, taskStatusCol);
+        tasksTable.getColumns().addAll(taskNameCol, taskDescCol, taskTypeCol, taskPointsCol);
 
         VBox tasksBox = new VBox();
         tasksBox.setSpacing(5);

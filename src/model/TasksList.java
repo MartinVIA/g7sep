@@ -36,8 +36,8 @@ public class TasksList implements Serializable {
     return null;
   }
 
-  public List<Task> getTaskList() {
-    return new ArrayList<>(tasks);
+  public ArrayList<Task> getAllTasks() {
+    return new ArrayList<Task>(tasks);
   }
 
   public boolean equals(Object obj) {

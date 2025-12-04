@@ -13,8 +13,8 @@ public class FileReader {
       ObjectInputStream readResidents = new ObjectInputStream(residentFileIn);
       try {
         ResidentList residentList = (ResidentList) readResidents.readObject();
-        for (int i = 0; i < residentList.size(); i++) {
-          System.out.println(residentList.getResidentByIndex(i));
+        for (int i = 1; i <= residentList.size(); i++) {
+          System.out.println(residentList.getResidentById(i));
         }
       } catch (EOFException eof) {
         System.out.println("End of file");
