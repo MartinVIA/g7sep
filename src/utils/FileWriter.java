@@ -12,7 +12,7 @@ public class FileWriter {
         public FileWriter(ClovervilleModelManager model) {
                 this.model = model;
                 // use a consistent filename the frontend expects
-                this.xmlLogger = new FileXMLLogger("src/file_operations.xml");
+                this.xmlLogger = new FileXMLLogger("personal_points.xml");
         }
 
         public void saveAllData() {
@@ -91,7 +91,7 @@ public class FileWriter {
         public static void main(String[] args) {
                 // For standalone testing with hardcoded data
                 ResidentList residentList = new ResidentList();
-                residentList.addResident(new Resident(1, "Green", "Bob", 90));
+                residentList.addResident(new Resident(1, "Green", "Bob", 250));
 
                 try (ObjectOutputStream out = new ObjectOutputStream(
                                 new FileOutputStream("residents.bin"))) {
@@ -107,7 +107,7 @@ public class FileWriter {
                         for (Resident r : residentList.getAllResidents()) {
                                 pointsData.add(r.getId() + "," + r.getPersonalPoints());
                         }
-                        FileXMLLogger xmlLogger = new FileXMLLogger("src/file_operations.xml");
+                        FileXMLLogger xmlLogger = new FileXMLLogger("personal_points.xml");
                         xmlLogger.logWrite("PersonalPoints", pointsData);
                         System.out.println("Logged resident points to XML");
                 } catch (Exception e) {

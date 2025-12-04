@@ -22,7 +22,7 @@ public class ResidentXML {
     }
 
     public void readResidents() {
-        try (FileInputStream fileIn = new FileInputStream("residents.bin");
+        try (FileInputStream fileIn = new FileInputStream("residents.xml");
                 ObjectInputStream read = new ObjectInputStream(fileIn)) {
 
             residentList = (ResidentList) read.readObject();
