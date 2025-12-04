@@ -11,6 +11,7 @@ public class FileWriter {
 
         public FileWriter(ClovervilleModelManager model) {
                 this.model = model;
+                // use a consistent filename the frontend expects
                 this.xmlLogger = new FileXMLLogger("src/file_operations.xml");
         }
 
@@ -28,7 +29,7 @@ public class FileWriter {
                 }
 
                 try (ObjectOutputStream out = new ObjectOutputStream(
-                                new FileOutputStream("customers.bin"))) {
+                                new FileOutputStream("residents.bin"))) {
                         out.writeObject(residentList);
                         System.out.println("Success writing residents");
 
@@ -38,6 +39,7 @@ public class FileWriter {
                                 residentData.add(r.getId() + "," + r.getFirstName() + "," + r.getLastName());
                         }
                         xmlLogger.logWrite("Residents", residentData);
+                        System.out.println("Logged residents to XML");
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
@@ -74,6 +76,7 @@ public class FileWriter {
                                 taskData.add(t.getName() + "," + t.getType());
                         }
                         xmlLogger.logWrite("Tasks", taskData);
+                        System.out.println("Logged tasks to XML");
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
@@ -88,13 +91,10 @@ public class FileWriter {
         public static void main(String[] args) {
                 // For standalone testing with hardcoded data
                 ResidentList residentList = new ResidentList();
-                residentList.addResident(new Resident(1, "Green", "Bob", 9999999));
-                residentList.addResident(new Resident(2, "Green", "Smith", 0));
-                residentList.addResident(new Resident(3, "Charlie", "Brown", 0));
-                residentList.addResident(new Resident(4, "Diana", "White", 0));
+                residentList.addResident(new Resident(1, "Green", "Bob", 90));
 
                 try (ObjectOutputStream out = new ObjectOutputStream(
-                                new FileOutputStream("customers.bin"))) {
+                                new FileOutputStream("residents.bin"))) {
                         out.writeObject(residentList);
                         System.out.println("Success writing residents");
                 } catch (Exception e) {

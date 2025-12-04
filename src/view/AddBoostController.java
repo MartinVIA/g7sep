@@ -29,6 +29,7 @@ public class AddBoostController {
         if (resident.getHasBoost()) {
             msg.setText("There is no boost available for this resident (already has a boost).");
             root.getChildren().add(msg);
+            msg.setWrapText(true);
             return new Scene(root, 320, 100);
         }
 

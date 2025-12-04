@@ -39,6 +39,10 @@ public class StartGUI extends Application {
         tradesTable.getItems().setAll(model.getAllTrades());
     }
 
+    private void refreshTasksTable() {
+        taskTable.getItems().setAll(model.getAllTasks());
+    }
+
     public void start(Stage primaryStage) {
         model = new ClovervilleModelManager();
         Button resident_menu = new Button("Residents");
@@ -62,7 +66,7 @@ public class StartGUI extends Application {
             TradeViewController controller = new TradeViewController(model);
             popup.setScene(controller.createScene());
             popup.setTitle("Trades");
-            popup.setOnHidden(ev -> refreshResidentsTable());
+            popup.setOnHidden(ev -> refreshTradesTable());
             popup.show();
         });
 
@@ -72,7 +76,7 @@ public class StartGUI extends Application {
             TaskViewController controller_task = new TaskViewController(model);
             popup.setScene(controller_task.createScene());
             popup.setTitle("Tasks");
-            popup.setOnHidden(ev -> refreshResidentsTable());
+            popup.setOnHidden(ev -> refreshTasksTable());
             popup.show();
         });
         Button community_points_add = new Button("Add Community Points");
@@ -125,6 +129,7 @@ public class StartGUI extends Application {
 
         ProgressBar progressBar = new ProgressBar();
         progressBar.setProgress(50.0 / 100.0);
+        // will need the score int
         Label temp = new Label("50/100");
 
         HBox bottom_menu_resident = new HBox();
@@ -207,12 +212,12 @@ public class StartGUI extends Application {
 
         // task list
         TableView tasksTable = new TableView<>();
-        TableColumn taskDescCol = new TableColumn("Task Description");
+        TableColumn taskDescCol = new TableColumn("Task Name");
         TableColumn taskPointsCol = new TableColumn("Points");
-        TableColumn taskAssignedCol = new TableColumn("Assigned To");
+        TableColumn taskTypeCol = new TableColumn("Type");
         TableColumn taskStatusCol = new TableColumn("Status");
         tasksTable.setEditable(true);
-        tasksTable.getColumns().addAll(taskDescCol, taskPointsCol, taskAssignedCol, taskStatusCol);
+        tasksTable.getColumns().addAll(taskDescCol, taskPointsCol, taskTypeCol, taskStatusCol);
 
         VBox tasksBox = new VBox();
         tasksBox.setSpacing(5);
@@ -234,6 +239,7 @@ public class StartGUI extends Application {
         progressBar.setPrefWidth(450);
         communityPointsBox.getChildren().add(greenTasks);
         communityPointsBox.getChildren().add(new Label("Progress toward next community reward: 50/100 green points"));
+        // community points variable needed
         communityPointsBox.getChildren().add(progressBar);
 
         // Main layout
@@ -267,6 +273,7 @@ public class StartGUI extends Application {
             pointsField.setPromptText("Points Amount");
             Button submitButton = new Button("Submit");
             submitButton.setOnAction(ev -> {
+                // comunity points compatibility
                 popup.close();
             });
             VBox layout = new VBox(10);

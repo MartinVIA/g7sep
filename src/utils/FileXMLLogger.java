@@ -16,6 +16,8 @@ import org.w3c.dom.Element;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class FileXMLLogger {
     private String xmlFilePath;
@@ -52,6 +54,13 @@ public class FileXMLLogger {
             Element opElem = doc.createElement("Operation");
             opElem.setAttribute("type", operation);
             opElem.setAttribute("file", fileName);
+            // add timestamp attribute for frontend status
+            try {
+                String time = DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC).format(Instant.now());
+                opElem.setAttribute("timestamp", time);
+            } catch (Exception t) {
+                // ignore timestamp errors
+            }
 
             Element dataElem = doc.createElement("Data");
             for (String line : data) {
@@ -64,9 +73,22 @@ public class FileXMLLogger {
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+            // pretty print
+            transformer.setOutputProperty(javax.xml.transform.OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(xmlFile);
+            // write to temp file then move to target for atomic replace
+            File tmpXml = new File(xmlFile.getAbsolutePath() + ".tmp");
+            StreamResult result = new StreamResult(tmpXml);
             transformer.transform(source, result);
+            try {
+                Files.move(tmpXml.toPath(), xmlFile.toPath(), StandardCopyOption.REPLACE_EXISTING,
+                        StandardCopyOption.ATOMIC_MOVE);
+            } catch (Exception moveEx) {
+                // ATOMIC_MOVE may not be supported on all platforms; fall back to replace
+                Files.move(tmpXml.toPath(), xmlFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+            System.out.println("Wrote XML to: " + xmlFile.getAbsolutePath());
 
             // Additionally write a JS data file for easy client-side loading without HTTP
             try {
@@ -107,9 +129,18 @@ public class FileXMLLogger {
         String time = DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC).format(Instant.now());
         sb.append("window.fileOperations.lastUpdated = \"").append(time).append("\";\n");
 
-        try (java.io.FileWriter fw = new java.io.FileWriter(jsFile, false)) {
+        // write js to temp file then move
+        File tmpJs = new File(jsFile.getAbsolutePath() + ".tmp");
+        try (java.io.FileWriter fw = new java.io.FileWriter(tmpJs, false)) {
             fw.write(sb.toString());
         }
+        try {
+            Files.move(tmpJs.toPath(), jsFile.toPath(), StandardCopyOption.REPLACE_EXISTING,
+                    StandardCopyOption.ATOMIC_MOVE);
+        } catch (Exception moveEx) {
+            Files.move(tmpJs.toPath(), jsFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        }
+        System.out.println("Wrote JS data to: " + jsFile.getAbsolutePath());
     }
 
     private String escapeForJson(String s) {

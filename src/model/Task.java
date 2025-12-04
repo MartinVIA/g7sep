@@ -11,7 +11,12 @@ public class Task implements Serializable {
   private Date completeDate;
 
   public Task(String name, String type) {
-    this(name, type, 0);
+    this.name = name;
+    this.type = type;
+    this.points = 0;
+    // this.amountOfPoints = amountOfPoints;
+    isComplete = false;
+    completeDate = null;
   }
 
   public Task(String name, String type, int points) {

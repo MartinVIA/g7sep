@@ -47,8 +47,9 @@ public class TradeViewController {
         Button confirmationButton = new Button("Confirm trade");
         confirmationButton.setOnAction(e -> handleCreateTrade());
 
-        Button cancelButton = new Button("Cancel trade");
+        Button cancelButton = new Button("Close");
         cancelButton.setOnAction(e -> cancelButton.getScene().getWindow().hide());
+        cancelButton.requestFocus();
 
         messageLabel = new Label();
         VBox rightBox = new VBox(

@@ -38,7 +38,7 @@ public class ResidentViewController {
     refreshResidentList();
 
     // title
-    Label titleLabel = new Label("Cloverville – Residents & Personal Points");
+    Label titleLabel = new Label("Cloverville - Residents & Personal Points");
     HBox topBox = new HBox(titleLabel);
     topBox.setPadding(new Insets(10));
 
@@ -123,7 +123,8 @@ public class ResidentViewController {
       model.awardPointsToResident(selected.getId(), pts);
       refreshResidentList();
       messageLabel.setText(
-          "Awarded " + pts + " points to " + selected.getFirstName() + " " + selected.getLastName() + " .");
+          "Awarded " + pts + " points to [" + selected.getFirstName() + " " + selected.getLastName() + "] .");
+      messageLabel.setWrapText(true);
       // Persist personal points to XML/JS so front-end can read them
       try {
         FileWriter fw = new FileWriter(model);

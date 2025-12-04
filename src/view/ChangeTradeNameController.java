@@ -49,8 +49,7 @@ public class ChangeTradeNameController {
         if (onSaved != null)
             onSaved.run();
 
-        // close this popup
-        Stage stage = (Stage) messageLabel.getScene().getWindow();
-        stage.close();
+        // sucess message
+        messageLabel.setText("Changed name succesfully");
     }
 }
