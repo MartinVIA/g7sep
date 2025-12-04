@@ -42,7 +42,7 @@ function loadJsonFile(filename, onSuccess, onError) {
 
 // --- Personal Points Loader ---
 function loadPointsFromJSON() {
-    loadJsonFile('file_operations_personalpoints.json', 
+    loadJsonFile('docs/file_operations_personalpoints.json', 
         function(data) {
             const pointsMap = {};
             for (const [id, points] of Object.entries(data)) {
@@ -87,7 +87,7 @@ function displayPoints(pointsMap) {
 
 // --- Tasks Loader ---
 function loadTasksFromJSON() {
-    loadJsonFile('file_operations_tasks.json',
+    loadJsonFile('docs/file_operations_tasks.json',
         function(data) {
             displayTasks(data || []);
         },
@@ -127,7 +127,7 @@ function displayTasks(tasksArray) {
 
 // --- Trades Loader ---
 function loadTradesFromJSON() {
-    loadJsonFile('file_operations_trades.json',
+    loadJsonFile('docs/file_operations_trades.json',
         function(data) {
             displayTrades(data || []);
         },
