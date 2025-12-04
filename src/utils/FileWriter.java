@@ -29,7 +29,7 @@ public class FileWriter {
         }
 
         try (ObjectOutputStream out = new ObjectOutputStream(
-                new FileOutputStream("residents.bin"))) {
+                new FileOutputStream("Personal_points.bin"))) {
             out.writeObject(residentList);
             System.out.println("Success writing residents");
 

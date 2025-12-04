@@ -20,6 +20,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class FileXMLLogger {
+
     private String xmlFilePath;
 
     public FileXMLLogger(String xmlFilePath) {
@@ -113,17 +114,19 @@ public class FileXMLLogger {
         sb.append("window.fileOperations.personalPoints = [\n");
         for (int i = 0; i < data.size(); i++) {
             String line = data.get(i).trim();
-            if (line.isEmpty())
+            if (line.isEmpty()) {
                 continue;
+            }
             String[] parts = line.split("[,;\\s]+");
             String id = parts.length > 0 ? parts[0] : "";
             String points = parts.length > 1 ? parts[1] : "0";
             sb.append("  {\"id\": \"").append(escapeForJson(id)).append("\", \"points\": \"")
                     .append(escapeForJson(points)).append("\" }");
-            if (i < data.size() - 1)
-                sb.append(",\n");
-            else
+            if (i < data.size() - 1) {
+                sb.append(",\n"); 
+            }else {
                 sb.append('\n');
+            }
         }
         sb.append("];\n");
         String time = DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC).format(Instant.now());
@@ -144,8 +147,9 @@ public class FileXMLLogger {
     }
 
     private String escapeForJson(String s) {
-        if (s == null)
+        if (s == null) {
             return "";
+        }
         return s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n");
     }
 }

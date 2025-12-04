@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
+import utils.FileWriter;
 
 public class StartGUI extends Application {
 
@@ -25,11 +26,20 @@ public class StartGUI extends Application {
     private TableView<Trade> tradesTable;
 
     private void refreshResidentsTable() {
-        residentsTable.getItems().setAll(model.getAllResidents());
+        // residentsTable.getItems().setAll(model.getAllResidents());
+
+        if (model != null) {
+            residentsTable.getItems().clear();
+            // ResidentList residents = model.getAllResidents();
+            residentsTable.getItems().setAll(model.getAllResidents());
+        }
     }
 
     private void refreshTradesTable() {
-        tradesTable.getItems().setAll(model.getTradeList());
+        if (model != null) {
+            tradesTable.getItems().clear();
+            tradesTable.getItems().setAll(model.getTradeList());
+        }
     }
 
     private void refreshTasksTable() {
@@ -49,7 +59,17 @@ public class StartGUI extends Application {
             ResidentViewController controller = new ResidentViewController(model);
             popup.setScene(controller.createScene());
             popup.setTitle("Cloverville's Resident");
-            popup.setOnHidden(ev -> refreshResidentsTable());
+            popup.setOnHidden(ev -> {
+                refreshResidentsTable();
+                try {
+                    FileWriter fw = new FileWriter(model);
+                    fw.savePersonalPoints();
+                    ;
+                    fw.saveResidents();
+                } catch (Exception ex) {
+                    System.err.println("Error saving residents: " + ex.getMessage());
+                }
+            });
             popup.show();
         });
 
@@ -72,6 +92,7 @@ public class StartGUI extends Application {
             popup.setOnHidden(ev -> refreshTasksTable());
             popup.show();
         });
+
         Button community_points_add = new Button("Add Community Points");
 
         Button resident_edit = new Button("Edit existing resident");
@@ -207,14 +228,16 @@ public class StartGUI extends Application {
         taskTable.setPrefWidth(420);
 
         TableColumn<Task, String> nameCol = new TableColumn<>("Task Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("TaskName"));
         TableColumn<Task, String> descCol = new TableColumn<>("Task Description");
-        descCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
-        TableColumn<Task, Integer> pointsCol = new TableColumn<>("Points");
-        pointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
+        TableColumn<Task, Integer> pointsColTasks = new TableColumn<>("description");
         TableColumn<Task, String> typeCol = new TableColumn<>("Type");
-        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));;
-        taskTable.getColumns().addAll(nameCol, descCol, pointsCol, typeCol);
+
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("TaskName"));
+        descCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        pointsColTasks.setCellValueFactory(new PropertyValueFactory<>("points"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        ;
+        taskTable.getColumns().addAll(nameCol, descCol, pointsColTasks, typeCol);
         refreshTasksTable();
 
         VBox tasksBox = new VBox();

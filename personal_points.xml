@@ -2,13 +2,13 @@
 <FileOperations>
       
   
-  <Operation file="PersonalPoints" timestamp="2025-12-04T10:08:14.872457Z" type="write">
+  <Operation file="PersonalPoints" timestamp="2025-12-04T11:07:16.591127500Z" type="write">
             
     
     <Data>
                   
       
-      <Line>1,250</Line>
+      <Line>1,6</Line>
                 
     
     </Data>
@@ -17,19 +17,19 @@
   </Operation>
     
   
-  <Operation file="PersonalPoints" timestamp="2025-12-04T10:10:37.803539600Z" type="write">
+  <Operation file="PersonalPoints" timestamp="2025-12-04T11:07:17.898149400Z" type="write">
         
     <Data>
             
-      <Line>1,555</Line>
+      <Line>1,6</Line>
           
     </Data>
       
   </Operation>
   
-  <Operation file="PersonalPoints" timestamp="2025-12-04T10:31:01.309352200Z" type="write">
+  <Operation file="Residents" timestamp="2025-12-04T11:07:18.013976500Z" type="write">
     <Data>
-      <Line>1,50505050</Line>
+      <Line>1,bh,hh</Line>
     </Data>
   </Operation>
 </FileOperations>

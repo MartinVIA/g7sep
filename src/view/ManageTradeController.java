@@ -13,12 +13,12 @@ public class ManageTradeController {
 
     private final ClovervilleModelManager model;
     private final Trade trade;
-    private final Runnable onClose;
+    private final Runnable refreshCallback;
 
-    public ManageTradeController(ClovervilleModelManager model, Trade trade, Runnable onClose) {
+    public ManageTradeController(ClovervilleModelManager model, Trade trade, Runnable refreshCallback) {
         this.model = model;
         this.trade = trade;
-        this.onClose = onClose;
+        this.refreshCallback = refreshCallback;
     }
 
     public Scene createScene() {
@@ -42,15 +42,20 @@ public class ManageTradeController {
 
     private void openChangeNamePopup() {
         Stage popup = new Stage();
-        ChangeTradeNameController controller = new ChangeTradeNameController(trade, onClose);
+        ChangeTradeNameController controller = new ChangeTradeNameController(trade, refreshCallback);
         popup.setScene(controller.createScene());
         popup.setTitle("Change name of: " + trade.getStringName());
+        popup.setOnHidden(ev -> {
+            if (refreshCallback != null) {
+                refreshCallback.run();
+            }
+        });
         popup.show();
     }
 
     private void openChangeDescriptionPopup() {
         Stage popup = new Stage();
-        ChangeTradeDescriptionController controller = new ChangeTradeDescriptionController(trade, onClose);
+        ChangeTradeDescriptionController controller = new ChangeTradeDescriptionController(trade, refreshCallback);
         popup.setScene(controller.createScene());
         popup.setTitle("Change description of: " + trade.getStringName());
         popup.show();
@@ -58,7 +63,7 @@ public class ManageTradeController {
 
     private void openChangeCostPopup() {
         Stage popup = new Stage();
-        ChangeTradeCostController controller = new ChangeTradeCostController(trade, onClose);
+        ChangeTradeCostController controller = new ChangeTradeCostController(trade, refreshCallback);
         popup.setScene(controller.createScene());
         popup.setTitle("Change cost of: " + trade.getStringName());
         popup.show();

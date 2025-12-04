@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><FileOperations>
-    <Operation file="PersonalPoints" type="write">
-        <Data>
-            <Line>1,100</Line>
-        </Data>
-    </Operation>
