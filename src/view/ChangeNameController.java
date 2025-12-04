@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.ClovervilleModelManager;
 import model.Resident;
 
@@ -47,7 +46,7 @@ public class ChangeNameController {
             resident.setFirstName(f);
             resident.setLastName(l);
             msg.setText("Name updated.");
-            ((Stage) save.getScene().getWindow()).close();
+            
         });
 
         VBox root = new VBox(10,

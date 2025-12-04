@@ -4,11 +4,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ClovervilleModelManager;
 import model.Resident;
-import utils.MyFileHandler;
 
 public class EditResidentController {
 
@@ -28,7 +26,6 @@ public class EditResidentController {
   }
 
   public Scene createScene() {
-
     firstNameField = new TextField(resident.getFirstName());
     lastNameField = new TextField(resident.getLastName());
     idField = new TextField(String.valueOf(resident.getId()));
@@ -48,7 +45,7 @@ public class EditResidentController {
     Button toggleBoostButton = new Button("Apply boost setting");
     toggleBoostButton.setOnAction(e -> handleChangeBoost());
 
-    // fast layout done by chatgpt can be changed idc
+    // layout
     GridPane grid = new GridPane();
     grid.setHgap(10);
     grid.setVgap(10);
@@ -77,7 +74,6 @@ public class EditResidentController {
   }
 
   // methods for our messages
-
   private void handleChangeName() {
     String first = firstNameField.getText().trim();
     String last = lastNameField.getText().trim();
@@ -102,20 +98,16 @@ public class EditResidentController {
     boolean sameLast = last.equalsIgnoreCase(resident.getLastName());
     if (sameLast && sameFirst) {
       messageLabel.setText("Enter a different name");
-      return;
-      // this will only work for the original name that was entered but thats good
-      // enough
     } else
       messageLabel.setText("Name updated.");
   }
 
+  // ------ probably to be deleted
   private void handleChangeId() {
     String text = idField.getText().trim();
     if (!text.matches("\\d+")) {
       messageLabel.setText("ID must contain digits only (0–9).");
-      return;
     }
-
   }
 
   private void handleChangePoints() {

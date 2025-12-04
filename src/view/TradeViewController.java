@@ -4,14 +4,13 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.control.ListView;
-
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ClovervilleModelManager;
 import model.Resident;
-import javafx.scene.layout.HBox;
-import javafx.scene.control.TextField;
 
 public class TradeViewController {
     private final ClovervilleModelManager model;
@@ -48,8 +47,8 @@ public class TradeViewController {
         confirmationButton.setOnAction(e -> handleCreateTrade());
 
         Button cancelButton = new Button("Close");
-        cancelButton.setOnAction(e -> cancelButton.getScene().getWindow().hide());
         cancelButton.requestFocus();
+        cancelButton.setOnAction(e -> cancelButton.getScene().getWindow().hide());
 
         messageLabel = new Label();
         VBox rightBox = new VBox(

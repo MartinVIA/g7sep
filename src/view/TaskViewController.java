@@ -36,19 +36,19 @@ public class TaskViewController {
         taskTable = new TableView<>();
         taskTable.setPrefWidth(420);
 
-        TableColumn<Task, String> nameCol = new TableColumn<>("Task Description");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumn<Task, String> nameCol = new TableColumn<>("Task Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("TaskName"));
+
+        TableColumn<Task, String> descCol = new TableColumn<>("Task Description");
+        descCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
 
         TableColumn<Task, Integer> pointsCol = new TableColumn<>("Points");
         pointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
 
         TableColumn<Task, String> typeCol = new TableColumn<>("Type");
-        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));;
 
-        TableColumn<Task, Boolean> statusCol = new TableColumn<>("Complete");
-        statusCol.setCellValueFactory(new PropertyValueFactory<>("completeTask"));
-
-        taskTable.getColumns().addAll(nameCol, pointsCol, typeCol, statusCol);
+        taskTable.getColumns().addAll(nameCol, descCol, pointsCol, typeCol);
         refreshTaskList();
 
         Label titleLabel = new Label("Cloverville – Tasks");

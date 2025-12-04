@@ -160,8 +160,8 @@ public class StartGUI extends Application {
         TableColumn<Resident, String> firstNameCol = new TableColumn("First Name");
         TableColumn<Resident, String> lastNameCol = new TableColumn("Last Name");
         TableColumn<Resident, Integer> idCol = new TableColumn("ID");
-        TableColumn<Resident, Double> pointsCol = new TableColumn("Points");
-        TableColumn<Resident, Boolean> boostsCol = new TableColumn("Boosts");
+        TableColumn<Resident, Integer> pointsCol = new TableColumn("Points");
+        TableColumn<Resident, Boolean> boostCol = new TableColumn("Boost");
 
         // import javafx.scene.control.cell.PropertyValueFactory;
         // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/PropertyValueFactory.html
@@ -169,9 +169,9 @@ public class StartGUI extends Application {
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         pointsCol.setCellValueFactory(new PropertyValueFactory<>("personalPoints"));
-        boostsCol.setCellValueFactory(new PropertyValueFactory<>("hasBoost"));
+        boostCol.setCellValueFactory(new PropertyValueFactory<>("hasBoost"));
         residentsTable.setEditable(true);
-        residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostsCol);
+        residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostCol);
         refreshResidentsTable();
 
         tradesTable = new TableView<>();

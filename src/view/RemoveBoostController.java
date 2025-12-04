@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.ClovervilleModelManager;
 import model.Resident;
 
@@ -37,7 +36,6 @@ public class RemoveBoostController {
         removeBtn.setOnAction(e -> {
             resident.setBoost(false);
             msg.setText("Boost removed from resident.");
-            ((Stage) removeBtn.getScene().getWindow()).close();
         });
 
         root.getChildren().addAll(info, removeBtn, msg);
