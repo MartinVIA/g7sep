@@ -58,6 +58,11 @@ public class ManageTradeController {
         ChangeTradeDescriptionController controller = new ChangeTradeDescriptionController(trade, refreshCallback);
         popup.setScene(controller.createScene());
         popup.setTitle("Change description of: " + trade.getStringName());
+        popup.setOnHidden(ev -> {
+            if (refreshCallback != null) {
+                refreshCallback.run();
+            }
+        });
         popup.show();
     }
 
@@ -66,6 +71,11 @@ public class ManageTradeController {
         ChangeTradeCostController controller = new ChangeTradeCostController(trade, refreshCallback);
         popup.setScene(controller.createScene());
         popup.setTitle("Change cost of: " + trade.getStringName());
+        popup.setOnHidden(ev -> {
+            if (refreshCallback != null) {
+                refreshCallback.run();
+            }
+        });
         popup.show();
     }
 }
