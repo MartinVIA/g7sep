@@ -12,6 +12,7 @@ public class ClovervilleModelManager {
   public ClovervilleModelManager() {
     cloverville = new Cloverville();
   }
+  
 
   public ArrayList<Resident> getAllResidents() {
     return cloverville.getResidentList().getAllResidents();
@@ -43,11 +44,11 @@ public class ClovervilleModelManager {
   }
 
   public void addTrade(String name, String description, Resident trader, int pointCost) {
-    trades.add(new Trade(name, description, trader, pointCost));
+    cloverville.getTradeList().addTrade(new Trade(name, description, trader, pointCost));
   }
 
   public void addTradeWithOffer(String name, String description, Resident trader, String tradeOffer) {
-    trades.add(new Trade(name, description, trader, tradeOffer));
+    cloverville.getTradeList().addTrade(new Trade(name, description, trader, tradeOffer));
   }
 
   public ArrayList<Task> getTaskList() {

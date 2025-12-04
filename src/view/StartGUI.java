@@ -203,18 +203,24 @@ public class StartGUI extends Application {
         refreshTradesTable();
 
         // task list
-        TableView tasksTable = new TableView<>();
-        TableColumn taskNameCol = new TableColumn("Task Name");
-        TableColumn taskPointsCol = new TableColumn("Points");
-        TableColumn taskTypeCol = new TableColumn("Type");
-        TableColumn taskDescCol = new TableColumn("Description");
-        tasksTable.setEditable(true);
-        tasksTable.getColumns().addAll(taskNameCol, taskDescCol, taskTypeCol, taskPointsCol);
+        taskTable = new TableView<>();
+        taskTable.setPrefWidth(420);
+
+        TableColumn<Task, String> nameCol = new TableColumn<>("Task Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("TaskName"));
+        TableColumn<Task, String> descCol = new TableColumn<>("Task Description");
+        descCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        TableColumn<Task, Integer> pointsCol = new TableColumn<>("Points");
+        pointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
+        TableColumn<Task, String> typeCol = new TableColumn<>("Type");
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));;
+        taskTable.getColumns().addAll(nameCol, descCol, pointsCol, typeCol);
+        refreshTasksTable();
 
         VBox tasksBox = new VBox();
         tasksBox.setSpacing(5);
         tasksBox.setPadding(new Insets(10, 0, 0, 10));
-        tasksBox.getChildren().add(tasksTable);
+        tasksBox.getChildren().add(taskTable);
 
         // community points layout
         TableView greenTasks = new TableView<>();

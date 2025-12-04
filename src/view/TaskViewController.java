@@ -4,10 +4,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -33,23 +31,6 @@ public class TaskViewController {
     }
 
     public VBox createView() {
-        taskTable = new TableView<>();
-        taskTable.setPrefWidth(420);
-
-        TableColumn<Task, String> nameCol = new TableColumn<>("Task Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("TaskName"));
-
-        TableColumn<Task, String> descCol = new TableColumn<>("Task Description");
-        descCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
-
-        TableColumn<Task, Integer> pointsCol = new TableColumn<>("Points");
-        pointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
-
-        TableColumn<Task, String> typeCol = new TableColumn<>("Type");
-        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));;
-
-        taskTable.getColumns().addAll(nameCol, descCol, pointsCol, typeCol);
-        refreshTaskList();
 
         Label titleLabel = new Label("Cloverville – Tasks");
         HBox topBox = new HBox(titleLabel);
