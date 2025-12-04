@@ -33,17 +33,17 @@ public class FileWriter {
 
             // Write JSON for web: array of {id, firstName, lastName}
             StringBuilder sb = new StringBuilder();
-            sb.append("[");
+            sb.append("[\n");
             boolean first = true;
             for (Resident r : model.getAllResidents()) {
                 if (!first)
-                    sb.append(",");
+                    sb.append(",\n");
                 first = false;
-                sb.append("{\"id\":").append(r.getId())
+                sb.append("  {\"id\":").append(r.getId())
                         .append(",\"firstName\":\"").append(escapeJson(r.getFirstName())).append("\"")
                         .append(",\"lastName\":\"").append(escapeJson(r.getLastName())).append("\"}");
             }
-            sb.append("]");
+            sb.append("\n]");
 
             Path outPath = Paths.get("AItest_file_operations_residents.json");
             Files.writeString(outPath, sb.toString(), StandardCharsets.UTF_8);
@@ -55,17 +55,17 @@ public class FileWriter {
 
     public void savePersonalPoints() {
         try {
-            // Write JSON mapping id -> points
+            // Write JSON mapping; object mapping id -> points
             StringBuilder sb = new StringBuilder();
-            sb.append("{");
+            sb.append("{\n");
             boolean first = true;
             for (Resident r : model.getAllResidents()) {
                 if (!first)
-                    sb.append(",");
+                    sb.append(",\n");
                 first = false;
-                sb.append("\"").append(r.getId()).append("\":").append(r.getPersonalPoints());
+                sb.append("  \"").append(r.getId()).append("\":").append(r.getPersonalPoints());
             }
-            sb.append("}");
+            sb.append("\n}");
 
             Path outPath = Paths.get("AItest_file_operations_personalpoints.json");
             Files.writeString(outPath, sb.toString(), StandardCharsets.UTF_8);
@@ -146,15 +146,15 @@ public class FileWriter {
 
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("{");
+            sb.append("{\n");
             boolean first = true;
             for (Resident r : residentList.getAllResidents()) {
                 if (!first)
-                    sb.append(",");
+                    sb.append(",\n");
                 first = false;
-                sb.append("\"").append(r.getId()).append("\":").append(r.getPersonalPoints());
+                sb.append("  \"").append(r.getId()).append("\":").append(r.getPersonalPoints());
             }
-            sb.append("}");
+            sb.append("\n}");
             Path outPath = Paths.get("AItest_file_operations_personalpoints.json");
             Files.writeString(outPath, sb.toString(), StandardCharsets.UTF_8);
             System.out.println("Wrote personal points JSON to: " + outPath.toAbsolutePath());

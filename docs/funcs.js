@@ -99,88 +99,63 @@ function createNavbar() {
 // Call the function when DOM is ready
 document.addEventListener('DOMContentLoaded', createNavbar);
 
-// --- Personal Points XML Loader ---
-function loadPointsFromXML(xmlPath) {
-    console.log("loadPointsFromXML: loading", xmlPath);
-    // If a generated JS data file exists (window.fileOperations), use it first.
-    try {
-        if (window.fileOperations && Array.isArray(window.fileOperations.personalPoints)) {
-            console.log('Using in-page JS data (file_operations_data.js)');
-            const pointsMap = {};
-            for (const entry of window.fileOperations.personalPoints) {
-                if (entry && entry.id != null) pointsMap[String(entry.id)] = String(entry.points);
-            }
-            // update status if available
-            const statusEl = document.getElementById('points-status');
-            if (statusEl && window.fileOperations && window.fileOperations.lastUpdated) {
-                statusEl.textContent = 'Last updated: ' + window.fileOperations.lastUpdated;
-            }
-            displayPoints(pointsMap);
-            return;
-        }
-    } catch (e) {
-        console.warn('Error accessing window.fileOperations', e);
+// --- Personal Points JSON Loader ---
+function loadPointsFromJSON(jsonPath) {
+    console.log("loadPointsFromJSON: loading", jsonPath);
+    
+    // Try to construct the correct path - go up one level from docs/
+    let actualPath = jsonPath;
+    
+    // If running from file:// protocol, try to build the correct path
+    if (window.location.protocol === 'file:') {
+        const docsDir = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+        const projectRoot = docsDir.substring(0, docsDir.lastIndexOf('/'));
+        actualPath = projectRoot + '/file_operations_personalpoints.json';
+        console.log("File protocol detected. Using path:", actualPath);
     }
-    fetch(xmlPath, { cache: 'no-store' })
+    
+    fetch(actualPath, { cache: 'no-store' })
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok: ' + response.status);
-            return response.text();
-        })
-        .then(str => {
-            console.log('Fetched XML length', str.length);
-            const doc = (new window.DOMParser()).parseFromString(str, "text/xml");
-            return doc;
+            return response.json();
         })
         .then(data => {
-            try {
-                const operations = data.getElementsByTagName("Operation");
-                const pointsMap = {};
-                for (let i = 0; i < operations.length; i++) {
-                    const op = operations[i];
-                    const type = op.getAttribute("type");
-                    const fileAttr = op.getAttribute("file") || '';
-                    if (type === "write" && fileAttr.indexOf("PersonalPoints") !== -1) {
-                        const lines = op.getElementsByTagName("Line");
-                        for (let j = 0; j < lines.length; j++) {
-                            const text = lines[j].textContent.trim();
-                            if (!text) continue;
-                            // Accept "ID,Points" or "ID Points" formats
-                            const parts = text.split(/[,;\s]+/).filter(Boolean);
-                            if (parts.length >= 2) {
-                                const id = parts[0];
-                                const points = parts[1];
-                                pointsMap[id] = points;
-                            }
-                        }
-                    }
-                }
-                console.log('Parsed pointsMap', pointsMap);
-                // if XML path used, update status
-                const statusEl = document.getElementById('points-status');
-                if (statusEl) {
-                    // try to read lastUpdated from XML <Operation> attribute or leave blank
-                    const op = (function(){
-                        for (let i=0;i<operations.length;i++){
-                            const o = operations[i];
-                            if (o.getAttribute('file') && o.getAttribute('file').indexOf('PersonalPoints')!==-1) return o;
-                        }
-                        return null;
-                    })();
-                    if (op && op.getAttribute('timestamp')) {
-                        statusEl.textContent = 'Last updated: ' + op.getAttribute('timestamp');
-                    } else if (window.fileOperations && window.fileOperations.lastUpdated) {
-                        statusEl.textContent = 'Last updated: ' + window.fileOperations.lastUpdated;
-                    }
-                }
-                displayPoints(pointsMap);
-            } catch (err) {
-                console.error('Error parsing XML document', err);
-                displayPoints({});
+            console.log('Fetched JSON data', data);
+            const pointsMap = {};
+            // data should be an object mapping id -> points
+            for (const [id, points] of Object.entries(data)) {
+                pointsMap[String(id)] = String(points);
             }
+            console.log('Parsed pointsMap', pointsMap);
+            // Update status with current time
+            const statusEl = document.getElementById('points-status');
+            if (statusEl) {
+                const now = new Date().toISOString();
+                statusEl.textContent = 'Last updated: ' + now;
+            }
+            displayPoints(pointsMap);
         })
         .catch(err => {
-            console.error('Failed to load XML', err);
-            displayPoints({});
+            console.error('Failed to load JSON from', actualPath, err);
+            // Try alternative path if the first one fails
+            if (actualPath !== jsonPath) {
+                console.log('Retrying with original path:', jsonPath);
+                fetch(jsonPath, { cache: 'no-store' })
+                    .then(r => r.ok ? r.json() : Promise.reject('Not ok'))
+                    .then(data => {
+                        const pointsMap = {};
+                        for (const [id, points] of Object.entries(data)) {
+                            pointsMap[String(id)] = String(points);
+                        }
+                        displayPoints(pointsMap);
+                    })
+                    .catch(e => {
+                        console.error('Fallback also failed:', e);
+                        displayPoints({});
+                    });
+            } else {
+                displayPoints({});
+            }
         });
 }
 
@@ -207,6 +182,112 @@ function displayPoints(pointsMap) {
 // Only run on personalpoints.html
 if (window.location.pathname.includes('personalpoints.html')) {
     document.addEventListener("DOMContentLoaded", function() {
-        loadPointsFromXML("../src/file_operations.xml");
+        loadPointsFromJSON("../file_operations_personalpoints.json");
+    });
+}
+
+// --- Tasks JSON Loader ---
+function loadTasksFromJSON(jsonPath) {
+    console.log("loadTasksFromJSON: loading", jsonPath);
+    
+    let actualPath = jsonPath;
+    if (window.location.protocol === 'file:') {
+        const docsDir = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+        const projectRoot = docsDir.substring(0, docsDir.lastIndexOf('/'));
+        actualPath = projectRoot + '/file_operations_tasks.json';
+        console.log("File protocol detected. Using path:", actualPath);
+    }
+    
+    fetch(actualPath, { cache: 'no-store' })
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok: ' + response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched tasks JSON data', data);
+            displayTasks(data || []);
+        })
+        .catch(err => {
+            console.error('Failed to load tasks JSON', err);
+            displayTasks([]);
+        });
+}
+
+function displayTasks(tasksArray) {
+    const container = document.getElementById("tasks-list");
+    if (!container) return;
+    container.innerHTML = "";
+    if (!tasksArray || tasksArray.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'tasks-empty';
+        empty.textContent = 'No tasks data available.';
+        container.appendChild(empty);
+        return;
+    }
+    for (const task of tasksArray) {
+        const item = document.createElement("div");
+        item.className = "task-item";
+        item.textContent = `Task: ${task.name} (Type: ${task.type})`;
+        container.appendChild(item);
+    }
+}
+
+// Only run on tasks.html
+if (window.location.pathname.includes('tasks.html')) {
+    document.addEventListener("DOMContentLoaded", function() {
+        loadTasksFromJSON("../file_operations_tasks.json");
+    });
+}
+
+// --- Trades JSON Loader ---
+function loadTradesFromJSON(jsonPath) {
+    console.log("loadTradesFromJSON: loading", jsonPath);
+    
+    let actualPath = jsonPath;
+    if (window.location.protocol === 'file:') {
+        const docsDir = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+        const projectRoot = docsDir.substring(0, docsDir.lastIndexOf('/'));
+        actualPath = projectRoot + '/file_operations_trades.json';
+        console.log("File protocol detected. Using path:", actualPath);
+    }
+    
+    fetch(actualPath, { cache: 'no-store' })
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok: ' + response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched trades JSON data', data);
+            displayTrades(data || []);
+        })
+        .catch(err => {
+            console.error('Failed to load trades JSON', err);
+            displayTrades([]);
+        });
+}
+
+function displayTrades(tradesArray) {
+    const container = document.getElementById("trades-list");
+    if (!container) return;
+    container.innerHTML = "";
+    if (!tradesArray || tradesArray.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'trades-empty';
+        empty.textContent = 'No trades data available.';
+        container.appendChild(empty);
+        return;
+    }
+    for (const trade of tradesArray) {
+        const item = document.createElement("div");
+        item.className = "trade-item";
+        item.textContent = `Trade: ${trade.name || 'N/A'}`;
+        container.appendChild(item);
+    }
+}
+
+// Only run on trades.html
+if (window.location.pathname.includes('trades.html')) {
+    document.addEventListener("DOMContentLoaded", function() {
+        loadTradesFromJSON("../file_operations_trades.json");
     });
 }

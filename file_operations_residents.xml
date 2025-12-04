@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<FileOperations>
-  <Operation file="Residents" timestamp="2025-12-04T11:30:47.611226200Z" type="write">
-    <Data>
-      <Line>1,leon,de Kuijper</Line>
-    </Data>
-  </Operation>
-</FileOperations>
