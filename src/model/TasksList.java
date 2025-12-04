@@ -36,7 +36,7 @@ public class TasksList implements Serializable {
     return null;
   }
 
-  public List<Task> getTasks() {
+  public List<Task> getTaskList() {
     return new ArrayList<>(tasks);
   }
 

@@ -93,7 +93,7 @@ public class TaskViewController {
     }
 
     private void refreshTaskList() {
-        taskTable.getItems().setAll(model.getAllTasks());
+        taskTable.getItems().setAll(model.getTaskList());
     }
 
     private void handleAddTask() {

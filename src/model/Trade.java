@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 
 public class Trade implements Serializable {
+
   private String name;
   private String description;
   private Resident trader;
@@ -92,7 +93,6 @@ public class Trade implements Serializable {
   // public Date getCompleteDate() {
   // return completeDate;
   // }
-
   public void setTrader(Resident trader) {
     this.trader = trader;
   }
@@ -109,6 +109,21 @@ public class Trade implements Serializable {
     // trader.setLatestTrade(completeDate.today().copy());
     // tradee.setLatestTrade(completeDate.today().copy());
   }
+
+  public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != getClass()) {
+            return false;
+        }
+
+        Trade other = (Trade) obj;
+        return name.equals(other.name)
+          && description.equals(other.description)
+          && trader.equals(other.trader)
+          && tradee.equals(other.tradee)
+          && pointCost == other.pointCost
+          && tradeOffer.equals(other.tradeOffer)
+          && isComplete == other.isComplete;
+    }
 
   public String toString() {
     return "Trade Name: " + name

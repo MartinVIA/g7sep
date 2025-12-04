@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Cloverville {
 
   private ResidentList allResidents;
@@ -18,12 +16,13 @@ public class Cloverville {
     return allResidents;
   }
 
-  public TradeList getAllTrades() {
+  public TradeList getTradeList() {
     return tradeList;
   }
 
-  public TasksList getAllTasks() {
+  public TasksList getTaskList() {
     return tasksList;
+
   }
 
 }

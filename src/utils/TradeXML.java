@@ -1,10 +1,9 @@
 package utils;
 
-import model.Trade;
-import model.TradeList;
-
 import java.io.*;
 import java.util.ArrayList;
+import model.Trade;
+import model.TradeList;
 
 public class TradeXML {
     private TradeList tradeList;
@@ -27,7 +26,7 @@ public class TradeXML {
             tradeList = (TradeList) read.readObject();
 
             // Populate the trades ArrayList
-            trades = tradeList.getAllTrades();
+            trades = tradeList.getTradeList();
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found, or could not be opened");

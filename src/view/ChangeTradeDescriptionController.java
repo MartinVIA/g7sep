@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.Trade;
 
 public class ChangeTradeDescriptionController {
@@ -48,11 +47,11 @@ public class ChangeTradeDescriptionController {
         trade.setDescription(newDescription);
 
         // Refresh table in main window
-        if (onSaved != null)
+        if (onSaved != null) {
             onSaved.run();
+        }
 
-        // Close window
-        Stage stage = (Stage) messageLabel.getScene().getWindow();
-        stage.close();
+        // sucess message
+        messageLabel.setText("Changed Description succesfully");
     }
 }

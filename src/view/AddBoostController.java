@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.ClovervilleModelManager;
 import model.Resident;
 
@@ -38,7 +37,7 @@ public class AddBoostController {
         applyBtn.setOnAction(e -> {
             resident.setBoost(true);
             msg.setText("Boost applied to resident.");
-            ((Stage) applyBtn.getScene().getWindow()).close();
+            
         });
 
         root.getChildren().addAll(info, applyBtn, msg);

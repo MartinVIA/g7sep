@@ -1,17 +1,15 @@
 package utils;
 
-import java.util.*;
+import java.io.*;
 import model.ResidentList;
 import model.TasksList;
 import model.TradeList;
-
-import java.io.*;
 
 public class FileReader {
   public static void main(String[] args) {
     // Read ResidentList from file
     try {
-      FileInputStream residentFileIn = new FileInputStream("customers.bin");
+      FileInputStream residentFileIn = new FileInputStream("personal_points.bin");
       ObjectInputStream readResidents = new ObjectInputStream(residentFileIn);
       try {
         ResidentList residentList = (ResidentList) readResidents.readObject();

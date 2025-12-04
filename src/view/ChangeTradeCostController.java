@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.Trade;
 
 public class ChangeTradeCostController {
@@ -53,10 +52,12 @@ public class ChangeTradeCostController {
 
         trade.setPointCost(newCost);
 
-        if (onSaved != null)
+        if (onSaved != null) {
             onSaved.run();
 
-        Stage stage = (Stage) messageLabel.getScene().getWindow();
-        stage.close();
+            // sucess message
+            messageLabel.setText("Changed Cost succesfully");
+        }
+
     }
 }

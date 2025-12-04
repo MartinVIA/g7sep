@@ -2,27 +2,20 @@ package view;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.*;
-import utils.MyFileHandler;
 
 public class StartGUI extends Application {
 
@@ -36,11 +29,11 @@ public class StartGUI extends Application {
     }
 
     private void refreshTradesTable() {
-        tradesTable.getItems().setAll(model.getAllTrades());
+        tradesTable.getItems().setAll(model.getTradeList());
     }
 
     private void refreshTasksTable() {
-        taskTable.getItems().setAll(model.getAllTasks());
+        taskTable.getItems().setAll(model.getTaskList());
     }
 
     public void start(Stage primaryStage) {
@@ -98,8 +91,8 @@ public class StartGUI extends Application {
                     model, selected, this::refreshResidentsTable);
 
             popup.setScene(controller.createScene());
-            popup.setTitle("Manage Resident: " +
-                    selected.getFirstName() + " " + selected.getLastName());
+            popup.setTitle("Manage Resident: "
+                    + selected.getFirstName() + " " + selected.getLastName());
             popup.show();
         });
 
@@ -172,7 +165,6 @@ public class StartGUI extends Application {
 
         // import javafx.scene.control.cell.PropertyValueFactory;
         // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/PropertyValueFactory.html
-
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -286,7 +278,7 @@ public class StartGUI extends Application {
         Scene scene = new Scene(root, 500, 500);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        primaryStage.setTitle("I don't wanna do this anympre send help");
+        primaryStage.setTitle("I don wanna do this anympre send help");
         primaryStage.show();
     }
 
