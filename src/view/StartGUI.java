@@ -57,9 +57,9 @@ public class StartGUI extends Application {
         // Load residents and points from JSON files
         try {
             System.out.println("Loading data from JSON files...");
-            List<Resident> residentsFromJSON = JSONReader.readResidentsFromJSON("file_operations_residents.json");
+            List<Resident> residentsFromJSON = JSONReader.readResidentsFromJSON("docs/file_operations_residents.json");
             Map<Integer, Integer> pointsFromJSON = JSONReader
-                    .readPersonalPointsFromJSON("file_operations_personalpoints.json");
+                    .readPersonalPointsFromJSON("docs/file_operations_personalpoints.json");
 
             // Add residents to model by first name and last name
             for (Resident resident : residentsFromJSON) {

@@ -47,7 +47,7 @@ public class FileWriter {
                         }
                         sb.append("\n]");
 
-                        Path outPath = Paths.get("file_operations_residents.json");
+                        Path outPath = Paths.get("docs/file_operations_residents.json");
                         Files.writeString(outPath, sb.toString(), StandardCharsets.UTF_8);
                         System.out.println("Wrote residents JSON to: " + outPath.toAbsolutePath());
                 } catch (Exception e) {
@@ -69,7 +69,7 @@ public class FileWriter {
                         }
                         sb.append("\n}");
 
-                        Path outPath = Paths.get("file_operations_personalpoints.json");
+                        Path outPath = Paths.get("docs/file_operations_personalpoints.json");
                         Files.writeString(outPath, sb.toString(), StandardCharsets.UTF_8);
                         System.out.println("Wrote personal points JSON to: " + outPath.toAbsolutePath());
                 } catch (Exception e) {
@@ -101,7 +101,7 @@ public class FileWriter {
                                                 .append("\"type\":\"").append(escapeJson(t.getType())).append("\"}");
                         }
                         sb.append("]");
-                        Path outPath = Paths.get("file_operations_tasks.json");
+                        Path outPath = Paths.get("docs/file_operations_tasks.json");
                         Files.writeString(outPath, sb.toString(), StandardCharsets.UTF_8);
                         System.out.println("Wrote tasks JSON to: " + outPath.toAbsolutePath());
                 } catch (Exception e) {
@@ -127,7 +127,7 @@ public class FileWriter {
                         }
 
                         // Write empty trades JSON placeholder (adjust when model provides data)
-                        Path outPath = Paths.get("file_operations_trades.json");
+                        Path outPath = Paths.get("docs/file_operations_trades.json");
                         Files.writeString(outPath, "[]", StandardCharsets.UTF_8);
                         System.out.println("Wrote trades JSON to: " + outPath.toAbsolutePath());
                 } catch (Exception e) {
@@ -165,7 +165,7 @@ public class FileWriter {
                                 sb.append("  \"").append(r.getId()).append("\":").append(r.getPersonalPoints());
                         }
                         sb.append("\n}");
-                        Path outPath = Paths.get("file_operations_personalpoints.json");
+                        Path outPath = Paths.get("docs/file_operations_personalpoints.json");
                         Files.writeString(outPath, sb.toString(), StandardCharsets.UTF_8);
                         System.out.println("Wrote personal points JSON to: " + outPath.toAbsolutePath());
                 } catch (Exception e) {
