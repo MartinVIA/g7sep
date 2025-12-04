@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <FileOperations>
-    
-  <Operation file="PersonalPoints" timestamp="2025-12-04T10:03:45.694433700Z" type="write">
-        
+  <Operation file="PersonalPoints" timestamp="2025-12-04T10:54:56.186874900Z" type="write">
     <Data>
-            
-      <Line>1,190</Line>
-          
-    </Data>
-      
-  </Operation>
-  
-  <Operation file="PersonalPoints" timestamp="2025-12-04T10:08:45.277748Z" type="write">
-    <Data>
-      <Line>1,250</Line>
+      <Line>1,90</Line>
     </Data>
   </Operation>
 </FileOperations>

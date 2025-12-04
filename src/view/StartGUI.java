@@ -22,7 +22,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import model.*;
+import java.io.*;
+import java.util.*;
+import java.time.LocalTime;
 import utils.MyFileHandler;
+import utils.FileWriter;
 
 public class StartGUI extends Application {
 
@@ -56,7 +60,16 @@ public class StartGUI extends Application {
             ResidentViewController controller = new ResidentViewController(model);
             popup.setScene(controller.createScene());
             popup.setTitle("Cloverville's Resident");
-            popup.setOnHidden(ev -> refreshResidentsTable());
+            popup.setOnHidden(ev -> {
+                refreshResidentsTable();
+                try {
+                    FileWriter fw = new FileWriter(model);
+                    fw.savePersonalPoints();
+                    fw.saveResidents();
+                } catch (Exception ex) {
+                    System.err.println("Error saving data: " + ex.getMessage());
+                }
+            });
             popup.show();
         });
 
