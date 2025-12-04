@@ -37,7 +37,7 @@ public class StartGUI extends Application {
     private void refreshTradesTable() {
         if (model != null) {
             tradesTable.getItems().clear();
-            tradesTable.getItems().setAll(model.getTaskList());
+            //tradesTable.getItems().setAll(model.getTaskList());
         }
     }
 

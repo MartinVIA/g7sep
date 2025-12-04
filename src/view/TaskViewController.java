@@ -4,9 +4,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -17,7 +18,7 @@ public class TaskViewController {
 
     private final ClovervilleModelManager model;
 
-    private ListView<Task> taskList;
+    private TableView<Task> taskTable;
     private TextField nameField;
     private TextField pointsField;
     private TextField typeField;
@@ -32,20 +33,22 @@ public class TaskViewController {
     }
 
     public VBox createView() {
-        taskList = new ListView<>();
-        taskList.setPrefWidth(320);
-        taskList.setCellFactory(lv -> new ListCell<Task>() {
-            @Override
-            protected void updateItem(Task item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    String status = item.isCompleteTask() ? "(Complete)" : "";
-                    setText(item.getName() + " [" + item.getType() + "] - " + item.getPoints() + " pts " + status);
-                }
-            }
-        });
+        taskTable = new TableView<>();
+        taskTable.setPrefWidth(420);
+
+        TableColumn<Task, String> nameCol = new TableColumn<>("Task Description");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn<Task, Integer> pointsCol = new TableColumn<>("Points");
+        pointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
+
+        TableColumn<Task, String> typeCol = new TableColumn<>("Type");
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+        TableColumn<Task, Boolean> statusCol = new TableColumn<>("Complete");
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("completeTask"));
+
+        taskTable.getColumns().addAll(nameCol, pointsCol, typeCol, statusCol);
         refreshTaskList();
 
         Label titleLabel = new Label("Cloverville – Tasks");
@@ -54,9 +57,6 @@ public class TaskViewController {
 
         nameField = new TextField();
         nameField.setPromptText("Task name");
-
-        // descField = new TextField();
-        // descField.setPromptText("Type (description)");
 
         typeField = new TextField();
         typeField.setPromptText("Type (e.g. community or green)");
@@ -75,7 +75,6 @@ public class TaskViewController {
         VBox rightBox = new VBox(10,
                 new Label("Add new task:"),
                 nameField,
-                // descField,
                 typeField,
                 pointsField,
                 addButton,
@@ -85,7 +84,7 @@ public class TaskViewController {
 
         BorderPane root = new BorderPane();
         root.setTop(topBox);
-        root.setCenter(taskList);
+        root.setCenter(taskTable);
         root.setRight(rightBox);
         root.setPadding(new Insets(10));
 
@@ -94,7 +93,7 @@ public class TaskViewController {
     }
 
     private void refreshTaskList() {
-        taskList.getItems().setAll(model.getTaskList());
+        taskTable.getItems().setAll(model.getTaskList());
     }
 
     private void handleAddTask() {
@@ -129,7 +128,7 @@ public class TaskViewController {
     }
 
     private void handleCompleteTask() {
-        Task selected = taskList.getSelectionModel().getSelectedItem();
+        Task selected = taskTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
             messageLabel.setText("Select a task first.");
             return;

@@ -5,117 +5,56 @@ import java.util.*;
 import model.*;
 
 public class FileWriter {
-
-    private ClovervilleModelManager model;
-    private FileXMLLogger xmlLogger;
-    private FileXMLLogger residentLogger;
-    private FileXMLLogger taskLogger;
-    private FileXMLLogger tradeLogger;
-
-    public FileWriter(ClovervilleModelManager model) {
-        this.model = model;
-        // use a consistent filename the frontend expects
-        this.personalPointsLogger = new FileXMLLogger("file_operations_personalpoints.xml");
-        this.residentLogger = new FileXMLLogger("file_operations_residents.xml");
-        this.taskLogger = new FileXMLLogger("file_operations_tasks.xml");
-        this.tradeLogger = new FileXMLLogger("file_operations_trades.xml");
-    }
-
-    public void saveAllData() {
-        saveResidents();
-        savePersonalPoints();
-        saveTasks();
-        saveTrades();
-    }
-
-    public void saveResidents() {
-        ResidentList residentList = new ResidentList();
-        for (Resident resident : model.getAllResidents()) {
-            residentList.addResident(resident);
-        }
-
+    public static void main(String[] args) {
+        // write residentlist
         try (ObjectOutputStream out = new ObjectOutputStream(
-                new FileOutputStream("Personal_points.bin"))) {
+                new FileOutputStream("customers.bin"))) {
+            ResidentList residentList = new ResidentList();
+            ArrayList<Resident> residents = new ArrayList<>();
+            residents.add(new Resident(1, "Green", "Bob", 9999999));
+            residents.add(new Resident(2, "Green", "Smith", 0));
+            residents.add(new Resident(3, "Charlie", "Brown", 0));
+            residents.add(new Resident(4, "Diana", "White", 0));
+
+            for (Resident resident : residents) {
+                residentList.addResident(resident);
+            }
+
             out.writeObject(residentList);
             System.out.println("Success writing residents");
-
-            // Log to XML
-            List<String> residentData = new ArrayList<>();
-            for (Resident r : model.getAllResidents()) {
-                residentData.add(r.getId() + "," + r.getFirstName() + "," + r.getLastName());
-            }
-            xmlLogger.logWrite("Residents", residentData);
-            System.out.println("Logged residents to XML");
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
-    public void savePersonalPoints() {
-        try {
-            List<String> pointsData = new ArrayList<>();
-            for (Resident r : model.getAllResidents()) {
-                pointsData.add(r.getId() + "," + r.getPersonalPoints());
-            }
-            PersonalPointsLogger.logWrite("PersonalPoints", pointsData);
-            System.out.println("Logged resident points to XML");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void saveTasks() {
+        // write taskslist
         try (ObjectOutputStream out = new ObjectOutputStream(
                 new FileOutputStream("tasks.bin"))) {
             TasksList tasksList = new TasksList();
 
-            for (Task task : model.getAllTasks()) {
-                tasksList.addTask(task);
-            }
+            tasksList.addTask(new GreenActions("Recycle paper", "green_action", 10));
+            tasksList.addTask(new GreenActions("Plant a tree", "green_action", 50));
+            tasksList.addTask(new CommunityTasks("Park cleanup", "community_task", 20));
+            tasksList.addTask(new CommunityTasks("Help neighbor", "community_task", 15));
 
             out.writeObject(tasksList);
             System.out.println("Success writing tasks");
-
-            // Log to XML
-            List<String> taskData = new ArrayList<>();
-            for (Task t : model.getAllTasks()) {
-                taskData.add(t.getName() + "," + t.getType());
-            }
-            Logger.logWrite("Tasks", taskData);
-            System.out.println("Logged tasks to XML");
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
-    public void saveTrades() {
-        // Note: trades are stored in ClovervilleModelManager, but we need a getter for
-        // them
-        System.out.println("Trades saving not fully implemented yet (need getTrades method in model)");
-    }
-
-    public static void main(String[] args) {
-        // For standalone testing with hardcoded data
-        ResidentList residentList = new ResidentList();
-        residentList.addResident(new Resident(1, "Green", "Bob", 250));
-
+        // write tradelist
         try (ObjectOutputStream out = new ObjectOutputStream(
-                new FileOutputStream("residents.bin"))) {
-            out.writeObject(residentList);
-            System.out.println("Success writing residents");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                new FileOutputStream("trades.bin"))) {
+            TradeList tradeList = new TradeList();
+            ArrayList<Trade> trades = new ArrayList<>();
+            trades.add(new Trade("Pot for 5 apples", "xd", 20));
 
-        // Log resident points to XML
-        try {
-            List<String> pointsData = new ArrayList<>();
-            for (Resident r : residentList.getAllResidents()) {
-                pointsData.add(r.getId() + "," + r.getPersonalPoints());
+            for (Trade trade : trades) {
+                tradeList.addTrade(trade);
             }
-            FileXMLLogger xmlLogger = new FileXMLLogger("personal_points.xml");
-            xmlLogger.logWrite("PersonalPoints", pointsData);
-            System.out.println("Logged resident points to XML");
+
+            out.writeObject(tradeList);
+            System.out.println("Success writing trades");
         } catch (Exception e) {
             e.printStackTrace();
         }
