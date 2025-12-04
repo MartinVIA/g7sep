@@ -22,7 +22,6 @@ public class ResidentViewController {
   private ListView<Resident> residentListView;
   private TextField firstNameField;
   private TextField lastNameField;
-
   private TextField pointsField;
   private Label messageLabel;
 

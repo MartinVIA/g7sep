@@ -10,6 +10,7 @@ import model.ClovervilleModelManager;
 import model.Resident;
 
 public class ManageResidentController {
+
     private final ClovervilleModelManager model;
     private final Resident resident;
     private final Runnable refreshCallback;
@@ -21,63 +22,75 @@ public class ManageResidentController {
     }
 
     public Scene createScene() {
-        Label title = new Label(
-                "Manage " + resident.getFirstName() + " " + resident.getLastName());
+        Label title = new Label("Manage " + resident.getFirstName() + " " + resident.getLastName());
 
         Button changeNameBtn = new Button("Change name");
-        changeNameBtn.setOnAction(e -> {
-            Stage popup = new Stage();
-            ChangeNameController controller = new ChangeNameController(model, resident);
-            popup.setScene(controller.createScene());
-            popup.setTitle("Change name of: "
-                    + resident.getFirstName() + " " + resident.getLastName());
-            popup.setOnHidden(ev -> {
-                if (refreshCallback != null)
-                    refreshCallback.run();
-            });
-            popup.show();
-        });
-
         Button editPointsBtn = new Button("Edit points");
-        editPointsBtn.setOnAction(e -> {
-            Stage popup = new Stage();
-            EditPointsController controller = new EditPointsController(model, resident);
-            popup.setScene(controller.createScene());
-            popup.setTitle("Edit points of Resident: " + resident.getFirstName() + " " + resident.getLastName());
-            popup.setOnHidden(ev -> {
-                if (refreshCallback != null)
-                    refreshCallback.run();
-            });
-            popup.show();
-        });
         Button addBoostBtn = new Button("Add a boost");
-        addBoostBtn.setOnAction(e -> {
-            Stage popup = new Stage();
-            AddBoostController controller = new AddBoostController(model, resident);
-            popup.setScene(controller.createScene());
-            popup.setTitle("Add a boost to: " + resident.getFirstName() + " " + resident.getLastName());
-            popup.setOnHidden(ev -> {
-                if (refreshCallback != null)
-                    refreshCallback.run();
-            });
-            popup.show();
-        });
         Button removeBoostBtn = new Button("Remove a boost");
-        removeBoostBtn.setOnAction(e -> {
-            Stage popup = new Stage();
-            RemoveBoostController controller = new RemoveBoostController(model, resident);
-            popup.setScene(controller.createScene());
-            popup.setTitle("Romove boost from: " + resident.getFirstName() + " " + resident.getLastName());
-            popup.setOnHidden(ev -> {
-                if (refreshCallback != null)
-                    refreshCallback.run();
-            });
-            popup.show();
-        });
-        VBox root = new VBox(10, title,
-                changeNameBtn, editPointsBtn, addBoostBtn, removeBoostBtn);
+        Button closeBtn = new Button("Close");
+
+        changeNameBtn.setOnAction(e -> openChangeNamePopup());
+        editPointsBtn.setOnAction(e -> openEditPointsPopup());
+        addBoostBtn.setOnAction(e -> openAddBoostPopup());
+        removeBoostBtn.setOnAction(e -> openRemoveBoostPopup());
+        closeBtn.setOnAction(e -> closeBtn.getScene().getWindow().hide());
+
+        VBox root = new VBox(10, title, changeNameBtn, editPointsBtn, addBoostBtn, removeBoostBtn, closeBtn);
         root.setPadding(new Insets(10));
 
-        return new Scene(root, 260, 220);
+        return new Scene(root, 260, 250);
+    }
+
+    private void openChangeNamePopup() {
+        Stage popup = new Stage();
+        ChangeNameController controller = new ChangeNameController(model, resident);
+        popup.setScene(controller.createScene());
+        popup.setTitle("Change name of: " + resident.getFirstName() + " " + resident.getLastName());
+        popup.setOnHidden(ev -> {
+            if (refreshCallback != null) {
+                refreshCallback.run();
+            }
+        });
+        popup.show();
+    }
+
+    private void openEditPointsPopup() {
+        Stage popup = new Stage();
+        EditPointsController controller = new EditPointsController(model, resident);
+        popup.setScene(controller.createScene());
+        popup.setTitle("Edit points of Resident: " + resident.getFirstName() + " " + resident.getLastName());
+        popup.setOnHidden(ev -> {
+            if (refreshCallback != null) {
+                refreshCallback.run();
+            }
+        });
+        popup.show();
+    }
+
+    private void openAddBoostPopup() {
+        Stage popup = new Stage();
+        AddBoostController controller = new AddBoostController(model, resident);
+        popup.setScene(controller.createScene());
+        popup.setTitle("Add a boost to: " + resident.getFirstName() + " " + resident.getLastName());
+        popup.setOnHidden(ev -> {
+            if (refreshCallback != null) {
+                refreshCallback.run();
+            }
+        });
+        popup.show();
+    }
+
+    private void openRemoveBoostPopup() {
+        Stage popup = new Stage();
+        RemoveBoostController controller = new RemoveBoostController(model, resident);
+        popup.setScene(controller.createScene());
+        popup.setTitle("Remove boost from: " + resident.getFirstName() + " " + resident.getLastName());
+        popup.setOnHidden(ev -> {
+            if (refreshCallback != null) {
+                refreshCallback.run();
+            }
+        });
+        popup.show();
     }
 }

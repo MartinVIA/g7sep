@@ -1,35 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <FileOperations>
-      
-  
-  <Operation file="PersonalPoints" timestamp="2025-12-04T11:07:16.591127500Z" type="write">
-            
-    
+
+  <Operation file="Residents" timestamp="2025-12-04T11:16:39.161185100Z" type="write">
     <Data>
-                  
-      
-      <Line>1,6</Line>
-                
-    
-    </Data>
-          
-  
-  </Operation>
-    
-  
-  <Operation file="PersonalPoints" timestamp="2025-12-04T11:07:17.898149400Z" type="write">
-        
-    <Data>
-            
-      <Line>1,6</Line>
-          
-    </Data>
-      
-  </Operation>
-  
-  <Operation file="Residents" timestamp="2025-12-04T11:07:18.013976500Z" type="write">
-    <Data>
-      <Line>1,bh,hh</Line>
+      <Line>1,nam,las</Line>
+      <Line>2,secnam,seclas</Line>
     </Data>
   </Operation>
 </FileOperations>
