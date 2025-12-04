@@ -101,25 +101,64 @@ document.addEventListener('DOMContentLoaded', createNavbar);
 
 // --- Personal Points XML Loader ---
 function loadPointsFromXML(xmlPath) {
-    fetch(xmlPath)
-        .then(response => response.text())
-        .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
-        .then(data => {
-            const operations = data.getElementsByTagName("Operation");
+    console.log("loadPointsFromXML: loading", xmlPath);
+    // If a generated JS data file exists (window.fileOperations), use it first.
+    try {
+        if (window.fileOperations && Array.isArray(window.fileOperations.personalPoints)) {
+            console.log('Using in-page JS data (file_operations_data.js)');
             const pointsMap = {};
-            for (let op of operations) {
-                if (op.getAttribute("type") === "write" && op.getAttribute("file").includes("PersonalPoints")) {
-                    const lines = op.getElementsByTagName("Line");
-                    for (let line of lines) {
-                        // Assuming line format: ID,Points
-                        const [id, points] = line.textContent.split(/[,;\s]+/);
-                        if (id && points) {
-                            pointsMap[id] = points;
+            for (const entry of window.fileOperations.personalPoints) {
+                if (entry && entry.id != null) pointsMap[String(entry.id)] = String(entry.points);
+            }
+            displayPoints(pointsMap);
+            return;
+        }
+    } catch (e) {
+        console.warn('Error accessing window.fileOperations', e);
+    }
+    fetch(xmlPath, { cache: 'no-store' })
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok: ' + response.status);
+            return response.text();
+        })
+        .then(str => {
+            console.log('Fetched XML length', str.length);
+            const doc = (new window.DOMParser()).parseFromString(str, "text/xml");
+            return doc;
+        })
+        .then(data => {
+            try {
+                const operations = data.getElementsByTagName("Operation");
+                const pointsMap = {};
+                for (let i = 0; i < operations.length; i++) {
+                    const op = operations[i];
+                    const type = op.getAttribute("type");
+                    const fileAttr = op.getAttribute("file") || '';
+                    if (type === "write" && fileAttr.indexOf("PersonalPoints") !== -1) {
+                        const lines = op.getElementsByTagName("Line");
+                        for (let j = 0; j < lines.length; j++) {
+                            const text = lines[j].textContent.trim();
+                            if (!text) continue;
+                            // Accept "ID,Points" or "ID Points" formats
+                            const parts = text.split(/[,;\s]+/).filter(Boolean);
+                            if (parts.length >= 2) {
+                                const id = parts[0];
+                                const points = parts[1];
+                                pointsMap[id] = points;
+                            }
                         }
                     }
                 }
+                console.log('Parsed pointsMap', pointsMap);
+                displayPoints(pointsMap);
+            } catch (err) {
+                console.error('Error parsing XML document', err);
+                displayPoints({});
             }
-            displayPoints(pointsMap);
+        })
+        .catch(err => {
+            console.error('Failed to load XML', err);
+            displayPoints({});
         });
 }
 
@@ -127,7 +166,15 @@ function displayPoints(pointsMap) {
     const container = document.getElementById("points-list");
     if (!container) return;
     container.innerHTML = "";
-    for (const [id, points] of Object.entries(pointsMap)) {
+    const entries = Object.entries(pointsMap || {});
+    if (entries.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'points-empty';
+        empty.textContent = 'No personal points data available.';
+        container.appendChild(empty);
+        return;
+    }
+    for (const [id, points] of entries) {
         const item = document.createElement("div");
         item.className = "points-item";
         item.textContent = `ID: ${id} - Points: ${points}`;
