@@ -19,6 +19,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import model.*;
 import utils.MyFileHandler;
 
@@ -31,6 +33,10 @@ public class StartGUI extends Application {
 
     private void refreshResidentsTable() {
         residentsTable.getItems().setAll(model.getAllResidents());
+    }
+
+    private void refreshTradesTable() {
+        tradesTable.getItems().setAll(model.getAllTrades());
     }
 
     public void start(Stage primaryStage) {
@@ -94,6 +100,26 @@ public class StartGUI extends Application {
         });
 
         Button trade_edit = new Button("Edit existing Trade");
+        trade_edit.setOnAction(e -> {
+
+            Trade selected = tradesTable.getSelectionModel().getSelectedItem();
+            // select the trade
+            if (selected == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No trade selected");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select a trade in the table first.");
+                alert.showAndWait();
+                return;
+            }
+            // select the trade dumbass
+            Stage popup = new Stage();
+            ManageTradeController controller = new ManageTradeController(model,
+                    selected, this::refreshTradesTable);
+            popup.setScene(controller.createScene());
+            popup.setTitle("Edit Trade");
+            popup.show();
+        });
         Button task_edit = new Button("Edit existing Task");
         Button community_points_edit = new Button("Edit Community Points");
 
@@ -139,9 +165,6 @@ public class StartGUI extends Application {
         TableColumn<Resident, Double> pointsCol = new TableColumn("Points");
         TableColumn<Resident, Boolean> boostsCol = new TableColumn("Boosts");
 
-        // and here we need to set each of the arrays inside of the arraylist to the
-        // correct column that
-        // Victor made so it matches up, and we can do that with this
         // import javafx.scene.control.cell.PropertyValueFactory;
         // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/PropertyValueFactory.html
 
@@ -165,8 +188,22 @@ public class StartGUI extends Application {
         TableColumn<Trade, Integer> priceCol = new TableColumn<>("Price");
         TableColumn<Trade, String> offerCol = new TableColumn<>("Offer");
         TableColumn<Trade, String> descriptionCol = new TableColumn<>("Description");
+        // creates the table we see when we go to the trade tab
+
+        sellerCol.setCellValueFactory(new PropertyValueFactory<>("traderName"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("pointCost"));
+        offerCol.setCellValueFactory(new PropertyValueFactory<>("stringName"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        // A tableView stores whole Trade objects, but each TableColumn must be told
+        // which part of the Trade should appear in that colummn.
+        // setCellValueFactory tells the colummn which get method in the Trade class to
+        // call.
+        // For example, sellerCol uses getTraderName(), priceCol uses getPointCost()
+        // Without setCellValueFactory, the table would not know what to show.
+
         tradesTable.setEditable(true);
         tradesTable.getColumns().addAll(sellerCol, priceCol, offerCol, descriptionCol);
+        refreshTradesTable();
 
         // task list
         TableView tasksTable = new TableView<>();

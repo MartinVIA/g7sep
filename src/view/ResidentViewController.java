@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ClovervilleModelManager;
 import model.Resident;
+import utils.FileWriter;
 
 public class ResidentViewController {
 
@@ -122,7 +123,15 @@ public class ResidentViewController {
       model.awardPointsToResident(selected.getId(), pts);
       refreshResidentList();
       messageLabel.setText(
-          "Awarded " + pts + " points to " + selected.getFirstName() + "." + selected.getLastName() + " .");
+          "Awarded " + pts + " points to " + selected.getFirstName() + " " + selected.getLastName() + " .");
+      // Persist personal points to XML/JS so front-end can read them
+      try {
+        FileWriter fw = new FileWriter(model);
+        fw.savePersonalPoints();
+      } catch (Exception ex) {
+        // non-fatal: log and continue
+        System.err.println("Failed to save personal points: " + ex.getMessage());
+      }
     } catch (NumberFormatException e) {
       messageLabel.setText("Points must be a whole number.");
     }

@@ -78,10 +78,9 @@ public class TradeViewController {
         String priceText = priceField.getText().trim();
         Resident selected = residentListView.getSelectionModel().getSelectedItem();
 
-        // basic validation – corresponds to "System validates action"
         if (name.isEmpty() || desc.isEmpty()) {
             messageLabel.setText("Offer name and description cannot be empty.");
-            return; // show error, keep window open
+            return;
         }
 
         if (selected == null) {
@@ -94,14 +93,13 @@ public class TradeViewController {
             price = Integer.parseInt(priceText);
         } catch (NumberFormatException ex) {
             messageLabel.setText("Price must be a whole number.");
-            return; // error path in diagram
+            return;
         }
 
-        // If you have a TradeOffer model, call the model here.
-        // e.g.: model.createTradeOffer(selected.getId(), name, desc, price);
+        model.addTrade(name, desc, selected, price);
 
         messageLabel.setText("Trade offer created successfully.");
-        // optionally close the window after a short delay, or let the user close it
+
     }
 
     private void refreshResidentList() {

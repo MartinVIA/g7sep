@@ -110,6 +110,11 @@ function loadPointsFromXML(xmlPath) {
             for (const entry of window.fileOperations.personalPoints) {
                 if (entry && entry.id != null) pointsMap[String(entry.id)] = String(entry.points);
             }
+            // update status if available
+            const statusEl = document.getElementById('points-status');
+            if (statusEl && window.fileOperations && window.fileOperations.lastUpdated) {
+                statusEl.textContent = 'Last updated: ' + window.fileOperations.lastUpdated;
+            }
             displayPoints(pointsMap);
             return;
         }
@@ -150,6 +155,23 @@ function loadPointsFromXML(xmlPath) {
                     }
                 }
                 console.log('Parsed pointsMap', pointsMap);
+                // if XML path used, update status
+                const statusEl = document.getElementById('points-status');
+                if (statusEl) {
+                    // try to read lastUpdated from XML <Operation> attribute or leave blank
+                    const op = (function(){
+                        for (let i=0;i<operations.length;i++){
+                            const o = operations[i];
+                            if (o.getAttribute('file') && o.getAttribute('file').indexOf('PersonalPoints')!==-1) return o;
+                        }
+                        return null;
+                    })();
+                    if (op && op.getAttribute('timestamp')) {
+                        statusEl.textContent = 'Last updated: ' + op.getAttribute('timestamp');
+                    } else if (window.fileOperations && window.fileOperations.lastUpdated) {
+                        statusEl.textContent = 'Last updated: ' + window.fileOperations.lastUpdated;
+                    }
+                }
                 displayPoints(pointsMap);
             } catch (err) {
                 console.error('Error parsing XML document', err);

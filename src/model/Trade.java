@@ -77,6 +77,18 @@ public class Trade implements Serializable {
     return description;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setPointCost(int pointCost) {
+    this.pointCost = pointCost;
+  }
+
   // public Date getCompleteDate() {
   // return completeDate;
   // }

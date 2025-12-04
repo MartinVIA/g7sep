@@ -52,6 +52,10 @@ public class ClovervilleModelManager {
     trades.add(new Trade(name, description, trader, tradeOffer));
   }
 
+  public ArrayList<Trade> getAllTrades() {
+    return new ArrayList<>(trades);
+  }
+
   public java.util.List<Task> getAllTasks() {
     return cloverville.getAllTasks().getTasks();
   }
