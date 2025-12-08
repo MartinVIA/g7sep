@@ -1,7 +1,6 @@
 package model;
 
 public class GreenActions extends Task {
-    // maybe some atributes?
     private int greenPointsAward;
 
     private GreenPoints greenPoints;
@@ -23,7 +22,6 @@ public class GreenActions extends Task {
     }
 
     public void completeTask(Resident resident) {
-        // logic here
         Date now = new Date();
         setCompleteDate(now);
         resident.setLatestGreenAction(now);

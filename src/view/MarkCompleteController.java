@@ -16,12 +16,10 @@ public class MarkCompleteController {
 
     private final ClovervilleModelManager model;
     private final Task task;
-    private final Runnable refreshCallback;
 
-    public MarkCompleteController(ClovervilleModelManager model, Task task, Runnable refreshCallback) {
+    public MarkCompleteController(ClovervilleModelManager model, Task task) {
         this.model = model;
         this.task = task;
-        this.refreshCallback = refreshCallback;
     }
 
     public Scene createScene() {
@@ -44,9 +42,9 @@ public class MarkCompleteController {
                 }
             }
             keepBtn.getScene().getWindow().hide();
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
+            // if (refreshCallback != null) {
+            // refreshCallback.run();
+            // }
         });
 
         deleteBtn.setOnAction(e -> {
@@ -58,9 +56,9 @@ public class MarkCompleteController {
             }
             model.getTaskList().remove(task);
             deleteBtn.getScene().getWindow().hide();
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
+            // if (refreshCallback != null) {
+            // refreshCallback.run();
+            // }
         });
 
         cancelBtn.setOnAction(e -> cancelBtn.getScene().getWindow().hide());

@@ -99,9 +99,14 @@ public class ManageTaskController {
 
     private void handleMarkComplete() {
         Stage popup = new Stage();
-        MarkCompleteController controller = new MarkCompleteController(model, task, refreshCallback);
+        MarkCompleteController controller = new MarkCompleteController(model, task);
         popup.setScene(controller.createScene());
         popup.setTitle("Mark task complete: " + task.getName());
+        popup.setOnHidden(ev -> {
+            if (refreshCallback != null) {
+                refreshCallback.run();
+            }
+        });
         popup.show();
     }
 }
