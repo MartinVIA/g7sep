@@ -16,12 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
-import java.io.*;
-import java.util.*;
-import java.time.LocalTime;
-import utils.MyFileHandler;
-import utils.FileWriter;
-import utils.JSONReader;
 
 public class StartGUI extends Application {
 
@@ -35,7 +29,6 @@ public class StartGUI extends Application {
 
         if (model != null) {
             residentsTable.getItems().clear();
-            // ResidentList residents = model.getAllResidents();
             residentsTable.getItems().setAll(model.getAllResidents());
         }
     }
@@ -43,7 +36,7 @@ public class StartGUI extends Application {
     private void refreshTradesTable() {
         if (model != null) {
             tradesTable.getItems().clear();
-            tradesTable.getItems().setAll(model.getTradeList());
+            // tradesTable.getItems().setAll(model.getTaskList());
         }
     }
 
@@ -92,13 +85,14 @@ public class StartGUI extends Application {
             popup.setTitle("Cloverville's Resident");
             popup.setOnHidden(ev -> {
                 refreshResidentsTable();
-                try {
-                    FileWriter fw = new FileWriter(model);
-                    fw.savePersonalPoints();
-                    fw.saveResidents();
-                } catch (Exception ex) {
-                    System.err.println("Error saving data: " + ex.getMessage());
-                }
+                // try {
+                //     FileWriter fw = new FileWriter(model);
+                //     fw.savePersonalPoints();
+                //     ;
+                //     fw.saveResidents();
+                // } catch (Exception ex) {
+                //     System.err.println("Error saving residents: " + ex.getMessage());
+                // }
             });
             popup.show();
         });

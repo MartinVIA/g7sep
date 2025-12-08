@@ -6,6 +6,7 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< HEAD
             "name": "JSONReader",
             "request": "launch",
             "mainClass": "utils.JSONReader",
@@ -27,6 +28,8 @@
         },
         {
             "type": "java",
+=======
+>>>>>>> main
             "name": "FileWriter",
             "request": "launch",
             "mainClass": "utils.FileWriter",

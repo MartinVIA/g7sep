@@ -31,6 +31,10 @@ public class TaskViewController {
     }
 
     public VBox createView() {
+        taskTable = new TableView<>();
+        taskTable.setPrefWidth(420);
+
+        refreshTaskList();
 
         Label titleLabel = new Label("Cloverville – Tasks");
         HBox topBox = new HBox(titleLabel);
