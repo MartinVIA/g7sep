@@ -150,8 +150,6 @@ font-family: 'Arial', sans-serif;
 }
 
 #points-list {
-  max-height: 400px;
-  overflow-y: auto;
   border: 1px solid #ccc;
   padding: 10px;
   margin: 20px 0;

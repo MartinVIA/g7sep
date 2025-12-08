@@ -15,7 +15,6 @@ import model.Resident;
 public class TradeViewController {
 
     private final ClovervilleModelManager model;
-
     private ListView<Resident> residentListView;
     private Label messageLabel;
     private TextField offerNameField;

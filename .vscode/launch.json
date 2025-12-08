@@ -6,6 +6,30 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< HEAD
+            "name": "JSONReader",
+            "request": "launch",
+            "mainClass": "utils.JSONReader",
+            "projectName": "g7sep_900a85f2"
+        },
+        {
+            "type": "java",
+            "name": "FileWriter",
+            "request": "launch",
+            "mainClass": "utils.FileWriter",
+            "projectName": "g7sep_900a85f2"
+        },
+        {
+            "type": "java",
+            "name": "StartGUI",
+            "request": "launch",
+            "mainClass": "view.StartGUI",
+            "projectName": "g7sep_900a85f2"
+        },
+        {
+            "type": "java",
+=======
+>>>>>>> main
             "name": "FileWriter",
             "request": "launch",
             "mainClass": "utils.FileWriter",

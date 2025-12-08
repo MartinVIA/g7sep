@@ -46,6 +46,32 @@ public class StartGUI extends Application {
 
     public void start(Stage primaryStage) {
         model = new ClovervilleModelManager();
+
+        // Load residents and points from JSON files
+        try {
+            System.out.println("Loading data from JSON files...");
+            List<Resident> residentsFromJSON = JSONReader.readResidentsFromJSON("docs/file_operations_residents.json");
+            Map<Integer, Integer> pointsFromJSON = JSONReader
+                    .readPersonalPointsFromJSON("docs/file_operations_personalpoints.json");
+
+            // Add residents to model by first name and last name
+            for (Resident resident : residentsFromJSON) {
+                model.addResident(resident.getFirstName(), resident.getLastName());
+            }
+
+            // Now apply points from JSON
+            for (Resident resident : model.getAllResidents()) {
+                if (pointsFromJSON.containsKey(resident.getId())) {
+                    Integer points = pointsFromJSON.get(resident.getId());
+                    resident.setPersonalPoints(points);
+                }
+            }
+            System.out.println("Loaded " + residentsFromJSON.size() + " residents from JSON");
+        } catch (Exception e) {
+            System.err.println("Error loading JSON data: " + e.getMessage());
+            e.printStackTrace();
+        }
+
         Button resident_menu = new Button("Residents");
         Button trade_menu = new Button("Trades");
         Button task_menu = new Button("Tasks");
