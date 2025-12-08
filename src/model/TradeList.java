@@ -24,7 +24,10 @@ public class TradeList implements Serializable {
   }
 
   public Trade getTrade(int index) {
-    return trades == null ? trades.get(index) : null;
+    if (index >= 0 && index < trades.size()) {
+      return trades.get(index);
+    }
+    return null;
   }
 
   public ArrayList<Trade> getAllTrades() {

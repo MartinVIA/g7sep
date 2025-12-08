@@ -4,21 +4,25 @@
 @startuml cases
 package "Model" #F1f1f1{
 
-    ResidentList o-->"0..*" Resident : residents 
-    Resident *--> "1" PersonalPoints : personalPoints
-    Trade o--> "1"  Resident : resident 
+    ResidentList o--"0..*" Resident : residents 
+    Resident *-- "1" PersonalPoints : personalPoints
+    Trade --> "1" Resident : trader
+    Trade --> "0..1" Resident : tradee
     PersonalPoints --> "1" Date : date
     Resident *--> "1" Date : date
-    TasksList o--> "0..*" Task : tasks
-    Task --> "1" Resident : resident
+    TasksList o-- "0..*" Task : tasks
+    
     Cloverville --> "1" ResidentList : allResidents
     Cloverville --> "1" TasksList : allTasks
-    TradeList o--> "0..*" Trade : trades
-    ClovervilleModelManager ..> Cloverville
+    TradeList o-- "0..*" Trade : trades
+    ClovervilleModelManager --> "1" Cloverville : cloverville
     Cloverville --> "1" TradeList : allTrades
-    Task *--> "1" Date : completeDate
+    Task *-- "1" Date : completeDate
     Task <|-- GreenActions 
     Task <|-- CommunityTasks
+    GreenActions *-- "1" GreenPoints : greenPoints
+    CommunityTasks *-- "1" PersonalPoints : personalPoints
+
 
 
     
@@ -263,13 +267,13 @@ package "Model" #F1f1f1{
 }
     
 package "view"#ababab{
-    StartGUI ..> ViewHandler
+    StartGUI --> ViewHandler
     ResidentViewController --> "1" ViewHandler 
     TradeViewController --> "1" ViewHandler
     TaskViewController --> "1" ViewHandler
-    RunGUI ..> ViewHandler
+    RunGUI --> ViewHandler
     ViewHandler --> "1" ClovervilleModelManager
-  StartGUI --> ClovervilleModelManager
+    StartGUI --> ClovervilleModelManager
     ResidentViewController --> ClovervilleModelManager
     TradeViewController --> ClovervilleModelManager
     TaskViewController --> ClovervilleModelManager
@@ -300,11 +304,32 @@ package "view"#ababab{
     ChangeTradeDescriptionController --> Trade
     ChangeTradeNameController --> Trade
 
+    ViewHandler *-- ResidentViewController
+    ViewHandler *-- TradeViewController
+    ViewHandler *-- TaskViewController
+
+
+    class ChangeTaskPointsController {
+        - model : ClovervilleModelManager
+        - task : Task
+        + ChangeTaskPointsController(model : ClovervilleModelManager, task : Task)
+        + createScene() : Scene
+    }
+    class ChangeTaskNameController {
+        - model : ClovervilleModelManager
+        - task : Task
+        + ChangeTaskNameController(model : ClovervilleModelManager, task : Task)
+        + createScene() : Scene
+    }
     Class ChangeTaskDescriptionController
     {
-        - model ClovervilleModelManager
-        - task Task
-        - descripotionfield 
+        - model : ClovervilleModelManager
+        - task : Task
+        - descriptionField : TextField
+        - messageLabel : Label
+
+        + ChangeTaskDescriptionController(ClovervilleModelManager : model, Task task)
+        + createScene() : Scene
     }
     Class StartGUI
     {
@@ -481,10 +506,10 @@ package "view"#ababab{
 
     class ManageTaskController {
         - model : ClovervilleModelManager
-        - task : Tast
+        - task : Task
         - refreshCallback : Runnable
 
-        + ManageTaskController(model : ClovervilleModelManager, task : Task, refreshCallBacl : Runnable)
+        + ManageTaskController(model : ClovervilleModelManager, task : Task, refreshCallBack : Runnable)
         + createScene : Scene
     }
 

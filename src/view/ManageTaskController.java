@@ -35,7 +35,7 @@ public class ManageTaskController {
         changeDescriptionBtn.setOnAction(e -> openChangeDescriptionPopup());
         changePointsBtn.setOnAction(e -> openChangePointsPopup());
         changeTypeBtn.setOnAction(e -> openChangeTypePopup());
-        // markCompleteBtn.setOnAction(e -> handleMarkComplete());
+        markCompleteBtn.setOnAction(e -> handleMarkComplete());
         closeBtn.setOnAction(e -> closeBtn.getScene().getWindow().hide());
 
         VBox root = new VBox(10, title, changeNameBtn, changeDescriptionBtn, changePointsBtn, changeTypeBtn,
@@ -97,12 +97,11 @@ public class ManageTaskController {
         popup.show();
     }
 
-    // private void handleMarkComplete() {
-    // Stage popup = new Stage();
-    // MarkCompleteController controller = new MarkCompleteController(model, task,
-    // refreshCallback);
-    // popup.setScene(controller.createScene());
-    // popup.setTitle("Mark task complete: " + task.getName());
-    // popup.show();
-    // }
+    private void handleMarkComplete() {
+        Stage popup = new Stage();
+        MarkCompleteController controller = new MarkCompleteController(model, task, refreshCallback);
+        popup.setScene(controller.createScene());
+        popup.setTitle("Mark task complete: " + task.getName());
+        popup.show();
+    }
 }
