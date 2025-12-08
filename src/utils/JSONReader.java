@@ -88,6 +88,97 @@ public class JSONReader {
         return map;
     }
 
+    public static List<Task> readTasksFromJSON(String filePath) {
+        List<Task> tasks = new ArrayList<>();
+        try {
+            Path p = Paths.get(filePath);
+            if (!Files.exists(p))
+                return tasks;
+            String content = Files.readString(p, StandardCharsets.UTF_8).trim();
+            if (content.isEmpty())
+                return tasks;
+            // Expecting an array of objects: [{"name":"...","type":"...","points":10},...]
+            if (content.startsWith("["))
+                content = content.substring(1);
+            if (content.endsWith("]"))
+                content = content.substring(0, content.length() - 1);
+            if (content.trim().isEmpty())
+                return tasks;
+            List<String> objects = splitTopLevelObjects(content);
+            for (String obj : objects) {
+                Map<String, String> map = parseJsonObject(obj);
+                String name = map.getOrDefault("name", "");
+                String type = map.getOrDefault("type", "");
+                String pointsStr = map.getOrDefault("points", "0");
+
+                // Skip empty tasks
+                if (name.isEmpty() || type.isEmpty()) {
+                    continue;
+                }
+
+                try {
+                    int points = Integer.parseInt(pointsStr.trim());
+                    // Create appropriate task type based on type field
+                    Task task;
+                    if (type.equalsIgnoreCase("green_action")) {
+                        task = new GreenActions(name, type, points);
+                    } else {
+                        task = new CommunityTasks(name, type, points);
+                    }
+                    tasks.add(task);
+                } catch (Exception e) {
+                    System.err.println("Error parsing task: " + e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error reading tasks JSON: " + e.getMessage());
+        }
+        return tasks;
+    }
+
+    public static List<Trade> readTradesFromJSON(String filePath) {
+        List<Trade> trades = new ArrayList<>();
+        try {
+            Path p = Paths.get(filePath);
+            if (!Files.exists(p))
+                return trades;
+            String content = Files.readString(p, StandardCharsets.UTF_8).trim();
+            if (content.isEmpty())
+                return trades;
+            // Expecting an array of objects:
+            // [{"name":"...","description":"...","pointCost":10},...]
+            if (content.startsWith("["))
+                content = content.substring(1);
+            if (content.endsWith("]"))
+                content = content.substring(0, content.length() - 1);
+            if (content.trim().isEmpty())
+                return trades;
+            List<String> objects = splitTopLevelObjects(content);
+            for (String obj : objects) {
+                Map<String, String> map = parseJsonObject(obj);
+                String name = map.getOrDefault("name", "");
+                String description = map.getOrDefault("description", "");
+                String pointCostStr = map.getOrDefault("pointCost", "0");
+
+                // Skip empty trades
+                if (name.isEmpty()) {
+                    continue;
+                }
+
+                try {
+                    int pointCost = Integer.parseInt(pointCostStr.trim());
+                    Trade trade = new Trade(name, description, pointCost);
+                    trades.add(trade);
+                } catch (Exception e) {
+                    System.err.println("Error parsing trade: " + e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error reading trades JSON: " + e.getMessage());
+        }
+        return trades;
+    }
+
     private static List<String> splitTopLevelObjects(String content) {
         List<String> objs = new ArrayList<>();
         StringBuilder cur = new StringBuilder();

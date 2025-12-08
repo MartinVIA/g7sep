@@ -83,29 +83,6 @@ public class EditResidentController {
             return;
         }
 
-<<<<<<< HEAD
-    boolean sameFirst = first.equalsIgnoreCase(resident.getFirstName());
-    boolean sameLast = last.equalsIgnoreCase(resident.getLastName());
-    if (sameLast && sameFirst) {
-      messageLabel.setText("Enter a different name");
-    } else
-      messageLabel.setText("Name updated.");
-  }
-
-  // ------ probably to be deleted
-  private void handleChangeId() {
-    String text = idField.getText().trim();
-    if (!text.matches("\\d+")) {
-      messageLabel.setText("ID must contain digits only (0–9).");
-    }
-  }
-
-  private void handleChangePoints() {
-    String text = pointsField.getText().trim();
-    if (!text.matches("\\d+")) {
-      messageLabel.setText("Points must be a whole number (0–9).");
-      return;
-=======
         // letters only
         if (!first.matches("[A-Za-z ]+") || !last.matches("[A-Za-z ]+")) {
             messageLabel.setText("Names should contain letters only (A–Z).");
@@ -131,7 +108,6 @@ public class EditResidentController {
         if (!text.matches("\\d+")) {
             messageLabel.setText("ID must contain digits only (0–9).");
         }
->>>>>>> main
     }
 
     private void handleChangePoints() {

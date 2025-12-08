@@ -38,6 +38,10 @@ public class ClovervilleModelManager {
         cloverville.getTaskList().addTask(b);
     }
 
+    public void addTask(Task task) {
+        cloverville.getTaskList().addTask(task);
+    }
+
     public ArrayList<Trade> getTradeList() {
         // return new ArrayList<Trade>(trades);
         return cloverville.getTradeList().getAllTrades();
@@ -49,6 +53,10 @@ public class ClovervilleModelManager {
 
     public void addTradeWithOffer(String name, String description, Resident trader, String tradeOffer) {
         cloverville.getTradeList().addTrade(new Trade(name, description, trader, tradeOffer));
+    }
+
+    public void addTrade(Trade trade) {
+        cloverville.getTradeList().addTrade(trade);
     }
 
     public void awardPointsToResident(int residentId, int points) {

@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+import java.util.Map;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -16,6 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
+import utils.JSONReader;
+import utils.FileWriter;
 
 public class StartGUI extends Application {
 
@@ -36,12 +40,16 @@ public class StartGUI extends Application {
     private void refreshTradesTable() {
         if (model != null) {
             tradesTable.getItems().clear();
-            // tradesTable.getItems().setAll(model.getTaskList());
+            tradesTable.getItems().setAll(model.getTradeList());
+            // Save to JSON after refresh
+            FileWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
         }
     }
 
     private void refreshTasksTable() {
         taskTable.getItems().setAll(model.getTaskList());
+        // Save to JSON after refresh
+        FileWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
     }
 
     public void start(Stage primaryStage) {
@@ -67,6 +75,20 @@ public class StartGUI extends Application {
                 }
             }
             System.out.println("Loaded " + residentsFromJSON.size() + " residents from JSON");
+
+            // Load tasks from JSON
+            List<Task> tasksFromJSON = JSONReader.readTasksFromJSON("docs/file_operations_tasks.json");
+            for (Task task : tasksFromJSON) {
+                model.addTask(task);
+            }
+            System.out.println("Loaded " + tasksFromJSON.size() + " tasks from JSON");
+
+            // Load trades from JSON
+            List<Trade> tradesFromJSON = JSONReader.readTradesFromJSON("docs/file_operations_trades.json");
+            for (Trade trade : tradesFromJSON) {
+                model.addTrade(trade);
+            }
+            System.out.println("Loaded " + tradesFromJSON.size() + " trades from JSON");
         } catch (Exception e) {
             System.err.println("Error loading JSON data: " + e.getMessage());
             e.printStackTrace();
@@ -86,12 +108,12 @@ public class StartGUI extends Application {
             popup.setOnHidden(ev -> {
                 refreshResidentsTable();
                 // try {
-                //     FileWriter fw = new FileWriter(model);
-                //     fw.savePersonalPoints();
-                //     ;
-                //     fw.saveResidents();
+                // FileWriter fw = new FileWriter(model);
+                // fw.savePersonalPoints();
+                // ;
+                // fw.saveResidents();
                 // } catch (Exception ex) {
-                //     System.err.println("Error saving residents: " + ex.getMessage());
+                // System.err.println("Error saving residents: " + ex.getMessage());
                 // }
             });
             popup.show();
