@@ -20,6 +20,8 @@ package "Model" #F1f1f1{
     Task <|-- GreenActions 
     Task <|-- CommunityTasks
 
+
+    
     class Task{
         - name : String
         - type : String
@@ -229,7 +231,6 @@ package "Model" #F1f1f1{
         + toString() : String
     }
     
-    
     Class Cloverville
     {
         - allResidents : ResidentList
@@ -268,7 +269,43 @@ package "view"#ababab{
     TaskViewController --> "1" ViewHandler
     RunGUI ..> ViewHandler
     ViewHandler --> "1" ClovervilleModelManager
+  StartGUI --> ClovervilleModelManager
+    ResidentViewController --> ClovervilleModelManager
+    TradeViewController --> ClovervilleModelManager
+    TaskViewController --> ClovervilleModelManager
+    AddBoostController --> ClovervilleModelManager
+    ChangeNameController --> ClovervilleModelManager
+    ChangeTaskTypeController --> ClovervilleModelManager
+    EditPointsController --> ClovervilleModelManager
+    EditResidentController --> ClovervilleModelManager
+    ManageResidentController --> ClovervilleModelManager
+    ManageTaskController --> ClovervilleModelManager
+    ManageTradeController --> ClovervilleModelManager
+    RemoveBoostController --> ClovervilleModelManager
 
+    ' --- Controllers referencing a specific entity ---
+    AddBoostController --> Resident
+    ChangeNameController --> Resident
+    EditPointsController --> Resident
+    EditResidentController --> Resident
+    ManageResidentController --> Resident
+    RemoveBoostController --> Resident
+
+    TaskViewController --> Task
+    ChangeTaskTypeController --> Task
+    ManageTaskController --> Task
+
+    ManageTradeController --> Trade
+    ChangeTradeCostController --> Trade
+    ChangeTradeDescriptionController --> Trade
+    ChangeTradeNameController --> Trade
+
+    Class ChangeTaskDescriptionController
+    {
+        - model ClovervilleModelManager
+        - task Task
+        - descripotionfield 
+    }
     Class StartGUI
     {
         - model : ClovervilleModelManager
@@ -365,6 +402,15 @@ package "view"#ababab{
         + createScene() : Scene
     }
 
+    class ChangeTaskTypeController{
+        - model : ClovervilleModelManager
+        - task : Task
+        
+        + ChangeTaskTypeController(ClovervilleModelManager : model, Task : task)
+        + createScene() : Scene
+    
+    }
+
     class ChangeTradeCostController {
         - trade : Trade
         - onSaved : Runnable
@@ -433,6 +479,15 @@ package "view"#ababab{
         + createScene() : Scene
     }
 
+    class ManageTaskController {
+        - model : ClovervilleModelManager
+        - task : Tast
+        - refreshCallback : Runnable
+
+        + ManageTaskController(model : ClovervilleModelManager, task : Task, refreshCallBacl : Runnable)
+        + createScene : Scene
+    }
+
     class ManageTradeController {
         - model : ClovervilleModelManager
         - trade : Trade
@@ -479,42 +534,11 @@ package "utils" #d3d3d3
         + saveTrades() : void
     }
 
-    class FileXMLLogger {
-        - xmlFilePath : String
+    class JSONReader {
+        + {static} 
 
-        + FileXMLLogger()
-        + logWrite(fileName : String, data : List<String>) : void
-        + logRead(fileName : String) : void
-        - logOperation(operation : String, fileName : String, data : List<String>) : void
-        - writeJsDataFile(data : List<String>) : void
     }
-
-    class ResidentXML {
-        - residents : ArrayList<Resident>
-
-        + ResidentXML()
-        + readResidents(fileName : String) : void
-        + writeResidents(fileName : String) : void
-        + getResidents() : ArrayList<Resident>
-    }
-
-    class TasksXML {
-        - tasks : ArrayList<Task>
-
-        + TasksXML()
-        + readTasks(fileName : String) : void
-        + writeTasks(fileName : String) : void
-        + getTasks() : ArrayList<Task>
-    }
-
-    class TradeXML {
-        - trades : ArrayList<Trade>
-
-        + TradeXML()
-        + readTrades(fileName : String) : void
-        + writeTrades(fileName : String) : void
-        + getTrades() : ArrayList<Trade>
-    }
+    
     
     ClovervilleModelManager ..> MyFileHandler
     ClovervilleModelManager ..> FileWriter

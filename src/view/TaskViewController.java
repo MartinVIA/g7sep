@@ -3,8 +3,9 @@ package view;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -16,10 +17,11 @@ public class TaskViewController {
 
     private final ClovervilleModelManager model;
 
-    private TableView<Task> taskTable;
+    private ListView<Task> taskListView;
     private TextField nameField;
+    private TextField descriptionField;
     private TextField pointsField;
-    private TextField typeField;
+    private ChoiceBox<String> typeChoiceBox;
     private Label messageLabel;
 
     public TaskViewController(ClovervilleModelManager model) {
@@ -31,8 +33,8 @@ public class TaskViewController {
     }
 
     public VBox createView() {
-        taskTable = new TableView<>();
-        taskTable.setPrefWidth(420);
+        taskListView = new ListView<>();
+        taskListView.setPrefWidth(420);
 
         refreshTaskList();
 
@@ -43,8 +45,12 @@ public class TaskViewController {
         nameField = new TextField();
         nameField.setPromptText("Task name");
 
-        typeField = new TextField();
-        typeField.setPromptText("Type (e.g. community or green)");
+        descriptionField = new TextField();
+        descriptionField.setPromptText("Task description");
+
+        typeChoiceBox = new ChoiceBox<>();
+        typeChoiceBox.getItems().addAll("green", "community");
+        typeChoiceBox.setValue("green"); // default
 
         pointsField = new TextField();
         pointsField.setPromptText("Points awarded (e.g. 5)");
@@ -52,24 +58,21 @@ public class TaskViewController {
         Button addButton = new Button("Add task");
         addButton.setOnAction(e -> handleAddTask());
 
-        Button completeButton = new Button("Mark complete");
-        completeButton.setOnAction(e -> handleCompleteTask());
-
         messageLabel = new Label();
 
         VBox rightBox = new VBox(10,
                 new Label("Add new task:"),
                 nameField,
-                typeField,
+                descriptionField,
+                typeChoiceBox,
                 pointsField,
                 addButton,
-                completeButton,
                 messageLabel);
         rightBox.setPadding(new Insets(10));
 
         BorderPane root = new BorderPane();
         root.setTop(topBox);
-        root.setCenter(taskTable);
+        root.setCenter(taskListView);
         root.setRight(rightBox);
         root.setPadding(new Insets(10));
 
@@ -78,17 +81,18 @@ public class TaskViewController {
     }
 
     private void refreshTaskList() {
-        taskTable.getItems().setAll(model.getTaskList());
+        taskListView.getItems().setAll(model.getTaskList());
     }
 
     private void handleAddTask() {
         String name = nameField.getText().trim();
-        String type = typeField.getText().trim();
+        String description = descriptionField.getText().trim();
+        String type = typeChoiceBox.getValue();
         if (name.isEmpty()) {
             messageLabel.setText("Task name cannot be empty.");
             return;
         }
-        if (type.isEmpty()) {
+        if (type == null || type.isEmpty()) {
             messageLabel.setText("Task type cannot be empty.");
             return;
         }
@@ -104,23 +108,13 @@ public class TaskViewController {
             }
         }
 
-        model.addTask(name, type, pts);
+        model.addTask(name, type, pts, description);
         nameField.clear();
-        typeField.clear();
+        descriptionField.clear();
+        typeChoiceBox.setValue("green");
         pointsField.clear();
         refreshTaskList();
         messageLabel.setText("Task added.");
-    }
-
-    private void handleCompleteTask() {
-        Task selected = taskTable.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            messageLabel.setText("Select a task first.");
-            return;
-        }
-        selected.completeTask(null); // no resident assigned by default
-        refreshTaskList();
-        messageLabel.setText("Task marked complete.");
     }
 
 }

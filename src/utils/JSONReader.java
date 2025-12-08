@@ -7,7 +7,6 @@ import java.util.*;
 import model.*;
 
 public class JSONReader {
-
     public static List<Resident> readResidentsFromJSON(String filePath) {
         List<Resident> residents = new ArrayList<>();
         try {

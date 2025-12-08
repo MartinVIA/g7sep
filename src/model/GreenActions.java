@@ -26,7 +26,6 @@ public class GreenActions extends Task {
         // logic here
         Date now = new Date();
         setCompleteDate(now);
-        greenPoints.addPoints(greenPointsAward);
         resident.setLatestGreenAction(now);
         super.markAsComplete();
     }

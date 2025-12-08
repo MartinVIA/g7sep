@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
 import utils.JSONReader;
-import utils.FileWriter;
+import utils.JSONWriter;
 
 public class StartGUI extends Application {
 
@@ -30,7 +30,6 @@ public class StartGUI extends Application {
 
     private void refreshResidentsTable() {
         // residentsTable.getItems().setAll(model.getAllResidents());
-
         if (model != null) {
             residentsTable.getItems().clear();
             residentsTable.getItems().setAll(model.getAllResidents());
@@ -42,14 +41,14 @@ public class StartGUI extends Application {
             tradesTable.getItems().clear();
             tradesTable.getItems().setAll(model.getTradeList());
             // Save to JSON after refresh
-            FileWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
+            JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
         }
     }
 
     private void refreshTasksTable() {
         taskTable.getItems().setAll(model.getTaskList());
         // Save to JSON after refresh
-        FileWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
+        JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
     }
 
     public void start(Stage primaryStage) {
@@ -79,14 +78,16 @@ public class StartGUI extends Application {
             // Load tasks from JSON
             List<Task> tasksFromJSON = JSONReader.readTasksFromJSON("docs/file_operations_tasks.json");
             for (Task task : tasksFromJSON) {
-                model.addTask(task);
+                model.addTask(task.getName(), task.getType(), task.getPoints(), task.getDescription());
             }
             System.out.println("Loaded " + tasksFromJSON.size() + " tasks from JSON");
 
             // Load trades from JSON
             List<Trade> tradesFromJSON = JSONReader.readTradesFromJSON("docs/file_operations_trades.json");
             for (Trade trade : tradesFromJSON) {
-                model.addTrade(trade);
+                model.addTrade(trade.getName(), trade.getDescription(), trade.getTrader(), trade.getPointCost());
+                // it should also read the other trades
+                // with the tradeOffer instead of points
             }
             System.out.println("Loaded " + tradesFromJSON.size() + " trades from JSON");
         } catch (Exception e) {
@@ -105,17 +106,16 @@ public class StartGUI extends Application {
             ResidentViewController controller = new ResidentViewController(model);
             popup.setScene(controller.createScene());
             popup.setTitle("Cloverville's Resident");
-            popup.setOnHidden(ev -> {
-                refreshResidentsTable();
-                // try {
-                // FileWriter fw = new FileWriter(model);
-                // fw.savePersonalPoints();
-                // ;
-                // fw.saveResidents();
-                // } catch (Exception ex) {
-                // System.err.println("Error saving residents: " + ex.getMessage());
-                // }
-            });
+            popup.setOnHidden(ev -> refreshResidentsTable()
+            // try {
+            // FileWriter fw = new FileWriter(model);
+            // fw.savePersonalPoints();
+            // ;
+            // fw.saveResidents();
+            // } catch (Exception ex) {
+            // System.err.println("Error saving residents: " + ex.getMessage());
+            // }
+            );
             popup.show();
         });
 
@@ -185,12 +185,27 @@ public class StartGUI extends Application {
             popup.show();
         });
         Button task_edit = new Button("Edit existing Task");
-        Button community_points_edit = new Button("Edit Community Points");
+        task_edit.setOnAction(e -> {
+            Task selected = taskTable.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No task selected");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select a task in the table first.");
+                alert.showAndWait();
+                return;
+            }
+
+            Stage popup = new Stage();
+            ManageTaskController controller = new ManageTaskController(
+                    model, selected, this::refreshTasksTable);
+            popup.setScene(controller.createScene());
+            popup.setTitle("Manage Task: " + selected.getName());
+            popup.show();
+        });
+        Button community_points_edit = new Button("Edit Green Points");
 
         ProgressBar progressBar = new ProgressBar();
-        progressBar.setProgress(50.0 / 100.0);
-        // will need the score int
-        Label temp = new Label("50/100");
 
         HBox bottom_menu_resident = new HBox();
         bottom_menu_resident.getChildren().addAll(resident_add, resident_edit);
@@ -275,10 +290,10 @@ public class StartGUI extends Application {
 
         TableColumn<Task, String> nameCol = new TableColumn<>("Task Name");
         TableColumn<Task, String> descCol = new TableColumn<>("Task Description");
-        TableColumn<Task, Integer> pointsColTasks = new TableColumn<>("description");
+        TableColumn<Task, Integer> pointsColTasks = new TableColumn<>("Points awarded");
         TableColumn<Task, String> typeCol = new TableColumn<>("Type");
 
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("TaskName"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         descCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
         pointsColTasks.setCellValueFactory(new PropertyValueFactory<>("points"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -305,8 +320,9 @@ public class StartGUI extends Application {
         communityPointsBox.setPadding(new Insets(10, 0, 0, 10));
         progressBar.setPrefWidth(450);
         communityPointsBox.getChildren().add(greenTasks);
-        communityPointsBox.getChildren().add(new Label("Progress toward next community reward: 50/100 green points"));
-        // community points variable needed
+        communityPointsBox.getChildren().add(new Label("Progress toward next green reward: " + model.getGreenPoints()
+                + "/" + model.getGreenPointsGoal() + " green points"));
+        progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
         communityPointsBox.getChildren().add(progressBar);
 
         // Main layout
@@ -335,13 +351,25 @@ public class StartGUI extends Application {
         });
         community_points_add.setOnAction(e -> {
             Stage popup = new Stage();
-            popup.setTitle("Add Community Points");
+            popup.setTitle("Add/Remove Green Points");
             TextField pointsField = new TextField();
-            pointsField.setPromptText("Points Amount");
+            pointsField.setPromptText("Points Amount (negative to remove)");
             Button submitButton = new Button("Submit");
             submitButton.setOnAction(ev -> {
-                // comunity points compatibility
-                popup.close();
+                try {
+                    int points = Integer.parseInt(pointsField.getText());
+                    model.addGreenPoints(points);
+                    popup.close();
+                    progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
+                    communityPointsBox.getChildren().set(1, new Label("Progress toward next green reward: "
+                            + model.getGreenPoints() + "/" + model.getGreenPointsGoal() + " green points"));
+                } catch (NumberFormatException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Invalid Input");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a valid number.");
+                    alert.showAndWait();
+                }
             });
             VBox layout = new VBox(10);
             layout.getChildren().addAll(pointsField, submitButton);
@@ -349,7 +377,35 @@ public class StartGUI extends Application {
             popup.setScene(new Scene(layout, 300, 150));
             popup.show();
         });
-
+        community_points_edit.setOnAction(e -> {
+            Stage popup = new Stage();
+            popup.setTitle("Edit Green Points Goal");
+            TextField goalField = new TextField();
+            goalField.setPromptText("New Goal Amount");
+            goalField.setText(String.valueOf(model.getGreenPointsGoal()));
+            Button submitButton = new Button("Submit");
+            submitButton.setOnAction(ev -> {
+                try {
+                    int goal = Integer.parseInt(goalField.getText());
+                    model.setGreenPointsGoal(goal);
+                    popup.close();
+                    progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
+                    communityPointsBox.getChildren().set(1, new Label("Progress toward next green reward: "
+                            + model.getGreenPoints() + "/" + model.getGreenPointsGoal() + " green points"));
+                } catch (NumberFormatException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Invalid Input");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a valid number.");
+                    alert.showAndWait();
+                }
+            });
+            VBox layout = new VBox(10);
+            layout.getChildren().addAll(goalField, submitButton);
+            layout.setPadding(new Insets(10, 10, 10, 10));
+            popup.setScene(new Scene(layout, 300, 150));
+            popup.show();
+        });
         Scene scene = new Scene(root, 500, 500);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

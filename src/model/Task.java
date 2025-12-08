@@ -5,6 +5,7 @@ import java.io.Serializable;
 public abstract class Task implements Serializable {
 
   private String name;
+  private String description;
   private String type;
   private int points;
   // private int amountOfPoints;
@@ -13,6 +14,7 @@ public abstract class Task implements Serializable {
 
   public Task(String name, String type) {
     this.name = name;
+    this.description = "";
     this.type = type;
     this.points = 0;
     // this.amountOfPoints = amountOfPoints;
@@ -22,6 +24,7 @@ public abstract class Task implements Serializable {
 
   public Task(String name, String type, int points) {
     this.name = name;
+    this.description = "";
     this.type = type;
     this.points = points;
     // this.amountOfPoints = amountOfPoints;
@@ -31,6 +34,10 @@ public abstract class Task implements Serializable {
 
   public String getName() {
     return name;
+  }
+
+  public String getDescription() {
+    return description;
   }
 
   public String getType() {
@@ -58,6 +65,10 @@ public abstract class Task implements Serializable {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public void setType(String type) {
@@ -97,6 +108,7 @@ public abstract class Task implements Serializable {
 
     Task other = (Task) obj;
     return name.equals(other.name)
+        && description.equals(other.description)
         && type.equals(other.type)
         && points == other.points;
     // && isComplete == other.isComplete;
@@ -104,6 +116,7 @@ public abstract class Task implements Serializable {
 
   public String toString() {
     return "Name: " + name
+        + ", Description: " + description
         + ", Type: " + type
         + ", Complete Task: " + isComplete;
   }

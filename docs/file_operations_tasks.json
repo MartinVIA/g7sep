@@ -3,5 +3,10 @@
     "name": "de",
     "type": "de",
     "points": 4
+  },
+  {
+    "name": "food",
+    "type": "community",
+    "points": 40
   }
 ]

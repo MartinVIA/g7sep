@@ -5,11 +5,13 @@ public class Cloverville {
   private ResidentList allResidents;
   private TradeList tradeList;
   private TasksList tasksList;
+  private GreenPoints greenPoints;
 
   public Cloverville() {
     allResidents = new ResidentList();
     tradeList = new TradeList();
     tasksList = new TasksList();
+    greenPoints = new GreenPoints(100); // default goal
   }
 
   public ResidentList getResidentList() {
@@ -23,6 +25,10 @@ public class Cloverville {
   public TasksList getTaskList() {
     return tasksList;
 
+  }
+
+  public GreenPoints getGreenPoints() {
+    return greenPoints;
   }
 
 }

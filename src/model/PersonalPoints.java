@@ -31,15 +31,19 @@ public class PersonalPoints implements Serializable {
     setPoints(0);
   }
 
+  // how do we calculate boost?
+  // i guess we compare the date of the latest task completion to the current date
+  // and then decide on a boost value based on that
+
   public double calculateBoost(Resident resident) {
     double boost = 1.0; // default no boost
-    // how do we calculate boost?
-    // i guess we compare the date of the latest task completion to the current date
-    // and then decide on a boost value based on that
+
     Date currentDate = date.today();
     Date lastCompletionDate = resident.getLatestTask();
+    // calculate difference in days
     long diff = currentDate.getNumOfDays() - lastCompletionDate.getNumOfDays();
-    // example boost values
+
+    // example boost values based on the difference
     if (diff > 14)
       boost += 0.2; // 1.2 multiplier if more than 2 weeks
     else if (diff > 30)

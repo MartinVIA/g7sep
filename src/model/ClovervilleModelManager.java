@@ -24,22 +24,26 @@ public class ClovervilleModelManager {
         return cloverville.getTaskList().getAllTasks();
     }
 
-    public void addTask(String Name, String Type) {
-        addTask(Name, Type, 0);
-    }
+    // public void addTask(String Name, String Type) {
+    // addTask(Name, Type, 0);
+    // }
 
-    public void addTask(String name, String type, int points) {
-        Task b;
+    public void addTask(String name, String type, int points, String description) {
+        Task task;
         if (type != null && type.toLowerCase().contains("green")) {
-            b = new GreenActions(name, type, points);
+            task = new GreenActions(name, type, points);
         } else {
-            b = new CommunityTasks(name, type, points);
+            task = new CommunityTasks(name, type, points);
         }
-        cloverville.getTaskList().addTask(b);
+        task.setDescription(description);
+        cloverville.getTaskList().addTask(task);
     }
 
-    public void addTask(Task task) {
-        cloverville.getTaskList().addTask(task);
+    public void updateTask(Task task, String name, String description, String type, int points) {
+        task.setName(name);
+        task.setDescription(description);
+        task.setType(type);
+        task.setPoints(points);
     }
 
     public ArrayList<Trade> getTradeList() {
@@ -55,14 +59,26 @@ public class ClovervilleModelManager {
         cloverville.getTradeList().addTrade(new Trade(name, description, trader, tradeOffer));
     }
 
-    public void addTrade(Trade trade) {
-        cloverville.getTradeList().addTrade(trade);
-    }
-
     public void awardPointsToResident(int residentId, int points) {
         Resident v = cloverville.getResidentList().getResidentById(residentId);
         if (v != null) {
             v.addPersonalPoints(points);
         }
+    }
+
+    public void addGreenPoints(int points) {
+        cloverville.getGreenPoints().addPoints(points);
+    }
+
+    public int getGreenPoints() {
+        return cloverville.getGreenPoints().getPoints();
+    }
+
+    public int getGreenPointsGoal() {
+        return cloverville.getGreenPoints().getGoal();
+    }
+
+    public void setGreenPointsGoal(int goal) {
+        cloverville.getGreenPoints().setGoal(goal);
     }
 }

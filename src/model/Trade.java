@@ -46,6 +46,10 @@ public class Trade implements Serializable {
     // completeDate = null;
   }
 
+  public String getName() {
+    return name;
+  }
+
   public String getTraderName() {
     return trader.getFirstName() + " " + trader.getLastName();
   }
