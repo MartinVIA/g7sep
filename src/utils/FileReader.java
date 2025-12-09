@@ -1,89 +1,62 @@
 package utils;
 
 import java.io.*;
+import java.util.ArrayList;
+import model.Resident;
 import model.ResidentList;
-import model.TasksList;
+import model.Task;
+import model.TaskList;
+import model.Trade;
 import model.TradeList;
+import model.GreenPoints;
 
 public class FileReader {
-
-    public static void main(String[] args) {
-        // Read ResidentList from file
+    public static ArrayList<Resident> readResidentsFromBinary(String filePath) {
+        ResidentList residentList = new ResidentList();
         try {
-            FileInputStream residentFileIn = new FileInputStream("personal_points.bin");
-            ObjectInputStream readResidents = new ObjectInputStream(residentFileIn);
-            try {
-                ResidentList residentList = (ResidentList) readResidents.readObject();
-                for (int i = 1; i <= residentList.size(); i++) {
-                    System.out.println(residentList.getResidentById(i));
-                }
-            } catch (EOFException eof) {
-                System.out.println("End of file");
-            }
-            readResidents.close();
+            residentList = (ResidentList) MyFileHandler.readFromBinaryFile(filePath);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, or could not be opened");
-            System.exit(1);
-        } catch (IOException e) {
-            System.out.println("IO Error");
-            e.printStackTrace();
-            System.exit(1);
-        } catch (ClassNotFoundException e) {
-            System.out.println("Class Not Found");
-            e.printStackTrace();
-            System.exit(1);
+            System.out.println("Residents file not found: " + filePath);
+        } catch (Exception e) {
+            System.err.println("Error reading residents from binary: " + e.getMessage());
         }
+        return residentList.getAllResidents();
+    }
 
-        // Read TasksList from file
+    public static ArrayList<Task> readTasksFromBinary(String filePath) {
+        TaskList taskList = new TaskList();
         try {
-            FileInputStream tasksFileIn = new FileInputStream("tasks.bin");
-            ObjectInputStream readTasks = new ObjectInputStream(tasksFileIn);
-            try {
-                TasksList tasksList = (TasksList) readTasks.readObject();
-                for (int i = 0; i < tasksList.size(); i++) {
-                    System.out.println(tasksList.getTask(i));
-                }
-            } catch (EOFException eof) {
-                System.out.println("End of file");
-            }
-            readTasks.close();
+            taskList = (TaskList) MyFileHandler.readFromBinaryFile(filePath);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, or could not be opened");
-            System.exit(1);
-        } catch (IOException e) {
-            System.out.println("IO Error");
-            e.printStackTrace();
-            System.exit(1);
-        } catch (ClassNotFoundException e) {
-            System.out.println("Class Not Found");
-            e.printStackTrace();
-            System.exit(1);
+            System.out.println("Tasks file not found: " + filePath);
+        } catch (Exception e) {
+            System.err.println("Error reading tasks from binary: " + e.getMessage());
         }
+        return taskList.getAllTasks();
+    }
 
-        // Read TradeList from file
+    public static ArrayList<Trade> readTradesFromBinary(String filePath) {
+        TradeList tradeList = new TradeList();
         try {
-            FileInputStream tradeFileIn = new FileInputStream("trades.bin");
-            ObjectInputStream readTrades = new ObjectInputStream(tradeFileIn);
-            try {
-                TradeList tradeList = (TradeList) readTrades.readObject();
-                for (int i = 0; i < tradeList.size(); i++) {
-                    System.out.println(tradeList.getTrade(i));
-                }
-            } catch (EOFException eof) {
-                System.out.println("End of file");
-            }
-            readTrades.close();
+            tradeList = (TradeList) MyFileHandler.readFromBinaryFile(filePath);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, or could not be opened");
-            System.exit(1);
-        } catch (IOException e) {
-            System.out.println("IO Error");
-            e.printStackTrace();
-            System.exit(1);
-        } catch (ClassNotFoundException e) {
-            System.out.println("Class Not Found");
-            e.printStackTrace();
-            System.exit(1);
+            System.out.println("Trades file not found: " + filePath);
+        } catch (Exception e) {
+            System.err.println("Error reading Trades from binary: " + e.getMessage());
         }
+        return tradeList.getAllTrades();
+    }
+
+    public static GreenPoints readGreenPointsFromBinary(String filePath) {
+        GreenPoints greenPoints = null;
+        try {
+            greenPoints = (GreenPoints) MyFileHandler.readFromBinaryFile(filePath);
+        } catch (FileNotFoundException e) {
+            System.out.println("GreenPoints file not found: " + filePath);
+        } catch (Exception e) {
+            System.err.println("Error reading GreenPoints from binary: " + e.getMessage());
+        }
+        return greenPoints;
+
     }
 }

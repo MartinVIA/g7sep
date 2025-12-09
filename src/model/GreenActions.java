@@ -11,8 +11,8 @@ public class GreenActions extends Task {
     /**
      * Creates a green action task
      * 
-     * @param name Task name
-     * @param type Task type label
+     * @param name        Task name
+     * @param type        Task type label
      * @param greenPoints Points awarded toward the green goal
      */
     public GreenActions(String name, String type, int greenPoints) {
@@ -48,7 +48,7 @@ public class GreenActions extends Task {
         Date now = new Date();
         setCompleteDate(now);
         resident.setLatestGreenAction(now);
-        super.markAsComplete();
+        // super.markAsComplete();
     }
 
     /**
@@ -69,7 +69,8 @@ public class GreenActions extends Task {
     /**
      * Provides a String representation of the green action's details
      * 
-     * @return a formatted String with green action's name, description, type, completion of the task and green points award
+     * @return a formatted String with green action's name, description, type,
+     *         completion of the task and green points award
      */
     public String toString() {
         return super.toString() + ", Green points award: " + greenPointsAward;

@@ -85,7 +85,8 @@ public class TradeList implements Serializable {
   /**
    * Returns a string representation of the trades list
    * 
-   * @return a formatted String with all trades' name, description, trader, tradee, point cost and trade offer
+   * @return a formatted String with all trades' name, description, trader,
+   *         tradee, point cost and trade offer
    */
   public String toString() {
     String list = "";

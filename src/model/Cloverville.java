@@ -7,7 +7,7 @@ public class Cloverville {
 
   private ResidentList allResidents;
   private TradeList tradeList;
-  private TasksList tasksList;
+  private TaskList TaskList;
   private GreenPoints greenPoints;
 
   /**
@@ -17,7 +17,7 @@ public class Cloverville {
   public Cloverville() {
     allResidents = new ResidentList();
     tradeList = new TradeList();
-    tasksList = new TasksList();
+    TaskList = new TaskList();
     greenPoints = new GreenPoints(100);
   }
 
@@ -44,8 +44,8 @@ public class Cloverville {
    * 
    * @return Task list container
    */
-  public TasksList getTaskList() {
-    return tasksList;
+  public TaskList getTaskList() {
+    return TaskList;
 
   }
 
@@ -58,4 +58,7 @@ public class Cloverville {
     return greenPoints;
   }
 
+  public void setGreenPoints(GreenPoints greenPoints) {
+    this.greenPoints = greenPoints;
+  }
 }

@@ -10,13 +10,14 @@ public class CommunityTasks extends Task {
     /**
      * Creates a community task
      * 
-     * @param name Task name
-     * @param type Task type
+     * @param name                Task name
+     * @param type                Task type
      * @param personalPointsAward Points earned on completion
      */
     public CommunityTasks(String name, String type, int personalPointsAward) {
         super(name, type, personalPointsAward);
         this.personalPointsAward = personalPointsAward;
+        this.personalPoints = new PersonalPoints();
     }
 
     /**
@@ -42,7 +43,7 @@ public class CommunityTasks extends Task {
      * Adds personal points to a resident
      * 
      * @param resident Resident to award
-     * @param points Points to add
+     * @param points   Points to add
      */
     public void awardPersonalPoints(Resident resident, int points) {
         resident.addPersonalPoints(points);
@@ -56,7 +57,7 @@ public class CommunityTasks extends Task {
     public void completeTask(Resident resident) {
         Date now = new Date();
         setCompleteDate(now);
-        
+
         if (resident.getHasBoost())
             resident.setBoost(false);
 
@@ -84,7 +85,8 @@ public class CommunityTasks extends Task {
     /**
      * Provides a String representation of the community task's details
      * 
-     * @return a formatted String with community task's name, description, type, completion of the task and personal points award
+     * @return a formatted String with community task's name, description, type,
+     *         completion of the task and personal points award
      */
     public String toString() {
         return super.toString() + ", Personal points award: " + personalPointsAward;

@@ -147,6 +147,10 @@ public class ClovervilleModelManager {
         return cloverville.getGreenPoints().getPoints();
     }
 
+    public GreenPoints getGreenPointsObject() {
+        return cloverville.getGreenPoints();
+    }
+
     /**
      * Gets current green points goal
      * 
@@ -156,16 +160,34 @@ public class ClovervilleModelManager {
         return cloverville.getGreenPoints().getGoal();
     }
 
-    /**
-     * Updates the green points goal
-     * 
-     * @param goal Goal value
-     */
     public void setGreenPointsGoal(int goal) {
         cloverville.getGreenPoints().setGoal(goal);
     }
 
-    
+    public void importResidents(ArrayList<Resident> residents) {
+        for (Resident resident : residents) {
+            cloverville.getResidentList().addResident(resident);
+        }
+    }
+
+    public void importTasks(ArrayList<Task> tasks) {
+        for (Task task : tasks) {
+            cloverville.getTaskList().addTask(task);
+        }
+    }
+
+    public void importTrades(ArrayList<Trade> trades) {
+        for (Trade trade : trades) {
+            cloverville.getTradeList().addTrade(trade);
+        }
+    }
+
+    public void importGreenPoints(GreenPoints gp) {
+        if (gp != null) {
+            cloverville.setGreenPoints(gp);
+        }
+    }
+
     public void removeTask(Task task) {
         cloverville.getTaskList().removeTask(task);
     }

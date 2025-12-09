@@ -1,7 +1,6 @@
 package model;
 
 import java.util.*;
-
 import java.io.Serializable;
 
 /**
@@ -60,7 +59,7 @@ public class ResidentList implements Serializable {
   }
 
   /**
-   * Returns a copy of the internal list 
+   * Returns a copy of the internal list
    * 
    * @return List copy
    */

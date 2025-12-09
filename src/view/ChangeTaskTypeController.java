@@ -28,7 +28,7 @@ public class ChangeTaskTypeController {
         typeChoiceBox.getItems().addAll("green", "community");
         typeChoiceBox.setValue(task.getType());
 
-        Button saveBtn = new Button("Save");
+        Button saveBtn = new Button("Confirm type change");
         Button cancelBtn = new Button("Cancel");
 
         saveBtn.setOnAction(e -> {

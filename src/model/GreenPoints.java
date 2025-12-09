@@ -13,8 +13,20 @@ public class GreenPoints implements Serializable {
   public Date resetPeriod;
 
   /**
-   * Creates a tracker with a goal and zero starting points.
-   * @param goal target points to reach
+   * Creates a tracker with zero starting points and zero goal
+   * 
+   * @param goal Target points to reach
+   */
+  public GreenPoints() {
+    greenPoints = 0;
+    pointGoal = 0;
+    isReached = false;
+  }
+
+  /**
+   * Creates a tracker with a goal and zero starting points
+   * 
+   * @param goal Target points to reach
    */
   public GreenPoints(int goal) {
     greenPoints = 0;
@@ -23,8 +35,9 @@ public class GreenPoints implements Serializable {
   }
 
   /**
-   * Updates the goal threshold.
-   * @param goal new goal value
+   * Updates the goal threshold
+   * 
+   * @param goal New goal value
    */
   public void setGoal(int goal) {
     pointGoal = goal;
@@ -35,15 +48,16 @@ public class GreenPoints implements Serializable {
   }
 
   /**
-   * Resets accumulated points to zero.
+   * Resets green points to zero
    */
   public void resetPoints() {
     greenPoints = 0;
   }
 
   /**
-   * Adds points toward the goal.
-   * @param points points to add
+   * Adds points toward the goal
+   * 
+   * @param points Points to add
    */
   public void addPoints(int points) {
     greenPoints += points;
@@ -54,20 +68,27 @@ public class GreenPoints implements Serializable {
   }
 
   /**
-   * Checks whether the goal has been met or exceeded.
-   * @return true when goal reached
+   * Checks whether the goal has been met or exceeded
+   * 
+   * @return True when goal reached
    */
   public boolean isGoalReached() {
     return greenPoints >= pointGoal;
   }
 
   /**
-   * Marks the goal as reached without altering points.
+   * Marks the goal as reached without altering points
    */
   public void goalReached() {
     isReached = true;
   }
 
+  /**
+   * Compares green points object with another object
+   * 
+   * @param obj Object to compare
+   * @return true if the objects are equal, false otherwise
+   */
   public boolean equals(Object obj) {
     if (obj == null || obj.getClass() != getClass())
       return false;
@@ -78,7 +99,12 @@ public class GreenPoints implements Serializable {
         && isReached == other.isReached;
   }
 
+  /**
+   * Returns a string representation of the green points
+   * 
+   * @return a Formatted string with green points and goal
+   */
   public String toString() {
-    return "Greenpoints: " + greenPoints + " " + "Point goal: " + pointGoal;
+    return "Green points: " + greenPoints + " " + "Point goal: " + pointGoal;
   }
 }

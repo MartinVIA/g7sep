@@ -99,7 +99,7 @@ public class ManageTaskController {
 
     private void handleMarkComplete() {
         Stage popup = new Stage();
-        MarkCompleteController controller = new MarkCompleteController(model, task);
+        MarkTaskComplete controller = new MarkTaskComplete(model, task);
         popup.setScene(controller.createScene());
         popup.setTitle("Mark task complete: " + task.getName());
         popup.setOnHidden(ev -> {

@@ -12,12 +12,12 @@ import model.GreenActions;
 import model.Resident;
 import model.Task;
 
-public class MarkCompleteController {
+public class MarkTaskComplete {
 
     private final ClovervilleModelManager model;
     private final Task task;
 
-    public MarkCompleteController(ClovervilleModelManager model, Task task) {
+    public MarkTaskComplete(ClovervilleModelManager model, Task task) {
         this.model = model;
         this.task = task;
     }
@@ -30,8 +30,8 @@ public class MarkCompleteController {
         residentListView.getItems().setAll(model.getAllResidents());
         residentListView.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
 
-        Button keepBtn = new Button("Keep Task");
-        Button deleteBtn = new Button("Delete Task");
+        Button keepBtn = new Button("Confirm keep task");
+        Button deleteBtn = new Button("Confirm delete task");
         Button cancelBtn = new Button("Cancel");
 
         keepBtn.setOnAction(e -> {
@@ -50,7 +50,6 @@ public class MarkCompleteController {
                                 .findFirst()
                                 .ifPresent(r -> r.setLatestTask(new model.Date()));
                         task.setCompleteDate(new model.Date());
-                        task.markAsComplete();
                     }
                 }
             }
@@ -75,7 +74,6 @@ public class MarkCompleteController {
                                 .findFirst()
                                 .ifPresent(r -> r.setLatestTask(new model.Date()));
                         task.setCompleteDate(new model.Date());
-                        task.markAsComplete();
                     }
                 }
             }

@@ -1,59 +1,96 @@
 package utils;
 
 import java.io.*;
-import java.nio.file.*;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import model.*;
 
 public class JSONWriter {
-    // Save tasks to JSON
-    public static void saveTasksToJSON(List<Task> tasks, String filePath) {
+
+    public static void saveResidentsToJSON(ArrayList<Resident> residents, String filePath) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[\n");
+        for (int i = 0; i < residents.size(); i++) {
+            Resident r = residents.get(i);
+            sb.append("  {\n");
+            sb.append("    \"id\": " + r.getId() + ",\n");
+            sb.append("    \"firstName\": \"" + escape(r.getFirstName()) + "\",\n");
+            sb.append("    \"lastName\": \"" + escape(r.getLastName()) + "\",\n");
+            sb.append("    \"personalPoints\": " + r.getPersonalPoints() + ",\n");
+            sb.append("    \"hasBoost\": " + r.getHasBoost() + "\n");
+            sb.append("  }");
+            if (i < residents.size() - 1)
+                sb.append(",");
+            sb.append("\n");
+        }
+        sb.append("]");
+        writeFile(sb.toString(), filePath);
+    }
+
+    public static void saveTasksToJSON(ArrayList<Task> tasks, String filePath) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            sb.append("  {\n");
+            sb.append("    \"name\": \"" + escape(t.getName()) + "\",\n");
+            sb.append("    \"description\": \"" + escape(t.getDescription()) + "\",\n");
+            sb.append("    \"type\": \"" + escape(t.getType()) + "\",\n");
+            sb.append("    \"points\": " + t.getPoints() + "\n");
+            sb.append("  }");
+            if (i < tasks.size() - 1)
+                sb.append(",");
+            sb.append("\n");
+        }
+        sb.append("]");
+        writeFile(sb.toString(), filePath);
+    }
+
+    public static void saveTradesToJSON(ArrayList<Trade> trades, String filePath) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[\n");
+        for (int i = 0; i < trades.size(); i++) {
+            Trade t = trades.get(i);
+            sb.append("  {\n");
+            sb.append("    \"name\": \"" + escape(t.getStringName()) + "\",\n");
+            sb.append("    \"description\": \"" + escape(t.getDescription()) + "\",\n");
+            sb.append("    \"pointCost\": " + t.getPointCost() + ",\n");
+            sb.append("    \"traderName\": \"" + t.getTrader().getFirstName() + " " + t.getTrader().getLastName()
+                    + "\"\n");
+            sb.append("  }");
+            if (i < trades.size() - 1)
+                sb.append(",");
+            sb.append("\n");
+        }
+        sb.append("]");
+        writeFile(sb.toString(), filePath);
+    }
+
+    public static void saveGreenPointsToJSON(GreenPoints gp, String filePath) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
+        sb.append("  \"greenPoints\": " + gp.getPoints() + ",\n");
+        sb.append("  \"pointGoal\": " + gp.getGoal() + "\n");
+        sb.append("}");
+        writeFile(sb.toString(), filePath);
+    }
+
+    private static void writeFile(String content, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new java.io.FileWriter(filePath))) {
-            writer.write("[\n");
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.get(i);
-                writer.write("  {\n");
-                writer.write("    \"name\": \"" + escapeJson(task.getName()) + "\",\n");
-                writer.write("    \"type\": \"" + escapeJson(task.getType()) + "\",\n");
-                writer.write("    \"points\": " + task.getPoints() + "\n");
-                writer.write("  }");
-                if (i < tasks.size() - 1) {
-                    writer.write(",");
-                }
-                writer.write("\n");
-            }
-            writer.write("]\n");
-            System.out.println("Successfully saved " + tasks.size() + " tasks to " + filePath);
+            writer.write(content);
+            System.out.println("Saved JSON to " + filePath);
         } catch (IOException e) {
-            System.err.println("Error saving tasks to JSON: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Error saving JSON: " + e.getMessage());
         }
     }
 
-    // Save trades to JSON
-    public static void saveTradesToJSON(List<Trade> trades, String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new java.io.FileWriter(filePath))) {
-            writer.write("[\n");
-            for (int i = 0; i < trades.size(); i++) {
-                Trade trade = trades.get(i);
-                writer.write("  {\n");
-                writer.write("    \"name\": \"" + escapeJson(trade.getStringName()) + "\",\n");
-                writer.write("    \"description\": \"" + escapeJson(trade.getDescription()) + "\",\n");
-                writer.write("    \"pointCost\": " + trade.getPointCost() + ",\n");
-                writer.write("    \"traderName\": \"" + escapeJson(trade.getTraderName()) + "\"\n");
-                writer.write("  }");
-                if (i < trades.size() - 1) {
-                    writer.write(",");
-                }
-                writer.write("\n");
-            }
-            writer.write("]\n");
-            System.out.println("Successfully saved " + trades.size() + " trades to " + filePath);
-        } catch (IOException e) {
-            System.err.println("Error saving trades to JSON: " + e.getMessage());
-            e.printStackTrace();
-        }
+    private static String escape(String str) {
+        if (str == null)
+            return "";
+        return str.replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r")
+                .replace("\t", "\\t");
     }
 
     // Helper method to escape JSON strings

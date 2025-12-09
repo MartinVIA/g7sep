@@ -89,17 +89,19 @@ public class TradeViewController {
             return;
         }
 
-        int price;
         try {
-            price = Integer.parseInt(priceText);
-        } catch (NumberFormatException ex) {
-            messageLabel.setText("Price must be a whole number.");
-            return;
+            int price = Integer.parseInt(priceText);
+            model.addTrade(name, desc, selected, price);
+            messageLabel.setText("Trade created with point cost: " + price);
+        } catch (NumberFormatException e) {
+            model.addTradeWithOffer(name, desc, selected, priceText);
+            messageLabel.setText("Trade created with offer: " + priceText);
         }
 
-        model.addTrade(name, desc, selected, price);
-
-        messageLabel.setText("Trade offer created successfully.");
+        offerNameField.clear();
+        description.clear();
+        priceField.clear();
+        residentListView.getSelectionModel().clearSelection();
 
     }
 

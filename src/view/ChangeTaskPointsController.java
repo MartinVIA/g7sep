@@ -25,7 +25,7 @@ public class ChangeTaskPointsController {
     public Scene createScene() {
         Label label = new Label("New points:");
         pointsField = new TextField(String.valueOf(task.getPoints()));
-        Button saveButton = new Button("Save");
+        Button saveButton = new Button("Confirm points change");
         saveButton.setOnAction(e -> handleSave());
         messageLabel = new Label();
 

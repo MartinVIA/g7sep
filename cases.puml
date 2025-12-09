@@ -10,10 +10,10 @@ package "Model" #F1f1f1{
     Trade --> "0..1" Resident : tradee
     PersonalPoints --> "1" Date : date
     Resident *--> "1" Date : date
-    TasksList o-- "0..*" Task : tasks
+    TaskList o-- "0..*" Task : tasks
     
     Cloverville --> "1" ResidentList : allResidents
-    Cloverville --> "1" TasksList : allTasks
+    Cloverville --> "1" TaskList : allTasks
     TradeList o-- "0..*" Trade : trades
     ClovervilleModelManager --> "1" Cloverville : cloverville
     Cloverville --> "1" TradeList : allTrades
@@ -38,7 +38,6 @@ package "Model" #F1f1f1{
         + getName() : String
         + getType() : String
         + markAsComplete() : void
-        + isCompleteTask() : boolean
         + setCompleteDate(date : Date) : void
         + getCompleteDate() : Date
         + setName(name : String) : void
@@ -221,10 +220,10 @@ package "Model" #F1f1f1{
         + toString() : String
     }
     
-    class TasksList{
+    class TaskList{
         - tasks : ArrayList<Task>
         
-        + TasksList()
+        + TaskList()
         + size() : int
         + addTask(task : Task) : void
         + removeTask(task : Task) : void
@@ -239,12 +238,12 @@ package "Model" #F1f1f1{
     {
         - allResidents : ResidentList
         - tradeList : TradeList
-        - tasksList : TasksList
+        - TaskList : TaskList
 
         + Cloverville()
         + getResidentList() : ResidentList
         + getTradeList() : TradeList
-        + getTaskList() : TasksList
+        + getTaskList() : TaskList
     }
 
     Class ClovervilleModelManager

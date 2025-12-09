@@ -1,9 +1,6 @@
 package view;
 
-import java.util.List;
-import java.util.Map;
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -19,19 +16,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
+import utils.FileReader;
+import utils.FileWriter;
 import utils.JSONReader;
 import utils.JSONWriter;
+import java.util.ArrayList;
 
 public class StartGUI extends Application {
 
     private ClovervilleModelManager model;
     private TableView<Resident> residentsTable;
     private TableView<Task> taskTable;
-    private TableView<Task> greenTasksTable;
     private TableView<Trade> tradesTable;
 
     private void refreshResidentsTable() {
-        // residentsTable.getItems().setAll(model.getAllResidents());
         if (model != null) {
             residentsTable.getItems().clear();
             residentsTable.getItems().setAll(model.getAllResidents());
@@ -42,77 +40,47 @@ public class StartGUI extends Application {
         if (model != null) {
             tradesTable.getItems().clear();
             tradesTable.getItems().setAll(model.getTradeList());
-            // Save to JSON after refresh
-            JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
         }
     }
 
     private void refreshTasksTable() {
-        taskTable.getItems().setAll(model.getTaskList());
-        // Save to JSON after refresh
-        JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
-        if (greenTasksTable != null) {
-            refreshGreenTasksTable();
-        }
-    }
-
-    private void refreshGreenTasksTable() {
-        greenTasksTable.getItems().clear();
-        for (Task t : model.getTaskList()) {
-            if (t.getType() != null && t.getType().toLowerCase().contains("green")) {
-                greenTasksTable.getItems().add(t);
-            }
+        if (model != null) {
+            taskTable.getItems().clear();
+            taskTable.getItems().setAll(model.getTaskList());
         }
     }
 
     public void start(Stage primaryStage) {
         model = new ClovervilleModelManager();
 
-        // Load residents and points from JSON files
+        // Load data from binary files
         try {
-            System.out.println("Loading data from JSON files...");
-            List<Resident> residentsFromJSON = JSONReader.readResidentsFromJSON("docs/file_operations_residents.json");
-            Map<Integer, Integer> pointsFromJSON = JSONReader
-                    .readPersonalPointsFromJSON("docs/file_operations_personalpoints.json");
+            System.out.println("Loading data from binary files...");
+            ArrayList<Resident> residents = FileReader.readResidentsFromBinary("residents.bin");
+            model.importResidents(residents);
+            System.out.println("Loaded " + residents.size() + " Residents");
 
-            // Add residents to model by first name and last name
-            for (Resident resident : residentsFromJSON) {
-                model.addResident(resident.getFirstName(), resident.getLastName());
-            }
+            ArrayList<Task> tasks = FileReader.readTasksFromBinary("tasks.bin");
+            model.importTasks(tasks);
+            System.out.println("Loaded " + tasks.size() + " Tasks");
 
-            // Now apply points from JSON
-            for (Resident resident : model.getAllResidents()) {
-                if (pointsFromJSON.containsKey(resident.getId())) {
-                    Integer points = pointsFromJSON.get(resident.getId());
-                    resident.setPersonalPoints(points);
-                }
-            }
-            System.out.println("Loaded " + residentsFromJSON.size() + " residents from JSON");
+            ArrayList<Trade> trades = FileReader.readTradesFromBinary("trades.bin");
+            model.importTrades(trades);
+            System.out.println("Loaded " + trades.size() + " Trades");
 
-            // Load tasks from JSON
-            List<Task> tasksFromJSON = JSONReader.readTasksFromJSON("docs/file_operations_tasks.json");
-            for (Task task : tasksFromJSON) {
-                model.addTask(task.getName(), task.getType(), task.getPoints(), task.getDescription());
-            }
-            System.out.println("Loaded " + tasksFromJSON.size() + " tasks from JSON");
+            GreenPoints greenPoints = FileReader.readGreenPointsFromBinary("community.bin");
+            model.importGreenPoints(greenPoints);
+            System.out.println("Loaded GreenPoints");
 
-            // Load trades from JSON
-            List<Trade> tradesFromJSON = JSONReader.readTradesFromJSON("docs/file_operations_trades.json");
-            for (Trade trade : tradesFromJSON) {
-                model.addTrade(trade.getName(), trade.getDescription(), trade.getTrader(), trade.getPointCost());
-                // it should also read the other trades
-                // with the tradeOffer instead of points
-            }
-            System.out.println("Loaded " + tradesFromJSON.size() + " trades from JSON");
         } catch (Exception e) {
-            System.err.println("Error loading JSON data: " + e.getMessage());
+            System.err.println("Error loading binary data: " + e.getMessage());
             e.printStackTrace();
         }
 
         Button resident_menu = new Button("Residents");
         Button trade_menu = new Button("Trades");
         Button task_menu = new Button("Tasks");
-        Button Community_points_menu = new Button("Green Points");
+        Button Community_points_menu = new Button("Community Points");
 
         Button resident_add = new Button("Add New Resident");
         resident_add.setOnAction(e -> {
@@ -120,16 +88,11 @@ public class StartGUI extends Application {
             ResidentViewController controller = new ResidentViewController(model);
             popup.setScene(controller.createScene());
             popup.setTitle("Cloverville's Resident");
-            popup.setOnHidden(ev -> refreshResidentsTable()
-            // try {
-            // FileWriter fw = new FileWriter(model);
-            // fw.savePersonalPoints();
-            // ;
-            // fw.saveResidents();
-            // } catch (Exception ex) {
-            // System.err.println("Error saving residents: " + ex.getMessage());
-            // }
-            );
+            popup.setOnHidden(ev -> {
+                refreshResidentsTable();
+                FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
+                JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
+            });
             popup.show();
         });
 
@@ -139,7 +102,11 @@ public class StartGUI extends Application {
             TradeViewController controller = new TradeViewController(model);
             popup.setScene(controller.createScene());
             popup.setTitle("Trades");
-            popup.setOnHidden(ev -> refreshTradesTable());
+            popup.setOnHidden(ev -> {
+                refreshTradesTable();
+                FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
+                JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
+            });
             popup.show();
         });
 
@@ -149,7 +116,11 @@ public class StartGUI extends Application {
             TaskViewController controller_task = new TaskViewController(model);
             popup.setScene(controller_task.createScene());
             popup.setTitle("Tasks");
-            popup.setOnHidden(ev -> refreshTasksTable());
+            popup.setOnHidden(ev -> {
+                refreshTasksTable();
+                FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
+                JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
+            });
             popup.show();
         });
 
@@ -168,14 +139,16 @@ public class StartGUI extends Application {
             }
 
             Stage popup = new Stage();
-            // ManageResidentController controller = new ManageResidentController(
-            // model, selected, this::refreshResidentsTable);
-            ManageResidentController controller = new ManageResidentController(
-                    model, selected);
+            ManageResidentController controller = new ManageResidentController(model, selected);
 
             popup.setScene(controller.createScene());
             popup.setTitle("Manage Resident: "
                     + selected.getFirstName() + " " + selected.getLastName());
+            popup.setOnHidden(ev -> {
+                refreshResidentsTable();
+                FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
+                JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
+            });
             popup.show();
         });
 
@@ -194,8 +167,11 @@ public class StartGUI extends Application {
             }
             // select the trade dumbass
             Stage popup = new Stage();
-            ManageTradeController controller = new ManageTradeController(model,
-                    selected, this::refreshTradesTable);
+            ManageTradeController controller = new ManageTradeController(model, selected, () -> {
+                refreshTradesTable();
+                FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
+                JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
+            });
             popup.setScene(controller.createScene());
             popup.setTitle("Edit Trade");
             popup.show();
@@ -213,11 +189,11 @@ public class StartGUI extends Application {
             }
 
             Stage popup = new Stage();
-            ManageTaskController controller = new ManageTaskController(
-                    model, selected, () -> {
-                        refreshTasksTable();
-                        refreshResidentsTable();
-                    });
+            ManageTaskController controller = new ManageTaskController(model, selected, () -> {
+                refreshTasksTable();
+                FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
+                JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
+            });
             popup.setScene(controller.createScene());
             popup.setTitle("Manage Task: " + selected.getName());
             popup.show();
@@ -258,11 +234,11 @@ public class StartGUI extends Application {
         residentsBox.setPadding(new Insets(10, 0, 0, 10));
         residentsBox.getChildren().add(residentsTable);
 
-        TableColumn<Resident, String> firstNameCol = new TableColumn("First Name");
-        TableColumn<Resident, String> lastNameCol = new TableColumn("Last Name");
-        TableColumn<Resident, Integer> idCol = new TableColumn("ID");
-        TableColumn<Resident, Integer> pointsCol = new TableColumn("Points");
-        TableColumn<Resident, Boolean> boostCol = new TableColumn("Boost");
+        TableColumn<Resident, String> firstNameCol = new TableColumn<>("First Name");
+        TableColumn<Resident, String> lastNameCol = new TableColumn<>("Last Name");
+        TableColumn<Resident, Integer> idCol = new TableColumn<>("ID");
+        TableColumn<Resident, Integer> pointsCol = new TableColumn<>("Points");
+        TableColumn<Resident, Boolean> boostCol = new TableColumn<>("Boost");
 
         // import javafx.scene.control.cell.PropertyValueFactory;
         // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/PropertyValueFactory.html
@@ -288,18 +264,7 @@ public class StartGUI extends Application {
         TableColumn<Trade, String> descriptionCol = new TableColumn<>("Description");
         // creates the table we see when we go to the trade tab
 
-        sellerCol.setCellValueFactory(cellData -> {
-            Trade t = cellData.getValue();
-            String seller = "";
-            if (t != null && t.getTrader() != null) {
-                try {
-                    seller = t.getTraderName();
-                } catch (Exception ex) {
-                    seller = "";
-                }
-            }
-            return new SimpleStringProperty(seller);
-        });
+        sellerCol.setCellValueFactory(new PropertyValueFactory<>("traderName"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("pointCost"));
         offerCol.setCellValueFactory(new PropertyValueFactory<>("stringName"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -336,31 +301,26 @@ public class StartGUI extends Application {
         tasksBox.setPadding(new Insets(10, 0, 0, 10));
         tasksBox.getChildren().add(taskTable);
 
-        // community (green) tasks layout shows green tasks only
-        greenTasksTable = new TableView<>();
-        greenTasksTable.setPrefWidth(420);
-        TableColumn<Task, String> gNameCol = new TableColumn<>("Task Name");
-        TableColumn<Task, String> gDescCol = new TableColumn<>("Task Description");
-        TableColumn<Task, Integer> gPointsCol = new TableColumn<>("Points awarded");
-        TableColumn<Task, String> gTypeCol = new TableColumn<>("Type");
-        gNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        gDescCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
-        gPointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
-        gTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-        greenTasksTable.getColumns().addAll(gNameCol, gDescCol, gPointsCol, gTypeCol);
-        greenTasksTable.setEditable(true);
-        greenTasksTable.setPrefHeight(350);
-        refreshGreenTasksTable();
+        // community points layout
+        TableView greenTasks = new TableView<>();
+        TableColumn pointsAmountCol = new TableColumn<>("Points Amount");
+        TableColumn pointsDateCol = new TableColumn<>("Date Added");
+        TableColumn pointsAddedByCol = new TableColumn<>("Added By");
+        greenTasks.setEditable(true);
+        greenTasks.setPrefHeight(350);
+        greenTasks.getColumns().addAll(pointsAmountCol, pointsDateCol, pointsAddedByCol);
 
         VBox communityPointsBox = new VBox();
         communityPointsBox.setSpacing(5);
         communityPointsBox.setPadding(new Insets(10, 0, 0, 10));
         progressBar.setPrefWidth(450);
-        communityPointsBox.getChildren().add(greenTasksTable);
+        communityPointsBox.getChildren().add(greenTasks);
         communityPointsBox.getChildren().add(new Label("Progress toward next green reward: " + model.getGreenPoints()
                 + "/" + model.getGreenPointsGoal() + " green points"));
         progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
         communityPointsBox.getChildren().add(progressBar);
+
+        // community points variable needed
 
         // Main layout
         BorderPane root = new BorderPane();
@@ -371,27 +331,18 @@ public class StartGUI extends Application {
 
         // Button actions
         resident_menu.setOnAction(e -> {
-            refreshResidentsTable();
             root.setCenter(residentsBox);
             root.setBottom(bottom_menu_resident);
         });
         trade_menu.setOnAction(e -> {
-            refreshTradesTable();
             root.setCenter(tradesBox);
             root.setBottom(bottom_menu_trades);
         });
         task_menu.setOnAction(e -> {
-            refreshTasksTable();
             root.setCenter(tasksBox);
             root.setBottom(bottom_menu_tasks);
         });
         Community_points_menu.setOnAction(e -> {
-            // refresh green tasks and progress before showing
-            refreshGreenTasksTable();
-            progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
-            communityPointsBox.getChildren().set(1,
-                    new Label("Progress toward next green reward: " + model.getGreenPoints()
-                            + "/" + model.getGreenPointsGoal() + " green points"));
             root.setCenter(communityPointsBox);
             root.setBottom(bottom_menu_community_points);
         });
@@ -405,6 +356,10 @@ public class StartGUI extends Application {
                 try {
                     int points = Integer.parseInt(pointsField.getText());
                     model.addGreenPoints(points);
+                    FileWriter.saveGreenPointsToBinary(model.getGreenPointsObject(), "community.bin");
+                    JSONWriter.saveGreenPointsToJSON(model.getGreenPointsObject(),
+                            "docs/file_operations_community.json");
+                    // pinapple
                     popup.close();
                     progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
                     communityPointsBox.getChildren().set(1, new Label("Progress toward next green reward: "
@@ -434,6 +389,9 @@ public class StartGUI extends Application {
                 try {
                     int goal = Integer.parseInt(goalField.getText());
                     model.setGreenPointsGoal(goal);
+                    FileWriter.saveGreenPointsToBinary(model.getGreenPointsObject(), "community.bin");
+                    JSONWriter.saveGreenPointsToJSON(model.getGreenPointsObject(),
+                            "docs/file_operations_community.json");
                     popup.close();
                     progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
                     communityPointsBox.getChildren().set(1, new Label("Progress toward next green reward: "

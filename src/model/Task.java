@@ -11,7 +11,6 @@ public abstract class Task implements Serializable {
   private String description;
   private String type;
   private int points;
-  private boolean isComplete;
   private Date completeDate;
 
   /**
@@ -25,7 +24,6 @@ public abstract class Task implements Serializable {
     this.description = "";
     this.type = type;
     this.points = 0;
-    isComplete = false;
     completeDate = null;
   }
 
@@ -41,7 +39,6 @@ public abstract class Task implements Serializable {
     this.description = "";
     this.type = type;
     this.points = points;
-    isComplete = false;
     completeDate = null;
   }
 
@@ -79,22 +76,6 @@ public abstract class Task implements Serializable {
    */
   public int getPoints() {
     return points;
-  }
-
-  /**
-   * Marks the task as complete
-   */
-  public void markAsComplete() {
-    isComplete = true;
-  }
-
-  /**
-   * Checks if the task is complete
-   * 
-   * @return true if the task is complete, false otherwise
-   */
-  public boolean isCompleteTask() {
-    return isComplete;
   }
 
   /**
@@ -186,7 +167,6 @@ public abstract class Task implements Serializable {
   public String toString() {
     return "Name: " + name
         + ", Description: " + description
-        + ", Type: " + type
-        + ", Complete Task: " + isComplete;
+        + ", Type: " + type;
   }
 }

@@ -25,7 +25,7 @@ public class ChangeTaskDescriptionController {
     public Scene createScene() {
         Label label = new Label("New description:");
         descriptionField = new TextField(task.getDescription());
-        Button saveButton = new Button("Save");
+        Button saveButton = new Button("Confirm description change");
         saveButton.setOnAction(e -> handleSave());
         messageLabel = new Label();
 

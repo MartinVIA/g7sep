@@ -1,0 +1,26 @@
+[
+  {
+    "name": "de",
+    "description": "fe",
+    "pointCost": 3,
+    "traderName": "de fe"
+  },
+  {
+    "name": "fe",
+    "description": "geqw",
+    "pointCost": 4,
+    "traderName": "de fe"
+  },
+  {
+    "name": "de",
+    "description": "fe",
+    "pointCost": 2,
+    "traderName": "dew dw"
+  },
+  {
+    "name": "car",
+    "description": "wash car",
+    "pointCost": 90,
+    "traderName": "de fe"
+  }
+]

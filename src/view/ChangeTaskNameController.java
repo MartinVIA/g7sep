@@ -25,7 +25,7 @@ public class ChangeTaskNameController {
     public Scene createScene() {
         Label label = new Label("New name:");
         nameField = new TextField(task.getName());
-        Button saveButton = new Button("Save");
+        Button saveButton = new Button("Confirm name change");
         saveButton.setOnAction(e -> handleSave());
         messageLabel = new Label();
 

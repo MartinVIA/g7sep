@@ -116,5 +116,4 @@ public class TaskViewController {
         refreshTaskList();
         messageLabel.setText("Task added.");
     }
-
 }

@@ -70,8 +70,12 @@ public class PersonalPoints implements Serializable {
   public double calculateBoost(Resident resident) {
     double boost = 1.0;
 
-    Date currentDate = date.today();
+    Date currentDate = new Date().today();
     Date lastCompletionDate = resident.getLatestTask();
+
+    if (lastCompletionDate == null) {
+      return 1.0;
+    }
 
     long diff = currentDate.getNumOfDays() - lastCompletionDate.getNumOfDays();
 
