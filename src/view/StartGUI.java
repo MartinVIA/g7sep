@@ -3,6 +3,7 @@ package view;
 import java.util.List;
 import java.util.Map;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -26,6 +27,7 @@ public class StartGUI extends Application {
     private ClovervilleModelManager model;
     private TableView<Resident> residentsTable;
     private TableView<Task> taskTable;
+    private TableView<Task> greenTasksTable;
     private TableView<Trade> tradesTable;
 
     private void refreshResidentsTable() {
@@ -49,6 +51,18 @@ public class StartGUI extends Application {
         taskTable.getItems().setAll(model.getTaskList());
         // Save to JSON after refresh
         JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
+        if (greenTasksTable != null) {
+            refreshGreenTasksTable();
+        }
+    }
+
+    private void refreshGreenTasksTable() {
+        greenTasksTable.getItems().clear();
+        for (Task t : model.getTaskList()) {
+            if (t.getType() != null && t.getType().toLowerCase().contains("green")) {
+                greenTasksTable.getItems().add(t);
+            }
+        }
     }
 
     public void start(Stage primaryStage) {
@@ -98,7 +112,7 @@ public class StartGUI extends Application {
         Button resident_menu = new Button("Residents");
         Button trade_menu = new Button("Trades");
         Button task_menu = new Button("Tasks");
-        Button Community_points_menu = new Button("Community Points");
+        Button Community_points_menu = new Button("Green Points");
 
         Button resident_add = new Button("Add New Resident");
         resident_add.setOnAction(e -> {
@@ -154,8 +168,10 @@ public class StartGUI extends Application {
             }
 
             Stage popup = new Stage();
+            // ManageResidentController controller = new ManageResidentController(
+            // model, selected, this::refreshResidentsTable);
             ManageResidentController controller = new ManageResidentController(
-                    model, selected, this::refreshResidentsTable);
+                    model, selected);
 
             popup.setScene(controller.createScene());
             popup.setTitle("Manage Resident: "
@@ -198,7 +214,10 @@ public class StartGUI extends Application {
 
             Stage popup = new Stage();
             ManageTaskController controller = new ManageTaskController(
-                    model, selected, this::refreshTasksTable);
+                    model, selected, () -> {
+                        refreshTasksTable();
+                        refreshResidentsTable();
+                    });
             popup.setScene(controller.createScene());
             popup.setTitle("Manage Task: " + selected.getName());
             popup.show();
@@ -269,7 +288,18 @@ public class StartGUI extends Application {
         TableColumn<Trade, String> descriptionCol = new TableColumn<>("Description");
         // creates the table we see when we go to the trade tab
 
-        sellerCol.setCellValueFactory(new PropertyValueFactory<>("traderName"));
+        sellerCol.setCellValueFactory(cellData -> {
+            Trade t = cellData.getValue();
+            String seller = "";
+            if (t != null && t.getTrader() != null) {
+                try {
+                    seller = t.getTraderName();
+                } catch (Exception ex) {
+                    seller = "";
+                }
+            }
+            return new SimpleStringProperty(seller);
+        });
         priceCol.setCellValueFactory(new PropertyValueFactory<>("pointCost"));
         offerCol.setCellValueFactory(new PropertyValueFactory<>("stringName"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -306,20 +336,27 @@ public class StartGUI extends Application {
         tasksBox.setPadding(new Insets(10, 0, 0, 10));
         tasksBox.getChildren().add(taskTable);
 
-        // community points layout
-        TableView greenTasks = new TableView<>();
-        TableColumn pointsAmountCol = new TableColumn("Points Amount");
-        TableColumn pointsDateCol = new TableColumn("Date Added");
-        TableColumn pointsAddedByCol = new TableColumn("Added By");
-        greenTasks.setEditable(true);
-        greenTasks.setPrefHeight(350);
-        greenTasks.getColumns().addAll(pointsAmountCol, pointsDateCol, pointsAddedByCol);
+        // community (green) tasks layout shows green tasks only
+        greenTasksTable = new TableView<>();
+        greenTasksTable.setPrefWidth(420);
+        TableColumn<Task, String> gNameCol = new TableColumn<>("Task Name");
+        TableColumn<Task, String> gDescCol = new TableColumn<>("Task Description");
+        TableColumn<Task, Integer> gPointsCol = new TableColumn<>("Points awarded");
+        TableColumn<Task, String> gTypeCol = new TableColumn<>("Type");
+        gNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        gDescCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        gPointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
+        gTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        greenTasksTable.getColumns().addAll(gNameCol, gDescCol, gPointsCol, gTypeCol);
+        greenTasksTable.setEditable(true);
+        greenTasksTable.setPrefHeight(350);
+        refreshGreenTasksTable();
 
         VBox communityPointsBox = new VBox();
         communityPointsBox.setSpacing(5);
         communityPointsBox.setPadding(new Insets(10, 0, 0, 10));
         progressBar.setPrefWidth(450);
-        communityPointsBox.getChildren().add(greenTasks);
+        communityPointsBox.getChildren().add(greenTasksTable);
         communityPointsBox.getChildren().add(new Label("Progress toward next green reward: " + model.getGreenPoints()
                 + "/" + model.getGreenPointsGoal() + " green points"));
         progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
@@ -334,18 +371,27 @@ public class StartGUI extends Application {
 
         // Button actions
         resident_menu.setOnAction(e -> {
+            refreshResidentsTable();
             root.setCenter(residentsBox);
             root.setBottom(bottom_menu_resident);
         });
         trade_menu.setOnAction(e -> {
+            refreshTradesTable();
             root.setCenter(tradesBox);
             root.setBottom(bottom_menu_trades);
         });
         task_menu.setOnAction(e -> {
+            refreshTasksTable();
             root.setCenter(tasksBox);
             root.setBottom(bottom_menu_tasks);
         });
         Community_points_menu.setOnAction(e -> {
+            // refresh green tasks and progress before showing
+            refreshGreenTasksTable();
+            progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
+            communityPointsBox.getChildren().set(1,
+                    new Label("Progress toward next green reward: " + model.getGreenPoints()
+                            + "/" + model.getGreenPointsGoal() + " green points"));
             root.setCenter(communityPointsBox);
             root.setBottom(bottom_menu_community_points);
         });

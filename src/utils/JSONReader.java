@@ -155,18 +155,14 @@ public class JSONReader {
             List<String> objects = splitTopLevelObjects(content);
             for (String obj : objects) {
                 Map<String, String> map = parseJsonObject(obj);
-                String name = map.getOrDefault("name", "");
-                String description = map.getOrDefault("description", "");
-                String pointCostStr = map.getOrDefault("pointCost", "0");
-
-                // Skip empty trades
-                if (name.isEmpty()) {
-                    continue;
-                }
+                String name = map.get("name");
+                String description = map.get("description");
+                String pointCostStr = map.get("pointCost");
+                String traderName = map.get("traderName");
 
                 try {
                     int pointCost = Integer.parseInt(pointCostStr.trim());
-                    Trade trade = new Trade(name, description, pointCost);
+                    Trade trade = new Trade(name, description, null, pointCost);
                     trades.add(trade);
                 } catch (Exception e) {
                     System.err.println("Error parsing trade: " + e.getMessage());

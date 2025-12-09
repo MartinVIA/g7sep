@@ -15,7 +15,6 @@ import model.Resident;
 public class ResidentViewController {
 
     // reference to the model so we can get residents, add residents, award points
-    // ndat
     private final ClovervilleModelManager model;
 
     private ListView<Resident> residentListView;
@@ -124,11 +123,11 @@ public class ResidentViewController {
             messageLabel.setWrapText(true);
             // Persist personal points to XML/JS so front-end can read them
             // try {
-            //     FileWriter fw = new FileWriter(model);
-            //     fw.savePersonalPoints();
+            // FileWriter fw = new FileWriter(model);
+            // fw.savePersonalPoints();
             // } catch (Exception ex) {
-            //     // non-fatal: log and continue
-            //     System.err.println("Failed to save personal points: " + ex.getMessage());
+            // // non-fatal: log and continue
+            // System.err.println("Failed to save personal points: " + ex.getMessage());
             // }
         } catch (NumberFormatException e) {
             messageLabel.setText("Points must be a whole number.");

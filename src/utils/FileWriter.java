@@ -114,7 +114,7 @@ public class FileWriter {
                                 new FileOutputStream("trades.bin"))) {
                         TradeList tradeList = new TradeList();
                         ArrayList<Trade> trades = new ArrayList<>();
-                        trades.add(new Trade("Pot for 5 apples", "xd", 20));
+                        trades.add(new Trade("Trade 1", "Description 1", new Resident(1, "Green", "Bob", 9999999), 30));
 
                         for (Trade trade : trades) {
                                 tradeList.addTrade(trade);

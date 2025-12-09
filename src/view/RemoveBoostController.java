@@ -24,7 +24,7 @@ public class RemoveBoostController {
         root.setPadding(new Insets(10));
         Label msg = new Label();
 
-        // If no boost error!!!!!
+        // If no boost error!
         if (!resident.getHasBoost()) {
             msg.setText("The resident doesn’t have any boost.");
             root.getChildren().add(msg);

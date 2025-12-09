@@ -267,7 +267,7 @@ package "Model" #F1f1f1{
 }
     
 package "view"#ababab{
-    StartGUI --> ViewHandler
+    StartGUI -- > ViewHandler
     ResidentViewController --> "1" ViewHandler 
     TradeViewController --> "1" ViewHandler
     TaskViewController --> "1" ViewHandler

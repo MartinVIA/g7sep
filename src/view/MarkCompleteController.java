@@ -7,8 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.ClovervilleModelManager;
+import model.GreenActions;
 import model.Resident;
 import model.Task;
 
@@ -38,7 +38,20 @@ public class MarkCompleteController {
             var selectedResidents = residentListView.getSelectionModel().getSelectedItems();
             if (!selectedResidents.isEmpty()) {
                 for (Resident resident : selectedResidents) {
-                    task.completeTask(resident);
+                    if (task instanceof GreenActions) {
+                        // green actions have their own completion logic
+                        task.completeTask(resident);
+                        model.awardPointsToResident(resident.getId(), task.getPoints());
+                        model.addGreenPoints(task.getPoints());
+                    } else {
+                        model.awardPointsToResident(resident.getId(), task.getPoints());
+                        model.getAllResidents().stream()
+                                .filter(r -> r.getId() == resident.getId())
+                                .findFirst()
+                                .ifPresent(r -> r.setLatestTask(new model.Date()));
+                        task.setCompleteDate(new model.Date());
+                        task.markAsComplete();
+                    }
                 }
             }
             keepBtn.getScene().getWindow().hide();
@@ -51,10 +64,22 @@ public class MarkCompleteController {
             var selectedResidents = residentListView.getSelectionModel().getSelectedItems();
             if (!selectedResidents.isEmpty()) {
                 for (Resident resident : selectedResidents) {
-                    task.completeTask(resident);
+                    if (task instanceof GreenActions) {
+                        task.completeTask(resident);
+                        model.awardPointsToResident(resident.getId(), task.getPoints());
+                        model.addGreenPoints(task.getPoints());
+                    } else {
+                        model.awardPointsToResident(resident.getId(), task.getPoints());
+                        model.getAllResidents().stream()
+                                .filter(r -> r.getId() == resident.getId())
+                                .findFirst()
+                                .ifPresent(r -> r.setLatestTask(new model.Date()));
+                        task.setCompleteDate(new model.Date());
+                        task.markAsComplete();
+                    }
                 }
             }
-            model.getTaskList().remove(task);
+            model.removeTask(task);
             deleteBtn.getScene().getWindow().hide();
             // if (refreshCallback != null) {
             // refreshCallback.run();

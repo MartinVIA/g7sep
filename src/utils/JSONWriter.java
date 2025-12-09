@@ -41,11 +41,7 @@ public class JSONWriter {
                 writer.write("    \"name\": \"" + escapeJson(trade.getStringName()) + "\",\n");
                 writer.write("    \"description\": \"" + escapeJson(trade.getDescription()) + "\",\n");
                 writer.write("    \"pointCost\": " + trade.getPointCost() + ",\n");
-                String traderName = "Unknown";
-                if (trade.getTrader() != null) {
-                    traderName = trade.getTraderName();
-                }
-                writer.write("    \"traderName\": \"" + escapeJson(traderName) + "\"\n");
+                writer.write("    \"traderName\": \"" + escapeJson(trade.getTraderName()) + "\"\n");
                 writer.write("  }");
                 if (i < trades.size() - 1) {
                     writer.write(",");
