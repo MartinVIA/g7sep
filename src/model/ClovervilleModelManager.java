@@ -112,9 +112,9 @@ public class ClovervilleModelManager {
      * @param trader      Resident offering the trade
      * @param tradeOffer  String describing the offer
      */
-    public void addTradeWithOffer(String name, String description, Resident trader, String tradeOffer) {
-        cloverville.getTradeList().addTrade(new Trade(name, description, trader, tradeOffer));
-    }
+    // public void addTradeWithOffer(String name, String description, Resident trader, String tradeOffer) {
+    //     cloverville.getTradeList().addTrade(new Trade(name, description, trader, tradeOffer));
+    // }
 
     /**
      * Awards personal points to a resident ID
@@ -190,5 +190,9 @@ public class ClovervilleModelManager {
 
     public void removeTask(Task task) {
         cloverville.getTaskList().removeTask(task);
+    }
+
+    public void removeTrade(Trade trade) {
+        cloverville.getTradeList().removeTrade(trade);
     }
 }

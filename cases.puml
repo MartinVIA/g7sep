@@ -258,7 +258,7 @@ package "Model" #F1f1f1{
         + addTask(name : String, type : String, points : int) : void
         + getTradeList() : ArrayList<Trade>
         + addTrade(name : String, description : String, trader : Resident, pointCost : int) : void
-        + addTradeWithOffer(name : String, description : String, trader : Resident, tradeOffer : String) : void
+        ' + addTradeWithOffer(name : String, description : String, trader : Resident, tradeOffer : String) : void
         + getTaskList() : ArrayList<Task>
         + awardPointsToResident(residentId : int, points : int) : void
     }

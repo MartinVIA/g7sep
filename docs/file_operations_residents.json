@@ -10,14 +10,49 @@
     "id": 2,
     "firstName": "de",
     "lastName": "fe",
-    "personalPoints": 0,
+    "personalPoints": 20,
     "hasBoost": false
   },
   {
     "id": 3,
     "firstName": "dew",
     "lastName": "dw",
+    "personalPoints": 3,
+    "hasBoost": false
+  },
+  {
+    "id": 4,
+    "firstName": "dew",
+    "lastName": "fw",
+    "personalPoints": 3,
+    "hasBoost": false
+  },
+  {
+    "id": 5,
+    "firstName": "de",
+    "lastName": "fqw",
     "personalPoints": 0,
+    "hasBoost": false
+  },
+  {
+    "id": 6,
+    "firstName": "leon",
+    "lastName": "de Kuijper",
+    "personalPoints": 0,
+    "hasBoost": false
+  },
+  {
+    "id": 7,
+    "firstName": "frew",
+    "lastName": "fw",
+    "personalPoints": 0,
+    "hasBoost": false
+  },
+  {
+    "id": 8,
+    "firstName": "fwe",
+    "lastName": "fw e",
+    "personalPoints": -3,
     "hasBoost": false
   }
 ]

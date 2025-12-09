@@ -18,10 +18,10 @@ public class Trade implements Serializable {
   /**
    * Creates a trade defined by points
    * 
-   * @param name                                           Trade name
+   * @param name        Trade name
    * @param description Trade description
-   * @param trader                               Resident offering the trade
-   * @param pointCost             Cost in personal points
+   * @param trader      Resident offering the trade
+   * @param pointCost   Cost in personal points
    */
   public Trade(String name, String description, Resident trader, int pointCost) {
     this.name = name;
@@ -35,10 +35,10 @@ public class Trade implements Serializable {
   /**
    * Creates a trade defined by an offer
    * 
-   * @param name                                           Trade name
+   * @param name        Trade name
    * @param description Trade description
-   * @param trader                               Resident offering the trade
-   * @param tradeOffer       String describing the offer
+   * @param trader      Resident offering the trade
+   * @param tradeOffer  String describing the offer
    */
   public Trade(String name, String description, Resident trader, String tradeOffer) {
     this.name = name;
@@ -84,6 +84,16 @@ public class Trade implements Serializable {
   public Resident getTrader() {
     return trader;
   }
+
+  /**
+   * Returns the trader's ID
+   * 
+   * @return Trader id
+   */
+  public int getTraderId() {
+    return trader.getId();
+  }
+  // no getTradeeId because that is part of the View>
 
   /**
    * Returns the point cost of the trade
@@ -197,20 +207,15 @@ public class Trade implements Serializable {
   /**
    * Returns a string representation of the trade
    * 
-   * @return a formatted string with trade's name, description, trader, tradee,
    *         
-   *         
-   *         
-   *         
-   *         
-   *         point cost and trade offer
+   * @return a formatted string with trade's name, description, trader, tradee, point cost and trade offer
    */
   public String toString() {
     return "Trade Name: " + name
         + ", Description: " + description
         + ", Trader: " + trader
-        + ", Tradee: " + tradee
-        + ", Point Cost: " + pointCost
+
+        
         + ", Trade Offer: " + tradeOffer;
   }
 }

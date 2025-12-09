@@ -30,15 +30,17 @@ public class MarkTradeComplete {
         residentListView.getItems().setAll(model.getAllResidents());
         residentListView.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
 
-        Button keepBtn = new Button("Confirm trade completion.");
+        Button keepBtn = new Button("Confirm & keep trade");
+        Button deleteBtn = new Button("Confirm & delete trade");
         Button cancelBtn = new Button("Cancel");
 
         keepBtn.setOnAction(e -> {
             var selectedResidents = residentListView.getSelectionModel().getSelectedItems();
             if (!selectedResidents.isEmpty()) {
-            } else {
-                AlertBox.display("No residents selected",
-                        "Please select at least one resident to mark the trade as complete.");
+                for (Resident resident : selectedResidents) {
+                    model.awardPointsToResident(resident.getId(), -trade.getPointCost());
+                    model.awardPointsToResident(trade.getTraderId(), trade.getPointCost());
+                }
             }
             keepBtn.getScene().getWindow().hide();
             // if (refreshCallback != null) {
@@ -46,9 +48,24 @@ public class MarkTradeComplete {
             // }
         });
 
+        deleteBtn.setOnAction(e -> {
+            var selectedResidents = residentListView.getSelectionModel().getSelectedItems();
+            if (!selectedResidents.isEmpty()) {
+                for (Resident resident : selectedResidents) {
+                    model.awardPointsToResident(resident.getId(), -trade.getPointCost());
+                    model.awardPointsToResident(trade.getTraderId(), trade.getPointCost());
+                }
+            }
+            model.removeTrade(trade);
+            deleteBtn.getScene().getWindow().hide();
+            // if (refreshCallback != null) {
+            // refreshCallback.run();
+            // }
+        });
+
         cancelBtn.setOnAction(e -> cancelBtn.getScene().getWindow().hide());
 
-        HBox buttons = new HBox(10, keepBtn, cancelBtn);
+        HBox buttons = new HBox(10, keepBtn, deleteBtn, cancelBtn);
         buttons.setPadding(new Insets(10));
 
         VBox root = new VBox(10, title, instructions, residentListView, buttons);

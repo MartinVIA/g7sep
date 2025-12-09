@@ -13,8 +13,8 @@ public class JSONWriter {
             Resident r = residents.get(i);
             sb.append("  {\n");
             sb.append("    \"id\": " + r.getId() + ",\n");
-            sb.append("    \"firstName\": \"" + escape(r.getFirstName()) + "\",\n");
-            sb.append("    \"lastName\": \"" + escape(r.getLastName()) + "\",\n");
+            sb.append("    \"firstName\": \"" + r.getFirstName() + "\",\n");
+            sb.append("    \"lastName\": \"" + r.getLastName() + "\",\n");
             sb.append("    \"personalPoints\": " + r.getPersonalPoints() + ",\n");
             sb.append("    \"hasBoost\": " + r.getHasBoost() + "\n");
             sb.append("  }");
@@ -23,6 +23,21 @@ public class JSONWriter {
             sb.append("\n");
         }
         sb.append("]");
+        writeFile(sb.toString(), filePath);
+    }
+
+    public static void savePersonalPointsToJSON(ArrayList<Resident> residents, String filePath) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
+        for (int i = 0; i < residents.size(); i++) {
+            Resident r = residents.get(i);
+            sb.append("  \"id\": " + r.getId() + ",\n");
+            sb.append("  \"personalPoints\": " + r.getPersonalPoints() + "\n");
+            if (i < residents.size() - 1)
+                sb.append(",");
+            sb.append("\n");
+        }
+        sb.append("}");
         writeFile(sb.toString(), filePath);
     }
 

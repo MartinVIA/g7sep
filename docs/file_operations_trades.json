@@ -1,26 +1,20 @@
 [
   {
-    "name": "de",
-    "description": "fe",
+    "name": "dew",
+    "description": "fw",
     "pointCost": 3,
-    "traderName": "de fe"
-  },
-  {
-    "name": "fe",
-    "description": "geqw",
-    "pointCost": 4,
-    "traderName": "de fe"
-  },
-  {
-    "name": "de",
-    "description": "fe",
-    "pointCost": 2,
     "traderName": "dew dw"
   },
   {
-    "name": "car",
-    "description": "wash car",
-    "pointCost": 90,
+    "name": "de",
+    "description": "fwefds",
+    "pointCost": 34,
     "traderName": "de fe"
+  },
+  {
+    "name": "fwer",
+    "description": "fsd",
+    "pointCost": 0,
+    "traderName": "dew dw"
   }
 ]

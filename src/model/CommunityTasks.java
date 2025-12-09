@@ -65,7 +65,6 @@ public class CommunityTasks extends Task {
 
         resident.addPersonalPoints(personalPointsAward);
         resident.setLatestTask(now);
-        super.markAsComplete();
     }
 
     /**

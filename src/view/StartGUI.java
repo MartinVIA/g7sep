@@ -33,6 +33,8 @@ public class StartGUI extends Application {
         if (model != null) {
             residentsTable.getItems().clear();
             residentsTable.getItems().setAll(model.getAllResidents());
+            FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
+            JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
         }
     }
 
@@ -90,8 +92,6 @@ public class StartGUI extends Application {
             popup.setTitle("Cloverville's Resident");
             popup.setOnHidden(ev -> {
                 refreshResidentsTable();
-                FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
-                JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
             });
             popup.show();
         });
@@ -333,6 +333,7 @@ public class StartGUI extends Application {
         resident_menu.setOnAction(e -> {
             root.setCenter(residentsBox);
             root.setBottom(bottom_menu_resident);
+            refreshResidentsTable();
         });
         trade_menu.setOnAction(e -> {
             root.setCenter(tradesBox);
