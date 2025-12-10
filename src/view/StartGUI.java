@@ -151,6 +151,27 @@ public class StartGUI extends Application {
             });
             popup.show();
         });
+        Button Resident_reset_all_points = new Button("Reset all personal points");
+        Resident_reset_all_points.setOnAction(e -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Reset");
+            alert.setHeaderText("Are you sure?");
+            alert.setContentText("This will reset all of the personal points for all of the residents");
+            alert.showAndWait().ifPresent(response -> {
+                if (response.getButtonData().isDefaultButton()) {
+                    model.resetAllPersonalPoints();
+                    refreshResidentsTable();
+                    FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
+                    JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
+
+                    Alert done = new Alert(Alert.AlertType.INFORMATION);
+                    done.setTitle("Points reset");
+                    done.setContentText("All of the residents personal points have been reset");
+                    done.
+                }
+            });
+
+        });
 
         Button trade_edit = new Button("Edit existing Trade");
         trade_edit.setOnAction(e -> {
@@ -198,12 +219,13 @@ public class StartGUI extends Application {
             popup.setTitle("Manage Task: " + selected.getName());
             popup.show();
         });
+        
         Button community_points_edit = new Button("Edit Green Points");
 
         ProgressBar progressBar = new ProgressBar();
 
         HBox bottom_menu_resident = new HBox();
-        bottom_menu_resident.getChildren().addAll(resident_add, resident_edit);
+        bottom_menu_resident.getChildren().addAll(resident_add, resident_edit, Resident_reset_all_points);
         bottom_menu_resident.setSpacing(10);
         bottom_menu_resident.setPrefWidth(300);
 
@@ -381,21 +403,35 @@ public class StartGUI extends Application {
         });
         community_points_edit.setOnAction(e -> {
             Stage popup = new Stage();
-            popup.setTitle("Edit Green Points Goal");
+            popup.setTitle("Edit Green Points");
             TextField goalField = new TextField();
             goalField.setPromptText("New Goal Amount");
             goalField.setText(String.valueOf(model.getGreenPointsGoal()));
+
+            TextField rewardField = new TextField();
+            rewardField.setPromptText("Community Reward Description");
+            rewardField.setText(model.getGreenPointsObject().getCommunityReward());
+
             Button submitButton = new Button("Submit");
             submitButton.setOnAction(ev -> {
                 try {
                     int goal = Integer.parseInt(goalField.getText());
+                    String reward = rewardField.getText();
+
                     model.setGreenPointsGoal(goal);
+                    model.getGreenPointsObject().setCommunityReward(reward);
+
                     FileWriter.saveGreenPointsToBinary(model.getGreenPointsObject(), "community.bin");
                     JSONWriter.saveGreenPointsToJSON(model.getGreenPointsObject(),
                             "docs/file_operations_community.json");
                     popup.close();
                     progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
-                    communityPointsBox.getChildren().set(1, new Label("Progress toward next green reward: "
+
+                    String currentReward = model.getGreenPointsObject().getCommunityReward();
+                    String displayReward = (currentReward == null || currentReward.isEmpty()) ? "next green reward"
+                            : currentReward;
+
+                    communityPointsBox.getChildren().set(1, new Label("Progress toward " + displayReward + ": "
                             + model.getGreenPoints() + "/" + model.getGreenPointsGoal() + " green points"));
                 } catch (NumberFormatException ex) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -406,9 +442,9 @@ public class StartGUI extends Application {
                 }
             });
             VBox layout = new VBox(10);
-            layout.getChildren().addAll(goalField, submitButton);
+            layout.getChildren().addAll(goalField, rewardField, submitButton);
             layout.setPadding(new Insets(10, 10, 10, 10));
-            popup.setScene(new Scene(layout, 300, 150));
+            popup.setScene(new Scene(layout, 300, 200));
             popup.show();
         });
         Scene scene = new Scene(root, 500, 500);

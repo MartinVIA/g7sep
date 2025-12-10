@@ -84,7 +84,8 @@ public class JSONWriter {
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
         sb.append("  \"greenPoints\": " + gp.getPoints() + ",\n");
-        sb.append("  \"pointGoal\": " + gp.getGoal() + "\n");
+        sb.append("  \"pointGoal\": " + gp.getGoal() + ",\n");
+        sb.append("  \"communityReward\": \"" + gp.getCommunityReward() + "\"\n");
         sb.append("}");
         writeFile(sb.toString(), filePath);
     }

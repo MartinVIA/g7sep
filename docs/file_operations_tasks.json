@@ -1,8 +1,14 @@
 [
   {
-    "name": "car",
-    "description": "fe",
+    "name": "fwsef",
+    "description": "fdsdfs",
     "type": "green",
-    "points": 7
+    "points": 43
+  },
+  {
+    "name": "biker",
+    "description": "bike to work or school",
+    "type": "community",
+    "points": 5
   }
 ]

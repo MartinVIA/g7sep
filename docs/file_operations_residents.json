@@ -10,21 +10,21 @@
     "id": 2,
     "firstName": "de",
     "lastName": "fe",
-    "personalPoints": 20,
+    "personalPoints": 0,
     "hasBoost": false
   },
   {
     "id": 3,
     "firstName": "dew",
     "lastName": "dw",
-    "personalPoints": 3,
+    "personalPoints": 0,
     "hasBoost": false
   },
   {
     "id": 4,
     "firstName": "dew",
     "lastName": "fw",
-    "personalPoints": 3,
+    "personalPoints": 0,
     "hasBoost": false
   },
   {
@@ -52,7 +52,7 @@
     "id": 8,
     "firstName": "fwe",
     "lastName": "fw e",
-    "personalPoints": -3,
+    "personalPoints": 0,
     "hasBoost": false
   }
 ]

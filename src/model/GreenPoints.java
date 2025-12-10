@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class GreenPoints implements Serializable {
   private int greenPoints;
   private int pointGoal;
+  private String communityReward;
   private boolean isReached;
 
   public Date resetPeriod;
@@ -20,6 +21,7 @@ public class GreenPoints implements Serializable {
   public GreenPoints() {
     greenPoints = 0;
     pointGoal = 0;
+    communityReward = "";
     isReached = false;
   }
 
@@ -31,6 +33,7 @@ public class GreenPoints implements Serializable {
   public GreenPoints(int goal) {
     greenPoints = 0;
     pointGoal = goal;
+    communityReward = "";
     isReached = false;
   }
 
@@ -45,6 +48,14 @@ public class GreenPoints implements Serializable {
 
   public int getGoal() {
     return pointGoal;
+  }
+
+  public void setCommunityReward(String reward) {
+    communityReward = reward;
+  }
+
+  public String getCommunityReward() {
+    return communityReward;
   }
 
   /**
@@ -77,10 +88,13 @@ public class GreenPoints implements Serializable {
   }
 
   /**
-   * Marks the goal as reached without altering points
+   * Marks the goal as complete, resets points
+   * and creates a new GreenPoints object
    */
-  public void goalReached() {
+  public void completeGoal() {
     isReached = true;
+    resetPoints();
+    new GreenPoints();
   }
 
   /**

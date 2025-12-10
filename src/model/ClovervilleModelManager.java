@@ -112,8 +112,10 @@ public class ClovervilleModelManager {
      * @param trader      Resident offering the trade
      * @param tradeOffer  String describing the offer
      */
-    // public void addTradeWithOffer(String name, String description, Resident trader, String tradeOffer) {
-    //     cloverville.getTradeList().addTrade(new Trade(name, description, trader, tradeOffer));
+    // public void addTradeWithOffer(String name, String description, Resident
+    // trader, String tradeOffer) {
+    // cloverville.getTradeList().addTrade(new Trade(name, description, trader,
+    // tradeOffer));
     // }
 
     /**
@@ -147,8 +149,18 @@ public class ClovervilleModelManager {
         return cloverville.getGreenPoints().getPoints();
     }
 
+    public void resetAllPersonalPoints() {
+        for (Resident r : getAllResidents()) {
+            r.resetPersonalPoints();
+        }
+    }
+
     public GreenPoints getGreenPointsObject() {
         return cloverville.getGreenPoints();
+    }
+
+    public String getCommunityReward() {
+        return cloverville.getGreenPoints().getCommunityReward();
     }
 
     /**
