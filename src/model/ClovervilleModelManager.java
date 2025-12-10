@@ -131,6 +131,12 @@ public class ClovervilleModelManager {
         }
     }
 
+    public void resetAllPersonalPoints() {
+        for (Resident resident : getAllResidents()) {
+            resident.resetPersonalPoints();
+        }
+    }
+
     /**
      * Adds green points toward the community goal
      * 
@@ -147,12 +153,6 @@ public class ClovervilleModelManager {
      */
     public int getGreenPoints() {
         return cloverville.getGreenPoints().getPoints();
-    }
-
-    public void resetAllPersonalPoints() {
-        for (Resident r : getAllResidents()) {
-            r.resetPersonalPoints();
-        }
     }
 
     public GreenPoints getGreenPointsObject() {

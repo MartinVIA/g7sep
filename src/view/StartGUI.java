@@ -166,8 +166,9 @@ public class StartGUI extends Application {
 
                     Alert done = new Alert(Alert.AlertType.INFORMATION);
                     done.setTitle("Points reset");
+                    done.setHeaderText("Personal points");
                     done.setContentText("All of the residents personal points have been reset");
-                    done.
+                    done.showAndWait();
                 }
             });
 
@@ -219,7 +220,7 @@ public class StartGUI extends Application {
             popup.setTitle("Manage Task: " + selected.getName());
             popup.show();
         });
-        
+
         Button community_points_edit = new Button("Edit Green Points");
 
         ProgressBar progressBar = new ProgressBar();
