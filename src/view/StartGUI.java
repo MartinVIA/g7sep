@@ -12,6 +12,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -93,6 +95,12 @@ public class StartGUI extends Application {
         Button trade_menu = new Button("Trades");
         Button task_menu = new Button("Tasks");
         Button Community_points_menu = new Button("Community Points");
+        Image clovervilleImage = new Image("file:./docs/img/clovervilleLogo.png");
+        ImageView displayCloverImage = new ImageView(clovervilleImage);
+        displayCloverImage.setX(0);
+        displayCloverImage.setY(0);
+        displayCloverImage.setFitHeight(50);
+
 
         Button resident_add = new Button("Add New Resident");
         resident_add.setOnAction(e -> {
@@ -452,7 +460,8 @@ public class StartGUI extends Application {
             popup.show();
         });
         Scene scene = new Scene(root, 500, 500);
-        scene.getStylesheets().add("view/FxStyles.css");
+        scene.getStylesheets().add("file:./docs/FxStyles.css");
+        primaryStage.getIcons().add( new Image("file:./docs/img/leaveicon.png"));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Cloverville Community Management");
