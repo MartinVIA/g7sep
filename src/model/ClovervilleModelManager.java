@@ -212,4 +212,8 @@ public class ClovervilleModelManager {
     public void removeTrade(Trade trade) {
         cloverville.getTradeList().removeTrade(trade);
     }
+        public void removeResident(Resident resident) {
+        cloverville.getResidentList().removeResident(resident);
+    }
 }
+
