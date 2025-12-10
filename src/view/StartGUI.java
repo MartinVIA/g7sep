@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -18,9 +19,7 @@ import javafx.stage.Stage;
 import model.*;
 import utils.FileReader;
 import utils.FileWriter;
-import utils.JSONReader;
 import utils.JSONWriter;
-import java.util.ArrayList;
 
 public class StartGUI extends Application {
 
@@ -453,6 +452,7 @@ public class StartGUI extends Application {
             popup.show();
         });
         Scene scene = new Scene(root, 500, 500);
+        scene.getStylesheets().add("view/FxStyles.css");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Cloverville Community Management");
