@@ -13,12 +13,10 @@ public class ManageTradeController {
 
     private final ClovervilleModelManager model;
     private final Trade trade;
-    private final Runnable refreshCallback;
 
-    public ManageTradeController(ClovervilleModelManager model, Trade trade, Runnable refreshCallback) {
+    public ManageTradeController(ClovervilleModelManager model, Trade trade) {
         this.model = model;
         this.trade = trade;
-        this.refreshCallback = refreshCallback;
     }
 
     public Scene createScene() {
@@ -44,40 +42,25 @@ public class ManageTradeController {
 
     private void openChangeNamePopup() {
         Stage popup = new Stage();
-        ChangeTradeNameController controller = new ChangeTradeNameController(trade, refreshCallback);
+        ChangeTradeNameController controller = new ChangeTradeNameController(trade);
         popup.setScene(controller.createScene());
         popup.setTitle("Change name of: " + trade.getStringName());
-        popup.setOnHidden(ev -> {
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
-        });
         popup.show();
     }
 
     private void openChangeDescriptionPopup() {
         Stage popup = new Stage();
-        ChangeTradeDescriptionController controller = new ChangeTradeDescriptionController(trade, refreshCallback);
+        ChangeTradeDescriptionController controller = new ChangeTradeDescriptionController(trade);
         popup.setScene(controller.createScene());
         popup.setTitle("Change description of: " + trade.getStringName());
-        popup.setOnHidden(ev -> {
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
-        });
         popup.show();
     }
 
     private void openChangeCostPopup() {
         Stage popup = new Stage();
-        ChangeTradeCostController controller = new ChangeTradeCostController(trade, refreshCallback);
+        ChangeTradeCostController controller = new ChangeTradeCostController(trade);
         popup.setScene(controller.createScene());
         popup.setTitle("Change cost of: " + trade.getStringName());
-        popup.setOnHidden(ev -> {
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
-        });
         popup.show();
     }
 
@@ -86,11 +69,6 @@ public class ManageTradeController {
         MarkTradeComplete controller = new MarkTradeComplete(model, trade);
         popup.setScene(controller.createScene());
         popup.setTitle("Run trade complete: " + trade.getName());
-        popup.setOnHidden(ev -> {
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
-        });
         popup.show();
     }
 }

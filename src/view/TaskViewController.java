@@ -32,10 +32,13 @@ public class TaskViewController {
         return new Scene(createView(), 700, 400);
     }
 
+    private void refreshTaskList() {
+        taskListView.getItems().setAll(model.getTaskList());
+    }
+
     public VBox createView() {
         taskListView = new ListView<>();
         taskListView.setPrefWidth(420);
-
         refreshTaskList();
 
         Label titleLabel = new Label("Cloverville – Tasks");
@@ -78,10 +81,6 @@ public class TaskViewController {
 
         VBox wrapper = new VBox(root);
         return wrapper;
-    }
-
-    private void refreshTaskList() {
-        taskListView.getItems().setAll(model.getTaskList());
     }
 
     private void handleAddTask() {

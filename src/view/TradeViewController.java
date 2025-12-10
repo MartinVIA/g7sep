@@ -25,6 +25,10 @@ public class TradeViewController {
         this.model = model;
     }
 
+    private void refreshResidentList() {
+        residentListView.getItems().setAll(model.getAllResidents());
+    }
+
     public Scene createScene() {
         residentListView = new ListView<>();
         residentListView.setPrefWidth(320);
@@ -94,8 +98,6 @@ public class TradeViewController {
             model.addTrade(name, desc, selected, price);
             messageLabel.setText("Trade created with point cost: " + price);
         } catch (NumberFormatException e) {
-            // model.addTradeWithOffer(name, desc, selected, priceText);
-            // messageLabel.setText("Trade created with offer: " + priceText);
             messageLabel.setText("Price must be an number. Try again.");
             return;
         }
@@ -103,12 +105,9 @@ public class TradeViewController {
         offerNameField.clear();
         description.clear();
         priceField.clear();
+        refreshResidentList();
         residentListView.getSelectionModel().clearSelection();
 
-    }
-
-    private void refreshResidentList() {
-        residentListView.getItems().setAll(model.getAllResidents());
     }
 
 }

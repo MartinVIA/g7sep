@@ -133,14 +133,6 @@ public abstract class Task implements Serializable {
   }
 
   /**
-   * An abstract method to execute completion logic and side effects for the task
-   * subtype
-   * 
-   * @param resident Resident completing the task
-   */
-  public abstract void completeTask(Resident resident);
-
-  /**
    * Compares a task object with another object
    * 
    * @param obj Object to compare

@@ -68,7 +68,7 @@ public class MarkTaskComplete {
 
     private void completeTaskForResident(Resident resident) {
         if (task instanceof GreenActions) {
-            task.completeTask(resident);
+            // task.completeTask(resident);
             model.addGreenPoints(task.getPoints());
             FileWriter.saveGreenPointsToBinary(model.getGreenPointsObject(), "community.bin");
             JSONWriter.saveGreenPointsToJSON(model.getGreenPointsObject(), "docs/file_operations_community.json");

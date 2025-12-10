@@ -1,8 +1,14 @@
 [
   {
-    "name": "caer",
-    "description": "adwe",
+    "name": "efw",
+    "description": "dfsa",
     "type": "community",
-    "points": 5
+    "points": 10
+  },
+  {
+    "name": "wef",
+    "description": "adsf",
+    "type": "community",
+    "points": 0
   }
 ]

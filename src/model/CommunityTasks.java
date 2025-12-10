@@ -5,7 +5,6 @@ package model;
  */
 public class CommunityTasks extends Task {
     private int personalPointsAward;
-    private PersonalPoints personalPoints;
 
     /**
      * Creates a community task
@@ -17,7 +16,6 @@ public class CommunityTasks extends Task {
     public CommunityTasks(String name, String type, int personalPointsAward) {
         super(name, type, personalPointsAward);
         this.personalPointsAward = personalPointsAward;
-        this.personalPoints = new PersonalPoints();
     }
 
     /**
@@ -47,24 +45,6 @@ public class CommunityTasks extends Task {
      */
     public void awardPersonalPoints(Resident resident, int points) {
         resident.addPersonalPoints(points);
-    }
-
-    /**
-     * Marks the task complete, handles boosts, and updates resident state
-     * 
-     * @param resident Resident completing the task
-     */
-    public void completeTask(Resident resident) {
-        Date now = new Date();
-        setCompleteDate(now);
-
-        if (resident.getHasBoost())
-            resident.setBoost(false);
-
-        personalPoints.awardBoost(resident);
-
-        resident.addPersonalPoints(personalPointsAward);
-        resident.setLatestTask(now);
     }
 
     /**

@@ -13,12 +13,10 @@ public class ManageTaskController {
 
     private final ClovervilleModelManager model;
     private final Task task;
-    private final Runnable refreshCallback;
 
-    public ManageTaskController(ClovervilleModelManager model, Task task, Runnable refreshCallback) {
+    public ManageTaskController(ClovervilleModelManager model, Task task) {
         this.model = model;
         this.task = task;
-        this.refreshCallback = refreshCallback;
     }
 
     public Scene createScene() {
@@ -50,11 +48,6 @@ public class ManageTaskController {
         ChangeTaskNameController controller = new ChangeTaskNameController(model, task);
         popup.setScene(controller.createScene());
         popup.setTitle("Change name of: " + task.getName());
-        popup.setOnHidden(ev -> {
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
-        });
         popup.show();
     }
 
@@ -63,11 +56,6 @@ public class ManageTaskController {
         ChangeTaskDescriptionController controller = new ChangeTaskDescriptionController(model, task);
         popup.setScene(controller.createScene());
         popup.setTitle("Change description of: " + task.getName());
-        popup.setOnHidden(ev -> {
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
-        });
         popup.show();
     }
 
@@ -76,11 +64,6 @@ public class ManageTaskController {
         ChangeTaskPointsController controller = new ChangeTaskPointsController(model, task);
         popup.setScene(controller.createScene());
         popup.setTitle("Change points of: " + task.getName());
-        popup.setOnHidden(ev -> {
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
-        });
         popup.show();
     }
 
@@ -89,11 +72,6 @@ public class ManageTaskController {
         ChangeTaskTypeController controller = new ChangeTaskTypeController(model, task);
         popup.setScene(controller.createScene());
         popup.setTitle("Change type of: " + task.getName());
-        popup.setOnHidden(ev -> {
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
-        });
         popup.show();
     }
 
@@ -102,11 +80,6 @@ public class ManageTaskController {
         MarkTaskComplete controller = new MarkTaskComplete(model, task);
         popup.setScene(controller.createScene());
         popup.setTitle("Mark task complete: " + task.getName());
-        popup.setOnHidden(ev -> {
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
-        });
         popup.show();
     }
 }

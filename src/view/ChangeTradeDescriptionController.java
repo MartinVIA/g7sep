@@ -11,14 +11,12 @@ import model.Trade;
 public class ChangeTradeDescriptionController {
 
     private final Trade trade;
-    private final Runnable onSaved;
 
     private TextField descriptionField;
     private Label messageLabel;
 
-    public ChangeTradeDescriptionController(Trade trade, Runnable onSaved) {
+    public ChangeTradeDescriptionController(Trade trade) {
         this.trade = trade;
-        this.onSaved = onSaved;
     }
 
     public Scene createScene() {
@@ -45,11 +43,6 @@ public class ChangeTradeDescriptionController {
 
         // Update the trade object
         trade.setDescription(newDescription);
-
-        // Refresh table in main window
-        if (onSaved != null) {
-            onSaved.run();
-        }
 
         // sucess message
         messageLabel.setText("Changed Description succesfully");

@@ -102,7 +102,7 @@ public class PersonalPoints implements Serializable {
       double boost = calculateBoost(resident);
       if (boost > 1.0) {
         personalPoints = (int) (personalPoints * boost);
-        resident.setBoost(true);
+        resident.setBoost(false);
       }
     }
   }

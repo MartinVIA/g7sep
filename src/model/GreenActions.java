@@ -6,8 +6,6 @@ package model;
 public class GreenActions extends Task {
     private int greenPointsAward;
 
-    private GreenPoints greenPoints;
-
     /**
      * Creates a green action task
      * 
@@ -37,18 +35,6 @@ public class GreenActions extends Task {
     public void setGreenPoints(int greenPointsAward) {
         this.greenPointsAward = greenPointsAward;
         setPoints(greenPointsAward);
-    }
-
-    /**
-     * Marks the task complete and records the resident's latest green action
-     * 
-     * @param resident Resident completing the task
-     */
-    public void completeTask(Resident resident) {
-        Date now = new Date();
-        setCompleteDate(now);
-        resident.setLatestGreenAction(now);
-        // super.markAsComplete();
     }
 
     /**

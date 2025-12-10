@@ -11,14 +11,12 @@ import model.Trade;
 public class ChangeTradeCostController {
 
     private final Trade trade;
-    private final Runnable onSaved;
 
     private TextField costField;
     private Label messageLabel;
 
-    public ChangeTradeCostController(Trade trade, Runnable onSaved) {
+    public ChangeTradeCostController(Trade trade) {
         this.trade = trade;
-        this.onSaved = onSaved;
     }
 
     public Scene createScene() {
@@ -52,12 +50,8 @@ public class ChangeTradeCostController {
 
         trade.setPointCost(newCost);
 
-        if (onSaved != null) {
-            onSaved.run();
-
-            // sucess message
-            messageLabel.setText("Changed Cost succesfully");
-        }
-
+        // sucess message
+        messageLabel.setText("Changed Cost succesfully");
     }
+
 }

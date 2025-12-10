@@ -200,13 +200,14 @@ public class StartGUI extends Application {
             }
 
             Stage popup = new Stage();
-            ManageTradeController controller = new ManageTradeController(model, selected, () -> {
+            ManageTradeController controller = new ManageTradeController(model, selected);
+            popup.setScene(controller.createScene());
+            popup.setTitle("Edit Trade");
+            popup.setOnHidden(ev -> {
                 refreshTradesTable();
                 FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
                 JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
             });
-            popup.setScene(controller.createScene());
-            popup.setTitle("Edit Trade");
             popup.show();
         });
         Button task_edit = new Button("Edit existing Task");
@@ -222,13 +223,14 @@ public class StartGUI extends Application {
             }
 
             Stage popup = new Stage();
-            ManageTaskController controller = new ManageTaskController(model, selected, () -> {
+            ManageTaskController controller = new ManageTaskController(model, selected);
+            popup.setScene(controller.createScene());
+            popup.setTitle("Manage Task: " + selected.getName());
+            popup.setOnHidden(ev -> {
                 refreshTasksTable();
                 FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
                 JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
             });
-            popup.setScene(controller.createScene());
-            popup.setTitle("Manage Task: " + selected.getName());
             popup.show();
         });
 

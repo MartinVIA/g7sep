@@ -12,14 +12,12 @@ import model.Trade;
 public class ChangeTradeNameController {
 
     private final Trade trade;
-    private final Runnable onSaved;
 
     private TextField nameField;
     private Label messageLabel;
 
-    public ChangeTradeNameController(Trade trade, Runnable onSaved) {
+    public ChangeTradeNameController(Trade trade) {
         this.trade = trade;
-        this.onSaved = onSaved;
     }
 
     public Scene createScene() {
@@ -44,10 +42,6 @@ public class ChangeTradeNameController {
         }
 
         trade.setName(newName);
-
-        // refresh table in main window
-        if (onSaved != null)
-            onSaved.run();
 
         // sucess message
         messageLabel.setText("Changed name succesfully");
