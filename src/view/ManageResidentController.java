@@ -13,14 +13,6 @@ public class ManageResidentController {
 
     private final ClovervilleModelManager model;
     private final Resident resident;
-    // private final Runnable refreshCallback;
-
-    // public ManageResidentController(ClovervilleModelManager model, Resident
-    // resident, Runnable refreshCallback) {
-    // this.model = model;
-    // this.resident = resident;
-    // this.refreshCallback = refreshCallback;
-    // }
 
     public ManageResidentController(ClovervilleModelManager model, Resident resident) {
         this.model = model;
@@ -53,11 +45,6 @@ public class ManageResidentController {
         ChangeNameController controller = new ChangeNameController(model, resident);
         popup.setScene(controller.createScene());
         popup.setTitle("Change name of: " + resident.getFirstName() + " " + resident.getLastName());
-        // popup.setOnHidden(ev -> {
-        // if (refreshCallback != null) {
-        // refreshCallback.run();
-        // }
-        // });
         popup.show();
     }
 
@@ -66,11 +53,6 @@ public class ManageResidentController {
         EditPointsController controller = new EditPointsController(model, resident);
         popup.setScene(controller.createScene());
         popup.setTitle("Edit points of Resident: " + resident.getFirstName() + " " + resident.getLastName());
-        // popup.setOnHidden(ev -> {
-        // if (refreshCallback != null) {
-        // refreshCallback.run();
-        // }
-        // });
         popup.show();
     }
 
@@ -79,11 +61,6 @@ public class ManageResidentController {
         AddBoostController controller = new AddBoostController(model, resident);
         popup.setScene(controller.createScene());
         popup.setTitle("Add a boost to: " + resident.getFirstName() + " " + resident.getLastName());
-        // popup.setOnHidden(ev -> {
-        // if (refreshCallback != null) {
-        // refreshCallback.run();
-        // }
-        // });
         popup.show();
     }
 
@@ -92,11 +69,6 @@ public class ManageResidentController {
         RemoveBoostController controller = new RemoveBoostController(model, resident);
         popup.setScene(controller.createScene());
         popup.setTitle("Remove boost from: " + resident.getFirstName() + " " + resident.getLastName());
-        // popup.setOnHidden(ev -> {
-        // if (refreshCallback != null) {
-        // refreshCallback.run();
-        // }
-        // });
         popup.show();
     }
 }

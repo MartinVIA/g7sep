@@ -74,17 +74,19 @@ public class PersonalPoints implements Serializable {
     Date lastCompletionDate = resident.getLatestTask();
 
     if (lastCompletionDate == null) {
-      return 1.0;
+      return 1.2;
     }
 
     long diff = currentDate.getNumOfDays() - lastCompletionDate.getNumOfDays();
 
-    if (diff > 14)
-      boost += 0.2;
+    if (diff > 60)
+      boost += 0.8;
     else if (diff > 30)
       boost += 0.4;
-    else if (diff > 60)
-      boost += 0.8;
+    else if (diff > 14)
+      boost += 0.3;
+    else if (diff <= 14)
+      boost += 0.2;
 
     return boost;
   }
