@@ -52,6 +52,17 @@ public class StartGUI extends Application {
         }
     }
 
+    ProgressBar progressBar = new ProgressBar();
+    Label progressLabel = new Label();
+
+    private void refreshCommunityPointsTable() {
+        if (model != null) {
+            progressLabel.setText("Progress toward next green reward: " + model.getGreenPoints()
+                    + "/" + model.getGreenPointsGoal() + " green points");
+            progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
+        }
+    }
+
     public void start(Stage primaryStage) {
         model = new ClovervilleModelManager();
 
@@ -178,7 +189,7 @@ public class StartGUI extends Application {
         trade_edit.setOnAction(e -> {
 
             Trade selected = tradesTable.getSelectionModel().getSelectedItem();
-            // select the trade
+
             if (selected == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("No trade selected");
@@ -187,7 +198,7 @@ public class StartGUI extends Application {
                 alert.showAndWait();
                 return;
             }
-            // select the trade dumbass
+
             Stage popup = new Stage();
             ManageTradeController controller = new ManageTradeController(model, selected, () -> {
                 refreshTradesTable();
@@ -223,8 +234,6 @@ public class StartGUI extends Application {
 
         Button community_points_edit = new Button("Edit Green Points");
 
-        ProgressBar progressBar = new ProgressBar();
-
         HBox bottom_menu_resident = new HBox();
         bottom_menu_resident.getChildren().addAll(resident_add, resident_edit, Resident_reset_all_points);
         bottom_menu_resident.setSpacing(10);
@@ -248,8 +257,6 @@ public class StartGUI extends Application {
         HBox nav_bar = new HBox();
         nav_bar.getChildren().addAll(resident_menu, trade_menu, task_menu, Community_points_menu);
 
-        // I Chanched it to an arrayList so we can add ResidentViewControllers stored
-        // data into Victors UI
         residentsTable = new TableView<>();
 
         VBox residentsBox = new VBox();
@@ -263,8 +270,6 @@ public class StartGUI extends Application {
         TableColumn<Resident, Integer> pointsCol = new TableColumn<>("Points");
         TableColumn<Resident, Boolean> boostCol = new TableColumn<>("Boost");
 
-        // import javafx.scene.control.cell.PropertyValueFactory;
-        // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/PropertyValueFactory.html
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -285,24 +290,16 @@ public class StartGUI extends Application {
         TableColumn<Trade, Integer> priceCol = new TableColumn<>("Price");
         TableColumn<Trade, String> offerCol = new TableColumn<>("Offer");
         TableColumn<Trade, String> descriptionCol = new TableColumn<>("Description");
-        // creates the table we see when we go to the trade tab
 
         sellerCol.setCellValueFactory(new PropertyValueFactory<>("traderName"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("pointCost"));
         offerCol.setCellValueFactory(new PropertyValueFactory<>("stringName"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        // A tableView stores whole Trade objects, but each TableColumn must be told
-        // which part of the Trade should appear in that colummn.
-        // setCellValueFactory tells the colummn which get method in the Trade class to
-        // call.
-        // For example, sellerCol uses getTraderName(), priceCol uses getPointCost()
-        // Without setCellValueFactory, the table would not know what to show.
 
         tradesTable.setEditable(true);
         tradesTable.getColumns().addAll(sellerCol, priceCol, offerCol, descriptionCol);
         refreshTradesTable();
 
-        // task list
         taskTable = new TableView<>();
         taskTable.setPrefWidth(420);
 
@@ -324,7 +321,6 @@ public class StartGUI extends Application {
         tasksBox.setPadding(new Insets(10, 0, 0, 10));
         tasksBox.getChildren().add(taskTable);
 
-        // community points layout
         TableView greenTasks = new TableView<>();
         TableColumn pointsAmountCol = new TableColumn<>("Points Amount");
         TableColumn pointsDateCol = new TableColumn<>("Date Added");
@@ -338,21 +334,17 @@ public class StartGUI extends Application {
         communityPointsBox.setPadding(new Insets(10, 0, 0, 10));
         progressBar.setPrefWidth(450);
         communityPointsBox.getChildren().add(greenTasks);
-        communityPointsBox.getChildren().add(new Label("Progress toward next green reward: " + model.getGreenPoints()
-                + "/" + model.getGreenPointsGoal() + " green points"));
+        communityPointsBox.getChildren().add(progressLabel);
         progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
         communityPointsBox.getChildren().add(progressBar);
+        refreshCommunityPointsTable();
 
-        // community points variable needed
-
-        // Main layout
         BorderPane root = new BorderPane();
         root.setTop(nav_bar);
         root.setCenter(residentsBox);
         root.setBottom(bottom_menu_resident);
         root.setPadding(new Insets(10));
 
-        // Button actions
         resident_menu.setOnAction(e -> {
             root.setCenter(residentsBox);
             root.setBottom(bottom_menu_resident);
@@ -361,14 +353,17 @@ public class StartGUI extends Application {
         trade_menu.setOnAction(e -> {
             root.setCenter(tradesBox);
             root.setBottom(bottom_menu_trades);
+            refreshTradesTable();
         });
         task_menu.setOnAction(e -> {
             root.setCenter(tasksBox);
             root.setBottom(bottom_menu_tasks);
+            refreshTasksTable();
         });
         Community_points_menu.setOnAction(e -> {
             root.setCenter(communityPointsBox);
             root.setBottom(bottom_menu_community_points);
+            refreshCommunityPointsTable();
         });
         community_points_add.setOnAction(e -> {
             Stage popup = new Stage();
@@ -383,7 +378,6 @@ public class StartGUI extends Application {
                     FileWriter.saveGreenPointsToBinary(model.getGreenPointsObject(), "community.bin");
                     JSONWriter.saveGreenPointsToJSON(model.getGreenPointsObject(),
                             "docs/file_operations_community.json");
-                    // pinapple
                     popup.close();
                     progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
                     communityPointsBox.getChildren().set(1, new Label("Progress toward next green reward: "
@@ -419,6 +413,10 @@ public class StartGUI extends Application {
                     int goal = Integer.parseInt(goalField.getText());
                     String reward = rewardField.getText();
 
+                    if (reward.matches("-?\\d+(\\.\\d+)?")) {
+                        throw new IllegalArgumentException("Reward description cannot be a number.");
+                    }
+
                     model.setGreenPointsGoal(goal);
                     model.getGreenPointsObject().setCommunityReward(reward);
 
@@ -436,9 +434,15 @@ public class StartGUI extends Application {
                             + model.getGreenPoints() + "/" + model.getGreenPointsGoal() + " green points"));
                 } catch (NumberFormatException ex) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Invalid input for point goal");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a valid number for the goal");
+                    alert.showAndWait();
+                } catch (IllegalArgumentException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Invalid Input");
                     alert.setHeaderText(null);
-                    alert.setContentText("Please enter a valid number.");
+                    alert.setContentText(ex.getMessage());
                     alert.showAndWait();
                 }
             });
@@ -451,7 +455,7 @@ public class StartGUI extends Application {
         Scene scene = new Scene(root, 500, 500);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        primaryStage.setTitle("I don wanna do this anympre send help");
+        primaryStage.setTitle("Cloverville Community Management");
         primaryStage.show();
     }
 

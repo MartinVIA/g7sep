@@ -5,6 +5,20 @@
     <link href="styles.css" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="img/leaveicon.png">
     <style>
+      .side-banner {
+        position: fixed;
+        top: 70px;
+        width: 150px;
+        height: calc(100vh - 70px);
+        object-fit: cover;
+        z-index: 500;
+      }
+      .side-banner-left {
+        left: 0;
+      }
+      .side-banner-right {
+        right: 0;
+      }
       .table-container {
         max-width: 800px;
         margin: 20px auto;
@@ -84,6 +98,8 @@
     </style>
   </head>
   <body>
+    <img src="img/-2.jpeg" class="side-banner side-banner-left" alt="Left Banner">
+    <img src="img/moestuin-1444x963-jpg-crop.jpeg" class="side-banner side-banner-right" alt="Right Banner">
     <h3>Personal Points in Cloverville</h3>
     <p>Here you can find information about your personal points and how to earn them through completing tasks and participating in community activities!</p>
 

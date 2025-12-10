@@ -4,9 +4,26 @@
     <title>Cloverville</title>
     <link href="styles.css" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="img/leaveicon.png">
-
+    <style>
+      .side-banner {
+        position: fixed;
+        top: 70px;
+        width: 150px;
+        height: calc(100vh - 70px);
+        object-fit: cover;
+        z-index: 500;
+      }
+      .side-banner-left {
+        left: 0;
+      }
+      .side-banner-right {
+        right: 0;
+      }
+    </style>
   </head>
   <body>
+    <img src="img/-2.jpeg" class="side-banner side-banner-left" alt="Left Banner">
+    <img src="img/moestuin-1444x963-jpg-crop.jpeg" class="side-banner side-banner-right" alt="Right Banner">
     <h3>Welcome to the official website of Cloverville.</h3>
     <p>Here you can find some information about this beautifull town we call home. there are also pages to view the current tasks, open trades, the greenpoint goals and achievments aswell as your personal ballance of personal points.</p>
 

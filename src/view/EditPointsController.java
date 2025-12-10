@@ -30,7 +30,7 @@ public class EditPointsController {
             String text = pointsField.getText().trim();
 
             if (!text.matches("\\d+")) {
-                msg.setText("Points must be a whole number (0–9).");
+                msg.setText("Points must be a positive Integer.");
                 return;
             }
 
@@ -38,7 +38,7 @@ public class EditPointsController {
             resident.setPersonalPoints(pts);
 
             msg.setText("Points updated.");
-            
+
         });
 
         VBox root = new VBox(10,

@@ -11,6 +11,8 @@ import model.ClovervilleModelManager;
 import model.GreenActions;
 import model.Resident;
 import model.Task;
+import utils.FileWriter;
+import utils.JSONWriter;
 
 public class MarkTaskComplete {
 
@@ -41,15 +43,14 @@ public class MarkTaskComplete {
                     if (task instanceof GreenActions) {
                         // green actions have their own completion logic
                         task.completeTask(resident);
-                        model.awardPointsToResident(resident.getId(), task.getPoints());
                         model.addGreenPoints(task.getPoints());
+                        FileWriter.saveGreenPointsToBinary(model.getGreenPointsObject(), "community.bin");
+                        JSONWriter.saveGreenPointsToJSON(model.getGreenPointsObject(),
+                                "docs/file_operations_community.json");
                     } else {
                         model.awardPointsToResident(resident.getId(), task.getPoints());
-                        model.getAllResidents().stream()
-                                .filter(r -> r.getId() == resident.getId())
-                                .findFirst()
-                                .ifPresent(r -> r.setLatestTask(new model.Date()));
-                        task.setCompleteDate(new model.Date());
+                        FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
+                        JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
                     }
                 }
             }
@@ -65,15 +66,20 @@ public class MarkTaskComplete {
                 for (Resident resident : selectedResidents) {
                     if (task instanceof GreenActions) {
                         task.completeTask(resident);
-                        model.awardPointsToResident(resident.getId(), task.getPoints());
                         model.addGreenPoints(task.getPoints());
+                        FileWriter.saveGreenPointsToBinary(model.getGreenPointsObject(), "community.bin");
+                        JSONWriter.saveGreenPointsToJSON(model.getGreenPointsObject(),
+                                "docs/file_operations_community.json");
                     } else {
-                        model.awardPointsToResident(resident.getId(), task.getPoints());
-                        model.getAllResidents().stream()
-                                .filter(r -> r.getId() == resident.getId())
-                                .findFirst()
-                                .ifPresent(r -> r.setLatestTask(new model.Date()));
-                        task.setCompleteDate(new model.Date());
+                        if (resident.getHasBoost()) {
+                            model.awardBoostToResident(resident.getId());
+                            resident.setBoost(false);
+                        } else {
+                            model.awardPointsToResident(resident.getId(), task.getPoints());
+                        }
+                        resident.setLatestTask(new model.Date());
+                        FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
+                        JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
                     }
                 }
             }

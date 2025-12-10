@@ -9,6 +9,7 @@ public class Cloverville {
   private TradeList tradeList;
   private TaskList TaskList;
   private GreenPoints greenPoints;
+  private PersonalPoints personalPoints;
 
   /**
    * Creates an empty Cloverville instance with default lists
@@ -60,5 +61,9 @@ public class Cloverville {
 
   public void setGreenPoints(GreenPoints greenPoints) {
     this.greenPoints = greenPoints;
+  }
+
+  public void awardBoost(Resident resident) {
+    personalPoints.awardBoost(resident);
   }
 }

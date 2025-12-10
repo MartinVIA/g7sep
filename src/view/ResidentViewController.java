@@ -130,7 +130,7 @@ public class ResidentViewController {
             // System.err.println("Failed to save personal points: " + ex.getMessage());
             // }
         } catch (NumberFormatException e) {
-            messageLabel.setText("Points must be a whole number.");
+            messageLabel.setText("Points must be a .");
         }
     }
 }

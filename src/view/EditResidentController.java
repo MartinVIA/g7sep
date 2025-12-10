@@ -102,18 +102,10 @@ public class EditResidentController {
         }
     }
 
-    // ------ probably to be deleted
-    private void handleChangeId() {
-        String text = idField.getText().trim();
-        if (!text.matches("\\d+")) {
-            messageLabel.setText("ID must contain digits only (0–9).");
-        }
-    }
-
     private void handleChangePoints() {
         String text = pointsField.getText().trim();
         if (!text.matches("\\d+")) {
-            messageLabel.setText("Points must be a whole number (0–9).");
+            messageLabel.setText("Points must be a non-negative number.");
             return;
         }
 

@@ -131,6 +131,11 @@ public class ClovervilleModelManager {
         }
     }
 
+    public void awardBoostToResident(int residentId) {
+        Resident v = cloverville.getResidentList().getResidentById(residentId);
+        cloverville.awardBoost(v);
+    }
+
     public void resetAllPersonalPoints() {
         for (Resident resident : getAllResidents()) {
             resident.resetPersonalPoints();
