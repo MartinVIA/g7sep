@@ -30,7 +30,6 @@ public class TradeViewController {
         residentListView.setPrefWidth(320);
         refreshResidentList();
 
-        // titel
         Label titleLabel = new Label("Cloverville – Trades");
         HBox topBox = new HBox(titleLabel);
         topBox.setPadding(new Insets(10));

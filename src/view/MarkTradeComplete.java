@@ -8,7 +8,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ClovervilleModelManager;
-import model.GreenActions;
 import model.Resident;
 import model.Trade;
 
@@ -37,30 +36,24 @@ public class MarkTradeComplete {
         keepBtn.setOnAction(e -> {
             var selectedResidents = residentListView.getSelectionModel().getSelectedItems();
             if (!selectedResidents.isEmpty()) {
-                for (Resident resident : selectedResidents) {
-                    model.awardPointsToResident(resident.getId(), -trade.getPointCost());
-                    model.awardPointsToResident(trade.getTraderId(), trade.getPointCost());
+                for (Resident tradee : selectedResidents) {
+                    model.awardPointsToResident(tradee.getId(), trade.getPointCost());
+                    model.awardPointsToResident(trade.getTraderId(), -trade.getPointCost());
                 }
             }
             keepBtn.getScene().getWindow().hide();
-            // if (refreshCallback != null) {
-            // refreshCallback.run();
-            // }
         });
 
         deleteBtn.setOnAction(e -> {
             var selectedResidents = residentListView.getSelectionModel().getSelectedItems();
             if (!selectedResidents.isEmpty()) {
-                for (Resident resident : selectedResidents) {
-                    model.awardPointsToResident(resident.getId(), -trade.getPointCost());
-                    model.awardPointsToResident(trade.getTraderId(), trade.getPointCost());
+                for (Resident tradee : selectedResidents) {
+                    model.awardPointsToResident(tradee.getId(), trade.getPointCost());
+                    model.awardPointsToResident(trade.getTraderId(), -trade.getPointCost());
                 }
             }
             model.removeTrade(trade);
             deleteBtn.getScene().getWindow().hide();
-            // if (refreshCallback != null) {
-            // refreshCallback.run();
-            // }
         });
 
         cancelBtn.setOnAction(e -> cancelBtn.getScene().getWindow().hide());

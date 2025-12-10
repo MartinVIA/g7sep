@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -18,9 +19,7 @@ import javafx.stage.Stage;
 import model.*;
 import utils.FileReader;
 import utils.FileWriter;
-import utils.JSONReader;
 import utils.JSONWriter;
-import java.util.ArrayList;
 
 public class StartGUI extends Application {
 
@@ -163,6 +162,7 @@ public class StartGUI extends Application {
             popup.show();
         });
         Button Resident_reset_all_points = new Button("Reset all personal points");
+        Resident_reset_all_points.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
         Resident_reset_all_points.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Reset");
