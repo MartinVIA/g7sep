@@ -22,6 +22,7 @@ public class ManageResidentController {
 
     public Scene createScene() {
         Label title = new Label("Manage " + resident.getFirstName() + " " + resident.getLastName());
+        title.getStyleClass().add("title");
 
         Button changeNameBtn = new Button("Change name");
         Button editPointsBtn = new Button("Edit points");
@@ -65,7 +66,7 @@ public class ManageResidentController {
         VBox root = new VBox(10, title, changeNameBtn, editPointsBtn, addBoostBtn, removeBoostBtn,removeResidentBtn, closeBtn);
         root.setPadding(new Insets(10));
 
-        return new Scene(root, 260, 250);
+        return new Scene(root, 260, 260);
     }
 
     private void openChangeNamePopup() {
