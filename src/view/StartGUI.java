@@ -170,6 +170,7 @@ public class StartGUI extends Application {
             popup.show();
         });
         Button Resident_reset_all_points = new Button("Reset all personal points");
+        Resident_reset_all_points.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
         Resident_reset_all_points.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Reset");

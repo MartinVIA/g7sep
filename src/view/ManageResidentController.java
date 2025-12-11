@@ -26,15 +26,19 @@ public class ManageResidentController {
         Button editPointsBtn = new Button("Edit points");
         Button addBoostBtn = new Button("Add a boost");
         Button removeBoostBtn = new Button("Remove a boost");
+        Button removeResidentBtn = new Button("Remove the resident");
         Button closeBtn = new Button("Close");
+        
 
         changeNameBtn.setOnAction(e -> openChangeNamePopup());
         editPointsBtn.setOnAction(e -> openEditPointsPopup());
         addBoostBtn.setOnAction(e -> openAddBoostPopup());
         removeBoostBtn.setOnAction(e -> openRemoveBoostPopup());
+        removeResidentBtn.setOnAction(e -> {model.removeResident(resident);removeResidentBtn.getScene().getWindow().hide();
+        });
         closeBtn.setOnAction(e -> closeBtn.getScene().getWindow().hide());
 
-        VBox root = new VBox(10, title, changeNameBtn, editPointsBtn, addBoostBtn, removeBoostBtn, closeBtn);
+        VBox root = new VBox(10, title, changeNameBtn, editPointsBtn, addBoostBtn, removeBoostBtn,removeResidentBtn, closeBtn);
         root.setPadding(new Insets(10));
 
         return new Scene(root, 260, 250);
