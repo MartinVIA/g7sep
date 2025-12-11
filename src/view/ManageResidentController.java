@@ -2,6 +2,7 @@ package view;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -34,7 +35,28 @@ public class ManageResidentController {
         editPointsBtn.setOnAction(e -> openEditPointsPopup());
         addBoostBtn.setOnAction(e -> openAddBoostPopup());
         removeBoostBtn.setOnAction(e -> openRemoveBoostPopup());
-        removeResidentBtn.setOnAction(e -> {model.removeResident(resident);removeResidentBtn.getScene().getWindow().hide();
+        removeResidentBtn.setOnAction(e -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Removal");
+            alert.setHeaderText("Are you sure?");
+            alert.setContentText("This will remove the resident and their corresponding information.");
+            alert.showAndWait().ifPresent(response -> {
+                if (response.getButtonData().isDefaultButton()) {
+                    model.resetAllPersonalPoints();
+                    // refreshResidentsTable();
+
+                model.removeResident(resident);
+                removeResidentBtn.getScene().getWindow().hide();
+                    // FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
+                    // JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
+
+                    Alert done = new Alert(Alert.AlertType.INFORMATION);
+                    done.setTitle("Resident Removed");
+                    done.setHeaderText("Resident Management");
+                    done.setContentText("The resident and their information have been removed");
+                    done.showAndWait();
+                }
+            });
         });
         closeBtn.setOnAction(e -> closeBtn.getScene().getWindow().hide());
 
