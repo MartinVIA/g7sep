@@ -35,6 +35,8 @@ public class ManageResidentController {
         editPointsBtn.setOnAction(e -> openEditPointsPopup());
         addBoostBtn.setOnAction(e -> openAddBoostPopup());
         removeBoostBtn.setOnAction(e -> openRemoveBoostPopup());
+        removeResidentBtn.getStyleClass().add("red-border");
+        // removeResidentBtn.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
         removeResidentBtn.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Removal");

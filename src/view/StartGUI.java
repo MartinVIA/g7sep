@@ -158,8 +158,8 @@ public class StartGUI extends Application {
 
             Stage popup = new Stage();
             ManageResidentController controller = new ManageResidentController(model, selected);
-
             popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
             popup.setTitle("Manage Resident: "
                     + selected.getFirstName() + " " + selected.getLastName());
             popup.setOnHidden(ev -> {
