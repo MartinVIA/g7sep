@@ -1,2 +1,8 @@
 [
+  {
+    "name": "Trade offer",
+    "description": "Trade desc",
+    "pointCost": 10,
+    "traderName": "leon dk"
+  }
 ]

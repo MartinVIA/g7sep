@@ -107,6 +107,9 @@ public class StartGUI extends Application {
             Stage popup = new Stage();
             ResidentViewController controller = new ResidentViewController(model);
             popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add( new Image("file:./docs/img/leaveicon.png"));
+
             popup.setTitle("Cloverville's Resident");
             popup.setOnHidden(ev -> {
                 refreshResidentsTable();
@@ -119,6 +122,8 @@ public class StartGUI extends Application {
             Stage popup = new Stage();
             TradeViewController controller = new TradeViewController(model);
             popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.setTitle("Trades");
             popup.setOnHidden(ev -> {
                 refreshTradesTable();
@@ -133,6 +138,8 @@ public class StartGUI extends Application {
             Stage popup = new Stage();
             TaskViewController controller_task = new TaskViewController(model);
             popup.setScene(controller_task.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.setTitle("Tasks");
             popup.setOnHidden(ev -> {
                 refreshTasksTable();
@@ -160,6 +167,7 @@ public class StartGUI extends Application {
             ManageResidentController controller = new ManageResidentController(model, selected);
             popup.setScene(controller.createScene());
             popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.setTitle("Manage Resident: "
                     + selected.getFirstName() + " " + selected.getLastName());
             popup.setOnHidden(ev -> {
@@ -215,6 +223,8 @@ public class StartGUI extends Application {
                 JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
             });
             popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.setTitle("Edit Trade");
             popup.show();
         });
@@ -237,6 +247,8 @@ public class StartGUI extends Application {
                 JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
             });
             popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.setTitle("Manage Task: " + selected.getName());
             popup.show();
         });
@@ -386,11 +398,11 @@ public class StartGUI extends Application {
                     model.addGreenPoints(points);
                     FileWriter.saveGreenPointsToBinary(model.getGreenPointsObject(), "community.bin");
                     JSONWriter.saveGreenPointsToJSON(model.getGreenPointsObject(),
-                            "docs/file_operations_community.json");
+                    "docs/file_operations_community.json");
                     popup.close();
                     progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
                     communityPointsBox.getChildren().set(1, new Label("Progress toward next green reward: "
-                            + model.getGreenPoints() + "/" + model.getGreenPointsGoal() + " green points"));
+                    + model.getGreenPoints() + "/" + model.getGreenPointsGoal() + " green points"));
                 } catch (NumberFormatException ex) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Invalid Input");
@@ -399,10 +411,12 @@ public class StartGUI extends Application {
                     alert.showAndWait();
                 }
             });
-            VBox layout = new VBox(10);
+            VBox layout = new VBox(15);
             layout.getChildren().addAll(pointsField, submitButton);
-            layout.setPadding(new Insets(10, 10, 10, 10));
-            popup.setScene(new Scene(layout, 300, 150));
+            layout.setPadding(new Insets(10));
+            popup.setScene(new Scene(layout, 320, 80));
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.show();
         });
         community_points_edit.setOnAction(e -> {
@@ -455,10 +469,12 @@ public class StartGUI extends Application {
                     alert.showAndWait();
                 }
             });
-            VBox layout = new VBox(10);
+            VBox layout = new VBox(15);
             layout.getChildren().addAll(goalField, rewardField, submitButton);
             layout.setPadding(new Insets(10, 10, 10, 10));
-            popup.setScene(new Scene(layout, 300, 200));
+            popup.setScene(new Scene(layout, 300, 130));
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.show();
         });
         Scene scene = new Scene(root, 500, 500);
