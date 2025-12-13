@@ -99,7 +99,7 @@ public class StartGUI extends Application {
         ImageView displayCloverImage = new ImageView(clovervilleImage);
         displayCloverImage.setX(0);
         displayCloverImage.setY(0);
-        displayCloverImage.setFitHeight(50);
+        displayCloverImage.setFitHeight(20);
 
 
         Button resident_add = new Button("Add New Resident");
@@ -471,7 +471,7 @@ public class StartGUI extends Application {
             });
             VBox layout = new VBox(15);
             layout.getChildren().addAll(goalField, rewardField, submitButton);
-            layout.setPadding(new Insets(10, 10, 10, 10));
+            layout.setPadding(new Insets(10));
             popup.setScene(new Scene(layout, 300, 130));
             popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
             popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
