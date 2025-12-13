@@ -38,9 +38,12 @@ public class TaskViewController {
 
         refreshTaskList();
 
-        Label titleLabel = new Label("Cloverville – Tasks");
+        Label titleLabel = new Label("Cloverville - Tasks");
+        titleLabel.getStyleClass().add("title");
         HBox topBox = new HBox(titleLabel);
-        topBox.setPadding(new Insets(10));
+        topBox.setPadding(new Insets(0,5,8,5));
+
+
 
         nameField = new TextField();
         nameField.setPromptText("Task name");

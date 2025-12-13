@@ -4,5 +4,11 @@
     "description": "adwe",
     "type": "community",
     "points": 5
+  },
+  {
+    "name": "Task",
+    "description": "T Description",
+    "type": "green",
+    "points": 20
   }
 ]
