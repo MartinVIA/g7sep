@@ -392,6 +392,7 @@ public class StartGUI extends Application {
             TextField pointsField = new TextField();
             pointsField.setPromptText("Points Amount (negative to remove)");
             Button submitButton = new Button("Submit");
+            submitButton.requestFocus();
             submitButton.setOnAction(ev -> {
                 try {
                     int points = Integer.parseInt(pointsField.getText());

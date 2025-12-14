@@ -4,35 +4,32 @@
 @startuml cases
 package "Model" #F1f1f1{
 
-    ResidentList o--"0..*" Resident : residents 
+    ResidentList o--"0..*" Resident : residents
     Resident *-- "1" PersonalPoints : personalPoints
     Trade --> "1" Resident : trader
     Trade --> "0..1" Resident : tradee
     PersonalPoints --> "1" Date : date
     Resident *--> "1" Date : date
     TaskList o-- "0..*" Task : tasks
-    
+
     Cloverville --> "1" ResidentList : allResidents
     Cloverville --> "1" TaskList : allTasks
     TradeList o-- "0..*" Trade : trades
     ClovervilleModelManager --> "1" Cloverville : cloverville
     Cloverville --> "1" TradeList : allTrades
     Task *-- "1" Date : completeDate
-    Task <|-- GreenActions 
+    Task <|-- GreenActions
     Task <|-- CommunityTasks
     GreenActions *-- "1" GreenPoints : greenPoints
     CommunityTasks *-- "1" PersonalPoints : personalPoints
 
-
-
-    
     class Task{
         - name : String
         - type : String
         - points : int
         - isComplete : boolean
         - completeDate : Date
-    
+
         + Task(name : String, type : String)
         + Task(name : String, type : String, points : int)
         + getName() : String
@@ -49,8 +46,7 @@ package "Model" #F1f1f1{
         + toString() : String
     }
 
-    class GreenActions
-    {
+    class GreenActions{
         - greenPointsAward : int
         - greenPoints : GreenPoints
 
@@ -62,8 +58,7 @@ package "Model" #F1f1f1{
         + toString() : String
     }
 
-    class CommunityTasks
-    {
+    class CommunityTasks{
         - personalPointsAward : int
         - personalPoints : PersonalPoints
 
@@ -84,7 +79,7 @@ package "Model" #F1f1f1{
         - personalPoints : PersonalPoints
         - latestTask : Date
         - latestGreenAction : Date
-    
+
         + Resident(id : int, firstName : String, lastName : String, points : int)
         + Resident(id : int, firstName : String, lastName : String)
         + getId() : int
@@ -106,7 +101,7 @@ package "Model" #F1f1f1{
         + toString() : String
         + toFileString() : String
     }
-    
+
     class ResidentList{
         - residents : ArrayList<Resident>
 
@@ -114,34 +109,34 @@ package "Model" #F1f1f1{
         + size() : int
         + addResident(v : Resident) : void
         + removeResident(v : Resident) : void
-        + getResidentById(id : int) : Resident  
+        + getResidentById(id : int) : Resident
         + getAllResidents() : ArrayList<Resident>
         + equals(obj : Object) : boolean
         + toString() : String
     }
-    
+
     class PersonalPoints{
         - personalPoints : int
         - date : Date
-    
+
         + PersonalPoints()
         + PersonalPoints(points : int)
         + setPoints(points : int) : void
         + getPoints() : int
         + addPoints(points : int) : void
-        + resetPoints() : void  
+        + resetPoints() : void
         + calculateBoost(resident : Resident) : double
         + awardBoost(resident : Resident) : void
         + equals(obj : Object) : boolean
         + toString() : String
     }
-    
+
     class GreenPoints{
         - greenPoints : int
         - pointGoal : int
         - isReached : boolean
         + resetPeriod : Date
-    
+
         + GreenPoints(goal : int)
         + setGoal(goal : int) : void
         + getGoal() : int
@@ -153,7 +148,7 @@ package "Model" #F1f1f1{
         + equals(obj : Object) : boolean
         + toString() : String
     }
-    
+
     class Date{
         - day : int
         - month : int
@@ -162,7 +157,7 @@ package "Model" #F1f1f1{
         - currMonth : int
         - currYear : int
         ~ currentDate : LocalDate
-    
+
         + Date()
         + Date(day : int, month : int, year : int)
         + setDate(day : int, month : int, year : int) : void
@@ -175,7 +170,7 @@ package "Model" #F1f1f1{
         + equals(obj : Object) : boolean
         + toString() : String
     }
-    
+
     class Trade{
         - name : String
         - description : String
@@ -184,7 +179,7 @@ package "Model" #F1f1f1{
         - pointCost : int
         - tradeOffer : String
         - isComplete : boolean
-    
+
         + Trade(name : String, description : String, pointCost : int)
         + Trade(name : String, description : String, trader : Resident, pointCost : int)
         + Trade(name : String, description : String, trader : Resident, tradeOffer : String)
@@ -206,8 +201,7 @@ package "Model" #F1f1f1{
         + toString() : String
     }
 
-    class TradeList
-    {
+    class TradeList{
         - trades : ArrayList<Trade>
 
         + TradeList()
@@ -219,10 +213,10 @@ package "Model" #F1f1f1{
         + equals(obj : Object) : boolean
         + toString() : String
     }
-    
+
     class TaskList{
         - tasks : ArrayList<Task>
-        
+
         + TaskList()
         + size() : int
         + addTask(task : Task) : void
@@ -233,9 +227,8 @@ package "Model" #F1f1f1{
         + equals(obj : Object) : boolean
         + toString() : String
     }
-    
-    Class Cloverville
-    {
+
+    Class Cloverville{
         - allResidents : ResidentList
         - tradeList : TradeList
         - TaskList : TaskList
@@ -246,8 +239,7 @@ package "Model" #F1f1f1{
         + getTaskList() : TaskList
     }
 
-    Class ClovervilleModelManager
-    {
+    Class ClovervilleModelManager{
         - cloverville : Cloverville
         - trades : List<Trade>
 
@@ -258,16 +250,15 @@ package "Model" #F1f1f1{
         + addTask(name : String, type : String, points : int) : void
         + getTradeList() : ArrayList<Trade>
         + addTrade(name : String, description : String, trader : Resident, pointCost : int) : void
-        ' + addTradeWithOffer(name : String, description : String, trader : Resident, tradeOffer : String) : void
+        + addTradeWithOffer(name : String, description : String, trader : Resident, tradeOffer : String) : void
         + getTaskList() : ArrayList<Task>
         + awardPointsToResident(residentId : int, points : int) : void
     }
-
 }
-    
-package "view"#ababab{
-    StartGUI -- > ViewHandler
-    ResidentViewController --> "1" ViewHandler 
+
+package "view" #ababab{
+    StartGUI --> ViewHandler
+    ResidentViewController --> "1" ViewHandler
     TradeViewController --> "1" ViewHandler
     TaskViewController --> "1" ViewHandler
     RunGUI --> ViewHandler
@@ -429,10 +420,10 @@ package "view"#ababab{
     class ChangeTaskTypeController{
         - model : ClovervilleModelManager
         - task : Task
-        
+
         + ChangeTaskTypeController(ClovervilleModelManager : model, Task : task)
         + createScene() : Scene
-    
+
     }
 
     class ChangeTradeCostController {
@@ -559,11 +550,10 @@ package "utils" #d3d3d3
     }
 
     class JSONReader {
-        + {static} 
+        + {static}
 
     }
-    
-    
+
     ClovervilleModelManager ..> MyFileHandler
     ClovervilleModelManager ..> FileWriter
     ClovervilleModelManager ..> FileReader
