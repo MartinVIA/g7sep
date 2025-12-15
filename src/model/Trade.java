@@ -112,25 +112,26 @@ public class Trade implements Serializable {
   public String getTradeeName() {
     return tradee.getFirstName() + " " + tradee.getLastName();
   }
-
+  
   /**
    * Returns the tradee of the trade
    * 
    * @return Tradee resident
-   */
+  */
   public Resident getTradee() {
-    return tradee;
+   return tradee;
   }
-
+  
   /**
    * Returns the name of the trade
    * 
    * @return Trade name
-   */
+  */
   public String getStringName() {
     return name;
   }
-
+  //this one repeats, we need review
+  
   /**
    * Sets the name of the trade
    * 
