@@ -94,7 +94,7 @@ public class StartGUI extends Application {
         Button resident_menu = new Button("Residents");
         Button trade_menu = new Button("Trades");
         Button task_menu = new Button("Tasks");
-        Button Community_points_menu = new Button("Community Points");
+        Button green_points_menu = new Button("Green Points");
         Image clovervilleImage = new Image("file:./docs/img/clovervilleLogo.png");
         ImageView displayCloverImage = new ImageView(clovervilleImage);
         displayCloverImage.setX(0);
@@ -149,7 +149,7 @@ public class StartGUI extends Application {
             popup.show();
         });
 
-        Button community_points_add = new Button("Add Community Points");
+        Button green_points_add = new Button("Add Green Points");
 
         Button resident_edit = new Button("Edit existing resident");
         resident_edit.setOnAction(e -> {
@@ -271,12 +271,12 @@ public class StartGUI extends Application {
         bottom_menu_tasks.setPrefWidth(300);
 
         HBox bottom_menu_community_points = new HBox();
-        bottom_menu_community_points.getChildren().addAll(community_points_add, community_points_edit);
+        bottom_menu_community_points.getChildren().addAll(green_points_add, community_points_edit);
         bottom_menu_community_points.setPrefWidth(300);
         bottom_menu_community_points.setSpacing(10);
 
         HBox nav_bar = new HBox();
-        nav_bar.getChildren().addAll(resident_menu, trade_menu, task_menu, Community_points_menu);
+        nav_bar.getChildren().addAll(resident_menu, trade_menu, task_menu, green_points_menu);
 
         residentsTable = new TableView<>();
 
@@ -381,12 +381,12 @@ public class StartGUI extends Application {
             root.setBottom(bottom_menu_tasks);
             refreshTasksTable();
         });
-        Community_points_menu.setOnAction(e -> {
+        green_points_menu.setOnAction(e -> {
             root.setCenter(communityPointsBox);
             root.setBottom(bottom_menu_community_points);
             refreshCommunityPointsTable();
         });
-        community_points_add.setOnAction(e -> {
+        green_points_add.setOnAction(e -> {
             Stage popup = new Stage();
             popup.setTitle("Add/Remove Green Points");
             TextField pointsField = new TextField();
