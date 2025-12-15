@@ -139,13 +139,272 @@ public class StartGUI extends Application {
       popup.show();
     });
 
-    Button trade_add = new Button("Add New Trade");
-    trade_add.setOnAction(e -> {
-      Stage popup = new Stage();
-      TradeViewController controller = new TradeViewController(model);
-      popup.setScene(controller.createScene());
-      popup.setTitle("Trades");
-      popup.setOnHidden(ev -> {
+    ProgressBar progressBar = new ProgressBar();
+    Label progressLabel = new Label();
+
+    private void refreshCommunityPointsTable() {
+        if (model != null) {
+            progressLabel.setText("Progress toward next green reward: " + model.getGreenPoints()
+                    + "/" + model.getGreenPointsGoal() + " green points");
+            progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
+        }
+    }
+
+    public void start(Stage primaryStage) {
+        model = new ClovervilleModelManager();
+
+        // Load data from binary files
+        try {
+            System.out.println("Loading data from binary files...");
+            ArrayList<Resident> residents = FileReader.readResidentsFromBinary("residents.bin");
+            model.importResidents(residents);
+            System.out.println("Loaded " + residents.size() + " Residents");
+
+            ArrayList<Task> tasks = FileReader.readTasksFromBinary("tasks.bin");
+            model.importTasks(tasks);
+            System.out.println("Loaded " + tasks.size() + " Tasks");
+
+            ArrayList<Trade> trades = FileReader.readTradesFromBinary("trades.bin");
+            model.importTrades(trades);
+            System.out.println("Loaded " + trades.size() + " Trades");
+
+            GreenPoints greenPoints = FileReader.readGreenPointsFromBinary("community.bin");
+            model.importGreenPoints(greenPoints);
+            System.out.println("Loaded GreenPoints");
+
+        } catch (Exception e) {
+            System.err.println("Error loading binary data: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        Button resident_menu = new Button("Residents");
+        Button trade_menu = new Button("Trades");
+        Button task_menu = new Button("Tasks");
+        Button green_points_menu = new Button("Green Points");
+        Image clovervilleImage = new Image("file:./docs/img/clovervilleLogo.png");
+        ImageView displayCloverImage = new ImageView(clovervilleImage);
+        displayCloverImage.setX(0);
+        displayCloverImage.setY(0);
+        displayCloverImage.setFitHeight(20);
+
+
+        Button resident_add = new Button("Add New Resident");
+        resident_add.setOnAction(e -> {
+            Stage popup = new Stage();
+            ResidentViewController controller = new ResidentViewController(model);
+            popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add( new Image("file:./docs/img/leaveicon.png"));
+
+            popup.setTitle("Cloverville's Resident");
+            popup.setOnHidden(ev -> {
+                refreshResidentsTable();
+            });
+            popup.show();
+        });
+
+        Button trade_add = new Button("Add New Trade");
+        trade_add.setOnAction(e -> {
+            Stage popup = new Stage();
+            TradeViewController controller = new TradeViewController(model);
+            popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
+            popup.setTitle("Trades");
+            popup.setOnHidden(ev -> {
+                refreshTradesTable();
+                FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
+                JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
+            });
+            popup.show();
+        });
+
+        Button task_add = new Button("Add New Task");
+        task_add.setOnAction(e -> {
+            Stage popup = new Stage();
+            TaskViewController controller_task = new TaskViewController(model);
+            popup.setScene(controller_task.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
+            popup.setTitle("Tasks");
+            popup.setOnHidden(ev -> {
+                refreshTasksTable();
+                FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
+                JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
+            });
+            popup.show();
+        });
+
+        Button green_points_add = new Button("Add Green Points");
+
+        Button resident_edit = new Button("Edit existing resident");
+        resident_edit.setOnAction(e -> {
+            Resident selected = residentsTable.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No resident selected");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select a resident in the table first.");
+                alert.showAndWait();
+                return;
+            }
+
+            Stage popup = new Stage();
+            ManageResidentController controller = new ManageResidentController(model, selected);
+            popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
+            popup.setTitle("Manage Resident: "
+                    + selected.getFirstName() + " " + selected.getLastName());
+            popup.setOnHidden(ev -> {
+                refreshResidentsTable();
+                FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
+                JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
+            });
+            popup.show();
+        });
+        Button Resident_reset_all_points = new Button("Reset all personal points");
+        // Resident_reset_all_points.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
+        Resident_reset_all_points.getStyleClass().add("red-border");
+        Resident_reset_all_points.setOnAction(e -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Reset");
+            alert.setHeaderText("Are you sure?");
+            alert.setContentText("This will reset all of the personal points for all of the residents");
+            alert.showAndWait().ifPresent(response -> {
+                if (response.getButtonData().isDefaultButton()) {
+                    model.resetAllPersonalPoints();
+                    refreshResidentsTable();
+                    FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
+                    JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
+
+                    Alert done = new Alert(Alert.AlertType.INFORMATION);
+                    done.setTitle("Points reset");
+                    done.setHeaderText("Personal points");
+                    done.setContentText("All of the residents personal points have been reset");
+                    done.showAndWait();
+                }
+            });
+
+        });
+
+        Button trade_edit = new Button("Edit existing Trade");
+        trade_edit.setOnAction(e -> {
+
+            Trade selected = tradesTable.getSelectionModel().getSelectedItem();
+
+            if (selected == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No trade selected");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select a trade in the table first.");
+                alert.showAndWait();
+                return;
+            }
+
+            Stage popup = new Stage();
+            ManageTradeController controller = new ManageTradeController(model, selected, () -> {
+                refreshTradesTable();
+                FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
+                JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
+            });
+            popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
+            popup.setTitle("Edit Trade");
+            popup.show();
+        });
+        Button task_edit = new Button("Edit existing Task");
+        task_edit.setOnAction(e -> {
+            Task selected = taskTable.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No task selected");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select a task in the table first.");
+                alert.showAndWait();
+                return;
+            }
+
+            Stage popup = new Stage();
+            ManageTaskController controller = new ManageTaskController(model, selected, () -> {
+                refreshTasksTable();
+                FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
+                JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
+            });
+            popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
+            popup.setTitle("Manage Task: " + selected.getName());
+            popup.show();
+        });
+
+        Button community_points_edit = new Button("Edit Green Points");
+
+        HBox bottom_menu_resident = new HBox();
+        bottom_menu_resident.getChildren().addAll(resident_add, resident_edit, Resident_reset_all_points);
+        bottom_menu_resident.setSpacing(10);
+        bottom_menu_resident.setPrefWidth(300);
+
+        HBox bottom_menu_trades = new HBox();
+        bottom_menu_trades.getChildren().addAll(trade_add, trade_edit);
+        bottom_menu_trades.setSpacing(10);
+        bottom_menu_trades.setPrefWidth(300);
+
+        HBox bottom_menu_tasks = new HBox();
+        bottom_menu_tasks.getChildren().addAll(task_add, task_edit);
+        bottom_menu_tasks.setSpacing(10);
+        bottom_menu_tasks.setPrefWidth(300);
+
+        HBox bottom_menu_community_points = new HBox();
+        bottom_menu_community_points.getChildren().addAll(green_points_add, community_points_edit);
+        bottom_menu_community_points.setPrefWidth(300);
+        bottom_menu_community_points.setSpacing(10);
+
+        HBox nav_bar = new HBox();
+        nav_bar.getChildren().addAll(resident_menu, trade_menu, task_menu, green_points_menu);
+
+        residentsTable = new TableView<>();
+
+        VBox residentsBox = new VBox();
+        residentsBox.setSpacing(5);
+        residentsBox.setPadding(new Insets(10, 0, 0, 10));
+        residentsBox.getChildren().add(residentsTable);
+
+        TableColumn<Resident, String> firstNameCol = new TableColumn<>("First Name");
+        TableColumn<Resident, String> lastNameCol = new TableColumn<>("Last Name");
+        TableColumn<Resident, Integer> idCol = new TableColumn<>("ID");
+        TableColumn<Resident, Integer> pointsCol = new TableColumn<>("Points");
+        TableColumn<Resident, Boolean> boostCol = new TableColumn<>("Boost");
+
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        pointsCol.setCellValueFactory(new PropertyValueFactory<>("personalPoints"));
+        boostCol.setCellValueFactory(new PropertyValueFactory<>("hasBoost"));
+        residentsTable.setEditable(true);
+        residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostCol);
+        refreshResidentsTable();
+
+        tradesTable = new TableView<>();
+
+        VBox tradesBox = new VBox();
+        tradesBox.setSpacing(5);
+        tradesBox.setPadding(new Insets(10, 0, 0, 10));
+        tradesBox.getChildren().add(tradesTable);
+
+        TableColumn<Trade, String> sellerCol = new TableColumn<>("Seller");
+        TableColumn<Trade, Integer> priceCol = new TableColumn<>("Price");
+        TableColumn<Trade, String> offerCol = new TableColumn<>("Offer");
+        TableColumn<Trade, String> descriptionCol = new TableColumn<>("Description");
+
+        sellerCol.setCellValueFactory(new PropertyValueFactory<>("traderName"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("pointCost"));
+        offerCol.setCellValueFactory(new PropertyValueFactory<>("stringName"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        tradesTable.setEditable(true);
+        tradesTable.getColumns().addAll(sellerCol, priceCol, offerCol, descriptionCol);
         refreshTradesTable();
         FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
         JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
@@ -194,19 +453,66 @@ public class StartGUI extends Application {
       popup.show();
     });
 
-    Button Resident_reset_all_points = new Button("Reset all personal points");
-    Resident_reset_all_points.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
-    Resident_reset_all_points.setOnAction(e -> {
-      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-      alert.setTitle("Confirm Reset");
-      alert.setHeaderText("Are you sure?");
-      alert.setContentText("This will reset all of the personal points for all of the residents");
-      alert.showAndWait().ifPresent(response -> {
-        if (response.getButtonData().isDefaultButton()) {
-          model.resetAllPersonalPoints();
-          refreshResidentsTable();
-          FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
-          JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
+        resident_menu.setOnAction(e -> {
+            root.setCenter(residentsBox);
+            root.setBottom(bottom_menu_resident);
+            refreshResidentsTable();
+        });
+        trade_menu.setOnAction(e -> {
+            root.setCenter(tradesBox);
+            root.setBottom(bottom_menu_trades);
+            refreshTradesTable();
+        });
+        task_menu.setOnAction(e -> {
+            root.setCenter(tasksBox);
+            root.setBottom(bottom_menu_tasks);
+            refreshTasksTable();
+        });
+        green_points_menu.setOnAction(e -> {
+            root.setCenter(communityPointsBox);
+            root.setBottom(bottom_menu_community_points);
+            refreshCommunityPointsTable();
+        });
+        green_points_add.setOnAction(e -> {
+            Stage popup = new Stage();
+            popup.setTitle("Add/Remove Green Points");
+            TextField pointsField = new TextField();
+            pointsField.setPromptText("Points Amount (negative to remove)");
+            Button submitButton = new Button("Submit");
+            submitButton.requestFocus();
+            submitButton.setOnAction(ev -> {
+                try {
+                    int points = Integer.parseInt(pointsField.getText());
+                    model.addGreenPoints(points);
+                    FileWriter.saveGreenPointsToBinary(model.getGreenPointsObject(), "community.bin");
+                    JSONWriter.saveGreenPointsToJSON(model.getGreenPointsObject(),
+                    "docs/file_operations_community.json");
+                    popup.close();
+                    progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
+                    communityPointsBox.getChildren().set(1, new Label("Progress toward next green reward: "
+                    + model.getGreenPoints() + "/" + model.getGreenPointsGoal() + " green points"));
+                } catch (NumberFormatException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Invalid Input");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a valid number.");
+                    alert.showAndWait();
+                }
+            });
+            VBox layout = new VBox(15);
+            layout.getChildren().addAll(pointsField, submitButton);
+            layout.setPadding(new Insets(10));
+            popup.setScene(new Scene(layout, 320, 80));
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
+            popup.show();
+        });
+        community_points_edit.setOnAction(e -> {
+            Stage popup = new Stage();
+            popup.setTitle("Edit Green Points");
+            TextField goalField = new TextField();
+            goalField.setPromptText("New Goal Amount");
+            goalField.setText(String.valueOf(model.getGreenPointsGoal()));
 
           Alert done = new Alert(Alert.AlertType.INFORMATION);
           done.setTitle("Points reset");

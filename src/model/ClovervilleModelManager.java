@@ -32,7 +32,11 @@ public class ClovervilleModelManager {
      * @param lastName  Resident last name
      */
     public void addResident(String firstName, String lastName) {
-        int nextId = cloverville.getResidentList().getAllResidents().size() + 1;
+        ArrayList<Resident> residents = cloverville.getResidentList().getAllResidents();
+        int nextId = 1;
+        if (residents.size() > 0) {
+            nextId = residents.get(residents.size() - 1).getId() + 1;
+        }
         Resident v = new Resident(nextId, firstName, lastName);
         cloverville.getResidentList().addResident(v);
     }

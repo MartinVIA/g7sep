@@ -7,9 +7,30 @@
     "hasBoost": false
   },
   {
-    "id": 2,
-    "firstName": "asd",
-    "lastName": "asdsd",
+    "id": 3,
+    "firstName": "ah",
+    "lastName": "ahh",
+    "personalPoints": 0,
+    "hasBoost": false
+  },
+  {
+    "id": 4,
+    "firstName": "ahahah",
+    "lastName": "hah",
+    "personalPoints": 0,
+    "hasBoost": false
+  },
+  {
+    "id": 4,
+    "firstName": "newres",
+    "lastName": "mewhen",
+    "personalPoints": 0,
+    "hasBoost": false
+  },
+  {
+    "id": 8,
+    "firstName": "Adam",
+    "lastName": "Sigma",
     "personalPoints": 0,
     "hasBoost": false
   }
