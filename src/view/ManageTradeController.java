@@ -21,6 +21,7 @@ public class ManageTradeController {
 
     public Scene createScene() {
         Label title = new Label("Manage trade: " + trade.getStringName());
+        title.getStyleClass().add("title");
 
         Button changeNameBtn = new Button("Change offer name");
         Button changeDescBtn = new Button("Change description");
@@ -37,7 +38,7 @@ public class ManageTradeController {
         VBox root = new VBox(10, title, changeNameBtn, changeDescBtn, changeCostBtn, runCompletionBtn, closeBtn);
         root.setPadding(new Insets(10));
 
-        return new Scene(root, 250, 200);
+        return new Scene(root, 250, 230);
     }
 
     private void openChangeNamePopup() {

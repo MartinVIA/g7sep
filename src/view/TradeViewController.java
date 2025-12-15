@@ -34,10 +34,10 @@ public class TradeViewController {
         residentListView.setPrefWidth(320);
         refreshResidentList();
 
-        // titel
-        Label titleLabel = new Label("Cloverville – Trades");
+        Label titleLabel = new Label("Cloverville - Trades");
+        titleLabel.getStyleClass().add("title");
         HBox topBox = new HBox(titleLabel);
-        topBox.setPadding(new Insets(10));
+        topBox.setPadding(new Insets(2,5,7,5));
 
         offerNameField = new TextField();
         offerNameField.setPromptText("Offer's name");

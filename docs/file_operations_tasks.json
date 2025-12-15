@@ -3,6 +3,7 @@
     "name": "efw",
     "description": "dfsa",
     "type": "community",
+<<<<<<< HEAD
     "points": 10
   },
   {
@@ -10,5 +11,14 @@
     "description": "adsf",
     "type": "community",
     "points": 0
+=======
+    "points": 5
+  },
+  {
+    "name": "Task",
+    "description": "T Description",
+    "type": "green",
+    "points": 20
+>>>>>>> 9fda7b99bc5141ee35b92bd8337d9c25c457a483
   }
 ]

@@ -1,21 +1,8 @@
 [
-
   {
-    "name": "dew",
-    "description": "fw",
-    "pointCost": 3,
-    "traderName": "dew dw"
-  },
-  {
-    "name": "de",
-    "description": "fwefds",
-    "pointCost": 34,
-    "traderName": "de fe"
-  },
-  {
-    "name": "fwer",
-    "description": "fsd",
-    "pointCost": 0,
-    "traderName": "dew dw"
+    "name": "Trade offer",
+    "description": "Trade desc",
+    "pointCost": 10,
+    "traderName": "leon dk"
   }
 ]

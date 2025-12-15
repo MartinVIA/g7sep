@@ -36,8 +36,9 @@ public class ResidentViewController {
 
         // title
         Label titleLabel = new Label("Cloverville - Residents & Personal Points");
+        titleLabel.getStyleClass().add("title");
         HBox topBox = new HBox(titleLabel);
-        topBox.setPadding(new Insets(10));
+        topBox.setPadding(new Insets(0,5,8,5));
 
         firstNameField = new TextField();
         firstNameField.setPromptText("First name");

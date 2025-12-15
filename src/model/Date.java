@@ -1,9 +1,8 @@
 package model;
 
-import java.time.*;
-
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.time.*;
 
 /**
  * Date representation wrapping year, month, and day with helpers
@@ -100,8 +99,8 @@ public class Date implements Serializable {
         currentDate.getMonthValue(),
         currentDate.getYear());
   }
-
-    /**
+  
+  /**
      * Compares a date with another object
      * 
      * @param obj Object to compare

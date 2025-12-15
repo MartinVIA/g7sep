@@ -1,0 +1,19 @@
+.root{
+    -fx-background-color:linear-gradient(from 0px 0px to 0px 45px, rgb(35, 139, 44), rgb(29, 99, 22) 50%, rgb(72, 180, 81) 99%, rgb(34, 97, 44));
+
+    /* -fx-background:#ccffff; */
+
+}
+.button{
+    -fx-text-fill:#000000
+    
+}
+.red-border{
+    -fx-border-color: red; 
+    -fx-border-width: 1px;
+    /* -fx-color:rgb(255, 231, 231); */
+}
+.title{
+    -fx-padding:5 0 7 20;
+    -fx-font-weight:bold;
+}

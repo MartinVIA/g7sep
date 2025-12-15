@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,6 +12,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,9 +21,7 @@ import javafx.stage.Stage;
 import model.*;
 import utils.FileReader;
 import utils.FileWriter;
-import utils.JSONReader;
 import utils.JSONWriter;
-import java.util.ArrayList;
 
 public class StartGUI extends Application {
 
@@ -94,12 +95,20 @@ public class StartGUI extends Application {
         Button trade_menu = new Button("Trades");
         Button task_menu = new Button("Tasks");
         Button Community_points_menu = new Button("Community Points");
+        Image clovervilleImage = new Image("file:./docs/img/clovervilleLogo.png");
+        ImageView displayCloverImage = new ImageView(clovervilleImage);
+        displayCloverImage.setX(0);
+        displayCloverImage.setY(0);
+        displayCloverImage.setFitHeight(20);
 
         Button resident_add = new Button("Add New Resident");
         resident_add.setOnAction(e -> {
             Stage popup = new Stage();
             ResidentViewController controller = new ResidentViewController(model);
             popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
+
             popup.setTitle("Cloverville's Resident");
             popup.setOnHidden(ev -> {
                 refreshResidentsTable();
@@ -112,6 +121,8 @@ public class StartGUI extends Application {
             Stage popup = new Stage();
             TradeViewController controller = new TradeViewController(model);
             popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.setTitle("Trades");
             popup.setOnHidden(ev -> {
                 refreshTradesTable();
@@ -126,6 +137,8 @@ public class StartGUI extends Application {
             Stage popup = new Stage();
             TaskViewController controller_task = new TaskViewController(model);
             popup.setScene(controller_task.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.setTitle("Tasks");
             popup.setOnHidden(ev -> {
                 refreshTasksTable();
@@ -151,8 +164,9 @@ public class StartGUI extends Application {
 
             Stage popup = new Stage();
             ManageResidentController controller = new ManageResidentController(model, selected);
-
             popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.setTitle("Manage Resident: "
                     + selected.getFirstName() + " " + selected.getLastName());
             popup.setOnHidden(ev -> {
@@ -163,6 +177,9 @@ public class StartGUI extends Application {
             popup.show();
         });
         Button Resident_reset_all_points = new Button("Reset all personal points");
+        // Resident_reset_all_points.setStyle("-fx-border-color: red; -fx-border-width:
+        // 1px;");
+        Resident_reset_all_points.getStyleClass().add("red-border");
         Resident_reset_all_points.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Reset");
@@ -208,6 +225,12 @@ public class StartGUI extends Application {
                 FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
                 JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
             });
+
+            popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
+            popup.setTitle("Edit Trade");
+
             popup.show();
         });
         Button task_edit = new Button("Edit existing Task");
@@ -231,6 +254,11 @@ public class StartGUI extends Application {
                 FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
                 JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
             });
+
+            popup.setScene(controller.createScene());
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
+            popup.setTitle("Manage Task: " + selected.getName());
             popup.show();
         });
 
@@ -373,6 +401,7 @@ public class StartGUI extends Application {
             TextField pointsField = new TextField();
             pointsField.setPromptText("Points Amount (negative to remove)");
             Button submitButton = new Button("Submit");
+            submitButton.requestFocus();
             submitButton.setOnAction(ev -> {
                 try {
                     int points = Integer.parseInt(pointsField.getText());
@@ -392,10 +421,12 @@ public class StartGUI extends Application {
                     alert.showAndWait();
                 }
             });
-            VBox layout = new VBox(10);
+            VBox layout = new VBox(15);
             layout.getChildren().addAll(pointsField, submitButton);
-            layout.setPadding(new Insets(10, 10, 10, 10));
-            popup.setScene(new Scene(layout, 300, 150));
+            layout.setPadding(new Insets(10));
+            popup.setScene(new Scene(layout, 320, 80));
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.show();
         });
         community_points_edit.setOnAction(e -> {
@@ -448,13 +479,17 @@ public class StartGUI extends Application {
                     alert.showAndWait();
                 }
             });
-            VBox layout = new VBox(10);
+            VBox layout = new VBox(15);
             layout.getChildren().addAll(goalField, rewardField, submitButton);
-            layout.setPadding(new Insets(10, 10, 10, 10));
-            popup.setScene(new Scene(layout, 300, 200));
+            layout.setPadding(new Insets(10));
+            popup.setScene(new Scene(layout, 300, 130));
+            popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
             popup.show();
         });
         Scene scene = new Scene(root, 500, 500);
+        scene.getStylesheets().add("file:./docs/FxStyles.css");
+        primaryStage.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Cloverville Community Management");

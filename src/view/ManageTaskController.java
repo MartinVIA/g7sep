@@ -21,6 +21,7 @@ public class ManageTaskController {
 
     public Scene createScene() {
         Label title = new Label("Manage " + task.getName());
+        title.getStyleClass().add("title");
 
         Button changeNameBtn = new Button("Change name");
         Button changeDescriptionBtn = new Button("Change description");
@@ -40,7 +41,7 @@ public class ManageTaskController {
                 markCompleteBtn, closeBtn);
         root.setPadding(new Insets(10));
 
-        return new Scene(root, 260, 250);
+        return new Scene(root, 260, 255);
     }
 
     private void openChangeNamePopup() {
