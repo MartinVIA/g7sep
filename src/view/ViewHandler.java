@@ -2,9 +2,6 @@ package view;
 
 import javafx.stage.Stage;
 import model.ClovervilleModelManager;
-import view.ResidentViewController;
-import view.TradeViewController;
-import view.TaskViewController;
 
 public class ViewHandler {
 
@@ -34,5 +31,4 @@ public class ViewHandler {
     mainStage.setTitle("Cloverville's Resident");
     mainStage.show();
   }
-
 }
