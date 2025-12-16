@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "firstName": "first",
+    "lastName": "resdigne",
+    "personalPoints": 5,
+    "hasBoost": false
+  },
+  {
+    "id": 3,
+    "firstName": "thisr",
+    "lastName": "ssa",
+    "personalPoints": 0,
+    "hasBoost": false
+  },
+  {
+    "id": 4,
+    "firstName": "anthso",
+    "lastName": "tisjs",
+    "personalPoints": 0,
+    "hasBoost": false
+  }
+]
