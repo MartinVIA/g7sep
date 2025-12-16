@@ -3,49 +3,35 @@
     "id": 1,
     "firstName": "leon",
     "lastName": "dk",
-    "personalPoints": 0,
+    "personalPoints": 10,
     "hasBoost": false
   },
   {
     "id": 3,
     "firstName": "ah",
     "lastName": "ahh",
-    "personalPoints": 0,
+    "personalPoints": 10,
     "hasBoost": false
   },
   {
     "id": 4,
     "firstName": "ahahah",
     "lastName": "hah",
-    "personalPoints": 0,
+    "personalPoints": -110,
     "hasBoost": false
   },
   {
     "id": 4,
-    "firstName": "newres",
-    "lastName": "mewhen",
+    "firstName": "Newress",
+    "lastName": "Mewhenn",
     "personalPoints": 0,
-    "hasBoost": false
+    "hasBoost": true
   },
   {
     "id": 8,
     "firstName": "Adam",
     "lastName": "Sigma",
-    "personalPoints": -30,
-    "hasBoost": false
-  },
-  {
-    "id": 9,
-    "firstName": "Ben",
-    "lastName": "Dober",
-    "personalPoints": 130,
-    "hasBoost": false
-  },
-  {
-    "id": 10,
-    "firstName": "Ben",
-    "lastName": "Dober",
-    "personalPoints": 0,
+    "personalPoints": 190,
     "hasBoost": false
   }
 ]
