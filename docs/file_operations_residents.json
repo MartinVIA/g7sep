@@ -31,6 +31,20 @@
     "id": 8,
     "firstName": "Adam",
     "lastName": "Sigma",
+    "personalPoints": -30,
+    "hasBoost": false
+  },
+  {
+    "id": 9,
+    "firstName": "Ben",
+    "lastName": "Dober",
+    "personalPoints": 130,
+    "hasBoost": false
+  },
+  {
+    "id": 10,
+    "firstName": "Ben",
+    "lastName": "Dober",
     "personalPoints": 0,
     "hasBoost": false
   }
