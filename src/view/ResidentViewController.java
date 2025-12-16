@@ -12,9 +12,16 @@ import javafx.scene.layout.VBox;
 import model.ClovervilleModelManager;
 import model.Resident;
 
+/**
+ * Controller responsible for creating the main resident view. The view displays
+ * a list of residents and provides functionality for adding new residents and
+ * awarding personal points to a selected resident.
+ *
+ * @author Loke Hansen
+ * @version 1.0
+ */
 public class ResidentViewController {
 
-    // reference to the model so we can get residents, add residents, award points
     private final ClovervilleModelManager model;
 
     private ListView<Resident> residentListView;
@@ -23,22 +30,30 @@ public class ResidentViewController {
     private TextField pointsField;
     private Label messageLabel;
 
-    // constructing builder bob
+    /**
+     * Constructs a ResidentViewController with the given model.
+     *
+     * @param model the model manager used to access and modify resident data
+     */
     public ResidentViewController(ClovervilleModelManager model) {
         this.model = model;
     }
 
-    // make scene
+    /**
+     * Creates and returns the JavaFX scene showing the resident list and
+     * controls for adding residents and awarding points.
+     *
+     * @return a Scene displaying the resident view
+     */
     public Scene createScene() {
         residentListView = new ListView<>();
         residentListView.setPrefWidth(320);
         refreshResidentList();
 
-        // title
         Label titleLabel = new Label("Cloverville - Residents & Personal Points");
         titleLabel.getStyleClass().add("title");
         HBox topBox = new HBox(titleLabel);
-        topBox.setPadding(new Insets(0,5,8,5));
+        topBox.setPadding(new Insets(0, 5, 8, 5));
 
         firstNameField = new TextField();
         firstNameField.setPromptText("First name");
@@ -78,15 +93,21 @@ public class ResidentViewController {
         root.setRight(rightBox);
         root.setPadding(new Insets(10));
 
-        // viewhandler makes the scene
         return new Scene(root, 700, 400);
     }
 
-    // methods for buttons
+    /**
+     * Refreshes the resident list view by reloading residents from the model.
+     */
     private void refreshResidentList() {
         residentListView.getItems().setAll(model.getAllResidents());
     }
 
+    /**
+     * Handles adding a new resident using the entered first and last name. The
+     * method validates that the name fields are not empty, adds the resident
+     * through the model, and refreshes the list.
+     */
     private void handleAddResident() {
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
@@ -102,6 +123,12 @@ public class ResidentViewController {
         messageLabel.setText("Resident added.");
     }
 
+    /**
+     * Handles awarding points to the currently selected resident. The method
+     * validates that a resident is selected and that the entered points value
+     * is a valid whole number before updating the model and refreshing the
+     * list.
+     */
     private void handleAwardPoints() {
         Resident selected = residentListView.getSelectionModel().getSelectedItem();
         if (selected == null) {
@@ -122,16 +149,9 @@ public class ResidentViewController {
             messageLabel.setText(
                     "Awarded " + pts + " points to [" + selected.getFirstName() + " " + selected.getLastName() + "] .");
             messageLabel.setWrapText(true);
-            // Persist personal points to XML/JS so front-end can read them
-            // try {
-            // FileWriter fw = new FileWriter(model);
-            // fw.savePersonalPoints();
-            // } catch (Exception ex) {
-            // // non-fatal: log and continue
-            // System.err.println("Failed to save personal points: " + ex.getMessage());
-            // }
+
         } catch (NumberFormatException e) {
-            messageLabel.setText("Points must be a .");
+            messageLabel.setText("Points must be a whole number.");
         }
     }
 }

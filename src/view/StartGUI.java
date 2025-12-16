@@ -23,6 +23,18 @@ import utils.FileReader;
 import utils.FileWriter;
 import utils.JSONWriter;
 
+/**
+ * Main JavaFX application window for Cloverville. This class loads stored data,
+ * builds the primary user interface, and provides navigation between residents,
+ * trades, tasks, and community points.
+ *
+ * @author Adam Terelak
+ * @author Leon de Kuijper
+ * @author Martin Chavez
+ * @author Loke Hansen
+ * @author Victor Țonu
+ * @version 1.0
+ */
 public class StartGUI extends Application {
 
     private ClovervilleModelManager model;
@@ -30,6 +42,10 @@ public class StartGUI extends Application {
     private TableView<Task> taskTable;
     private TableView<Trade> tradesTable;
 
+    /**
+     * Refreshes the residents table by reloading resident data from the model.
+     * The updated resident list is also saved to binary and JSON files.
+     */
     private void refreshResidentsTable() {
         if (model != null) {
             residentsTable.getItems().clear();
@@ -39,6 +55,9 @@ public class StartGUI extends Application {
         }
     }
 
+    /**
+     * Refreshes the trades table by reloading trade data from the model.
+     */
     private void refreshTradesTable() {
         if (model != null) {
             tradesTable.getItems().clear();
@@ -46,6 +65,9 @@ public class StartGUI extends Application {
         }
     }
 
+    /**
+     * Refreshes the tasks table by reloading task data from the model.
+     */
     private void refreshTasksTable() {
         if (model != null) {
             taskTable.getItems().clear();
@@ -56,6 +78,10 @@ public class StartGUI extends Application {
     ProgressBar progressBar = new ProgressBar();
     Label progressLabel = new Label();
 
+    /**
+     * Updates the community points progress label and progress bar based on the
+     * current green points and goal stored in the model.
+     */
     private void refreshCommunityPointsTable() {
         if (model != null) {
             progressLabel.setText("Progress toward next green reward: " + model.getGreenPoints()
@@ -64,6 +90,14 @@ public class StartGUI extends Application {
         }
     }
 
+    /**
+     * Starts the JavaFX application. The method initializes the model, loads
+     * persisted data from files, builds the GUI layout, and displays the main
+     * application window.
+     *
+     * @param primaryStage the main stage provided by the JavaFX runtime
+     */
+    @Override
     public void start(Stage primaryStage) {
         model = new ClovervilleModelManager();
 
@@ -101,14 +135,13 @@ public class StartGUI extends Application {
         displayCloverImage.setY(0);
         displayCloverImage.setFitHeight(20);
 
-
         Button resident_add = new Button("Add New Resident");
         resident_add.setOnAction(e -> {
             Stage popup = new Stage();
             ResidentViewController controller = new ResidentViewController(model);
             popup.setScene(controller.createScene());
             popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
-            popup.getIcons().add( new Image("file:./docs/img/leaveicon.png"));
+            popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
 
             popup.setTitle("Cloverville's Resident");
             popup.setOnHidden(ev -> {
@@ -178,7 +211,6 @@ public class StartGUI extends Application {
             popup.show();
         });
         Button Resident_reset_all_points = new Button("Reset all personal points");
-        // Resident_reset_all_points.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
         Resident_reset_all_points.getStyleClass().add("red-border");
         Resident_reset_all_points.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -333,7 +365,6 @@ public class StartGUI extends Application {
         descCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
         pointsColTasks.setCellValueFactory(new PropertyValueFactory<>("points"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-        ;
         taskTable.getColumns().addAll(nameCol, descCol, pointsColTasks, typeCol);
         refreshTasksTable();
 
@@ -399,11 +430,11 @@ public class StartGUI extends Application {
                     model.addGreenPoints(points);
                     FileWriter.saveGreenPointsToBinary(model.getGreenPointsObject(), "community.bin");
                     JSONWriter.saveGreenPointsToJSON(model.getGreenPointsObject(),
-                    "docs/file_operations_community.json");
+                            "docs/file_operations_community.json");
                     popup.close();
                     progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
                     communityPointsBox.getChildren().set(1, new Label("Progress toward next green reward: "
-                    + model.getGreenPoints() + "/" + model.getGreenPointsGoal() + " green points"));
+                            + model.getGreenPoints() + "/" + model.getGreenPointsGoal() + " green points"));
                 } catch (NumberFormatException ex) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Invalid Input");
@@ -480,13 +511,18 @@ public class StartGUI extends Application {
         });
         Scene scene = new Scene(root, 500, 500);
         scene.getStylesheets().add("file:./docs/FxStyles.css");
-        primaryStage.getIcons().add( new Image("file:./docs/img/leaveicon.png"));
+        primaryStage.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Cloverville Community Management");
         primaryStage.show();
     }
 
+    /**
+     * Launches the JavaFX application.
+     *
+     * @param args command-line arguments passed to the application
+     */
     public static void main(String[] args) {
         launch(args);
     }
