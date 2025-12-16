@@ -50,17 +50,23 @@ public class TradeViewController {
 
         Label titleLabel = new Label("Cloverville - Trades");
         titleLabel.getStyleClass().add("title");
+        Label subtitleLabel = new Label("Trade details:");
+        subtitleLabel.getStyleClass().add("title");
         HBox topBox = new HBox(titleLabel);
         topBox.setPadding(new Insets(2,5,7,5));
 
+        
+        Label offerLabel= new Label("Offer's name");
         offerNameField = new TextField();
-        offerNameField.setPromptText("Offer's name");
-
+        offerNameField.setPromptText("Offer name");
+        
+        Label descrptionLabel = new Label("Description of the trade");
         description = new TextField();
-        description.setPromptText("Description of the trade");
-
+        description.setPromptText("Trade description");
+        
+        Label priceLabel = new Label("The price of the trade");
         priceField = new TextField();
-        priceField.setPromptText("The price of the trade");
+        priceField.setPromptText("Trade price");
 
         Button confirmationButton = new Button("Confirm trade");
         confirmationButton.setOnAction(e -> handleCreateTrade());
@@ -72,9 +78,12 @@ public class TradeViewController {
         messageLabel = new Label();
         VBox rightBox = new VBox(
                 10,
-                new Label("Trade details:"),
+                subtitleLabel,
+                offerLabel,
                 offerNameField,
+                descrptionLabel,
                 description,
+                priceLabel,
                 priceField,
                 new Label("Select requesting resident:"),
                 residentListView,
@@ -88,7 +97,7 @@ public class TradeViewController {
         root.setCenter(rightBox);
         root.setPadding(new Insets(10));
 
-        return new Scene(root, 600, 400);
+        return new Scene(root, 600, 500);
     }
 
     /**

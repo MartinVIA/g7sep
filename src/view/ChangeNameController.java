@@ -81,7 +81,7 @@ public class ChangeNameController {
                 new Label("Last name:"), lastField,
                 save, msg);
         root.setPadding(new Insets(10));
-
-        return new Scene(root, 300, 235);
+            
+        return new Scene(root, 300+((resident.getFirstName().length()+resident.getLastName().length())*5), 235);
     }
 }

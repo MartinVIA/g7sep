@@ -1,10 +1,10 @@
 [
   {
     "id": 1,
-    "firstName": "leon",
+    "firstName": "SuperLongNameForTestingReasons",
     "lastName": "dk",
     "personalPoints": 0,
-    "hasBoost": false
+    "hasBoost": true
   },
   {
     "id": 3,
