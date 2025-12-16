@@ -49,12 +49,15 @@ public class RemoveBoostController {
     Label msg = new Label();
 
     if (!resident.getHasBoost()) {
-      msg.setText("The resident doesn’t have any boost.");
+      msg.setText("The resident doesn't have any boost.");
+      msg.getStyleClass().add("title");
+      root.setPadding(new Insets(0));
       root.getChildren().add(msg);
-      return new Scene(root, 280, 100);
+      return new Scene(root, 300, 80);
     }
 
     Label info = new Label("Resident currently has a boost.");
+    info.getStyleClass().add("title");
     Button removeBtn = new Button("Remove boost");
     removeBtn.setOnAction(e -> {
       resident.setBoost(false);
@@ -62,6 +65,6 @@ public class RemoveBoostController {
     });
 
     root.getChildren().addAll(info, removeBtn, msg);
-    return new Scene(root, 280, 140);
+    return new Scene(root, 280, 110);
   }
 }

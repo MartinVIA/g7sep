@@ -8,8 +8,8 @@
   },
   {
     "id": 3,
-    "firstName": "ah",
-    "lastName": "ahh",
+    "firstName": "Other",
+    "lastName": "Lasntman",
     "personalPoints": 0,
     "hasBoost": true
   },
@@ -18,7 +18,7 @@
     "firstName": "ahahah",
     "lastName": "hah",
     "personalPoints": 10,
-    "hasBoost": true
+    "hasBoost": false
   },
   {
     "id": 8,

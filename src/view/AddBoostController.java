@@ -1,6 +1,7 @@
 package view;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -53,13 +54,17 @@ public class AddBoostController {
 
     // If they already have a boost → show message, nothing to do
     if (resident.getHasBoost()) {
+      msg.getStyleClass().add("title");
+      root.setPadding(new Insets(0));
+      msg.setAlignment(Pos.CENTER);
       msg.setText("There is no boost available for this resident (already has a boost).");
       root.getChildren().add(msg);
       msg.setWrapText(true);
-      return new Scene(root, 320, 100);
+      return new Scene(root, 320, 80);
     }
 
     Label info = new Label("Apply a boost for this resident?");
+    info.getStyleClass().add("title");
     Button applyBtn = new Button("Apply boost");
     applyBtn.setOnAction(e -> {
       resident.setBoost(true);
@@ -67,6 +72,6 @@ public class AddBoostController {
     });
 
     root.getChildren().addAll(info, applyBtn, msg);
-    return new Scene(root, 280, 140);
+    return new Scene(root, 280, 110);
   }
 }

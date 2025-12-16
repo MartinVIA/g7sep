@@ -113,7 +113,6 @@ public class ManageResidentController {
         popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
         popup.setTitle("Edit points of Resident: " + resident.getFirstName() + " " + resident.getLastName());
         popup.show();
-        popup.setHeight(140);
     }
 
     /**

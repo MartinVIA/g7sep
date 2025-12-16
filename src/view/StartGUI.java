@@ -62,6 +62,8 @@ public class StartGUI extends Application {
         if (model != null) {
             tradesTable.getItems().clear();
             tradesTable.getItems().setAll(model.getTradeList());
+            FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
+            JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
         }
     }
 
@@ -72,6 +74,8 @@ public class StartGUI extends Application {
         if (model != null) {
             taskTable.getItems().clear();
             taskTable.getItems().setAll(model.getTaskList());
+            FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
+            JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
         }
     }
 
@@ -135,7 +139,7 @@ public class StartGUI extends Application {
         displayCloverImage.setY(0);
         displayCloverImage.setFitHeight(20);
 
-        Button resident_add = new Button("Add New Resident");
+        Button resident_add = new Button("Add new resident");
         resident_add.setOnAction(e -> {
             Stage popup = new Stage();
             ResidentViewController controller = new ResidentViewController(model);
@@ -160,8 +164,6 @@ public class StartGUI extends Application {
             popup.setTitle("Trades");
             popup.setOnHidden(ev -> {
                 refreshTradesTable();
-                FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
-                JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
             });
             popup.show();
         });
@@ -176,8 +178,6 @@ public class StartGUI extends Application {
             popup.setTitle("Tasks");
             popup.setOnHidden(ev -> {
                 refreshTasksTable();
-                FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
-                JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
             });
             popup.show();
         });
@@ -201,12 +201,9 @@ public class StartGUI extends Application {
             popup.setScene(controller.createScene());
             popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
             popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
-            popup.setTitle("Manage Resident: "
-                    + selected.getFirstName() + " " + selected.getLastName());
+            popup.setTitle("Manage Resident");
             popup.setOnHidden(ev -> {
                 refreshResidentsTable();
-                FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
-                JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
             });
             popup.show();
         });
@@ -221,8 +218,6 @@ public class StartGUI extends Application {
                 if (response.getButtonData().isDefaultButton()) {
                     model.resetAllPersonalPoints();
                     refreshResidentsTable();
-                    FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
-                    JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
 
                     Alert done = new Alert(Alert.AlertType.INFORMATION);
                     done.setTitle("Points reset");
@@ -251,8 +246,6 @@ public class StartGUI extends Application {
             Stage popup = new Stage();
             ManageTradeController controller = new ManageTradeController(model, selected, () -> {
                 refreshTradesTable();
-                FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
-                JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
             });
             popup.setScene(controller.createScene());
             popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
@@ -275,8 +268,6 @@ public class StartGUI extends Application {
             Stage popup = new Stage();
             ManageTaskController controller = new ManageTaskController(model, selected, () -> {
                 refreshTasksTable();
-                FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
-                JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
             });
             popup.setScene(controller.createScene());
             popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");

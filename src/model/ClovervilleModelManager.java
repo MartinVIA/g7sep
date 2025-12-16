@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class ClovervilleModelManager {
 
-    private Cloverville cloverville;
+    private final Cloverville cloverville;
 
     /**
      * Creates a manager with a fresh Cloverville instance
@@ -34,7 +34,7 @@ public class ClovervilleModelManager {
     public void addResident(String firstName, String lastName) {
         ArrayList<Resident> residents = cloverville.getResidentList().getAllResidents();
         int nextId = 1;
-        if (residents.size() > 0) {
+        if (!residents.isEmpty()) {
             nextId = residents.get(residents.size() - 1).getId() + 1;
         }
         Resident v = new Resident(nextId, firstName, lastName);

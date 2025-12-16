@@ -43,6 +43,9 @@ public class EditPointsController {
    * @return a Scene displaying the edit points view
    */
   public Scene createScene() {
+      Label titleLabel = new Label("New points for resident: "+resident.getLastName()+" "+resident.getLastName());
+      titleLabel.getStyleClass().add("title");
+
 
     TextField pointsField = new TextField(
         String.valueOf(resident.getPersonalPoints()));
@@ -53,7 +56,7 @@ public class EditPointsController {
       String text = pointsField.getText().trim();
 
       if (!text.matches("\\d+")) {
-        msg.setText("Points must be a whole number (0–9).");
+        msg.setText("Points must be a whole number (0-9).");
         return;
       }
 
@@ -65,12 +68,12 @@ public class EditPointsController {
     });
 
     VBox root = new VBox(10,
-        new Label("New points for resident:"),
+        titleLabel,
         pointsField,
         save,
         msg);
     root.setPadding(new Insets(10));
 
-    return new Scene(root, 280, 180);
+    return new Scene(root, 280, 130);
   }
 }

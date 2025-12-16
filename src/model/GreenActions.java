@@ -5,7 +5,6 @@ package model;
  */
 public class GreenActions extends Task {
     private int greenPointsAward;
-
     private GreenPoints greenPoints;
 
     /**
