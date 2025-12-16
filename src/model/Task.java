@@ -15,7 +15,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Creates a task with zero points
-   * 
+   *
    * @param name Task name
    * @param type Task type
    */
@@ -29,7 +29,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Creates a task with a specific points value
-   * 
+   *
    * @param name   Task name
    * @param type   Task type
    * @param points Points award
@@ -44,7 +44,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Returns the name of the task
-   * 
+   *
    * @return Task name
    */
   public String getName() {
@@ -53,7 +53,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Returns the description of the task
-   * 
+   *
    * @return Task description
    */
   public String getDescription() {
@@ -62,7 +62,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Returns the type of the task
-   * 
+   *
    * @return Task type
    */
   public String getType() {
@@ -71,7 +71,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Returns the points awarded when the task is completed
-   * 
+   *
    * @return Points value
    */
   public int getPoints() {
@@ -80,7 +80,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Sets the complete date of the task
-   * 
+   *
    * @param date Date when the task was completed
    */
   public void setCompleteDate(Date date) {
@@ -89,7 +89,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Returns the complete date of the task
-   * 
+   *
    * @return Date when the task was completed
    */
   public Date getCompleteDate() {
@@ -98,7 +98,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Sets the name of the task
-   * 
+   *
    * @param name Task name
    */
   public void setName(String name) {
@@ -107,7 +107,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Sets the description of the task
-   * 
+   *
    * @param description Task description
    */
   public void setDescription(String description) {
@@ -116,7 +116,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Sets the type of the task
-   * 
+   *
    * @param type Task type
    */
   public void setType(String type) {
@@ -125,7 +125,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Sets the points awarded when the task is completed
-   * 
+   *
    * @param points Points value
    */
   public void setPoints(int points) {
@@ -135,14 +135,14 @@ public abstract class Task implements Serializable {
   /**
    * An abstract method to execute completion logic and side effects for the task
    * subtype
-   * 
+   *
    * @param resident Resident completing the task
    */
   public abstract void completeTask(Resident resident);
 
   /**
    * Compares a task object with another object
-   * 
+   *
    * @param obj Object to compare
    * @return true if the objects are equal, false otherwise
    */
@@ -160,7 +160,7 @@ public abstract class Task implements Serializable {
 
   /**
    * Returns a string representation of the task
-   * 
+   *
    * @return a formatted string with task's name, description, type and completion
    *         status
    */

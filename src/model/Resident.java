@@ -18,7 +18,7 @@ public class Resident implements Serializable {
   /**
    * Creates a resident with id, first name, last name and an initial personal
    * points balance
-   * 
+   *
    * @param id        Unique identifier
    * @param firstName First name
    * @param lastName  Last name
@@ -36,7 +36,7 @@ public class Resident implements Serializable {
 
   /**
    * Creates a resident with id, first name, last name and 0 personal points
-   * 
+   *
    * @param id        Unique identifier
    * @param firstName First name
    * @param lastName  Last name
@@ -53,7 +53,7 @@ public class Resident implements Serializable {
 
   /**
    * Returns the unique ID of the resident
-   * 
+   *
    * @return Unique identifier
    */
   public int getId() {
@@ -62,7 +62,7 @@ public class Resident implements Serializable {
 
   /**
    * Returns the first name of the resident
-   * 
+   *
    * @return First name
    */
   public String getFirstName() {
@@ -71,7 +71,7 @@ public class Resident implements Serializable {
 
   /**
    * Returns the last name of the resident
-   * 
+   *
    * @return Last name
    */
   public String getLastName() {
@@ -80,7 +80,7 @@ public class Resident implements Serializable {
 
   /**
    * Returns whether the resident has an active boost
-   * 
+   *
    * @return True if boost is active, false otherwise
    */
   public boolean getHasBoost() {
@@ -89,7 +89,7 @@ public class Resident implements Serializable {
 
   /**
    * Returns the personal points balance
-   * 
+   *
    * @return Personal points
    */
   public int getPersonalPoints() {
@@ -98,7 +98,7 @@ public class Resident implements Serializable {
 
   /**
    * Returns the date of the most recent community task completion
-   * 
+   *
    * @return Date of latest community task, or null if none
    */
   public Date getLatestTask() {
@@ -107,7 +107,7 @@ public class Resident implements Serializable {
 
   /**
    * Returns the date of the most recent green action completion
-   * 
+   *
    * @return Date of latest green action, or null if none
    */
   public Date getLatestGreenAction() {
@@ -116,7 +116,7 @@ public class Resident implements Serializable {
 
   /**
    * Updates the first name
-   * 
+   *
    * @param firstName New first name
    */
   public void setFirstName(String firstName) {
@@ -125,7 +125,7 @@ public class Resident implements Serializable {
 
   /**
    * Updates the last name
-   * 
+   *
    * @param lastName New last name
    */
   public void setLastName(String lastName) {
@@ -134,7 +134,7 @@ public class Resident implements Serializable {
 
   /**
    * Enables or disables the boost flag
-   * 
+   *
    * @param hasBoost New boost state
    */
   public void setBoost(boolean hasBoost) {
@@ -143,7 +143,7 @@ public class Resident implements Serializable {
 
   /**
    * Overwrites the personal points balance
-   * 
+   *
    * @param points New balance
    */
   public void setPersonalPoints(int points) {
@@ -152,7 +152,7 @@ public class Resident implements Serializable {
 
   /**
    * Adds points to the resident balance
-   * 
+   *
    * @param points Points to add
    */
   public void addPersonalPoints(int points) {
@@ -168,7 +168,7 @@ public class Resident implements Serializable {
 
   /**
    * Sets the date of the most recent community task completion
-   * 
+   *
    * @param latestTask Completion date
    */
   public void setLatestTask(Date latestTask) {
@@ -177,7 +177,7 @@ public class Resident implements Serializable {
 
   /**
    * Sets the date of the most recent green action completion
-   * 
+   *
    * @param latestGreenAction Completion date
    */
   public void setLatestGreenAction(Date latestGreenAction) {
@@ -186,7 +186,7 @@ public class Resident implements Serializable {
 
   /**
    * Compares a resident object with another object
-   * 
+   *
    * @param obj Object to compare
    * @return true if the objects are equal, false otherwise
    */
@@ -204,7 +204,7 @@ public class Resident implements Serializable {
 
   /**
    * Returns a string representation of the resident
-   * 
+   *
    * @return a Formatted string with resident details
    */
   public String toString() {

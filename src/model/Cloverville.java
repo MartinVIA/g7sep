@@ -24,7 +24,7 @@ public class Cloverville {
 
   /**
    * Returns the managed residents list
-   * 
+   *
    * @return Resident list container
    */
   public ResidentList getResidentList() {
@@ -33,7 +33,7 @@ public class Cloverville {
 
   /**
    * Returns the managed trade list
-   * 
+   *
    * @return Trade list container
    */
   public TradeList getTradeList() {
@@ -42,7 +42,7 @@ public class Cloverville {
 
   /**
    * Returns the managed task list
-   * 
+   *
    * @return Task list container
    */
   public TaskList getTaskList() {
@@ -52,7 +52,7 @@ public class Cloverville {
 
   /**
    * Returns the shared green points tracker
-   * 
+   *
    * @return Green points state
    */
   public GreenPoints getGreenPoints() {

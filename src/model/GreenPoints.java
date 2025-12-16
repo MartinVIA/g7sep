@@ -15,7 +15,7 @@ public class GreenPoints implements Serializable {
 
   /**
    * Creates a tracker with zero starting points and zero goal
-   * 
+   *
    * @param goal Target points to reach
    */
   public GreenPoints() {
@@ -27,7 +27,7 @@ public class GreenPoints implements Serializable {
 
   /**
    * Creates a tracker with a goal and zero starting points
-   * 
+   *
    * @param goal Target points to reach
    */
   public GreenPoints(int goal) {
@@ -39,7 +39,7 @@ public class GreenPoints implements Serializable {
 
   /**
    * Updates the goal threshold
-   * 
+   *
    * @param goal New goal value
    */
   public void setGoal(int goal) {
@@ -67,7 +67,7 @@ public class GreenPoints implements Serializable {
 
   /**
    * Adds points toward the goal
-   * 
+   *
    * @param points Points to add
    */
   public void addPoints(int points) {
@@ -80,7 +80,7 @@ public class GreenPoints implements Serializable {
 
   /**
    * Checks whether the goal has been met or exceeded
-   * 
+   *
    * @return True when goal reached
    */
   public boolean isGoalReached() {
@@ -99,7 +99,7 @@ public class GreenPoints implements Serializable {
 
   /**
    * Compares green points object with another object
-   * 
+   *
    * @param obj Object to compare
    * @return true if the objects are equal, false otherwise
    */
@@ -115,7 +115,7 @@ public class GreenPoints implements Serializable {
 
   /**
    * Returns a string representation of the green points
-   * 
+   *
    * @return a Formatted string with green points and goal
    */
   public String toString() {

@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * The class containing a list of Task objects
  */
-public class TaskList implements Serializable {
+public class TaskList  implements Serializable{
   private ArrayList<Task> tasks;
 
   /**
@@ -19,7 +19,7 @@ public class TaskList implements Serializable {
 
   /**
    * Returns number of tasks
-   * 
+   *
    * @return List size
    */
   public int size() {
@@ -28,7 +28,7 @@ public class TaskList implements Serializable {
 
   /**
    * Adds a task to the list
-   * 
+   *
    * @param task Task to add
    */
   public void addTask(Task task) {
@@ -37,7 +37,7 @@ public class TaskList implements Serializable {
 
   /**
    * Removes a task if present
-   * 
+   *
    * @param task Task to remove
    */
   public void removeTask(Task task) {
@@ -48,7 +48,7 @@ public class TaskList implements Serializable {
 
   /**
    * Removes a task by index when valid
-   * 
+   *
    * @param index Task position to remove
    */
   public void removeTask(int index) {
@@ -59,7 +59,7 @@ public class TaskList implements Serializable {
 
   /**
    * Retrieves a task by index
-   * 
+   *
    * @param index Task position
    * @return Task or null if out of range
    */
@@ -72,7 +72,7 @@ public class TaskList implements Serializable {
 
   /**
    * Returns a copy of the tasks list
-   * 
+   *
    * @return List copy
    */
   public ArrayList<Task> getAllTasks() {
@@ -81,7 +81,7 @@ public class TaskList implements Serializable {
 
   /**
    * Compares a tasks list object with another object
-   * 
+   *
    * @param obj Object to compare
    * @return true if the objects are equal, false otherwise
    */
@@ -96,7 +96,7 @@ public class TaskList implements Serializable {
 
   /**
    * Returns a string representation of the tasks list
-   * 
+   *
    * @return a formatted String with all tasks' names, descriptions, types and
    *         completion status
    */
