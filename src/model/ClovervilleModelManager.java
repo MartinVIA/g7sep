@@ -50,6 +50,15 @@ public class ClovervilleModelManager {
         return cloverville.getTaskList().getAllTasks();
     }
 
+    public boolean getBoostStatus(int residentId) {
+        Resident v = cloverville.getResidentList().getResidentById(residentId);
+        if (v != null) {
+            return v.getHasBoost();
+        }
+        return false;
+        
+    }
+
     /**
      * Adds a new task of the appropriate subtype based on its type label
      * 

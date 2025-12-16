@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.ClovervilleModelManager;
@@ -55,8 +56,8 @@ public class ManageResidentController {
         editPointsBtn.setOnAction(e -> openEditPointsPopup());
         addBoostBtn.setOnAction(e -> openAddBoostPopup());
         removeBoostBtn.setOnAction(e -> openRemoveBoostPopup());
+        
         removeResidentBtn.getStyleClass().add("red-border");
-        // removeResidentBtn.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
         removeResidentBtn.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Removal");
@@ -95,6 +96,8 @@ public class ManageResidentController {
         Stage popup = new Stage();
         ChangeNameController controller = new ChangeNameController(model, resident);
         popup.setScene(controller.createScene());
+        popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+        popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
         popup.setTitle("Change name of: " + resident.getFirstName() + " " + resident.getLastName());
         popup.show();
     }
@@ -106,8 +109,11 @@ public class ManageResidentController {
         Stage popup = new Stage();
         EditPointsController controller = new EditPointsController(model, resident);
         popup.setScene(controller.createScene());
+        popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+        popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
         popup.setTitle("Edit points of Resident: " + resident.getFirstName() + " " + resident.getLastName());
         popup.show();
+        popup.setHeight(140);
     }
 
     /**
@@ -117,6 +123,8 @@ public class ManageResidentController {
         Stage popup = new Stage();
         AddBoostController controller = new AddBoostController(model, resident);
         popup.setScene(controller.createScene());
+        popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+        popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
         popup.setTitle("Add a boost to: " + resident.getFirstName() + " " + resident.getLastName());
         popup.show();
     }
@@ -128,6 +136,8 @@ public class ManageResidentController {
         Stage popup = new Stage();
         RemoveBoostController controller = new RemoveBoostController(model, resident);
         popup.setScene(controller.createScene());
+        popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
+        popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
         popup.setTitle("Remove boost from: " + resident.getFirstName() + " " + resident.getLastName());
         popup.show();
     }

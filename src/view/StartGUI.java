@@ -321,7 +321,7 @@ public class StartGUI extends Application {
         TableColumn<Resident, String> lastNameCol = new TableColumn<>("Last Name");
         TableColumn<Resident, Integer> idCol = new TableColumn<>("ID");
         TableColumn<Resident, Integer> pointsCol = new TableColumn<>("Points");
-        TableColumn<Resident, Boolean> boostCol = new TableColumn<>("Boost");
+        TableColumn<Resident, Boolean> boostCol = new TableColumn<>("Resident Has Boost");
 
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -329,7 +329,7 @@ public class StartGUI extends Application {
         pointsCol.setCellValueFactory(new PropertyValueFactory<>("personalPoints"));
         boostCol.setCellValueFactory(new PropertyValueFactory<>("hasBoost"));
         residentsTable.setEditable(true);
-        residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostCol);
+        residentsTable.getColumns().addAll(idCol, firstNameCol, lastNameCol, pointsCol, boostCol);
         refreshResidentsTable();
 
         tradesTable = new TableView<>();
