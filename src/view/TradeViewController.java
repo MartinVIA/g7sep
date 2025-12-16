@@ -12,6 +12,14 @@ import javafx.scene.layout.VBox;
 import model.ClovervilleModelManager;
 import model.Resident;
 
+/**
+ * Controller responsible for creating a view that allows creating new trades.
+ * The view lets the user enter trade details and select a resident who requests
+ * the trade.
+ *
+ * @author Loke Hansen
+ * @version 1.0
+ */
 public class TradeViewController {
 
     private final ClovervilleModelManager model;
@@ -21,10 +29,20 @@ public class TradeViewController {
     private TextField priceField;
     private TextField description;
 
+    /**
+     * Constructs a TradeViewController with the given model.
+     *
+     * @param model the model manager used to access and modify trade data
+     */
     public TradeViewController(ClovervilleModelManager model) {
         this.model = model;
     }
 
+    /**
+     * Creates and returns the JavaFX scene used to create a new trade.
+     *
+     * @return a Scene displaying the trade creation view
+     */
     public Scene createScene() {
         residentListView = new ListView<>();
         residentListView.setPrefWidth(320);
@@ -42,7 +60,7 @@ public class TradeViewController {
         description.setPromptText("Description of the trade");
 
         priceField = new TextField();
-        priceField.setPromptText("The price fo the trade");
+        priceField.setPromptText("The price of the trade");
 
         Button confirmationButton = new Button("Confirm trade");
         confirmationButton.setOnAction(e -> handleCreateTrade());
@@ -73,6 +91,11 @@ public class TradeViewController {
         return new Scene(root, 600, 400);
     }
 
+    /**
+     * Handles creation of a new trade using the entered values. The method
+     * validates the input fields and selected resident before adding the trade
+     * through the model.
+     */
     private void handleCreateTrade() {
         String name = offerNameField.getText().trim();
         String desc = description.getText().trim();
@@ -94,9 +117,7 @@ public class TradeViewController {
             model.addTrade(name, desc, selected, price);
             messageLabel.setText("Trade created with point cost: " + price);
         } catch (NumberFormatException e) {
-            // model.addTradeWithOffer(name, desc, selected, priceText);
-            // messageLabel.setText("Trade created with offer: " + priceText);
-            messageLabel.setText("Price must be an number. Try again.");
+            messageLabel.setText("Price must be a number. Try again.");
             return;
         }
 
@@ -104,11 +125,12 @@ public class TradeViewController {
         description.clear();
         priceField.clear();
         residentListView.getSelectionModel().clearSelection();
-
     }
 
+    /**
+     * Refreshes the resident list view by reloading residents from the model.
+     */
     private void refreshResidentList() {
         residentListView.getItems().setAll(model.getAllResidents());
     }
-
 }
