@@ -87,7 +87,8 @@ public class StartGUI extends Application {
 
     /**
      * Updates the community points progress label and progress bar based on the
-     * current green points and goal stored in the model. Also refreshes the green tasks table.
+     * current green points and goal stored in the model. Also refreshes the green
+     * tasks table.
      */
     private void refreshCommunityPointsTable() {
         if (model != null) {
@@ -147,11 +148,8 @@ public class StartGUI extends Application {
         displayCloverImage.setY(0);
         displayCloverImage.setFitHeight(20);
 
-<<<<<<< HEAD
         Button resident_add = new Button("Add New Resident");
-=======
-        Button resident_add = new Button("Add new resident");
->>>>>>> 5ddce2b9b5d8ae4b4888a815c1f30aaedfeec26b
+
         resident_add.setOnAction(e -> {
             Stage popup = new Stage();
             ResidentViewController controller = new ResidentViewController(model);
@@ -220,11 +218,10 @@ public class StartGUI extends Application {
             popup.show();
         });
         Button Resident_reset_all_points = new Button("Reset all personal points");
-<<<<<<< HEAD
+
         // Resident_reset_all_points.setStyle("-fx-border-color: red; -fx-border-width:
         // 1px;");
-=======
->>>>>>> 5ddce2b9b5d8ae4b4888a815c1f30aaedfeec26b
+
         Resident_reset_all_points.getStyleClass().add("red-border");
         Resident_reset_all_points.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -405,7 +402,6 @@ public class StartGUI extends Application {
         greenTasksTable.getColumns().addAll(greenNameCol, greenDescCol, greenPointsCol, greenTypeCol);
         greenTasksTable.setPrefHeight(365);
 
-        
         VBox communityPointsBox = new VBox();
         communityPointsBox.setSpacing(5);
         communityPointsBox.setPadding(new Insets(10, 0, 0, 10));
@@ -552,4 +548,3 @@ public class StartGUI extends Application {
         launch(args);
     }
 }
-
