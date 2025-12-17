@@ -1,6 +1,8 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -41,6 +43,7 @@ public class StartGUI extends Application {
     private TableView<Resident> residentsTable;
     private TableView<Task> taskTable;
     private TableView<Trade> tradesTable;
+    private TableView<Task> greenTasksTable;
 
     /**
      * Refreshes the residents table by reloading resident data from the model.
@@ -84,13 +87,18 @@ public class StartGUI extends Application {
 
     /**
      * Updates the community points progress label and progress bar based on the
-     * current green points and goal stored in the model.
+     * current green points and goal stored in the model. Also refreshes the green tasks table.
      */
     private void refreshCommunityPointsTable() {
         if (model != null) {
             progressLabel.setText("Progress toward next green reward: " + model.getGreenPoints()
                     + "/" + model.getGreenPointsGoal() + " green points");
             progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
+            greenTasksTable.getItems().clear();
+            List<Task> greenTasks = model.getTaskList().stream()
+                    .filter(task -> "green".equals(task.getType()))
+                    .collect(Collectors.toList());
+            greenTasksTable.getItems().setAll(greenTasks);
         }
     }
 
@@ -364,19 +372,25 @@ public class StartGUI extends Application {
         tasksBox.setPadding(new Insets(10, 0, 0, 10));
         tasksBox.getChildren().add(taskTable);
 
-        TableView greenTasks = new TableView<>();
-        TableColumn pointsAmountCol = new TableColumn<>("Points Amount");
-        TableColumn pointsDateCol = new TableColumn<>("Date Added");
-        TableColumn pointsAddedByCol = new TableColumn<>("Added By");
-        greenTasks.setEditable(true);
-        greenTasks.setPrefHeight(350);
-        greenTasks.getColumns().addAll(pointsAmountCol, pointsDateCol, pointsAddedByCol);
+        greenTasksTable = new TableView<>();
+        greenTasksTable.setPrefWidth(420);
+
+        TableColumn<Task, String> greenNameCol = new TableColumn<>("Task Name");
+        TableColumn<Task, String> greenDescCol = new TableColumn<>("Task Description");
+        TableColumn<Task, Integer> greenPointsCol = new TableColumn<>("Points awarded");
+        TableColumn<Task, String> greenTypeCol = new TableColumn<>("Type");
+
+        greenNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        greenDescCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        greenPointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
+        greenTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        greenTasksTable.getColumns().addAll(greenNameCol, greenDescCol, greenPointsCol, greenTypeCol);
 
         VBox communityPointsBox = new VBox();
         communityPointsBox.setSpacing(5);
         communityPointsBox.setPadding(new Insets(10, 0, 0, 10));
         progressBar.setPrefWidth(450);
-        communityPointsBox.getChildren().add(greenTasks);
+        communityPointsBox.getChildren().add(greenTasksTable);
         communityPointsBox.getChildren().add(progressLabel);
         progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
         communityPointsBox.getChildren().add(progressBar);
