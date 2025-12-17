@@ -385,7 +385,9 @@ public class StartGUI extends Application {
         greenPointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
         greenTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         greenTasksTable.getColumns().addAll(greenNameCol, greenDescCol, greenPointsCol, greenTypeCol);
+        greenTasksTable.setPrefHeight(365);
 
+        
         VBox communityPointsBox = new VBox();
         communityPointsBox.setSpacing(5);
         communityPointsBox.setPadding(new Insets(10, 0, 0, 10));
@@ -532,3 +534,4 @@ public class StartGUI extends Application {
         launch(args);
     }
 }
+
