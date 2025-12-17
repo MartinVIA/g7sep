@@ -130,7 +130,6 @@ public class Trade implements Serializable {
   public String getStringName() {
     return name;
   }
-  //this one repeats, we need review
   
   /**
    * Sets the name of the trade

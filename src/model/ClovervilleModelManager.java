@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 /**
  * The class that handles all operations for the Cloverville system
+ * @author Loke Hansen
+ * @author Victor Tonu
+ * @author Adam Terelak
+ * @author Martin Charves
+ * @author Leon de Kuijper
  */
 public class ClovervilleModelManager {
 
@@ -28,8 +33,8 @@ public class ClovervilleModelManager {
     /**
      * Adds a new resident with an auto-incremented ID
      * 
-     * @param firstName Resident first name
-     * @param lastName  Resident last name
+     * @param firstName Residents first name
+     * @param lastName  Residents last name
      */
     public void addResident(String firstName, String lastName) {
         ArrayList<Resident> residents = cloverville.getResidentList().getAllResidents();

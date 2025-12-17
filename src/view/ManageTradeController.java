@@ -112,6 +112,9 @@ public class ManageTradeController {
         popup.show();
     }
 
+    /**
+     * Open a popup window for marking the trade as complete.
+     */
     private void handleMarkComplete() {
         Stage popup = new Stage();
         MarkTradeComplete controller = new MarkTradeComplete(model, trade);

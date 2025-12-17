@@ -2,6 +2,11 @@ package model;
 
 /**
  * The class that manages the core components of the Cloverville
+ * @author Loke Hansen
+ * @author Victor Tonu
+ * @author Adam Terelak
+ * @author Martin Charves
+ * @author Leon de Kuijper
  */
 public class Cloverville {
 

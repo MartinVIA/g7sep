@@ -12,6 +12,9 @@ import model.*;
  * points, tasks, and trades from JSON-formatted files. The JSON parsing is
  * implemented manually without the use of external libraries and is intended
  * for simple, well-defined data structures.
+ * @author Leon de Kuijper
+ * @author Adam Terelak
+ * @author Martin Charves
  */
 public class JSONReader {
 

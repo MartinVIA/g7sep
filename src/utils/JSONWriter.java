@@ -11,6 +11,8 @@ import model.*;
  * trades, and community green points into JSON format. The JSON is generated
  * manually using string builders to maintain full control over the output
  * structure without relying on external libraries.
+ * @author Leon de Kuijper
+
  */
 public class JSONWriter {
 

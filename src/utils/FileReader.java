@@ -17,6 +17,9 @@ import model.TradeList;
  * The class provides static helper methods for loading residents,
  * tasks, trades, and community green points at application startup.
  * All file handling is delegated to {@link MyFileHandler}.
+ * @author Leon de Kuijper
+ * @author Adam Terelak
+ * @author Martin Charves
  */
 public class FileReader {
 

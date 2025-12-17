@@ -13,6 +13,9 @@ import java.util.Scanner;
  *
  * Higher-level utility classes such as {@link FileReader} and {@link FileWriter}
  * use this class to persist and load application data.
+ * @author Leon de Kuijper
+ * @author Adam Terelak
+ * @author Martin Charves
  */
 public class MyFileHandler {
 
