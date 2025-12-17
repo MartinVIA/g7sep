@@ -74,6 +74,6 @@ public class EditPointsController {
         msg);
     root.setPadding(new Insets(10));
 
-    return new Scene(root, 280, 130);
+    return new Scene(root, 280, 140);
   }
 }

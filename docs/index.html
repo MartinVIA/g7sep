@@ -1,66 +1,76 @@
 <!DOCTYPE html>
-<html>     
-  <head>
-    <title>Cloverville</title>
-    <link href="styles.css" rel="stylesheet" />
-    <link rel="icon" type="image/x-icon" href="img/leaveicon.png">
-    <style>
-      .side-banner {
-        position: fixed;
-        top: 70px;
-        width: 150px;
-        height: calc(100vh - 70px);
-        object-fit: cover;
-        z-index: 500;
-      }
-      .side-banner-left {
-        left: 0;
-        mask-image: linear-gradient(to left, transparent, white 20px);
-        -webkit-mask-image: linear-gradient(to left, transparent, white 20px);
-      }
-      .side-banner-right {
-        right: 0;
-        mask-image: linear-gradient(to right, transparent, white 20px);
-        -webkit-mask-image: linear-gradient(to right, transparent, white 20px);
-      }
-    </style>
-  </head>
-  <body>
-    <img src="img/-2.jpeg" class="side-banner side-banner-left" alt="Left Banner">
-    <img src="img/moestuin-1444x963-jpg-crop.jpeg" class="side-banner side-banner-right" alt="Right Banner">
-    <h3>Welcome to the official website of Cloverville.</h3>
-    <p>Here you can find some information about this beautifull town we call home. there are also pages to view the current tasks, open trades, the greenpoint goals and achievments aswell as your personal ballance of personal points.</p>
+<html>
 
-    <div style="max-width:600px;margin:30px auto;padding:20px;background:#f9f9f9;border:1px solid #ccc;border-radius:8px;">
-      <h4 id="goal-title" style="margin-top:0;">Community Green Points Progress</h4>
-      <p id="progress-text" style="margin:10px 0;font-size:1.1em;font-weight:bold;">Loading...</p>
-      <div style="width:100%;height:30px;background:#e0e0e0;border-radius:15px;overflow:hidden;position:relative;">
-        <div id="progress-fill" style="height:100%;background:linear-gradient(90deg, #237b08, #1e990b);width:0%;transition:width 0.5s ease;"></div>
+<head>
+  <title>Cloverville</title>
+  <link href="styles.css" rel="stylesheet" />
+  <link rel="icon" type="image/x-icon" href="img/leaveicon.png">
+  <style>
+    .side-banner {
+      position: fixed;
+      top: 70px;
+      width: 150px;
+      height: calc(100vh - 70px);
+      object-fit: cover;
+      z-index: 500;
+    }
+
+    .side-banner-left {
+      left: 0;
+      mask-image: linear-gradient(to left, transparent, white 20px);
+      -webkit-mask-image: linear-gradient(to left, transparent, white 20px);
+    }
+
+    .side-banner-right {
+      right: 0;
+      mask-image: linear-gradient(to right, transparent, white 20px);
+      -webkit-mask-image: linear-gradient(to right, transparent, white 20px);
+    }
+  </style>
+</head>
+
+<body>
+  <img src="img/-2.jpeg" class="side-banner side-banner-left" alt="Left Banner">
+  <img src="img/moestuin-1444x963-jpg-crop.jpeg" class="side-banner side-banner-right" alt="Right Banner">
+  <h3>Welcome to the official website of Cloverville.</h3>
+  <p>Here you can find some information about this beautifull town we call home. there are also pages to view the
+    current tasks, open trades, the greenpoint goals and achievments aswell as your personal ballance of personal
+    points.</p>
+
+  <div
+    style="max-width:600px;margin:30px auto;padding:20px;background:#f9f9f9;border:1px solid #ccc;border-radius:8px;">
+    <h4 id="goal-title" style="margin-top:0;">Community Green Points Progress</h4>
+    <p id="progress-text" style="margin:10px 0;font-size:1.1em;font-weight:bold;">Loading...</p>
+    <div style="width:100%;height:30px;background:#e0e0e0;border-radius:15px;overflow:hidden;position:relative;">
+      <div id="progress-fill"
+        style="height:100%;background:linear-gradient(90deg, #237b08, #1e990b);width:0%;transition:width 0.5s ease;">
       </div>
-      <p id="progress-status" style="margin:10px 0;color:#666;font-size:0.9em;"></p>
     </div>
+    <p id="progress-status" style="margin:10px 0;color:#666;font-size:0.9em;"></p>
+  </div>
 
-    <script src="funcs.js"></script>
-    <script>
-      // Load community points data
-      fetch('file_operations_community.json')
-        .then(response => response.json())
-        .then(data => {
-          const greenPoints = data.greenPoints || 0;
-          const pointGoal = data.pointGoal || 100;
-          const communityReward = data.communityReward || 'Unknown Goal';
-          const percentage = Math.min((greenPoints / pointGoal) * 100, 100);
-          
-          document.getElementById('goal-title').textContent = 'Community Goal Progress to ' + communityReward;
-          document.getElementById('progress-text').textContent = greenPoints + ' / ' + pointGoal + ' Green Points';
-          document.getElementById('progress-fill').style.width = percentage + '%';
-          document.getElementById('progress-status').textContent = 'Progress toward next community reward: ' + percentage.toFixed(1) + '%';
-        })
-        .catch(error => {
-          console.error('Error loading community points:', error);
-          document.getElementById('progress-text').textContent = 'Unable to load progress';
-          document.getElementById('progress-status').textContent = 'Please check back later';
-        });
-    </script>
-  </body>
+  <script src="funcs.js"></script>
+  <script>
+    // Load community points data
+    fetch('file_operations_community.json')
+      .then(response => response.json())
+      .then(data => {
+        const greenPoints = data.greenPoints || 0;
+        const pointGoal = data.pointGoal || 100;
+        const communityReward = data.communityReward || 'Unknown Goal';
+        const percentage = Math.min((greenPoints / pointGoal) * 100, 100);
+
+        document.getElementById('goal-title').textContent = 'Community Goal Progress to ' + communityReward;
+        document.getElementById('progress-text').textContent = greenPoints + ' / ' + pointGoal + ' Green Points';
+        document.getElementById('progress-fill').style.width = percentage + '%';
+        document.getElementById('progress-status').textContent = 'Progress toward next community reward: ' + percentage.toFixed(1) + '%';
+      })
+      .catch(error => {
+        console.error('Error loading community points:', error);
+        document.getElementById('progress-text').textContent = 'Unable to load progress';
+        document.getElementById('progress-status').textContent = 'Please check back later';
+      });
+  </script>
+</body>
+
 </html>
