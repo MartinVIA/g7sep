@@ -1,29 +1,34 @@
 package utils;
 
-import java.io.*;
-import java.nio.file.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
 import java.util.*;
 import model.*;
 
 public class JSONReader {
+
     public static List<Resident> readResidentsFromJSON(String filePath) {
         List<Resident> residents = new ArrayList<>();
         try {
             Path p = Paths.get(filePath);
-            if (!Files.exists(p))
+            if (!Files.exists(p)) {
                 return residents;
+            }
             String content = Files.readString(p, StandardCharsets.UTF_8).trim();
-            if (content.isEmpty())
+            if (content.isEmpty()) {
                 return residents;
+            }
             // Expecting an array of objects: [{"id":1,"firstName":"A","lastName":"B"},...]
             // Simple parser: split objects by '},{' after trimming brackets
-            if (content.startsWith("["))
+            if (content.startsWith("[")) {
                 content = content.substring(1);
-            if (content.endsWith("]"))
+            }
+            if (content.endsWith("]")) {
                 content = content.substring(0, content.length() - 1);
-            if (content.trim().isEmpty())
+            }
+            if (content.trim().isEmpty()) {
                 return residents;
+            }
             // Split but account for single object
             List<String> objects = splitTopLevelObjects(content);
             for (String obj : objects) {
@@ -50,29 +55,36 @@ public class JSONReader {
         Map<Integer, Integer> map = new HashMap<>();
         try {
             Path p = Paths.get(filePath);
-            if (!Files.exists(p))
+            if (!Files.exists(p)) {
                 return map;
+            }
             String content = Files.readString(p, StandardCharsets.UTF_8).trim();
-            if (content.isEmpty())
+            if (content.isEmpty()) {
                 return map;
+            }
             // Expecting object: {"1":250,"2":100}
-            if (content.startsWith("{"))
+            if (content.startsWith("{")) {
                 content = content.substring(1);
-            if (content.endsWith("}"))
+            }
+            if (content.endsWith("}")) {
                 content = content.substring(0, content.length() - 1);
-            if (content.trim().isEmpty())
+            }
+            if (content.trim().isEmpty()) {
                 return map;
+            }
             // Split by top-level commas
             String[] parts = content.split(",");
             for (String part : parts) {
                 String[] kv = part.split(":", 2);
-                if (kv.length != 2)
+                if (kv.length != 2) {
                     continue;
+                }
                 String key = kv[0].trim();
                 String val = kv[1].trim();
                 // remove quotes if present
-                if (key.startsWith("\"") && key.endsWith("\""))
+                if (key.startsWith("\"") && key.endsWith("\"")) {
                     key = key.substring(1, key.length() - 1);
+                }
                 try {
                     int id = Integer.parseInt(key);
                     int points = Integer.parseInt(val.replaceAll("\"", ""));
@@ -91,18 +103,23 @@ public class JSONReader {
         List<Task> tasks = new ArrayList<>();
         try {
             Path p = Paths.get(filePath);
-            if (!Files.exists(p))
+            if (!Files.exists(p)) {
                 return tasks;
+            }
             String content = Files.readString(p, StandardCharsets.UTF_8).trim();
-            if (content.isEmpty())
+            if (content.isEmpty()) {
                 return tasks;
+            }
             // Expecting an array of objects: [{"name":"...","type":"...","points":10},...]
-            if (content.startsWith("["))
+            if (content.startsWith("[")) {
                 content = content.substring(1);
-            if (content.endsWith("]"))
+            }
+            if (content.endsWith("]")) {
                 content = content.substring(0, content.length() - 1);
-            if (content.trim().isEmpty())
+            }
+            if (content.trim().isEmpty()) {
                 return tasks;
+            }
             List<String> objects = splitTopLevelObjects(content);
             for (String obj : objects) {
                 Map<String, String> map = parseJsonObject(obj);
@@ -139,19 +156,24 @@ public class JSONReader {
         List<Trade> trades = new ArrayList<>();
         try {
             Path p = Paths.get(filePath);
-            if (!Files.exists(p))
+            if (!Files.exists(p)) {
                 return trades;
+            }
             String content = Files.readString(p, StandardCharsets.UTF_8).trim();
-            if (content.isEmpty())
+            if (content.isEmpty()) {
                 return trades;
+            }
             // Expecting an array of objects:
             // [{"name":"...","description":"...","pointCost":10},...]
-            if (content.startsWith("["))
+            if (content.startsWith("[")) {
                 content = content.substring(1);
-            if (content.endsWith("]"))
+            }
+            if (content.endsWith("]")) {
                 content = content.substring(0, content.length() - 1);
-            if (content.trim().isEmpty())
+            }
+            if (content.trim().isEmpty()) {
                 return trades;
+            }
             List<String> objects = splitTopLevelObjects(content);
             for (String obj : objects) {
                 Map<String, String> map = parseJsonObject(obj);
@@ -181,22 +203,25 @@ public class JSONReader {
         for (int i = 0; i < content.length(); i++) {
             char c = content.charAt(i);
             cur.append(c);
-            if (c == '{')
-                depth++;
-            else if (c == '}')
+            if (c == '{') {
+                depth++; 
+            }else if (c == '}') {
                 depth--;
+            }
             if (depth == 0 && cur.length() > 0) {
                 String s = cur.toString().trim();
-                if (s.startsWith(","))
+                if (s.startsWith(",")) {
                     s = s.substring(1).trim();
+                }
                 objs.add(s);
                 cur.setLength(0);
             }
         }
         if (cur.length() > 0) {
             String s = cur.toString().trim();
-            if (!s.isEmpty())
+            if (!s.isEmpty()) {
                 objs.add(s);
+            }
         }
         return objs;
     }
@@ -204,18 +229,21 @@ public class JSONReader {
     private static Map<String, String> parseJsonObject(String obj) {
         Map<String, String> map = new HashMap<>();
         String s = obj.trim();
-        if (s.startsWith("{"))
+        if (s.startsWith("{")) {
             s = s.substring(1);
-        if (s.endsWith("}"))
+        }
+        if (s.endsWith("}")) {
             s = s.substring(0, s.length() - 1);
+        }
         // split by commas not inside quotes
         List<String> parts = new ArrayList<>();
         StringBuilder cur = new StringBuilder();
         boolean inQuotes = false;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if (c == '"')
+            if (c == '"') {
                 inQuotes = !inQuotes;
+            }
             if (c == ',' && !inQuotes) {
                 parts.add(cur.toString());
                 cur.setLength(0);
@@ -223,18 +251,22 @@ public class JSONReader {
                 cur.append(c);
             }
         }
-        if (cur.length() > 0)
+        if (cur.length() > 0) {
             parts.add(cur.toString());
+        }
         for (String part : parts) {
             String[] kv = part.split(":", 2);
-            if (kv.length != 2)
+            if (kv.length != 2) {
                 continue;
+            }
             String key = kv[0].trim();
             String val = kv[1].trim();
-            if (key.startsWith("\"") && key.endsWith("\""))
+            if (key.startsWith("\"") && key.endsWith("\"")) {
                 key = key.substring(1, key.length() - 1);
-            if (val.startsWith("\"") && val.endsWith("\""))
+            }
+            if (val.startsWith("\"") && val.endsWith("\"")) {
                 val = val.substring(1, val.length() - 1);
+            }
             map.put(key, val);
         }
         return map;

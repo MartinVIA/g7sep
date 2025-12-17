@@ -2,22 +2,8 @@
   {
     "id": 1,
     "firstName": "leon",
-    "lastName": "dk",
-    "personalPoints": 0,
-    "hasBoost": false
-  },
-  {
-    "id": 2,
-    "firstName": "asd",
-    "lastName": "asdsd",
-    "personalPoints": 0,
-    "hasBoost": false
-  },
-  {
-    "id": 2,
-    "firstName": "arew",
-    "lastName": "gareg gafr",
-    "personalPoints": 375,
+    "lastName": "de Kuijper",
+    "personalPoints": 10,
     "hasBoost": false
   }
 ]

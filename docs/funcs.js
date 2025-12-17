@@ -24,6 +24,8 @@ function createNavbar() {
         pageTitle = 'Trades';
     } else if (window.location.pathname.includes('personalpoints.html')) {
         pageTitle = 'Personal Points';
+    } else if (window.location.pathname.includes('about_us.html')) {
+        pageTitle = 'About Us';
     }
     
     if (isHomePage) {
@@ -52,7 +54,8 @@ function createNavbar() {
         { text: 'Home', href: 'index.html' },
         { text: 'Tasks', href: 'tasks.html' },
         { text: 'Trades', href: 'trades.html' },
-        { text: 'Personal Points', href: 'personalpoints.html' }
+        { text: 'Personal Points', href: 'personalpoints.html' },
+        { text: 'About Us', href: 'about_us.html' }
     ];
     
     navItems.forEach(item => {

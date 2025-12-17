@@ -1,5 +1,9 @@
 .root{
+<<<<<<< HEAD
     -fx-background-color:linear-gradient(from 0px 0px to 0px 45px, rgb(35, 139, 44), rgb(29, 99, 22) 50%, rgb(72, 180, 81) 99%, rgb(34, 97, 44));
+=======
+    -fx-background-color:linear-gradient(from 0px 0px to 0px 45px, rgb(45, 126, 52), rgb(39, 110, 33) 50%, rgb(39, 110, 33) 99%, rgb(45, 126, 52));
+>>>>>>> 5be4d1c3361ad7ca07b55cce59bedb51567fcde0
 
     /* -fx-background:#ccffff; */
 
