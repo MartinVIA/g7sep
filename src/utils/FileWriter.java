@@ -15,10 +15,11 @@ import model.TradeList;
  *
  * This class provides static helper methods for persisting residents,
  * tasks, trades, and community green points. Data is written in binary
+ * format using {@link MyFileHandler}.
+ * 
  * @author Leon de Kuijper
  * @author Adam Terelak
  * @author Martin Chavez
- * format using {@link MyFileHandler}.
  */
 public class FileWriter {
 

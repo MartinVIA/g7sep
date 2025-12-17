@@ -65,8 +65,6 @@ public class ManageResidentController {
             alert.setContentText("This will remove the resident and their corresponding information.");
             alert.showAndWait().ifPresent(response -> {
                 if (response.getButtonData().isDefaultButton()) {
-                    model.resetAllPersonalPoints();
-                    // refreshResidentsTable();
 
                     model.removeResident(resident);
                     removeResidentBtn.getScene().getWindow().hide();

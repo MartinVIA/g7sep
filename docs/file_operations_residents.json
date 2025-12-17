@@ -1,37 +1,16 @@
 [
   {
     "id": 1,
-    "firstName": "leon",
-    "lastName": "de Kuijper",
-    "personalPoints": 10,
-    "hasBoost": false
-  },
-  {
-    "id": 3,
-    "firstName": "Other",
-    "lastName": "Lasntman",
+    "firstName": "SuperLongNameForTestingReasons",
+    "lastName": "dk",
     "personalPoints": 0,
     "hasBoost": true
   },
   {
-    "id": 4,
-    "firstName": "ahahah",
-    "lastName": "hah",
-    "personalPoints": 0,
-    "hasBoost": false
-  },
-  {
-    "id": 8,
-    "firstName": "Adam",
-    "lastName": "Sigma",
-    "personalPoints": 0,
-    "hasBoost": false
-  },
-  {
-    "id": 9,
-    "firstName": "resident",
-    "lastName": "evil",
-    "personalPoints": 10,
+    "id": 10,
+    "firstName": "Sigma",
+    "lastName": "Boy",
+    "personalPoints": 23333,
     "hasBoost": false
   }
 ]

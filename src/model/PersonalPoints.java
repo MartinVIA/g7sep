@@ -128,6 +128,6 @@ public class PersonalPoints implements Serializable {
      * @return a formatted String with the current personal points
      */
     public String toString() {
-        return "Personal points: " + personalPoints;
+        return "" + personalPoints;
     }
 }

@@ -14,7 +14,6 @@ import model.*;
  * for simple, well-defined data structures.
  *
  * @author Leon de Kuijper
- * @author Adam Terelak
  * @author Martin Chavez
  */
 public class JSONReader {
