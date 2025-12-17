@@ -16,5 +16,11 @@
     "description": "tradetrstdesk",
     "pointCost": 10,
     "traderName": "Newress Mewhenn"
+  },
+  {
+    "name": "egg",
+    "description": "webo",
+    "pointCost": 5,
+    "traderName": "ahahah hah"
   }
 ]
