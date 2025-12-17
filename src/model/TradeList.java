@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 /**
  * The class containing a list of Trade objects
- *
  * @author Loke Hansen
  * @author Adam Terelak
  */
@@ -23,8 +22,7 @@ public class TradeList implements Serializable {
 
     /**
      * Returns number of trades
-     *
-     * @return List size
+     * @return list size
      */
     public int size() {
         return trades.size();
@@ -32,7 +30,6 @@ public class TradeList implements Serializable {
 
     /**
      * Adds a trade to the list
-     *
      * @param trade trade to add
      */
     public void addTrade(Trade trade) {
@@ -41,7 +38,6 @@ public class TradeList implements Serializable {
 
     /**
      * Removes a trade if present
-     *
      * @param trade trade to remove
      */
     public void removeTrade(Trade trade) {
@@ -52,7 +48,6 @@ public class TradeList implements Serializable {
 
     /**
      * Retrieves a trade by index
-     *
      * @param index Trade position
      * @return Trade object or null if out of range
      */
@@ -65,8 +60,7 @@ public class TradeList implements Serializable {
 
     /**
      * Returns a copy of trades
-     *
-     * @return List copy
+     * @return list copy
      */
     public ArrayList<Trade> getAllTrades() {
         return new ArrayList<Trade>(trades);
@@ -74,9 +68,8 @@ public class TradeList implements Serializable {
 
     /**
      * Compares a trades list object with another object
-     *
      * @param obj Object to compare
-     * @return true if the objects are equal, false otherwise
+     * @return true if the objects are equal, otherwise false
      */
     public boolean equals(Object obj) {
         if (obj == null || obj.getClass() != this.getClass()) {
@@ -89,7 +82,6 @@ public class TradeList implements Serializable {
 
     /**
      * Returns a string representation of the trades list
-     *
      * @return a formatted String with all trades' name, description, trader,
      * tradee, point cost and trade offer
      */

@@ -13,7 +13,6 @@ import model.Resident;
  * removing a boost from a resident.
  * If the resident does not have a boost, an informational
  * message is shown instead.
- *
  * @author Loke Hansen
  * @version 1.0
  */
@@ -25,7 +24,6 @@ public class RemoveBoostController {
   /**
    * Constructs a RemoveBoostController with the given
    * model and resident.
-   *
    * @param model the model manager used to access application data
    * @param resident the resident whose boost will be removed
    */
@@ -39,7 +37,6 @@ public class RemoveBoostController {
    * a boost from the resident.
    * If the resident has no boost, the scene will display
    * an informational message only.
-   *
    * @return a Scene displaying the remove boost view
    */
   public Scene createScene() {

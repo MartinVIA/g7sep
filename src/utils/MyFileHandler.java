@@ -6,12 +6,10 @@ import java.util.Scanner;
 
 /**
  * Utility class that handles low-level file operations for both text and binary files.
- *
  * This class provides reusable methods for writing and reading:
  * - text content (single string or array of strings)
  * - serialized objects in binary format (single object or array of objects)
- *
- * Higher-level utility classes such as {@link FileReader} and {@link FileWriter}
+ * Higher-level utility classes such as FileReader and FileWriter
  * use this class to persist and load application data.
  * @author Leon de Kuijper
  * @author Adam Terelak
@@ -22,7 +20,6 @@ public class MyFileHandler {
   /**
    * Writes a string to a text file.
    * If the file already exists, its content is overwritten.
-   *
    * @param fileName the name (or path) of the file to write to
    * @param str      the string to write to the file
    * @throws FileNotFoundException if the file cannot be created or opened
@@ -34,7 +31,6 @@ public class MyFileHandler {
   /**
    * Appends a string to a text file.
    * If the file does not exist, it is created.
-   *
    * @param fileName the name (or path) of the file to append to
    * @param str      the string to append to the file
    * @throws FileNotFoundException if the file cannot be created or opened
@@ -46,7 +42,6 @@ public class MyFileHandler {
   /**
    * Writes an array of strings to a text file.
    * If the file already exists, its content is overwritten.
-   *
    * @param fileName the name (or path) of the file to write to
    * @param strs     the array of strings to write to the file
    * @throws FileNotFoundException if the file cannot be created or opened
@@ -58,7 +53,6 @@ public class MyFileHandler {
   /**
    * Appends an array of strings to a text file.
    * If the file does not exist, it is created.
-   *
    * @param fileName the name (or path) of the file to append to
    * @param strs     the array of strings to append to the file
    * @throws FileNotFoundException if the file cannot be created or opened
@@ -69,7 +63,6 @@ public class MyFileHandler {
 
   /**
    * Reads the first line from a text file and returns it as a string.
-   *
    * @param fileName the name (or path) of the file to read from
    * @return the first line in the file
    * @throws FileNotFoundException if the file does not exist
@@ -92,7 +85,6 @@ public class MyFileHandler {
 
   /**
    * Reads all lines from a text file and returns them as an array of strings.
-   *
    * @param fileName the name (or path) of the file to read from
    * @return an array containing all lines from the file
    * @throws FileNotFoundException if the file does not exist
@@ -120,7 +112,6 @@ public class MyFileHandler {
 
   /**
    * Writes an object to a binary file using Java serialization.
-   *
    * @param fileName the name (or path) of the file to write to
    * @param obj      the object to serialize and save
    * @throws FileNotFoundException if the file cannot be created or opened
@@ -147,7 +138,6 @@ public class MyFileHandler {
   /**
    * Writes an array of objects to a binary file using Java serialization.
    * Objects are written in the order they appear in the array.
-   *
    * @param fileName the name (or path) of the file to write to
    * @param objs     the array of objects to serialize and save
    * @throws FileNotFoundException if the file cannot be created or opened
@@ -178,9 +168,8 @@ public class MyFileHandler {
   /**
    * Reads a single object from a binary file using Java deserialization.
    * The returned object must be cast to the correct type by the caller.
-   *
    * @param fileName the name (or path) of the file to read from
-   * @return the deserialized object, or {@code null} if the file is empty
+   * @return the deserialized object, or null if the file is empty
    * @throws FileNotFoundException  if the file does not exist
    * @throws IOException            if an I/O error occurs while reading the file
    * @throws ClassNotFoundException if the class of the serialized object                                cannot be found
@@ -214,7 +203,6 @@ public class MyFileHandler {
    * Reads all objects from a binary file using Java deserialization.
    * The returned array contains the objects in the order they were written.
    * Each object must be cast to its correct type by the caller.
-   *
    * @param fileName the name (or path) of the file to read from
    * @return an array containing all deserialized objects
    * @throws FileNotFoundException  if the file does not exist
@@ -249,9 +237,8 @@ public class MyFileHandler {
   }
 
   /**
-   * Internal helper method used by {@link #writeToTextFile(String, String)}
-   * and {@link #appendToTextFile(String, String)}.
-   *
+   * Internal helper method used by writeToTextFile(String, String)}
+   * and appendToTextFile(String, String)}.
    * @param fileName the file name (or path)
    * @param str      the string to write
    * @param append   true to append, false to overwrite
@@ -272,9 +259,8 @@ public class MyFileHandler {
   }
 
   /**
-   * Internal helper method used by {@link #writeArrayToTextFile(String, String[])}
-   * and {@link #appendArrayToTextFile(String, String[])}.
-   *
+   * Internal helper method used by writeArrayToTextFile(String, String[])
+   * and appendArrayToTextFile(String, String[]).
    * @param fileName the file name (or path)
    * @param strs     the array of strings to write
    * @param append   true to append, false to overwrite

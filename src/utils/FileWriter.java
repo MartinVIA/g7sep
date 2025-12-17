@@ -12,22 +12,19 @@ import model.TradeList;
 
 /**
  * Utility class responsible for writing application data to binary files.
- *
  * This class provides static helper methods for persisting residents,
  * tasks, trades, and community green points. Data is written in binary
  * @author Leon de Kuijper
  * @author Adam Terelak
  * @author Martin Chavez
- * format using {@link MyFileHandler}.
+ * format using MyFileHandler.
  */
 public class FileWriter {
 
   /**
    * Saves a list of residents to a binary file.
-   *
-   * The provided list of residents is wrapped in a {@link ResidentList}
+   * The provided list of residents is wrapped in a ResidentList
    * before being written to the file.
-   *
    * @param residents the list of residents to save
    * @param filePath the path to the binary residents file
    */
@@ -47,10 +44,8 @@ public class FileWriter {
 
   /**
    * Saves a list of tasks to a binary file.
-   *
-   * The provided list of tasks is wrapped in a {@link TaskList}
+   * The provided list of tasks is wrapped in a TaskList
    * before being written to the file.
-   *
    * @param tasks the list of tasks to save
    * @param filePath the path to the binary tasks file
    */
@@ -70,10 +65,8 @@ public class FileWriter {
 
   /**
    * Saves a list of trades to a binary file.
-   *
-   * The provided list of trades is wrapped in a {@link TradeList}
+   * The provided list of trades is wrapped in a TradeList
    * before being written to the file.
-   *
    * @param trades the list of trades to save
    * @param filePath the path to the binary trades file
    */
@@ -93,8 +86,7 @@ public class FileWriter {
 
   /**
    * Saves the community green points to a binary file.
-   *
-   * @param gp the {@link GreenPoints} object to save
+   * @param gp the GreenPoints object to save
    * @param filePath the path to the binary green points file
    */
   public static void saveGreenPointsToBinary(GreenPoints gp, String filePath) {

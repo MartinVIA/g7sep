@@ -13,9 +13,8 @@ import model.Resident;
 
 /**
  * Controller responsible for creating a view that allows managing a specific
- * resident. The controller provides options for changing the resident’s name,
+ * resident. The controller provides options for changing the residents name,
  * editing points, managing boost status, and removing the resident.
- *
  * @author Loke Hansen
  * @version 1.0
  */
@@ -26,7 +25,6 @@ public class ManageResidentController {
 
     /**
      * Constructs a ManageResidentController with the given model and resident.
-     *
      * @param model the model manager used to access application data
      * @param resident the resident to be managed
      */
@@ -38,7 +36,6 @@ public class ManageResidentController {
     /**
      * Creates and returns the JavaFX scene used to manage the selected
      * resident.
-     *
      * @return a Scene displaying the manage resident view
      */
     public Scene createScene() {
@@ -66,13 +63,8 @@ public class ManageResidentController {
             alert.showAndWait().ifPresent(response -> {
                 if (response.getButtonData().isDefaultButton()) {
                     model.resetAllPersonalPoints();
-                    // refreshResidentsTable();
-
                     model.removeResident(resident);
                     removeResidentBtn.getScene().getWindow().hide();
-                    // FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
-                    // JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
-
                     Alert done = new Alert(Alert.AlertType.INFORMATION);
                     done.setTitle("Resident Removed");
                     done.setHeaderText("Resident Management");
@@ -90,7 +82,7 @@ public class ManageResidentController {
     }
 
     /**
-     * Opens a popup window for changing the resident’s name.
+     * Opens a popup window for changing the residents name.
      */
     private void openChangeNamePopup() {
         Stage popup = new Stage();
@@ -103,7 +95,7 @@ public class ManageResidentController {
     }
 
     /**
-     * Opens a popup window for editing the resident’s points.
+     * Opens a popup window for editing the residents points.
      */
     private void openEditPointsPopup() {
         Stage popup = new Stage();

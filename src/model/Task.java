@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 /**
  * The class for tasks that can be completed by residents and award points
- *
  * @author Victor Tonu
  * @author Adam Terelak
  * @author Martin Chavez
@@ -18,8 +17,7 @@ public abstract class Task implements Serializable {
     private Date completeDate;
 
     /**
-     * Creates a task with zero points
-     *
+     * Creates a task and sets points to 0
      * @param name Task name
      * @param type Task type
      */
@@ -33,7 +31,6 @@ public abstract class Task implements Serializable {
 
     /**
      * Creates a task with a specific points value
-     *
      * @param name Task name
      * @param type Task type
      * @param points Points award
@@ -48,7 +45,6 @@ public abstract class Task implements Serializable {
 
     /**
      * Returns the name of the task
-     *
      * @return Task name
      */
     public String getName() {
@@ -57,8 +53,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Returns the description of the task
-     *
-     * @return Task description
+     * @return task description
      */
     public String getDescription() {
         return description;
@@ -66,17 +61,15 @@ public abstract class Task implements Serializable {
 
     /**
      * Returns the type of the task
-     *
-     * @return Task type
+     * @return task type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * Returns the points awarded when the task is completed
-     *
-     * @return Points value
+     * Returns the points awarded when the task is done
+     * @return points value
      */
     public int getPoints() {
         return points;
@@ -84,17 +77,15 @@ public abstract class Task implements Serializable {
 
     /**
      * Sets the complete date of the task
-     *
-     * @param date Date when the task was completed
+     * @param date day when the task was completed
      */
     public void setCompleteDate(Date date) {
         completeDate = date;
     }
 
     /**
-     * Returns the complete date of the task
-     *
-     * @return Date when the task was completed
+     * gets the complete date of the task
+     * @return date when the task was completed
      */
     public Date getCompleteDate() {
         return completeDate;
@@ -102,8 +93,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Sets the name of the task
-     *
-     * @param name Task name
+     * @param name task name
      */
     public void setName(String name) {
         this.name = name;
@@ -111,8 +101,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Sets the description of the task
-     *
-     * @param description Task description
+     * @param description task description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -120,7 +109,6 @@ public abstract class Task implements Serializable {
 
     /**
      * Sets the type of the task
-     *
      * @param type Task type
      */
     public void setType(String type) {
@@ -128,8 +116,7 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Sets the points awarded when the task is completed
-     *
+     * Sets the points awarded when the task is done
      * @param points Points value
      */
     public void setPoints(int points) {
@@ -139,16 +126,14 @@ public abstract class Task implements Serializable {
     /**
      * An abstract method to execute completion logic and side effects for the
      * task subtype
-     *
      * @param resident Resident completing the task
      */
     public abstract void completeTask(Resident resident);
 
     /**
      * Compares a task object with another object
-     *
-     * @param obj Object to compare
-     * @return true if the objects are equal, false otherwise
+     * @param obj object to compare
+     * @return true if the objects are equal, otherwise false
      */
     public boolean equals(Object obj) {
         if (obj == null || obj.getClass() != getClass()) {
@@ -164,7 +149,6 @@ public abstract class Task implements Serializable {
 
     /**
      * Returns a string representation of the task
-     *
      * @return a formatted string with task's name, description, type and
      * completion status
      */

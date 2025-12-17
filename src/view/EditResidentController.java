@@ -11,9 +11,8 @@ import model.Resident;
 /**
  * Controller responsible for creating a view that allows
  * editing the details of a resident.
- * The controller supports changing the resident’s name,
+ * The controller supports changing the residents name,
  * personal points, and boost status.
- *
  * @author Loke Hansen
  * @version 1.0
  */
@@ -32,7 +31,6 @@ public class EditResidentController {
   /**
    * Constructs an EditResidentController with the given
    * model and resident.
-   *
    * @param model the model manager used to access application data
    * @param resident the resident whose data will be edited
    */
@@ -43,10 +41,9 @@ public class EditResidentController {
 
   /**
    * Creates and returns the JavaFX scene used to edit
-   * the resident’s information.
+   * the residents information.
    * The scene allows changing the name, points,
    * and boost status of the resident.
-   *
    * @return a Scene displaying the edit resident view
    */
   public Scene createScene() {
@@ -98,7 +95,7 @@ public class EditResidentController {
   }
 
   /**
-   * Handles changing the resident’s first and last name.
+   * Handles changing the residents first and last name.
    * The method validates that both names are filled and
    * contain only letters before updating the resident.
    */
@@ -128,7 +125,7 @@ public class EditResidentController {
       messageLabel.setText("Name updated.");
   }
   /**
-   * Handles changing the resident’s personal points.
+   * Handles changing the residents personal points.
    * The method validates that the entered value is a
    * whole number before updating the resident.
    */
@@ -145,7 +142,7 @@ public class EditResidentController {
   }
 
   /**
-   * Handles changing the resident’s boost status.
+   * Handles changing the residents boost status.
    * The boost value is updated based on the checkbox selection.
    */
   private void handleChangeBoost() {

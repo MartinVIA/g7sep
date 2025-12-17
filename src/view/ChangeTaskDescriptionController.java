@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.ClovervilleModelManager;
 import model.Task;
 
@@ -15,7 +14,6 @@ import model.Task;
  * changing the description of a task.
  * The controller updates the task description based on
  * user input.
- *
  * @author Victor Tonu
  * @version 1.0
  */
@@ -29,7 +27,6 @@ public class ChangeTaskDescriptionController {
   /**
    * Constructs a ChangeTaskDescriptionController with the given
    * model and task.
-   *
    * @param model the model manager used to access application data
    * @param task the task whose description will be changed
    */
@@ -41,7 +38,6 @@ public class ChangeTaskDescriptionController {
   /**
    * Creates and returns the JavaFX scene used to change
    * the description of the task.
-   *
    * @return a Scene displaying the change task description view
    */
   public Scene createScene() {

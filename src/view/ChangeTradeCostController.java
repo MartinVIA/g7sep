@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.Trade;
 
 /**
@@ -14,7 +13,6 @@ import model.Trade;
  * changing the point cost of a trade.
  * The controller validates the input before applying
  * the new cost and notifies a callback when saved.
- *
  * @author Loke Hansen
  * @version 1.0
  */
@@ -29,7 +27,6 @@ public class ChangeTradeCostController {
   /**
    * Constructs a ChangeTradeCostController with the given
    * trade and save callback.
-   *
    * @param trade the trade whose point cost will be changed
    * @param onSaved a callback executed after the cost is successfully saved
    */
@@ -41,7 +38,6 @@ public class ChangeTradeCostController {
   /**
    * Creates and returns the JavaFX scene used to change
    * the point cost of a trade.
-   *
    * @return a Scene displaying the change trade cost view
    */
   public Scene createScene() {

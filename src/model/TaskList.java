@@ -24,7 +24,6 @@ public class TaskList implements Serializable {
 
     /**
      * Returns number of tasks
-     *
      * @return List size
      */
     public int size() {
@@ -33,7 +32,6 @@ public class TaskList implements Serializable {
 
     /**
      * Adds a task to the list
-     *
      * @param task Task to add
      */
     public void addTask(Task task) {
@@ -42,8 +40,7 @@ public class TaskList implements Serializable {
 
     /**
      * Removes a task if present
-     *
-     * @param task Task to remove
+     * @param task task to remove
      */
     public void removeTask(Task task) {
         if (task != null) {
@@ -53,8 +50,7 @@ public class TaskList implements Serializable {
 
     /**
      * Removes a task by index when valid
-     *
-     * @param index Task position to remove
+     * @param index task position to remove
      */
     public void removeTask(int index) {
         if (index >= 0 && index < tasks.size()) {
@@ -64,9 +60,8 @@ public class TaskList implements Serializable {
 
     /**
      * Retrieves a task by index
-     *
-     * @param index Task position
-     * @return Task or null if out of range
+     * @param index task position
+     * @return task or null if out of range
      */
     public Task getTask(int index) {
         if (index < tasks.size() && index >= 0) {
@@ -77,7 +72,6 @@ public class TaskList implements Serializable {
 
     /**
      * Returns a copy of the tasks list
-     *
      * @return List copy
      */
     public ArrayList<Task> getAllTasks() {
@@ -86,9 +80,8 @@ public class TaskList implements Serializable {
 
     /**
      * Compares a tasks list object with another object
-     *
      * @param obj Object to compare
-     * @return true if the objects are equal, false otherwise
+     * @return true if the objects are equal, otherwise false
      */
     public boolean equals(Object obj) {
         if (obj == null || obj.getClass() != this.getClass()) {
@@ -101,7 +94,6 @@ public class TaskList implements Serializable {
 
     /**
      * Returns a string representation of the tasks list
-     *
      * @return a formatted String with all tasks' names, descriptions, types and
      * completion status
      */

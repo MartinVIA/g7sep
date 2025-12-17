@@ -14,7 +14,6 @@ import model.Task;
  * task. The controller provides options for modifying task details, changing
  * its type, marking it as completed, and refreshing related views when changes
  * occur.
- *
  * @author Victor Tonu
  * @version 1.0
  */
@@ -27,7 +26,6 @@ public class ManageTaskController {
     /**
      * Constructs a ManageTaskController with the given model, task, and refresh
      * callback.
-     *
      * @param model the model manager used to access application data
      * @param task the task to be managed
      * @param refreshCallback a callback executed after task changes
@@ -40,7 +38,6 @@ public class ManageTaskController {
 
     /**
      * Creates and returns the JavaFX scene used to manage the selected task.
-     *
      * @return a Scene displaying the manage task view
      */
     public Scene createScene() {

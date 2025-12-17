@@ -14,8 +14,7 @@ import model.Resident;
  * Controller responsible for creating a view that allows
  * editing the personal points of a resident.
  * The controller validates the input before updating
- * the resident’s points.
- *
+ * the residents points.
  * @author Loke Hansen
  * @version 1.0
  */
@@ -27,7 +26,6 @@ public class EditPointsController {
   /**
    * Constructs an EditPointsController with the given
    * model and resident.
-   *
    * @param model the model manager used to access application data
    * @param resident the resident whose personal points will be edited
    */
@@ -39,7 +37,6 @@ public class EditPointsController {
   /**
    * Creates and returns the JavaFX scene used to edit
    * the personal points of a resident.
-   *
    * @return a Scene displaying the edit points view
    */
   public Scene createScene() {

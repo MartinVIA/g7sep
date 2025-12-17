@@ -57,7 +57,7 @@ public class Resident implements Serializable {
 
     /**
      * Returns the unique ID of the resident
-     * @return Unique ID
+     * @return ID
      */
     public int getId() {
         return id;
@@ -81,7 +81,7 @@ public class Resident implements Serializable {
 
     /**
      * Returns if the resident has an active boost
-     * @return True if boost is active, false otherwise
+     * @return True if boost is active, otherwise false
      */
     public boolean getHasBoost() {
         return hasBoost;
@@ -89,7 +89,6 @@ public class Resident implements Serializable {
 
     /**
      * Returns the personal points balance
-     *
      * @return Personal points
      */
     public int getPersonalPoints() {
@@ -98,7 +97,6 @@ public class Resident implements Serializable {
 
     /**
      * Returns the date of the most recent community task completion
-     *
      * @return Date of latest community task, or null if none
      */
     public Date getLatestTask() {
@@ -107,7 +105,6 @@ public class Resident implements Serializable {
 
     /**
      * Returns the date of the most recent green action completion
-     *
      * @return Date of latest green action, or null if none
      */
     public Date getLatestGreenAction() {
@@ -116,7 +113,6 @@ public class Resident implements Serializable {
 
     /**
      * Updates the first name
-     *
      * @param firstName New first name
      */
     public void setFirstName(String firstName) {
@@ -125,7 +121,6 @@ public class Resident implements Serializable {
 
     /**
      * Updates the last name
-     *
      * @param lastName New last name
      */
     public void setLastName(String lastName) {
@@ -134,7 +129,6 @@ public class Resident implements Serializable {
 
     /**
      * Enables or disables the boost flag
-     *
      * @param hasBoost New boost state
      */
     public void setBoost(boolean hasBoost) {
@@ -143,7 +137,6 @@ public class Resident implements Serializable {
 
     /**
      * Overwrites the personal points balance
-     *
      * @param points New balance
      */
     public void setPersonalPoints(int points) {
@@ -151,8 +144,7 @@ public class Resident implements Serializable {
     }
 
     /**
-     * Adds points to the resident balance
-     *
+     * Adds points to the residents balance
      * @param points Points to add
      */
     public void addPersonalPoints(int points) {
@@ -160,15 +152,14 @@ public class Resident implements Serializable {
     }
 
     /**
-     * Resets personal points to zero
+     * sets personal points to zero
      */
     public void resetPersonalPoints() {
         personalPoints.resetPoints();
     }
 
     /**
-     * Sets the date of the most recent community task completion
-     *
+     * Sets the date of the most recent community task compleeted
      * @param latestTask Completion date
      */
     public void setLatestTask(Date latestTask) {
@@ -177,7 +168,6 @@ public class Resident implements Serializable {
 
     /**
      * Sets the date of the most recent green action completion
-     *
      * @param latestGreenAction Completion date
      */
     public void setLatestGreenAction(Date latestGreenAction) {
@@ -186,7 +176,6 @@ public class Resident implements Serializable {
 
     /**
      * Compares a resident object with another object
-     *
      * @param obj Object to compare
      * @return true if the objects are equal, false otherwise
      */
@@ -205,8 +194,7 @@ public class Resident implements Serializable {
 
     /**
      * Returns a string representation of the resident
-     *
-     * @return a Formatted string with resident details
+     * @return a formatted string with residents details
      */
     public String toString() {
         return "Resident id: " + id

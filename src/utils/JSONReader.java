@@ -7,12 +7,10 @@ import model.*;
 
 /**
  * Utility class responsible for reading application data from JSON files.
- *
  * This class provides static helper methods for loading residents, personal
  * points, tasks, and trades from JSON-formatted files. The JSON parsing is
  * implemented manually without the use of external libraries and is intended
  * for simple, well-defined data structures.
- *
  * @author Leon de Kuijper
  * @author Adam Terelak
  * @author Martin Chavez
@@ -21,12 +19,10 @@ public class JSONReader {
 
   /**
    * Reads a list of residents from a JSON file.
-   *
    * The JSON file is expected to contain an array of objects with fields such
    * as id, firstName, and lastName.
-   *
    * @param filePath the path to the JSON residents file
-   * @return a list of {@link Resident} objects parsed from the file
+   * @return a list of Resident objects parsed from the file
    */
   public static List<Resident> readResidentsFromJSON(String filePath) {
     List<Resident> residents = new ArrayList<>();
@@ -62,7 +58,6 @@ public class JSONReader {
           Resident r = new Resident(id, last, first, 0);
           residents.add(r);
         } catch (Exception e) {
-          // Invalid resident entry is skipped
         }
       }
     } catch (Exception e) {
@@ -73,10 +68,8 @@ public class JSONReader {
 
   /**
    * Reads personal points for residents from a JSON file.
-   *
    * The JSON file is expected to contain key-value pairs where the key
    * represents the resident ID and the value represents the number of points.
-   *
    * @param filePath the path to the JSON personal points file
    * @return a map containing resident IDs and their corresponding points
    */
@@ -121,7 +114,6 @@ public class JSONReader {
           int points = Integer.parseInt(val.replaceAll("\"", ""));
           map.put(id, points);
         } catch (NumberFormatException e) {
-          // Invalid entry is skipped
         }
       }
     } catch (Exception e) {
@@ -132,13 +124,12 @@ public class JSONReader {
 
   /**
    * Reads a list of tasks from a JSON file.
-   *
    * The JSON file is expected to contain an array of task objects with name,
    * type, and points fields. The task type determines whether a
-   * {@link GreenActions} or {@link CommunityTasks} object is created.
+   * GreenActions or CommunityTasks object is created.
    *
    * @param filePath the path to the JSON tasks file
-   * @return a list of {@link Task} objects parsed from the file
+   * @return a list of Task objects parsed from the file
    */
   public static List<Task> readTasksFromJSON(String filePath) {
     List<Task> tasks = new ArrayList<>();
@@ -191,12 +182,10 @@ public class JSONReader {
 
   /**
    * Reads a list of trades from a JSON file.
-   *
    * The JSON file is expected to contain an array of trade objects with name,
    * description, and pointCost fields.
-   *
    * @param filePath the path to the JSON trades file
-   * @return a list of {@link Trade} objects parsed from the file
+   * @return a list of Trade objects parsed from the file
    */
   public static List<Trade> readTradesFromJSON(String filePath) {
     List<Trade> trades = new ArrayList<>();
@@ -241,7 +230,6 @@ public class JSONReader {
 
   /**
    * Splits a JSON array string into individual top-level JSON objects.
-   *
    * @param content the JSON content without surrounding brackets
    * @return a list of JSON object strings
    */
@@ -271,7 +259,6 @@ public class JSONReader {
 
   /**
    * Parses a single JSON object string into a key-value map.
-   *
    * @param obj the JSON object string
    * @return a map containing field names and their values
    */

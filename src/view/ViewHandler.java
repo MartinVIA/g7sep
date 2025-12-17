@@ -7,7 +7,6 @@ import model.ClovervilleModelManager;
  * Handles switching between different views in the application.
  * This class maintains a reference to the primary stage and
  * is responsible for opening the main resident view at startup.
- *
  * @author Adam Terelak
  * @author Leon de Kuijper
  * @author Martin Chavez
@@ -25,7 +24,6 @@ public class ViewHandler {
 
   /**
    * Constructs a ViewHandler with the given model.
-   *
    * @param model the model manager used to share data between views
    */
   public ViewHandler(ClovervilleModelManager model) {
@@ -35,7 +33,6 @@ public class ViewHandler {
   /**
    * Starts the view handler by setting the main stage
    * and opening the initial resident view.
-   *
    * @param stage the primary stage of the application
    */
   public void start(Stage stage) {

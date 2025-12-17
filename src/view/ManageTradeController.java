@@ -11,9 +11,8 @@ import model.Trade;
 
 /**
  * Controller responsible for creating a view that allows managing a specific
- * trade. The controller provides options for changing the trade’s name,
+ * trade. The controller provides options for changing the trades name,
  * description, and point cost.
- *
  * @author Loke Hansen
  * @version 1.0
  */
@@ -26,7 +25,6 @@ public class ManageTradeController {
     /**
      * Constructs a ManageTradeController with the given model, trade, and close
      * callback.
-     *
      * @param model the model manager used to access application data
      * @param trade the trade to be managed
      * @param onClose a callback executed when changes are made
@@ -39,7 +37,6 @@ public class ManageTradeController {
 
     /**
      * Creates and returns the JavaFX scene used to manage the selected trade.
-     *
      * @return a Scene displaying the manage trade view
      */
     public Scene createScene() {

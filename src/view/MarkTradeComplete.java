@@ -1,7 +1,6 @@
 package view;
 
-import java.util.Observable;
-
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.collections.ObservableList;
 import model.ClovervilleModelManager;
 import model.Resident;
 import model.Trade;
@@ -18,10 +16,9 @@ import model.Trade;
  * Controller responsible for creating a view that allows
  * marking a trade as completed.
  * The controller lets the user select one or more residents
- * and transfers points between the selected resident(s) and
+ * and transfers points between the selected resident and
  * the trade owner. The trade can optionally be removed after
  * completion.
- *
  * @author Loke Hansen
  * @version 1.0
  */
@@ -47,7 +44,6 @@ public class MarkTradeComplete {
    * the trade as completed.
    * The user can select multiple residents and choose whether
    * to keep or delete the trade after completion.
-   *
    * @return a Scene displaying the mark trade complete view
    */
   public Scene createScene() {
