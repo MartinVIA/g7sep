@@ -19,7 +19,6 @@ public class Trade implements Serializable {
 
   /**
    * Creates a trade defined by points
-   * 
    * @param name        Trade name
    * @param description Trade description
    * @param trader      Resident offering the trade
@@ -53,8 +52,7 @@ public class Trade implements Serializable {
 
   /**
    * Returns the name of the trade
-   * 
-   * @return Trade name
+   * @return name
    */
   public String getName() {
     return name;
@@ -62,7 +60,6 @@ public class Trade implements Serializable {
 
   /**
    * Returns the description of the trade
-   * 
    * @return Trade description
    */
   public String getDescription() {
@@ -70,17 +67,15 @@ public class Trade implements Serializable {
   }
 
   /**
-   * Returns the trader's first and last name
-   * 
-   * @return Trader's full name
+   * Returns the traders first and last name
+   * @return traders full name
    */
   public String getTraderName() {
     return trader.getFirstName() + " " + trader.getLastName();
   }
 
   /**
-   * Returns the trader of the trade
-   * 
+   * Returns the trader
    * @return Trader resident
    */
   public Resident getTrader() {
@@ -88,8 +83,7 @@ public class Trade implements Serializable {
   }
 
   /**
-   * Returns the trader's ID
-   * 
+   * Returns the traders ID
    * @return Trader id
    */
   public int getTraderId() {
@@ -98,17 +92,15 @@ public class Trade implements Serializable {
 
   /**
    * Returns the point cost of the trade
-   * 
-   * @return Point cost
+   * @return point cost
    */
   public int getPointCost() {
     return pointCost;
   }
 
   /**
-   * Returns the tradee's first and last name
-   * 
-   * @return Tradee's full name
+   * Returns the tradees full name
+   * @return tradees full name
    */
   public String getTradeeName() {
     return tradee.getFirstName() + " " + tradee.getLastName();
@@ -116,8 +108,7 @@ public class Trade implements Serializable {
   
   /**
    * Returns the tradee of the trade
-   * 
-   * @return Tradee resident
+   * @return tradee resident
   */
   public Resident getTradee() {
    return tradee;
@@ -125,8 +116,7 @@ public class Trade implements Serializable {
   
   /**
    * Returns the name of the trade
-   * 
-   * @return Trade name
+   * @return trade name
   */
   public String getStringName() {
     return name;
@@ -134,8 +124,7 @@ public class Trade implements Serializable {
   
   /**
    * Sets the name of the trade
-   * 
-   * @param name New trade name
+   * @param name New updated trade name
    */
   public void setName(String name) {
     this.name = name;
@@ -143,8 +132,7 @@ public class Trade implements Serializable {
 
   /**
    * Sets the description of the trade
-   * 
-   * @param description New trade description
+   * @param description New updated trade description
    */
   public void setDescription(String description) {
     this.description = description;
@@ -152,8 +140,7 @@ public class Trade implements Serializable {
 
   /**
    * Sets the point cost of the trade
-   * 
-   * @param pointCost New point cost
+   * @param pointCost New updated point cost
    */
   public void setPointCost(int pointCost) {
     this.pointCost = pointCost;
@@ -161,8 +148,7 @@ public class Trade implements Serializable {
 
   /**
    * Sets the trader of the trade
-   * 
-   * @param trader New trader resident
+   * @param trader New updated trader resident
    */
   public void setTrader(Resident trader) {
     this.trader = trader;
@@ -170,8 +156,7 @@ public class Trade implements Serializable {
 
   /**
    * Sets the tradee of the trade
-   * 
-   * @param tradee New tradee resident
+   * @param tradee New updated tradee resident
    */
   public void setTradee(Resident tradee) {
     this.tradee = tradee;
@@ -179,7 +164,6 @@ public class Trade implements Serializable {
 
   /**
    * Completes the trade by setting the tradee and marking completion
-   * 
    * @param tradee Resident accepting the trade
    */
   public void completeTrade(Resident tradee) {
@@ -189,9 +173,8 @@ public class Trade implements Serializable {
 
   /**
    * Compares a trade object with another object
-   * 
    * @param obj Object to compare
-   * @return true if the objects are equal, false otherwise
+   * @return true if the objects are equal, otherwise false
    */
   public boolean equals(Object obj) {
     if (obj == null || obj.getClass() != getClass()) {
@@ -206,9 +189,7 @@ public class Trade implements Serializable {
   }
 
   /**
-   * Returns a string representation of the trade
-   * 
-   *         
+   * Returns a string representation of the trade     
    * @return a formatted string with trade's name, description, trader, tradee, point cost and trade offer
    */
   public String toString() {

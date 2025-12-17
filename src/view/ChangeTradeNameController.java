@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.Trade;
 
 /**
@@ -14,7 +13,6 @@ import model.Trade;
  * changing the name of a trade.
  * The controller validates the input and updates the trade
  * name when saved.
- *
  * @author Loke Hansen
  * @version 1.0
  */
@@ -29,7 +27,6 @@ public class ChangeTradeNameController {
   /**
    * Constructs a ChangeTradeNameController with the given
    * trade and save callback.
-   *
    * @param trade the trade whose name will be changed
    * @param onSaved a callback executed after the name is successfully saved
    */
@@ -41,7 +38,6 @@ public class ChangeTradeNameController {
   /**
    * Creates and returns the JavaFX scene used to change
    * the name of a trade.
-   *
    * @return a Scene displaying the change trade name view
    */
   public Scene createScene() {

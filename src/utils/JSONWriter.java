@@ -6,7 +6,6 @@ import model.*;
 
 /**
  * Utility class responsible for writing application data to JSON files.
- *
  * This class provides static helper methods for exporting residents, tasks,
  * trades, and community green points into JSON format. The JSON is generated
  * manually using string builders to maintain full control over the output
@@ -18,10 +17,8 @@ public class JSONWriter {
 
   /**
    * Writes a list of residents to a JSON file.
-   *
    * Each resident is stored as a JSON object containing id, first name,
    * last name, personal points, and boost status.
-   *
    * @param residents the list of residents to save
    * @param filePath the destination file path
    */
@@ -47,10 +44,8 @@ public class JSONWriter {
 
   /**
    * Writes only personal points data for residents to a JSON file.
-   *
    * This method exports a simplified representation focused on resident IDs
    * and their corresponding personal points.
-   *
    * @param residents the list of residents containing point data
    * @param filePath the destination file path
    */
@@ -71,9 +66,7 @@ public class JSONWriter {
 
   /**
    * Writes a list of tasks to a JSON file.
-   *
    * Each task is stored with its name, description, type, and awarded points.
-   *
    * @param tasks the list of tasks to save
    * @param filePath the destination file path
    */
@@ -98,10 +91,8 @@ public class JSONWriter {
 
   /**
    * Writes a list of trades to a JSON file.
-   *
    * Each trade includes its name, description, point cost,
    * and the name of the resident who initiated the trade.
-   *
    * @param trades the list of trades to save
    * @param filePath the destination file path
    */
@@ -127,10 +118,8 @@ public class JSONWriter {
 
   /**
    * Writes community green points data to a JSON file.
-   *
    * The JSON object includes the current green points, the point goal,
    * and the community reward description.
-   *
    * @param gp the GreenPoints object containing community data
    * @param filePath the destination file path
    */
@@ -146,7 +135,6 @@ public class JSONWriter {
 
   /**
    * Writes a string of content to a file.
-   *
    * @param content the content to write
    * @param filePath the destination file path
    */
@@ -161,7 +149,6 @@ public class JSONWriter {
 
   /**
    * Escapes special characters in strings to ensure valid JSON output.
-   *
    * @param str the input string
    * @return the escaped string safe for JSON formatting
    */

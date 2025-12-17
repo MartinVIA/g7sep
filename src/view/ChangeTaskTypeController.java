@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.ClovervilleModelManager;
 import model.Task;
 
@@ -15,7 +14,6 @@ import model.Task;
  * changing the type of a task.
  * The controller lets the user select a new task type
  * and applies the change if confirmed.
- *
  * @author Victor Tonu
  * @version 1.0
  */
@@ -27,7 +25,6 @@ public class ChangeTaskTypeController {
   /**
    * Constructs a ChangeTaskTypeController with the given
    * model and task.
-   *
    * @param model the model manager used to access application data
    * @param task the task whose type will be changed
    */
@@ -41,7 +38,6 @@ public class ChangeTaskTypeController {
    * the type of a task.
    * The scene allows the user to select between the
    * available task types and save or cancel the change.
-   *
    * @return a Scene displaying the change task type view
    */
   public Scene createScene() {

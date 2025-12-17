@@ -16,7 +16,6 @@ import model.Resident;
  * Controller responsible for creating the main resident view. The view displays
  * a list of residents and provides functionality for adding new residents and
  * awarding personal points to a selected resident.
- *
  * @author Loke Hansen
  * @version 1.0
  */
@@ -32,7 +31,6 @@ public class ResidentViewController {
 
     /**
      * Constructs a ResidentViewController with the given model.
-     *
      * @param model the model manager used to access and modify resident data
      */
     public ResidentViewController(ClovervilleModelManager model) {
@@ -42,7 +40,6 @@ public class ResidentViewController {
     /**
      * Creates and returns the JavaFX scene showing the resident list and
      * controls for adding residents and awarding points.
-     *
      * @return a Scene displaying the resident view
      */
     public Scene createScene() {

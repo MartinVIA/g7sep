@@ -21,7 +21,6 @@ import utils.JSONWriter;
  * marking a task as completed by a selected resident.
  * The controller handles point rewards, boost logic,
  * and persistence of updated data.
- *
  * @author Victor Tonu
  * @version 1.0
  */
@@ -33,7 +32,6 @@ public class MarkTaskComplete {
   /**
    * Constructs a MarkTaskComplete controller with the given
    * model and task.
-   *
    * @param model the model manager used to access application data
    * @param task the task to be marked as completed
    */
@@ -47,7 +45,6 @@ public class MarkTaskComplete {
    * a task as completed.
    * The user selects a resident and chooses whether
    * to keep or delete the task after completion.
-   *
    * @return a Scene displaying the mark task complete view
    */
   public Scene createScene() {
@@ -98,7 +95,6 @@ public class MarkTaskComplete {
    * Otherwise, personal points are awarded and boost logic
    * is applied when applicable.
    * Updated data is saved to both binary and JSON files.
-   *
    * @param resident the resident who completed the task
    */
   private void completeTaskForResident(Resident resident) {

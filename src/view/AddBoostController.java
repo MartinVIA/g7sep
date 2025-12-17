@@ -14,7 +14,6 @@ import model.Resident;
  * to be applied to a specific resident.
  * If the resident already has a boost, the view will instead display
  * an informational message and prevent further interaction.
- *
  * @author Loke Hansen
  * @version 1.0
  */
@@ -25,7 +24,6 @@ public class AddBoostController {
 
   /**
    * Constructs an AddBoostController with the given model and resident.
-   *
    * @param model the model manager used to access application data
    * @param resident the resident for whom a boost may be applied
    */
@@ -37,13 +35,10 @@ public class AddBoostController {
   /**
    * Creates and returns the JavaFX scene used to apply a boost
    * to the resident.
-   * <p>
    * If the resident already has a boost, the scene will only display
    * a message informing the user that no boost is available.
    * Otherwise, the scene allows the user to apply a boost by pressing
    * a button.
-   * </p>
-   *
    * @return a Scene displaying the boost application view
    */
   public Scene createScene() {
@@ -52,7 +47,6 @@ public class AddBoostController {
     root.setPadding(new Insets(10));
     Label msg = new Label();
 
-    // If they already have a boost → show message, nothing to do
     if (resident.getHasBoost()) {
       msg.getStyleClass().add("title");
       root.setPadding(new Insets(0));

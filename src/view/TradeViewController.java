@@ -16,7 +16,6 @@ import model.Resident;
  * Controller responsible for creating a view that allows creating new trades.
  * The view lets the user enter trade details and select a resident who requests
  * the trade.
- *
  * @author Loke Hansen
  * @version 1.0
  */
@@ -31,7 +30,6 @@ public class TradeViewController {
 
     /**
      * Constructs a TradeViewController with the given model.
-     *
      * @param model the model manager used to access and modify trade data
      */
     public TradeViewController(ClovervilleModelManager model) {
@@ -40,7 +38,6 @@ public class TradeViewController {
 
     /**
      * Creates and returns the JavaFX scene used to create a new trade.
-     *
      * @return a Scene displaying the trade creation view
      */
     public Scene createScene() {

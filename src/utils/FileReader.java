@@ -13,10 +13,9 @@ import model.TradeList;
 /**
  * Utility class responsible for reading persisted application data
  * from binary files and converting them into usable model objects.
- *
  * The class provides static helper methods for loading residents,
  * tasks, trades, and community green points at application startup.
- * All file handling is delegated to {@link MyFileHandler}.
+ * All file handling is delegated to MyFileHandler.
  * @author Leon de Kuijper
  * @author Adam Terelak
  * @author Martin Chavez
@@ -25,13 +24,11 @@ public class FileReader {
 
   /**
    * Reads a list of residents from a binary file.
-   *
-   * The binary file is expected to contain a {@link ResidentList}
+   * The binary file is expected to contain a ResidentList
    * object. If the file does not exist or cannot be read, an empty
    * list is returned.
-   *
    * @param filePath the path to the binary residents file
-   * @return an {@link ArrayList} containing all loaded residents
+   * @return an ArrayList containing all loaded residents
    */
   public static ArrayList<Resident> readResidentsFromBinary(String filePath) {
     ResidentList residentList = new ResidentList();
@@ -47,13 +44,11 @@ public class FileReader {
 
   /**
    * Reads a list of tasks from a binary file.
-   *
-   * The binary file is expected to contain a {@link TaskList}
+   * The binary file is expected to contain a TaskList
    * object. If the file does not exist or cannot be read,
    * an empty list is returned.
-   *
    * @param filePath the path to the binary tasks file
-   * @return an {@link ArrayList} containing all loaded tasks
+   * @return an ArrayList containing all loaded tasks
    */
   public static ArrayList<Task> readTasksFromBinary(String filePath) {
     TaskList taskList = new TaskList();
@@ -69,13 +64,11 @@ public class FileReader {
 
   /**
    * Reads a list of trades from a binary file.
-   *
-   * The binary file is expected to contain a {@link TradeList}
+   * The binary file is expected to contain a TradeList
    * object. If the file does not exist or cannot be read,
    * an empty list is returned.
-   *
    * @param filePath the path to the binary trades file
-   * @return an {@link ArrayList} containing all loaded trades
+   * @return an ArrayList containing all loaded trades
    */
   public static ArrayList<Trade> readTradesFromBinary(String filePath) {
     TradeList tradeList = new TradeList();
@@ -91,13 +84,11 @@ public class FileReader {
 
   /**
    * Reads community green points from a binary file.
-   *
-   * The binary file is expected to contain a {@link GreenPoints}
+   * The binary file is expected to contain a GreenPoints
    * object. If the file does not exist or cannot be read,
-   * {@code null} is returned.
-   *
+   * null is returned.
    * @param filePath the path to the binary green points file
-   * @return a {@link GreenPoints} object, or {@code null} if loading fails
+   * @return a GreenPoints object, or null if loading fails
    */
   public static GreenPoints readGreenPointsFromBinary(String filePath) {
     GreenPoints greenPoints = null;

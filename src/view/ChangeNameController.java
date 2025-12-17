@@ -13,7 +13,6 @@ import model.Resident;
  * Controller responsible for creating a view that allows changing the first and
  * last name of a resident. The controller validates the input before applying
  * the name changes to ensure correctness.
- *
  * @author Loke Hansen
  * @version 1.0
  */
@@ -25,7 +24,6 @@ public class ChangeNameController {
     /**
      * Constructs a ChangeNameController with the given model and resident whose
      * name can be changed.
-     *
      * @param model the model manager used to access application data
      * @param resident the resident whose name will be updated
      */
@@ -38,7 +36,6 @@ public class ChangeNameController {
      * Creates and returns the JavaFX scene used to change the resident’s first
      * and last name. The method validates that both names are filled, contain
      * only letters, and differ from the current name.
-     *
      * @return a Scene displaying the change name view
      */
     public Scene createScene() {

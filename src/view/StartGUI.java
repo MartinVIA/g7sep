@@ -29,7 +29,6 @@ import utils.JSONWriter;
  * Main JavaFX application window for Cloverville. This class loads stored data,
  * builds the primary user interface, and provides navigation between residents,
  * trades, tasks, and community points.
- *
  * @author Adam Terelak
  * @author Leon de Kuijper
  * @author Martin Chavez
@@ -105,15 +104,13 @@ public class StartGUI extends Application {
     /**
      * Starts the JavaFX application. The method initializes the model, loads
      * persisted data from files, builds the GUI layout, and displays the main
-     * application window.
-     *
+     * application window, and loads files from binary.
      * @param primaryStage the main stage provided by the JavaFX runtime
      */
     @Override
     public void start(Stage primaryStage) {
         model = new ClovervilleModelManager();
 
-        // Load data from binary files
         try {
             System.out.println("Loading data from binary files...");
             ArrayList<Resident> residents = FileReader.readResidentsFromBinary("residents.bin");
@@ -527,8 +524,7 @@ public class StartGUI extends Application {
 
     /**
      * Launches the JavaFX application.
-     *
-     * @param args command-line arguments passed to the application
+     * @param args passes comand line arguments to the application
      */
     public static void main(String[] args) {
         launch(args);

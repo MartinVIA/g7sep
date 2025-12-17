@@ -17,7 +17,6 @@ import model.Task;
  * Controller responsible for creating a view that displays tasks and allows the
  * user to add new tasks. The controller shows a list of existing tasks and
  * provides input fields for task name, description, type, and points.
- *
  * @author Victor Țonu
  * @version 1.0
  */
@@ -34,7 +33,6 @@ public class TaskViewController {
 
     /**
      * Constructs a TaskViewController with the given model.
-     *
      * @param model the model manager used to access and modify task data
      */
     public TaskViewController(ClovervilleModelManager model) {
@@ -43,7 +41,6 @@ public class TaskViewController {
 
     /**
      * Creates and returns the JavaFX scene for the task view.
-     *
      * @return a Scene displaying the task view
      */
     public Scene createScene() {
@@ -53,7 +50,6 @@ public class TaskViewController {
     /**
      * Creates and returns the main layout for the task view. The layout
      * contains a task list and controls for adding new tasks.
-     *
      * @return a VBox containing the task view layout
      */
     public VBox createView() {
