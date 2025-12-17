@@ -43,7 +43,7 @@ public class EditPointsController {
    * @return a Scene displaying the edit points view
    */
   public Scene createScene() {
-      Label titleLabel = new Label("New points for resident: "+resident.getLastName()+" "+resident.getLastName());
+      Label titleLabel = new Label("New points for resident: "+resident.getFirstName()+" "+resident.getLastName());
       titleLabel.getStyleClass().add("title");
 
 
