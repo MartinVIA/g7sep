@@ -18,7 +18,9 @@ function createNavbar() {
     
     // Get page title based on current page
     let pageTitle = 'CloverVille';
-    if (window.location.pathname.includes('tasks.html')) {
+    if (window.location.pathname.includes('History.html')) {
+        pageTitle = 'History';
+    } else if (window.location.pathname.includes('tasks.html')) {
         pageTitle = 'Tasks';
     } else if (window.location.pathname.includes('trades.html')) {
         pageTitle = 'Trades';
@@ -51,6 +53,7 @@ function createNavbar() {
     navList.className = 'nav-list';
     
     const navItems = [
+        { text: 'History', href: 'History.html' },
         { text: 'Home', href: 'index.html' },
         { text: 'Tasks', href: 'tasks.html' },
         { text: 'Trades', href: 'trades.html' },
