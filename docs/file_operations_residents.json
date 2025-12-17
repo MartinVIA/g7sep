@@ -1,9 +1,43 @@
 [
   {
     "id": 1,
+<<<<<<< HEAD
     "firstName": "leon",
     "lastName": "de Kuijper",
     "personalPoints": 10,
+=======
+    "firstName": "SuperLongNameForTestingReasons",
+    "lastName": "dk",
+    "personalPoints": 0,
+    "hasBoost": true
+  },
+  {
+    "id": 3,
+    "firstName": "Other",
+    "lastName": "Lasntman",
+    "personalPoints": 0,
+    "hasBoost": true
+  },
+  {
+    "id": 4,
+    "firstName": "ahahah",
+    "lastName": "hah",
+    "personalPoints": 10,
+    "hasBoost": false
+  },
+  {
+    "id": 8,
+    "firstName": "Adam",
+    "lastName": "Sigma",
+    "personalPoints": 0,
+    "hasBoost": false
+  },
+  {
+    "id": 9,
+    "firstName": "resident",
+    "lastName": "evil",
+    "personalPoints": 0,
+>>>>>>> 5ddce2b9b5d8ae4b4888a815c1f30aaedfeec26b
     "hasBoost": false
   }
 ]

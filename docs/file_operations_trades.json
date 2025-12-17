@@ -4,5 +4,17 @@
     "description": "Trade desc",
     "pointCost": 10,
     "traderName": "leon dk"
+  },
+  {
+    "name": "I can clean your house",
+    "description": "I will use ajax",
+    "pointCost": 90,
+    "traderName": "Newress Mewhenn"
+  },
+  {
+    "name": "tradetest",
+    "description": "tradetrstdesk",
+    "pointCost": 10,
+    "traderName": "Newress Mewhenn"
   }
 ]

@@ -9,16 +9,41 @@ import javafx.stage.Stage;
 import model.ClovervilleModelManager;
 import model.Trade;
 
+/**
+ * Controller responsible for creating a view that allows managing a specific
+ * trade. The controller provides options for changing the trade’s name,
+ * description, and point cost.
+ *
+ * @author Loke Hansen
+ * @version 1.0
+ */
 public class ManageTradeController {
 
     private final ClovervilleModelManager model;
     private final Trade trade;
 
+<<<<<<< HEAD
     public ManageTradeController(ClovervilleModelManager model, Trade trade) {
+=======
+    /**
+     * Constructs a ManageTradeController with the given model, trade, and close
+     * callback.
+     *
+     * @param model the model manager used to access application data
+     * @param trade the trade to be managed
+     * @param onClose a callback executed when changes are made
+     */
+    public ManageTradeController(ClovervilleModelManager model, Trade trade, Runnable refreshCallback) {
+>>>>>>> 5ddce2b9b5d8ae4b4888a815c1f30aaedfeec26b
         this.model = model;
         this.trade = trade;
     }
 
+    /**
+     * Creates and returns the JavaFX scene used to manage the selected trade.
+     *
+     * @return a Scene displaying the manage trade view
+     */
     public Scene createScene() {
         Label title = new Label("Manage trade: " + trade.getStringName());
         title.getStyleClass().add("title");
@@ -41,6 +66,9 @@ public class ManageTradeController {
         return new Scene(root, 250, 230);
     }
 
+    /**
+     * Opens a popup window for changing the trade name.
+     */
     private void openChangeNamePopup() {
         Stage popup = new Stage();
         ChangeTradeNameController controller = new ChangeTradeNameController(trade);
@@ -49,6 +77,9 @@ public class ManageTradeController {
         popup.show();
     }
 
+    /**
+     * Opens a popup window for changing the trade description.
+     */
     private void openChangeDescriptionPopup() {
         Stage popup = new Stage();
         ChangeTradeDescriptionController controller = new ChangeTradeDescriptionController(trade);
@@ -57,6 +88,9 @@ public class ManageTradeController {
         popup.show();
     }
 
+    /**
+     * Opens a popup window for changing the trade cost.
+     */
     private void openChangeCostPopup() {
         Stage popup = new Stage();
         ChangeTradeCostController controller = new ChangeTradeCostController(trade);

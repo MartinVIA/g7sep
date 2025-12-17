@@ -12,6 +12,14 @@ import javafx.scene.layout.VBox;
 import model.ClovervilleModelManager;
 import model.Resident;
 
+/**
+ * Controller responsible for creating a view that allows creating new trades.
+ * The view lets the user enter trade details and select a resident who requests
+ * the trade.
+ *
+ * @author Loke Hansen
+ * @version 1.0
+ */
 public class TradeViewController {
 
     private final ClovervilleModelManager model;
@@ -21,14 +29,27 @@ public class TradeViewController {
     private TextField priceField;
     private TextField description;
 
+    /**
+     * Constructs a TradeViewController with the given model.
+     *
+     * @param model the model manager used to access and modify trade data
+     */
     public TradeViewController(ClovervilleModelManager model) {
         this.model = model;
     }
 
+<<<<<<< HEAD
     private void refreshResidentList() {
         residentListView.getItems().setAll(model.getAllResidents());
     }
 
+=======
+    /**
+     * Creates and returns the JavaFX scene used to create a new trade.
+     *
+     * @return a Scene displaying the trade creation view
+     */
+>>>>>>> 5ddce2b9b5d8ae4b4888a815c1f30aaedfeec26b
     public Scene createScene() {
         residentListView = new ListView<>();
         residentListView.setPrefWidth(320);
@@ -36,17 +57,23 @@ public class TradeViewController {
 
         Label titleLabel = new Label("Cloverville - Trades");
         titleLabel.getStyleClass().add("title");
+        Label subtitleLabel = new Label("Trade details:");
+        subtitleLabel.getStyleClass().add("title");
         HBox topBox = new HBox(titleLabel);
         topBox.setPadding(new Insets(2,5,7,5));
 
+        
+        Label offerLabel= new Label("Offer's name");
         offerNameField = new TextField();
-        offerNameField.setPromptText("Offer's name");
-
+        offerNameField.setPromptText("Offer name");
+        
+        Label descrptionLabel = new Label("Description of the trade");
         description = new TextField();
-        description.setPromptText("Description of the trade");
-
+        description.setPromptText("Trade description");
+        
+        Label priceLabel = new Label("The price of the trade");
         priceField = new TextField();
-        priceField.setPromptText("The price fo the trade");
+        priceField.setPromptText("Trade price");
 
         Button confirmationButton = new Button("Confirm trade");
         confirmationButton.setOnAction(e -> handleCreateTrade());
@@ -58,9 +85,12 @@ public class TradeViewController {
         messageLabel = new Label();
         VBox rightBox = new VBox(
                 10,
-                new Label("Trade details:"),
+                subtitleLabel,
+                offerLabel,
                 offerNameField,
+                descrptionLabel,
                 description,
+                priceLabel,
                 priceField,
                 new Label("Select requesting resident:"),
                 residentListView,
@@ -74,9 +104,14 @@ public class TradeViewController {
         root.setCenter(rightBox);
         root.setPadding(new Insets(10));
 
-        return new Scene(root, 600, 400);
+        return new Scene(root, 600, 500);
     }
 
+    /**
+     * Handles creation of a new trade using the entered values. The method
+     * validates the input fields and selected resident before adding the trade
+     * through the model.
+     */
     private void handleCreateTrade() {
         String name = offerNameField.getText().trim();
         String desc = description.getText().trim();
@@ -98,7 +133,11 @@ public class TradeViewController {
             model.addTrade(name, desc, selected, price);
             messageLabel.setText("Trade created with point cost: " + price);
         } catch (NumberFormatException e) {
+<<<<<<< HEAD
             messageLabel.setText("Price must be an number. Try again.");
+=======
+            messageLabel.setText("Price must be a number. Try again.");
+>>>>>>> 5ddce2b9b5d8ae4b4888a815c1f30aaedfeec26b
             return;
         }
 
@@ -107,7 +146,15 @@ public class TradeViewController {
         priceField.clear();
         refreshResidentList();
         residentListView.getSelectionModel().clearSelection();
-
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Refreshes the resident list view by reloading residents from the model.
+     */
+    private void refreshResidentList() {
+        residentListView.getItems().setAll(model.getAllResidents());
+    }
+>>>>>>> 5ddce2b9b5d8ae4b4888a815c1f30aaedfeec26b
 }

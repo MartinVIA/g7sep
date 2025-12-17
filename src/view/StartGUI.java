@@ -1,6 +1,8 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -23,13 +25,30 @@ import utils.FileReader;
 import utils.FileWriter;
 import utils.JSONWriter;
 
+/**
+ * Main JavaFX application window for Cloverville. This class loads stored data,
+ * builds the primary user interface, and provides navigation between residents,
+ * trades, tasks, and community points.
+ *
+ * @author Adam Terelak
+ * @author Leon de Kuijper
+ * @author Martin Chavez
+ * @author Loke Hansen
+ * @author Victor Țonu
+ * @version 1.0
+ */
 public class StartGUI extends Application {
 
     private ClovervilleModelManager model;
     private TableView<Resident> residentsTable;
     private TableView<Task> taskTable;
     private TableView<Trade> tradesTable;
+    private TableView<Task> greenTasksTable;
 
+    /**
+     * Refreshes the residents table by reloading resident data from the model.
+     * The updated resident list is also saved to binary and JSON files.
+     */
     private void refreshResidentsTable() {
         if (model != null) {
             residentsTable.getItems().clear();
@@ -39,31 +58,58 @@ public class StartGUI extends Application {
         }
     }
 
+    /**
+     * Refreshes the trades table by reloading trade data from the model.
+     */
     private void refreshTradesTable() {
         if (model != null) {
             tradesTable.getItems().clear();
             tradesTable.getItems().setAll(model.getTradeList());
+            FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
+            JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
         }
     }
 
+    /**
+     * Refreshes the tasks table by reloading task data from the model.
+     */
     private void refreshTasksTable() {
         if (model != null) {
             taskTable.getItems().clear();
             taskTable.getItems().setAll(model.getTaskList());
+            FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
+            JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
         }
     }
 
     ProgressBar progressBar = new ProgressBar();
     Label progressLabel = new Label();
 
+    /**
+     * Updates the community points progress label and progress bar based on the
+     * current green points and goal stored in the model. Also refreshes the green tasks table.
+     */
     private void refreshCommunityPointsTable() {
         if (model != null) {
             progressLabel.setText("Progress toward next green reward: " + model.getGreenPoints()
                     + "/" + model.getGreenPointsGoal() + " green points");
             progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
+            greenTasksTable.getItems().clear();
+            List<Task> greenTasks = model.getTaskList().stream()
+                    .filter(task -> "green".equals(task.getType()))
+                    .collect(Collectors.toList());
+            greenTasksTable.getItems().setAll(greenTasks);
         }
     }
 
+    /**
+     * Starts the JavaFX application. The method initializes the model, loads
+     * persisted data from files, builds the GUI layout, and displays the main
+     * application window.
+     *
+     * @param primaryStage the main stage provided by the JavaFX runtime
+     */
+    @Override
     public void start(Stage primaryStage) {
         model = new ClovervilleModelManager();
 
@@ -94,14 +140,18 @@ public class StartGUI extends Application {
         Button resident_menu = new Button("Residents");
         Button trade_menu = new Button("Trades");
         Button task_menu = new Button("Tasks");
-        Button Community_points_menu = new Button("Community Points");
+        Button green_points_menu = new Button("Green Points");
         Image clovervilleImage = new Image("file:./docs/img/clovervilleLogo.png");
         ImageView displayCloverImage = new ImageView(clovervilleImage);
         displayCloverImage.setX(0);
         displayCloverImage.setY(0);
         displayCloverImage.setFitHeight(20);
 
+<<<<<<< HEAD
         Button resident_add = new Button("Add New Resident");
+=======
+        Button resident_add = new Button("Add new resident");
+>>>>>>> 5ddce2b9b5d8ae4b4888a815c1f30aaedfeec26b
         resident_add.setOnAction(e -> {
             Stage popup = new Stage();
             ResidentViewController controller = new ResidentViewController(model);
@@ -126,8 +176,6 @@ public class StartGUI extends Application {
             popup.setTitle("Trades");
             popup.setOnHidden(ev -> {
                 refreshTradesTable();
-                FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
-                JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
             });
             popup.show();
         });
@@ -142,13 +190,11 @@ public class StartGUI extends Application {
             popup.setTitle("Tasks");
             popup.setOnHidden(ev -> {
                 refreshTasksTable();
-                FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
-                JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
             });
             popup.show();
         });
 
-        Button community_points_add = new Button("Add Community Points");
+        Button green_points_add = new Button("Add Green Points");
 
         Button resident_edit = new Button("Edit existing resident");
         resident_edit.setOnAction(e -> {
@@ -167,18 +213,18 @@ public class StartGUI extends Application {
             popup.setScene(controller.createScene());
             popup.getScene().getStylesheets().add("file:./docs/FxStyles.css");
             popup.getIcons().add(new Image("file:./docs/img/leaveicon.png"));
-            popup.setTitle("Manage Resident: "
-                    + selected.getFirstName() + " " + selected.getLastName());
+            popup.setTitle("Manage Resident");
             popup.setOnHidden(ev -> {
                 refreshResidentsTable();
-                FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
-                JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
             });
             popup.show();
         });
         Button Resident_reset_all_points = new Button("Reset all personal points");
+<<<<<<< HEAD
         // Resident_reset_all_points.setStyle("-fx-border-color: red; -fx-border-width:
         // 1px;");
+=======
+>>>>>>> 5ddce2b9b5d8ae4b4888a815c1f30aaedfeec26b
         Resident_reset_all_points.getStyleClass().add("red-border");
         Resident_reset_all_points.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -189,8 +235,6 @@ public class StartGUI extends Application {
                 if (response.getButtonData().isDefaultButton()) {
                     model.resetAllPersonalPoints();
                     refreshResidentsTable();
-                    FileWriter.saveResidentsToBinary(model.getAllResidents(), "residents.bin");
-                    JSONWriter.saveResidentsToJSON(model.getAllResidents(), "docs/file_operations_residents.json");
 
                     Alert done = new Alert(Alert.AlertType.INFORMATION);
                     done.setTitle("Points reset");
@@ -222,8 +266,6 @@ public class StartGUI extends Application {
             popup.setTitle("Edit Trade");
             popup.setOnHidden(ev -> {
                 refreshTradesTable();
-                FileWriter.saveTradesToBinary(model.getTradeList(), "trades.bin");
-                JSONWriter.saveTradesToJSON(model.getTradeList(), "docs/file_operations_trades.json");
             });
 
             popup.setScene(controller.createScene());
@@ -251,8 +293,6 @@ public class StartGUI extends Application {
             popup.setTitle("Manage Task: " + selected.getName());
             popup.setOnHidden(ev -> {
                 refreshTasksTable();
-                FileWriter.saveTasksToBinary(model.getTaskList(), "tasks.bin");
-                JSONWriter.saveTasksToJSON(model.getTaskList(), "docs/file_operations_tasks.json");
             });
 
             popup.setScene(controller.createScene());
@@ -280,12 +320,12 @@ public class StartGUI extends Application {
         bottom_menu_tasks.setPrefWidth(300);
 
         HBox bottom_menu_community_points = new HBox();
-        bottom_menu_community_points.getChildren().addAll(community_points_add, community_points_edit);
+        bottom_menu_community_points.getChildren().addAll(green_points_add, community_points_edit);
         bottom_menu_community_points.setPrefWidth(300);
         bottom_menu_community_points.setSpacing(10);
 
         HBox nav_bar = new HBox();
-        nav_bar.getChildren().addAll(resident_menu, trade_menu, task_menu, Community_points_menu);
+        nav_bar.getChildren().addAll(resident_menu, trade_menu, task_menu, green_points_menu);
 
         residentsTable = new TableView<>();
 
@@ -298,7 +338,7 @@ public class StartGUI extends Application {
         TableColumn<Resident, String> lastNameCol = new TableColumn<>("Last Name");
         TableColumn<Resident, Integer> idCol = new TableColumn<>("ID");
         TableColumn<Resident, Integer> pointsCol = new TableColumn<>("Points");
-        TableColumn<Resident, Boolean> boostCol = new TableColumn<>("Boost");
+        TableColumn<Resident, Boolean> boostCol = new TableColumn<>("Resident Has Boost");
 
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -306,7 +346,7 @@ public class StartGUI extends Application {
         pointsCol.setCellValueFactory(new PropertyValueFactory<>("personalPoints"));
         boostCol.setCellValueFactory(new PropertyValueFactory<>("hasBoost"));
         residentsTable.setEditable(true);
-        residentsTable.getColumns().addAll(firstNameCol, lastNameCol, idCol, pointsCol, boostCol);
+        residentsTable.getColumns().addAll(idCol, firstNameCol, lastNameCol, pointsCol, boostCol);
         refreshResidentsTable();
 
         tradesTable = new TableView<>();
@@ -316,7 +356,7 @@ public class StartGUI extends Application {
         tradesBox.setPadding(new Insets(10, 0, 0, 10));
         tradesBox.getChildren().add(tradesTable);
 
-        TableColumn<Trade, String> sellerCol = new TableColumn<>("Seller");
+        TableColumn<Trade, String> sellerCol = new TableColumn<>("    Seller    ");
         TableColumn<Trade, Integer> priceCol = new TableColumn<>("Price");
         TableColumn<Trade, String> offerCol = new TableColumn<>("Offer");
         TableColumn<Trade, String> descriptionCol = new TableColumn<>("Description");
@@ -342,7 +382,6 @@ public class StartGUI extends Application {
         descCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
         pointsColTasks.setCellValueFactory(new PropertyValueFactory<>("points"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-        ;
         taskTable.getColumns().addAll(nameCol, descCol, pointsColTasks, typeCol);
         refreshTasksTable();
 
@@ -351,19 +390,27 @@ public class StartGUI extends Application {
         tasksBox.setPadding(new Insets(10, 0, 0, 10));
         tasksBox.getChildren().add(taskTable);
 
-        TableView greenTasks = new TableView<>();
-        TableColumn pointsAmountCol = new TableColumn<>("Points Amount");
-        TableColumn pointsDateCol = new TableColumn<>("Date Added");
-        TableColumn pointsAddedByCol = new TableColumn<>("Added By");
-        greenTasks.setEditable(true);
-        greenTasks.setPrefHeight(350);
-        greenTasks.getColumns().addAll(pointsAmountCol, pointsDateCol, pointsAddedByCol);
+        greenTasksTable = new TableView<>();
+        greenTasksTable.setPrefWidth(420);
 
+        TableColumn<Task, String> greenNameCol = new TableColumn<>("Task Name");
+        TableColumn<Task, String> greenDescCol = new TableColumn<>("Task Description");
+        TableColumn<Task, Integer> greenPointsCol = new TableColumn<>("Points awarded");
+        TableColumn<Task, String> greenTypeCol = new TableColumn<>("Type");
+
+        greenNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        greenDescCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        greenPointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
+        greenTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        greenTasksTable.getColumns().addAll(greenNameCol, greenDescCol, greenPointsCol, greenTypeCol);
+        greenTasksTable.setPrefHeight(365);
+
+        
         VBox communityPointsBox = new VBox();
         communityPointsBox.setSpacing(5);
         communityPointsBox.setPadding(new Insets(10, 0, 0, 10));
         progressBar.setPrefWidth(450);
-        communityPointsBox.getChildren().add(greenTasks);
+        communityPointsBox.getChildren().add(greenTasksTable);
         communityPointsBox.getChildren().add(progressLabel);
         progressBar.setProgress((double) model.getGreenPoints() / model.getGreenPointsGoal());
         communityPointsBox.getChildren().add(progressBar);
@@ -390,12 +437,12 @@ public class StartGUI extends Application {
             root.setBottom(bottom_menu_tasks);
             refreshTasksTable();
         });
-        Community_points_menu.setOnAction(e -> {
+        green_points_menu.setOnAction(e -> {
             root.setCenter(communityPointsBox);
             root.setBottom(bottom_menu_community_points);
             refreshCommunityPointsTable();
         });
-        community_points_add.setOnAction(e -> {
+        green_points_add.setOnAction(e -> {
             Stage popup = new Stage();
             popup.setTitle("Add/Remove Green Points");
             TextField pointsField = new TextField();
@@ -496,7 +543,13 @@ public class StartGUI extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Launches the JavaFX application.
+     *
+     * @param args command-line arguments passed to the application
+     */
     public static void main(String[] args) {
         launch(args);
     }
 }
+

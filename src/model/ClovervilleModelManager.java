@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class ClovervilleModelManager {
 
-    private Cloverville cloverville;
+    private final Cloverville cloverville;
 
     /**
      * Creates a manager with a fresh Cloverville instance
@@ -32,7 +32,11 @@ public class ClovervilleModelManager {
      * @param lastName  Resident last name
      */
     public void addResident(String firstName, String lastName) {
-        int nextId = cloverville.getResidentList().getAllResidents().size() + 1;
+        ArrayList<Resident> residents = cloverville.getResidentList().getAllResidents();
+        int nextId = 1;
+        if (!residents.isEmpty()) {
+            nextId = residents.get(residents.size() - 1).getId() + 1;
+        }
         Resident v = new Resident(nextId, firstName, lastName);
         cloverville.getResidentList().addResident(v);
     }
@@ -44,6 +48,15 @@ public class ClovervilleModelManager {
      */
     public ArrayList<Task> getTaskList() {
         return cloverville.getTaskList().getAllTasks();
+    }
+
+    public boolean getBoostStatus(int residentId) {
+        Resident v = cloverville.getResidentList().getResidentById(residentId);
+        if (v != null) {
+            return v.getHasBoost();
+        }
+        return false;
+        
     }
 
     /**

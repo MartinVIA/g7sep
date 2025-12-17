@@ -5,6 +5,10 @@ package model;
  */
 public class GreenActions extends Task {
     private int greenPointsAward;
+<<<<<<< HEAD
+=======
+    private GreenPoints greenPoints;
+>>>>>>> 5ddce2b9b5d8ae4b4888a815c1f30aaedfeec26b
 
     /**
      * Creates a green action task

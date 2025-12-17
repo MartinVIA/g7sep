@@ -20,7 +20,7 @@ public class GreenPoints implements Serializable {
    */
   public GreenPoints() {
     greenPoints = 0;
-    pointGoal = 0;
+    pointGoal = 100;
     communityReward = "";
     isReached = false;
   }
@@ -92,9 +92,11 @@ public class GreenPoints implements Serializable {
    * and creates a new GreenPoints object
    */
   public void completeGoal() {
-    isReached = true;
-    resetPoints();
-    new GreenPoints();
+    if(isGoalReached()) {
+      isReached = true;
+      resetPoints();
+      setGoal(100);
+    }
   }
 
   /**
