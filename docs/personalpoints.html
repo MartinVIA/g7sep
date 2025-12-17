@@ -11,18 +11,18 @@
     <h3>Personal Points in Cloverville</h3>
     <p>Here you can find information about your personal points and how to earn them through completing tasks and participating in community activities!</p>
 
-    <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+    <div class="flex-center">
       <div id="points-list" class="table-container"></div>
     </div>
 
-    <div id="points-status" style="font-size:0.9em;color:#444;margin-bottom:8px;"></div>
+    <div id="points-status" class="points-status"></div>
 
     <!-- Boost Status Modal -->
-    <div id="boost-modal" class="modal" style="display:none;">
-      <div class="modal-content" style="width:100px;height:100px;padding:10px;text-align:center;">
-        <span class="close" style="position:absolute;top:2px;right:8px;font-size:16px;">&times;</span>
-        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;">
-          <div id="modal-boost-status" style="font-size:12px;font-weight:bold;"></div>
+    <div id="boost-modal" class="modal">
+      <div class="modal-content boost-modal-content">
+        <span class="close boost-modal-close">&times;</span>
+        <div class="boost-modal-inner">
+          <div id="modal-boost-status" class="boost-status-text"></div>
         </div>
       </div>
     </div>

@@ -4,11 +4,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ClovervilleModelManager;
 import model.Resident;
-import utils.MyFileHandler;
 
 /**
  * Controller responsible for creating a view that allows
@@ -129,20 +127,6 @@ public class EditResidentController {
     } else
       messageLabel.setText("Name updated.");
   }
-
-  /**
-   * Handles validation for changing the resident ID.
-   * The ID field is disabled, so this method is currently
-   * not used for updating the resident.
-   */
-  private void handleChangeId() {
-    String text = idField.getText().trim();
-    if (!text.matches("\\d+")) {
-      messageLabel.setText("ID must contain digits only (0–9).");
-      return;
-    }
-  }
-
   /**
    * Handles changing the resident’s personal points.
    * The method validates that the entered value is a

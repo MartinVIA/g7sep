@@ -18,12 +18,16 @@ function createNavbar() {
     
     // Get page title based on current page
     let pageTitle = 'CloverVille';
-    if (window.location.pathname.includes('tasks.html')) {
+    if (window.location.pathname.includes('History.html')) {
+        pageTitle = 'History';
+    } else if (window.location.pathname.includes('tasks.html')) {
         pageTitle = 'Tasks';
     } else if (window.location.pathname.includes('trades.html')) {
         pageTitle = 'Trades';
     } else if (window.location.pathname.includes('personalpoints.html')) {
         pageTitle = 'Personal Points';
+    } else if (window.location.pathname.includes('about_us.html')) {
+        pageTitle = 'About Us';
     }
     
     if (isHomePage) {
@@ -49,10 +53,12 @@ function createNavbar() {
     navList.className = 'nav-list';
     
     const navItems = [
+        { text: 'History', href: 'History.html' },
         { text: 'Home', href: 'index.html' },
         { text: 'Tasks', href: 'tasks.html' },
         { text: 'Trades', href: 'trades.html' },
-        { text: 'Personal Points', href: 'personalpoints.html' }
+        { text: 'Personal Points', href: 'personalpoints.html' },
+        { text: 'About Us', href: 'about_us.html' }
     ];
     
     navItems.forEach(item => {

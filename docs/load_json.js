@@ -179,6 +179,29 @@ window.onclick = function(event) {
     }
 }
 
+// Load community points for homepage
+function loadCommunityProgress() {
+    console.log("Loading community progress...");
+    fetch('file_operations_community.json')
+        .then(response => response.json())
+        .then(data => {
+            const greenPoints = data.greenPoints || 0;
+            const pointGoal = data.pointGoal || 100;
+            const communityReward = data.communityReward || 'Unknown Goal';
+            const percentage = Math.min((greenPoints / pointGoal) * 100, 100);
+            
+            document.getElementById('goal-title').textContent = 'Community Goal Progress to ' + communityReward;
+            document.getElementById('progress-text').textContent = greenPoints + ' / ' + pointGoal + ' Green Points';
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-status').textContent = 'Progress toward next community reward: ' + percentage.toFixed(1) + '%';
+        })
+        .catch(error => {
+            console.error('Error loading community points:', error);
+            document.getElementById('progress-text').textContent = 'Unable to load progress';
+            document.getElementById('progress-status').textContent = 'Please check back later';
+        });
+}
+
 // Auto-load on page load
 window.addEventListener('load', function() {
     const path = window.location.pathname;
@@ -188,5 +211,7 @@ window.addEventListener('load', function() {
         loadTasks();
     } else if (path.includes('trades.html')) {
         loadTrades();
+    } else if (path.includes('index.html') || path.endsWith('/docs/') || path.endsWith('/docs')) {
+        loadCommunityProgress();
     }
 });
