@@ -1,5 +1,7 @@
 package view;
 
+import java.util.Observable;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -7,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.collections.ObservableList;
 import model.ClovervilleModelManager;
 import model.Resident;
 import model.Trade;
@@ -60,7 +63,7 @@ public class MarkTradeComplete {
     Button cancelBtn = new Button("Cancel");
 
     keepBtn.setOnAction(e -> {
-      var selectedResidents = residentListView.getSelectionModel().getSelectedItems();
+      ObservableList<Resident> selectedResidents = residentListView.getSelectionModel().getSelectedItems();
       if (!selectedResidents.isEmpty()) {
         for (Resident tradee : selectedResidents) {
           model.awardPointsToResident(tradee.getId(), trade.getPointCost());
@@ -71,7 +74,7 @@ public class MarkTradeComplete {
     });
 
     deleteBtn.setOnAction(e -> {
-      var selectedResidents = residentListView.getSelectionModel().getSelectedItems();
+      ObservableList<Resident> selectedResidents = residentListView.getSelectionModel().getSelectedItems();
       if (!selectedResidents.isEmpty()) {
         for (Resident tradee : selectedResidents) {
           model.awardPointsToResident(tradee.getId(), trade.getPointCost());
