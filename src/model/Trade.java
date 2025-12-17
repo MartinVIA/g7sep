@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * The class for trades between residents, either point-based or offer-based
+ * @author Loke Hansen
+ * @author Adam Terelak
  */
 public class Trade implements Serializable {
 
@@ -93,7 +95,6 @@ public class Trade implements Serializable {
   public int getTraderId() {
     return trader.getId();
   }
-  // no getTradeeId because that is part of the View>
 
   /**
    * Returns the point cost of the trade

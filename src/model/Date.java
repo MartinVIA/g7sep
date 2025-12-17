@@ -7,6 +7,7 @@ import java.time.*;
 /**
  * Date representation wrapping year, month, and day with helpers
  * for comparisons, calculations and formatting
+ * @author Adam Terelak
  */
 public class Date implements Serializable {
   private int day, month, year;
@@ -27,7 +28,6 @@ public class Date implements Serializable {
 
   /**
    * Creates a specific date
-   * 
    * @param day day
    * @param month month
    * @param year year
@@ -40,7 +40,6 @@ public class Date implements Serializable {
 
   /**
    * Returns the day of the month
-   * 
    * @return day
    */
   public int getDay() {
@@ -49,7 +48,6 @@ public class Date implements Serializable {
 
   /**
    * Returns the month of the year
-   * 
    * @return month
    */
   public int getMonth() {
@@ -57,8 +55,7 @@ public class Date implements Serializable {
   }
 
   /**
-   * Returns the year
-   * 
+   * returns the year
    * @return year
    */
   public int getYear() {
@@ -66,9 +63,8 @@ public class Date implements Serializable {
   }
 
   /**
-   * Converts the date to an epoch-day count for comparisons
-   * 
-   * @return days since 1970-01-01
+   * converts the date to an epoch-day count for comparisons
+   * @return days since 1970-01-01 since that is the epoch-day
    */
   public long getNumOfDays() {
     int year = getYear();
@@ -81,7 +77,6 @@ public class Date implements Serializable {
   
   /**
    * A method that creates a copy of the current date instance
-   * 
    * @return date copy
    */
   public Date copy() {
@@ -90,7 +85,6 @@ public class Date implements Serializable {
 
   /**
    * Returns a new Date set to the current system date
-   * 
    * @return date instance for today
    */
   public Date today() {
@@ -102,7 +96,6 @@ public class Date implements Serializable {
   
   /**
      * Compares a date with another object
-     * 
      * @param obj Object to compare
      * @return true if the objects are equal, false otherwise
      */
@@ -118,11 +111,9 @@ public class Date implements Serializable {
 
   /**
    * Returns a string representation of the date in DD/MM/YYYY format
-   * 
    * @return a formatted String with day, month and year
    */
   public String toString() {
-    // return String.format("%02d/%02d/%04d", day, month, year);
     DecimalFormat dmFormat = new DecimalFormat("00");
     DecimalFormat yFormat = new DecimalFormat("0000");
     return dmFormat.format(getDay()) + "/" + dmFormat.format(getMonth()) + "/" + yFormat.format(getYear());

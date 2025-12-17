@@ -17,7 +17,7 @@ import model.TradeList;
  * tasks, trades, and community green points. Data is written in binary
  * @author Leon de Kuijper
  * @author Adam Terelak
- * @author Martin Charves
+ * @author Martin Chavez
  * format using {@link MyFileHandler}.
  */
 public class FileWriter {

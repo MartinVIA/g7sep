@@ -15,7 +15,7 @@ import java.util.Scanner;
  * use this class to persist and load application data.
  * @author Leon de Kuijper
  * @author Adam Terelak
- * @author Martin Charves
+ * @author Martin Chavez
  */
 public class MyFileHandler {
 
@@ -24,7 +24,7 @@ public class MyFileHandler {
    * If the file already exists, its content is overwritten.
    *
    * @param fileName the name (or path) of the file to write to
-   * @param str the string to write to the file
+   * @param str      the string to write to the file
    * @throws FileNotFoundException if the file cannot be created or opened
    */
   public static void writeToTextFile(String fileName, String str) throws FileNotFoundException {
@@ -36,7 +36,7 @@ public class MyFileHandler {
    * If the file does not exist, it is created.
    *
    * @param fileName the name (or path) of the file to append to
-   * @param str the string to append to the file
+   * @param str      the string to append to the file
    * @throws FileNotFoundException if the file cannot be created or opened
    */
   public static void appendToTextFile(String fileName, String str) throws FileNotFoundException {
@@ -48,7 +48,7 @@ public class MyFileHandler {
    * If the file already exists, its content is overwritten.
    *
    * @param fileName the name (or path) of the file to write to
-   * @param strs the array of strings to write to the file
+   * @param strs     the array of strings to write to the file
    * @throws FileNotFoundException if the file cannot be created or opened
    */
   public static void writeArrayToTextFile(String fileName, String[] strs) throws FileNotFoundException {
@@ -60,7 +60,7 @@ public class MyFileHandler {
    * If the file does not exist, it is created.
    *
    * @param fileName the name (or path) of the file to append to
-   * @param strs the array of strings to append to the file
+   * @param strs     the array of strings to append to the file
    * @throws FileNotFoundException if the file cannot be created or opened
    */
   public static void appendArrayToTextFile(String fileName, String[] strs) throws FileNotFoundException {
@@ -122,9 +122,9 @@ public class MyFileHandler {
    * Writes an object to a binary file using Java serialization.
    *
    * @param fileName the name (or path) of the file to write to
-   * @param obj the object to serialize and save
+   * @param obj      the object to serialize and save
    * @throws FileNotFoundException if the file cannot be created or opened
-   * @throws IOException if an I/O error occurs while writing the file
+   * @throws IOException           if an I/O error occurs while writing the file
    */
   public static void writeToBinaryFile(String fileName, Object obj) throws FileNotFoundException, IOException {
     ObjectOutputStream writeToFile = null;
@@ -149,9 +149,9 @@ public class MyFileHandler {
    * Objects are written in the order they appear in the array.
    *
    * @param fileName the name (or path) of the file to write to
-   * @param objs the array of objects to serialize and save
+   * @param objs     the array of objects to serialize and save
    * @throws FileNotFoundException if the file cannot be created or opened
-   * @throws IOException if an I/O error occurs while writing the file
+   * @throws IOException           if an I/O error occurs while writing the file
    */
   public static void writeArrayToBinaryFile(String fileName, Object[] objs)
       throws FileNotFoundException, IOException {
@@ -181,9 +181,9 @@ public class MyFileHandler {
    *
    * @param fileName the name (or path) of the file to read from
    * @return the deserialized object, or {@code null} if the file is empty
-   * @throws FileNotFoundException if the file does not exist
-   * @throws IOException if an I/O error occurs while reading the file
-   * @throws ClassNotFoundException if the class of the serialized object cannot be found
+   * @throws FileNotFoundException  if the file does not exist
+   * @throws IOException            if an I/O error occurs while reading the file
+   * @throws ClassNotFoundException if the class of the serialized object                                cannot be found
    */
   public static Object readFromBinaryFile(String fileName)
       throws FileNotFoundException, IOException, ClassNotFoundException {
@@ -217,9 +217,9 @@ public class MyFileHandler {
    *
    * @param fileName the name (or path) of the file to read from
    * @return an array containing all deserialized objects
-   * @throws FileNotFoundException if the file does not exist
-   * @throws IOException if an I/O error occurs while reading the file
-   * @throws ClassNotFoundException if the class of a serialized object cannot be found
+   * @throws FileNotFoundException  if the file does not exist
+   * @throws IOException            if an I/O error occurs while reading the file
+   * @throws ClassNotFoundException if the class of a serialized object cannot                                be found
    */
   public static Object[] readArrayFromBinaryFile(String fileName)
       throws FileNotFoundException, IOException, ClassNotFoundException {
@@ -253,8 +253,8 @@ public class MyFileHandler {
    * and {@link #appendToTextFile(String, String)}.
    *
    * @param fileName the file name (or path)
-   * @param str the string to write
-   * @param append true to append, false to overwrite
+   * @param str      the string to write
+   * @param append   true to append, false to overwrite
    * @throws FileNotFoundException if the file cannot be created or opened
    */
   private static void writeText(String fileName, String str, boolean append) throws FileNotFoundException {
@@ -276,8 +276,8 @@ public class MyFileHandler {
    * and {@link #appendArrayToTextFile(String, String[])}.
    *
    * @param fileName the file name (or path)
-   * @param strs the array of strings to write
-   * @param append true to append, false to overwrite
+   * @param strs     the array of strings to write
+   * @param append   true to append, false to overwrite
    * @throws FileNotFoundException if the file cannot be created or opened
    */
   private static void writeText(String fileName, String[] strs, boolean append) throws FileNotFoundException {

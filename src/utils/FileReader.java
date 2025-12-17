@@ -19,7 +19,7 @@ import model.TradeList;
  * All file handling is delegated to {@link MyFileHandler}.
  * @author Leon de Kuijper
  * @author Adam Terelak
- * @author Martin Charves
+ * @author Martin Chavez
  */
 public class FileReader {
 

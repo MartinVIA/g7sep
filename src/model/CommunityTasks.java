@@ -2,6 +2,9 @@ package model;
 
 /**
  * Task subtype that awards personal points for community contributions
+ * @author Victor Tonu
+ * @author Adam Terelak
+ * @author Martin Chavez
  */
 public class CommunityTasks extends Task {
     private int personalPointsAward;
@@ -9,7 +12,6 @@ public class CommunityTasks extends Task {
 
     /**
      * Creates a community task
-     * 
      * @param name                Task name
      * @param type                Task type
      * @param personalPointsAward Points earned on completion
@@ -22,7 +24,6 @@ public class CommunityTasks extends Task {
 
     /**
      * Returns the personal points reward amount
-     * 
      * @return Points awarded
      */
     public int getPersonalPoints() {
@@ -31,7 +32,6 @@ public class CommunityTasks extends Task {
 
     /**
      * Updates the personal points reward
-     * 
      * @param personalPointsAward New reward amount
      */
     public void setPersonalPoints(int personalPointsAward) {
@@ -41,7 +41,6 @@ public class CommunityTasks extends Task {
 
     /**
      * Adds personal points to a resident
-     * 
      * @param resident Resident to award
      * @param points   Points to add
      */
@@ -51,7 +50,6 @@ public class CommunityTasks extends Task {
 
     /**
      * Marks the task complete, handles boosts, and updates resident state
-     * 
      * @param resident Resident completing the task
      */
     public void completeTask(Resident resident) {
@@ -69,7 +67,6 @@ public class CommunityTasks extends Task {
 
     /**
      * Compares a community task with another object
-     * 
      * @param obj Object to compare
      * @return true if the objects are equal, false otherwise
      */
@@ -83,7 +80,6 @@ public class CommunityTasks extends Task {
 
     /**
      * Provides a String representation of the community task's details
-     * 
      * @return a formatted String with community task's name, description, type,
      *         completion of the task and personal points award
      */

@@ -12,17 +12,18 @@ import model.*;
  * points, tasks, and trades from JSON-formatted files. The JSON parsing is
  * implemented manually without the use of external libraries and is intended
  * for simple, well-defined data structures.
+ *
  * @author Leon de Kuijper
  * @author Adam Terelak
- * @author Martin Charves
+ * @author Martin Chavez
  */
 public class JSONReader {
 
   /**
    * Reads a list of residents from a JSON file.
    *
-   * The JSON file is expected to contain an array of objects with fields
-   * such as id, firstName, and lastName.
+   * The JSON file is expected to contain an array of objects with fields such
+   * as id, firstName, and lastName.
    *
    * @param filePath the path to the JSON residents file
    * @return a list of {@link Resident} objects parsed from the file
@@ -132,8 +133,8 @@ public class JSONReader {
   /**
    * Reads a list of tasks from a JSON file.
    *
-   * The JSON file is expected to contain an array of task objects with
-   * name, type, and points fields. The task type determines whether a
+   * The JSON file is expected to contain an array of task objects with name,
+   * type, and points fields. The task type determines whether a
    * {@link GreenActions} or {@link CommunityTasks} object is created.
    *
    * @param filePath the path to the JSON tasks file
@@ -191,8 +192,8 @@ public class JSONReader {
   /**
    * Reads a list of trades from a JSON file.
    *
-   * The JSON file is expected to contain an array of trade objects with
-   * name, description, and pointCost fields.
+   * The JSON file is expected to contain an array of trade objects with name,
+   * description, and pointCost fields.
    *
    * @param filePath the path to the JSON trades file
    * @return a list of {@link Trade} objects parsed from the file
