@@ -1,20 +1,14 @@
 [
   {
-    "name": "Trade offer",
-    "description": "Trade desc",
+    "name": "Trade Offer",
+    "description": "Trade Offer description",
     "pointCost": 10,
-    "traderName": "leon dk"
+    "traderName": "Victor BugFixxer"
   },
   {
-    "name": "I can clean your house",
-    "description": "I will use ajax",
-    "pointCost": 90,
-    "traderName": "Newress Mewhenn"
-  },
-  {
-    "name": "tradetest",
-    "description": "tradetrstdesk",
-    "pointCost": 10,
-    "traderName": "Newress Mewhenn"
+    "name": "Test",
+    "description": "Trade",
+    "pointCost": 50,
+    "traderName": "Loke Morningman"
   }
 ]
